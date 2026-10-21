@@ -141,7 +141,7 @@ VERDICT: REJECT (NO_REVERSAL)
 
 ### An observation from the live data
 
-In every capture on 2026-10-21 between 13:00 and 13:13 UTC, the BTC-PERP book traded about 12–24 bps above the on-chain mark price; the funding rate was positive at about 0.13% per 8 h. With the band at ±0.2% of mark, a band-limited **buy** IOC often could not reach the best ask, while a sell could. The v2.2 rule numbers are provisional until IOC slippage is measured, and this tool is the measurement.
+In every capture on 2026-10-21 between 13:00 and 13:13 UTC, the BTC-PERP book traded about 12–24 bps above the on-chain mark price; the funding rate was positive at about 0.13% per 8 h. With the band at ±0.2% of mark, a band-limited **buy** IOC often could not reach the best ask, while a sell could. dreamDEX's 2026-10-19 dev update lists work on "the mid/mark price gap", so this may change. The v2.2 rule numbers are provisional until IOC slippage is measured, and `npm run snapshot` measures the gap at any block.
 
 ## The rules being checked (v2.2 "Blitz", provisional numbers)
 
