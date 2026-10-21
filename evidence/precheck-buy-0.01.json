@@ -1,0 +1,121 @@
+{
+  "note": "Local calculation against live market data. No Proving Ground contract is deployed; nothing here is enforced on-chain.",
+  "snapshot": {
+    "queriedAt": "2026-10-21T13:09:43.332Z",
+    "chainId": 50383,
+    "block": {
+      "number": "29362416",
+      "timestamp": 1792588195,
+      "isoTime": "2026-10-21T13:09:55.000Z",
+      "bookBlockKnown": true
+    },
+    "poolAddress": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+    "mark": {
+      "price": "83649759057044728000000",
+      "ok": true
+    },
+    "bestBid": {
+      "price": "83809800000000000000000",
+      "quantity": "2390000"
+    },
+    "bestAsk": {
+      "price": "83809900000000000000000",
+      "quantity": "125000"
+    }
+  },
+  "input": {
+    "side": "buy",
+    "price": "83809900000000000000000",
+    "quantity": "1000000",
+    "positionSize": "0",
+    "equity": "1000000000000000000000",
+    "mark": "83649759057044728000000",
+    "markOk": true
+  },
+  "priceSource": "best ask",
+  "result": {
+    "classification": "RISK_INCREASING",
+    "verdict": "ADMIT",
+    "failed": [],
+    "checks": [
+      {
+        "rule": "MARK_AVAILABLE",
+        "source": "venue",
+        "status": "pass",
+        "detail": "on-chain mark 83,649.75 is readable"
+      },
+      {
+        "rule": "TICK_SIZE",
+        "source": "venue",
+        "status": "pass",
+        "detail": "limit 83,809.9 must be a positive multiple of 0.1"
+      },
+      {
+        "rule": "LOT_SIZE",
+        "source": "venue",
+        "status": "pass",
+        "detail": "quantity 0.01 BTC must be a positive multiple of 0.00001 BTC"
+      },
+      {
+        "rule": "MIN_QUANTITY",
+        "source": "venue",
+        "status": "pass",
+        "detail": "quantity must be at least 0.00013 BTC"
+      },
+      {
+        "rule": "PRICE_BAND",
+        "source": "blitz",
+        "status": "pass",
+        "detail": "limit 83,809.9 must be within 83,482.5 .. 83,817 (±0.2% of mark)",
+        "plannedError": "PreTradeViolation(BAND)"
+      },
+      {
+        "rule": "NO_REVERSAL",
+        "source": "blitz",
+        "status": "pass",
+        "detail": "an opposite-side order may not exceed |position| 0 BTC; close to zero first",
+        "plannedError": "ReversalNotAllowed"
+      },
+      {
+        "rule": "MAX_POSITION_SIZE",
+        "source": "venue",
+        "status": "pass",
+        "detail": "|position| after the fill 0.01 BTC must not exceed 100 BTC"
+      },
+      {
+        "rule": "EQUITY_BEFORE",
+        "source": "blitz",
+        "status": "pass",
+        "detail": "equity 1,000 must be at least the threshold 950 USDso",
+        "plannedError": "PreTradeViolation(EQUITY_BELOW_THRESHOLD)"
+      },
+      {
+        "rule": "LEVERAGE_AFTER",
+        "source": "blitz",
+        "status": "pass",
+        "detail": "worst-case leverage after 0.837x must be at most 5x",
+        "plannedError": "PostTradeViolation"
+      },
+      {
+        "rule": "EQUITY_AFTER",
+        "source": "blitz",
+        "status": "pass",
+        "detail": "worst-case equity after 998.3985 must be at least 950 USDso",
+        "plannedError": "PostTradeViolation"
+      }
+    ],
+    "band": {
+      "low": "83482500000000000000000",
+      "high": "83817000000000000000000"
+    },
+    "estimate": {
+      "newSize": "1000000",
+      "fillNotional": "838099000000000000000",
+      "fee": "0",
+      "markToMarket": "-1601409429552720000",
+      "postEquity": "998398590570447280000",
+      "postNotional": "836497590570447280000",
+      "postLeverageX1000": "837"
+    }
+  }
+}

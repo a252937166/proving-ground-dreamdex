@@ -1,0 +1,74 @@
+
+> proving-ground-dreamdex@0.1.0 test
+> tsx --test --test-reporter=spec test/unit/*.test.ts
+
+▶ classify
+  ✔ treats any order from flat as risk-increasing (0.2845ms)
+  ✔ treats a same-side order as risk-increasing (0.088958ms)
+  ✔ treats an opposite-side order up to |position| as reducing, including closing to zero (0.089708ms)
+  ✔ treats an opposite-side order larger than |position| as a reversal (0.042709ms)
+✔ classify (0.850291ms)
+▶ price band (±0.2% of mark, inclusive)
+  ✔ computes exact tick-aligned edges (0.295ms)
+  ✔ admits the edges and rejects one tick beyond (0.051708ms)
+  ✔ keeps edges inside the band for an irregular mark (0.135084ms)
+  ✔ rejects an out-of-band limit with the planned BAND error (0.465958ms)
+✔ price band (±0.2% of mark, inclusive) (1.067542ms)
+▶ venue order format
+  ✔ rejects a price off the tick grid (0.188ms)
+  ✔ rejects a quantity off the lot grid (0.165334ms)
+  ✔ rejects a quantity below the minimum and accepts exactly the minimum (0.083458ms)
+  ✔ rejects a zero quantity (0.067959ms)
+  ✔ rejects a position that would exceed the venue maximum (0.052625ms)
+✔ venue order format (0.676375ms)
+▶ risk-increasing admission (5x, equity >= 950)
+  ✔ admits exactly 5x and rejects one lot more (0.634584ms)
+  ✔ counts the fill cost against equity: 4.98x at mark becomes > 5x at the band edge (0.20675ms)
+  ✔ rejects when equity is already below the threshold (0.100083ms)
+  ✔ rejects when the worst-case fill would take equity below the threshold (0.085917ms)
+  ✔ charges the taker fee (0.04675ms)
+  ✔ treats a short the same way (0.044666ms)
+✔ risk-increasing admission (5x, equity >= 950) (1.192708ms)
+▶ genuine reducing orders
+  ✔ are exempt from the leverage limit: a 6x position may be cut to 5.5x (0.076875ms)
+  ✔ commit even when the realised loss crosses the floor, then breach (0.039791ms)
+  ✔ are allowed below the threshold where a risk-increasing order is not (0.05275ms)
+  ✔ still have to respect the price band (0.037958ms)
+✔ genuine reducing orders (0.250167ms)
+▶ prohibited reversal
+  ✔ is rejected with the planned ReversalNotAllowed error (0.050625ms)
+✔ prohibited reversal (0.070792ms)
+▶ mark unavailable
+  ✔ rejects without evaluating mark-dependent rules (0.044792ms)
+✔ mark unavailable (0.063917ms)
+▶ published constants
+  ✔ match the v2.2 Blitz table (0.033125ms)
+✔ published constants (0.051417ms)
+▶ parseDecimal
+  ✔ parses exactly (0.288208ms)
+  ✔ refuses to round or guess (0.183125ms)
+✔ parseDecimal (0.866042ms)
+▶ formatDecimal and notional
+  ✔ formats with grouping and trimmed zeros (0.195375ms)
+  ✔ computes USDso notional from base units (0.049792ms)
+✔ formatDecimal and notional (0.303333ms)
+▶ deriveBook
+  ✔ computes top of book, spread and band depth (0.188208ms)
+  ✔ reports when the top of book is outside the band (0.125875ms)
+  ✔ handles an empty side (0.159375ms)
+✔ deriveBook (0.616625ms)
+▶ runPrecheck input handling
+  ✔ defaults the limit to the touch and the account to a fresh 1,000 USDso run (0.356542ms)
+  ✔ uses the band edge when it still reaches a touch beyond the band (0.416917ms)
+  ✔ keeps the touch price when no in-band limit can reach it, so the band check fails (0.19825ms)
+  ✔ uses a given price as is (0.078833ms)
+  ✔ rejects bad input (0.068292ms)
+✔ runPrecheck input handling (1.233916ms)
+ℹ tests 38
+ℹ suites 12
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 414.357834

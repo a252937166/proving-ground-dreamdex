@@ -1,0 +1,19 @@
+# block 29362692 (2026-10-21T13:10:22.000Z), pool 0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0, mark 83,633.77
+▶ live BTC-PERP snapshot
+  ✔ is on chain 50383 (0.921458ms)
+  ✔ finds the BTC-PERP pool and it has contract code (408.410334ms)
+  ✔ indexer market config matches the on-chain book parameters (0.918916ms)
+  ✔ reads a live mark price at the book's block (0.320375ms)
+  ✔ block time is close to local time (0.213833ms)
+  ✔ book is non-empty, uncrossed, sorted and on the tick/lot grid (0.563584ms)
+  ✔ mark is within 5% of the mid (sanity) (0.231083ms)
+  ✔ runs the local pre-check on live data (1.520167ms)
+✔ live BTC-PERP snapshot (12245.065334ms)
+ℹ tests 8
+ℹ suites 1
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12717.855459

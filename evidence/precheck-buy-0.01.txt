@@ -1,0 +1,28 @@
+Proving Ground v2.2 Blitz order pre-check
+LOCAL CALCULATION ONLY. No Proving Ground contract is deployed; nothing below is enforced on-chain.
+  market data         live, block 29362416 (2026-10-21T13:09:55.000Z), chain 50383, pool 0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0
+  order               BUY 0.01 BTC, IOC, limit 83,809.9 (best ask)
+  account (assumed)   position 0 BTC, equity 1,000 USDso; threshold 950
+  mark                83,649.75
+  classification      RISK_INCREASING
+
+  PASS   MARK_AVAILABLE     [venue] on-chain mark 83,649.75 is readable
+  PASS   TICK_SIZE          [venue] limit 83,809.9 must be a positive multiple of 0.1
+  PASS   LOT_SIZE           [venue] quantity 0.01 BTC must be a positive multiple of 0.00001 BTC
+  PASS   MIN_QUANTITY       [venue] quantity must be at least 0.00013 BTC
+  PASS   PRICE_BAND         [blitz] limit 83,809.9 must be within 83,482.5 .. 83,817 (±0.2% of mark)
+  PASS   NO_REVERSAL        [blitz] an opposite-side order may not exceed |position| 0 BTC; close to zero first
+  PASS   MAX_POSITION_SIZE  [venue] |position| after the fill 0.01 BTC must not exceed 100 BTC
+  PASS   EQUITY_BEFORE      [blitz] equity 1,000 must be at least the threshold 950 USDso
+  PASS   LEVERAGE_AFTER     [blitz] worst-case leverage after 0.837x must be at most 5x
+  PASS   EQUITY_AFTER       [blitz] worst-case equity after 998.3985 must be at least 950 USDso
+
+Worst-case estimate (full fill at the limit, mark unchanged)
+  fill notional       838.099 USDso
+  fee                 0 USDso
+  mark-to-market      -1.6014 USDso
+  equity after        998.3985 USDso
+  position after      0.01 BTC (notional 836.4975 USDso)
+  leverage after      0.837x (limit 5x for risk-increasing orders)
+
+VERDICT: ADMIT

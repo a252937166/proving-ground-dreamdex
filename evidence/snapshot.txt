@@ -1,0 +1,40 @@
+dreamDEX BTC-PERP snapshot (read-only, live network)
+  queried at          2026-10-21T13:12:23.565Z  (7079 ms)
+  chain id            50383 (Somnia Hideki / Tokyo testnet)
+  block               29364018  at 2026-10-21T13:12:35.000Z  (book and mark read at this block)
+  SDK                 @somnia-chain/markets-sdk 0.32.1
+  RPC                 https://api.hideki2.infra.testnet.somnia.network
+  indexer             https://hideki-dev.smk.somnia.host/v1/graphql
+
+Market configuration
+  market              BTC-PERP
+  pool address        0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0
+  margin bank         0x478769e1177c0773c43a593dccc4ad15f15f1394
+  stop registry       0x52e2ccebaec9332672c247e9a90aa3d61fb615ef
+  tick size           0.1 USDso
+  lot size            0.00001 BTC
+  min quantity        0.00013 BTC
+  book params         indexer config matches on-chain getOrderBookParameters(): yes
+  margin (bps)        initial 500, maintenance 250, close-out 125
+  max position        100 BTC
+  max open interest   493.6309 BTC
+  fees (bps x1000)    taker 0, maker 0
+
+Prices at block 29364018
+  mark                83,690.18  (tryGetMarkPrice ok: yes)
+  best bid            83,876.4  (0.01176 BTC)
+  best ask            83,881.6  (0.1434 BTC)
+  mid / spread        83,879 / 5.2 (0.61 bps)
+  mark vs mid         -22.51 bps
+
+Latest perp state (getPerpState)
+  mark                83,690.18
+  index               83,722.12  (oracle time 2026-10-21T13:12:35.000Z)
+  funding rate        0.128% per 8 h window; next settlement 2026-10-21T14:11:43.000Z
+  open interest       296.52352 BTC
+
+Proving Ground band: IOC limit within ±0.2% of mark (local calculation, not enforced on-chain)
+  allowed limits      83,522.9 .. 83,857.5
+  ask reachable       no  (a buy IOC with an in-band limit cannot reach the best ask now)
+  bid reachable       yes  (a sell IOC with an in-band limit can reach the best bid now)
+  reachable depth     asks 0 BTC, bids 3.34821 BTC (within the top 20 levels read)

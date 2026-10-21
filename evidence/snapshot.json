@@ -1,0 +1,248 @@
+{
+  "queriedAt": "2026-10-21T13:12:23.565Z",
+  "elapsedMs": 7079,
+  "chainId": 50383,
+  "sdk": {
+    "package": "@somnia-chain/markets-sdk",
+    "version": "0.32.1"
+  },
+  "endpoints": {
+    "rpcUrl": "https://api.hideki2.infra.testnet.somnia.network",
+    "wsUrl": "wss://api.hideki2.infra.testnet.somnia.network/ws",
+    "indexerUrl": "https://hideki-dev.smk.somnia.host/v1/graphql"
+  },
+  "market": {
+    "symbol": "BTC-PERP",
+    "poolAddress": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+    "marginBank": "0x478769e1177c0773c43a593dccc4ad15f15f1394",
+    "stopRegistry": "0x52e2ccebaec9332672c247e9a90aa3d61fb615ef",
+    "baseToken": "0xa77fa353dac50de5c15676ac910c221a4d2bd6b5",
+    "quoteToken": "0xed7993a74dae1e6656b704a424dcd8711aaf4f72",
+    "baseDecimals": 8,
+    "quoteDecimals": 18,
+    "tickSize": "100000000000000000",
+    "lotSize": "1000",
+    "minQuantity": "13000",
+    "onchainBookParamsMatchIndexer": true,
+    "risk": {
+      "initialMarginBps": "500",
+      "maintenanceMarginBps": "250",
+      "closeOutMarginBps": "125",
+      "maxOpenInterest": "49363090000",
+      "maxPositionSize": "10000000000",
+      "takerFeeBpsTimes1k": "0",
+      "makerFeeBpsTimes1k": "0"
+    },
+    "lastTradePrice": "83881100000000000000000",
+    "lastTradeAt": 1792588352
+  },
+  "block": {
+    "number": "29364018",
+    "timestamp": 1792588355,
+    "isoTime": "2026-10-21T13:12:35.000Z",
+    "bookBlockKnown": true
+  },
+  "book": {
+    "bids": [
+      {
+        "price": "83876400000000000000000",
+        "quantity": "1176000"
+      },
+      {
+        "price": "83876000000000000000000",
+        "quantity": "1194000"
+      },
+      {
+        "price": "83875700000000000000000",
+        "quantity": "1792000"
+      },
+      {
+        "price": "83875500000000000000000",
+        "quantity": "2389000"
+      },
+      {
+        "price": "83875200000000000000000",
+        "quantity": "3584000"
+      },
+      {
+        "price": "83874900000000000000000",
+        "quantity": "5377000"
+      },
+      {
+        "price": "83874400000000000000000",
+        "quantity": "8364000"
+      },
+      {
+        "price": "83873500000000000000000",
+        "quantity": "14339000"
+      },
+      {
+        "price": "83872300000000000000000",
+        "quantity": "27484000"
+      },
+      {
+        "price": "83870200000000000000000",
+        "quantity": "53773000"
+      },
+      {
+        "price": "83836100000000000000000",
+        "quantity": "22400000"
+      },
+      {
+        "price": "83797200000000000000000",
+        "quantity": "22400000"
+      },
+      {
+        "price": "83714900000000000000000",
+        "quantity": "25500000"
+      },
+      {
+        "price": "83675100000000000000000",
+        "quantity": "19919000"
+      },
+      {
+        "price": "83671000000000000000000",
+        "quantity": "39839000"
+      },
+      {
+        "price": "83666900000000000000000",
+        "quantity": "59761000"
+      },
+      {
+        "price": "83580100000000000000000",
+        "quantity": "25530000"
+      },
+      {
+        "price": "83501600000000000000000",
+        "quantity": "20820000"
+      },
+      {
+        "price": "83236200000000000000000",
+        "quantity": "180000"
+      },
+      {
+        "price": "83100000000000000000000",
+        "quantity": "30719000"
+      }
+    ],
+    "asks": [
+      {
+        "price": "83881600000000000000000",
+        "quantity": "14340000"
+      },
+      {
+        "price": "83881900000000000000000",
+        "quantity": "1194000"
+      },
+      {
+        "price": "83882200000000000000000",
+        "quantity": "27485000"
+      },
+      {
+        "price": "83882500000000000000000",
+        "quantity": "2986000"
+      },
+      {
+        "price": "83882900000000000000000",
+        "quantity": "2389000"
+      },
+      {
+        "price": "83883200000000000000000",
+        "quantity": "3584000"
+      },
+      {
+        "price": "83883400000000000000000",
+        "quantity": "5377000"
+      },
+      {
+        "price": "83888300000000000000000",
+        "quantity": "8364000"
+      },
+      {
+        "price": "83940500000000000000000",
+        "quantity": "20000000"
+      },
+      {
+        "price": "84000000000000000000000",
+        "quantity": "5952000"
+      },
+      {
+        "price": "84004700000000000000000",
+        "quantity": "20000000"
+      },
+      {
+        "price": "84046200000000000000000",
+        "quantity": "25000000"
+      },
+      {
+        "price": "84062900000000000000000",
+        "quantity": "25000000"
+      },
+      {
+        "price": "84079000000000000000000",
+        "quantity": "2378000"
+      },
+      {
+        "price": "84135000000000000000000",
+        "quantity": "33706000"
+      },
+      {
+        "price": "84361000000000000000000",
+        "quantity": "53473000"
+      },
+      {
+        "price": "84500000000000000000000",
+        "quantity": "5917000"
+      },
+      {
+        "price": "84513000000000000000000",
+        "quantity": "53024000"
+      },
+      {
+        "price": "84654000000000000000000",
+        "quantity": "50760000"
+      },
+      {
+        "price": "84674000000000000000000",
+        "quantity": "49385000"
+      }
+    ],
+    "depth": 20
+  },
+  "mark": {
+    "price": "83690185740164143000000",
+    "ok": true
+  },
+  "state": {
+    "markPrice": "83690185740164143000000",
+    "indexPrice": "83722124285759028500000",
+    "indexUpdatedAt": 1792588355,
+    "fundingRate": "1280202776394473",
+    "fundingWindowSec": 28800,
+    "nextFundingAt": 1792591903,
+    "openInterest": "29652352000"
+  },
+  "derived": {
+    "bestBid": {
+      "price": "83876400000000000000000",
+      "quantity": "1176000"
+    },
+    "bestAsk": {
+      "price": "83881600000000000000000",
+      "quantity": "14340000"
+    },
+    "mid": "83879000000000000000000",
+    "spread": "5200000000000000000",
+    "spreadBps": 0.61,
+    "markVsMidBps": -22.51,
+    "band": {
+      "bps": 20,
+      "low": "83522900000000000000000",
+      "high": "83857500000000000000000"
+    },
+    "bestAskWithinBand": false,
+    "bestBidWithinBand": true,
+    "askQtyWithinBand": "0",
+    "bidQtyWithinBand": "334821000"
+  }
+}

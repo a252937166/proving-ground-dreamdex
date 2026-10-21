@@ -1,0 +1,32 @@
+{
+  "name": "proving-ground-dreamdex",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Read-only dreamDEX BTC-PERP integration prototype for Proving Ground (Somnia Hideki / Tokyo testnet, chain 50383).",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a252937166/proving-ground-dreamdex.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "snapshot": "tsx src/cli.ts snapshot",
+    "precheck": "tsx src/cli.ts precheck",
+    "serve": "tsx src/server.ts",
+    "test": "tsx --test --test-reporter=spec test/unit/*.test.ts",
+    "test:live": "tsx --test --test-reporter=spec test/live/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@somnia-chain/markets-sdk": "0.32.1",
+    "tsx": "4.23.15",
+    "viem": "2.57.7"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "5.9.3"
+  }
+}
