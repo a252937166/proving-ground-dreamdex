@@ -1,0 +1,10 @@
+{
+  "abort": "preflight: the bank account is not empty; an allowance of 6000000000000000000 to the bank already exists",
+  "account": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+  "guard": null,
+  "invalidated": [],
+  "notDemonstrated": null,
+  "planDigest": "51cb547625b3c54f64da62e2be5619f9e1f38b81d5d5c674db0586d99865f3f9",
+  "rescueActionId": null,
+  "version": "mr-live-run/3"
+}

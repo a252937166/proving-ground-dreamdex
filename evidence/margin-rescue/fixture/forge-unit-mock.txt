@@ -1,13 +1,12 @@
-$ (cd contracts && forge test --match-path 'test/unit/*' -vv)
-# started 2026-10-26T08:48:23Z
+
+> proving-ground-dreamdex@0.1.0 test:contracts
+> cd contracts && forge test --match-path 'test/unit/*'
+
 No files changed, compilation skipped
 
 Ran 9 tests for test/unit/ReduceOnlyGuard.unit.t.sol:ReduceOnlyGuardUnitTest
-[PASS] testFuzz_postcondition(int128,int128,uint64) (runs: 256, μ: 9806, ~: 9673)
+[PASS] testFuzz_postcondition(int128,int128,uint64) (runs: 256, μ: 9789, ~: 9673)
 [PASS] test_actionIdVector() (gas: 631343)
-Logs:
-  action id vector: 0x293396790ce17fe3193c8d02e15c8c4244e26be8c02b4b306978efc0eac3d3cf
-
 [PASS] test_constructor_rejectsForeignOrUnregisteredPools() (gas: 576488)
 [PASS] test_constructor_rejectsOtherChains() (gas: 11528)
 [PASS] test_postcondition_accepts() (gas: 35529)
@@ -15,7 +14,6 @@ Logs:
 [PASS] test_reduce_mockFill() (gas: 93504)
 [PASS] test_reentrancyIsRejected() (gas: 318888)
 [PASS] test_venueReportingFailure_reverts() (gas: 115074)
-Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.50ms (5.13ms CPU time)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.83ms (5.84ms CPU time)
 
-Ran 1 test suite in 7.93ms (3.50ms CPU time): 9 tests passed, 0 failed, 0 skipped (9 total tests)
-# exit 0 at 2026-10-26T08:48:24Z
+Ran 1 test suite in 8.26ms (3.83ms CPU time): 9 tests passed, 0 failed, 0 skipped (9 total tests)

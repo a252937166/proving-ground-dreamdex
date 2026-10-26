@@ -1,0 +1,102 @@
+{
+  "checks": [
+    {
+      "detail": "[\"cleanup-grant-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-BTC-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-close-BTC-2→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-close-BTC-3→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-close-ETH-2→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-close-ETH-3→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"cleanup-clear-allowance→0xed7993A74dAe1e6656B704A424DcD8711aAf4F72\"]",
+      "name": "every cleanup order went through the guard",
+      "ok": true
+    },
+    {
+      "detail": "[\"1:deploy-guard:0:CONFIRMED\",\"2:approve:1:CONFIRMED\",\"3:deposit:2:CONFIRMED\",\"4:open-BTC-long:3:CONFIRMED\",\"5:open-ETH-short:4:CONFIRMED\",\"6:cleanup-grant-BTC:6:CONFIRMED\",\"7:cleanup-close-BTC-1:7:CONFIRMED\",\"8:cleanup-close-BTC-2:8:CONFIRMED\",\"9:cleanup-close-BTC-3:9:CONFIRMED\",\"10:cleanup-grant-ETH:10:CONFIRMED\",\"11:cleanup-close-ETH-1:11:CONFIRMED\",\"12:cleanup-close-ETH-2:12:CONFIRMED\",\"13:cleanup-close-ETH-3:13:CONFIRMED\",\"14:cleanup-revoke-BTC:14:CONFIRMED\",\"15:cleanup-revoke-ETH:15:CONFIRMED\",\"16:cleanup-withdraw:16:CONFIRMED\",\"17:cleanup-clear-allowance:17:CONFIRMED\"]",
+      "name": "no transaction was sent twice",
+      "ok": true
+    },
+    {
+      "detail": "guard.json",
+      "name": "deployed guard verified against the approved runtime hash",
+      "ok": true
+    },
+    {
+      "detail": "open-ETH-short 0x938e5d5fc55b8eef4bd2b8c6eaecede535ef896668c8e0426f90a7c47953037a",
+      "name": "the run was interrupted after opening both legs, and the owner's approval was recorded as foreign",
+      "ok": true
+    },
+    {
+      "detail": "[\"BTC 1 CONFIRMED 41000\",\"BTC 2 CONFIRMED 28000\",\"BTC 3 CONFIRMED 56000\",\"ETH 1 CONFIRMED 12900000000000000\",\"ETH 2 CONFIRMED 8600000000000000\",\"ETH 3 CONFIRMED 17300000000000000\"]",
+      "name": "each leg used all 3 guarded attempts: two partial fills, then the rest",
+      "ok": true
+    },
+    {
+      "detail": "[\"cleanup-grant-BTC\",\"cleanup-close-BTC-1\",\"cleanup-close-BTC-2\",\"cleanup-close-BTC-3\",\"cleanup-grant-ETH\",\"cleanup-close-ETH-1\",\"cleanup-close-ETH-2\",\"cleanup-close-ETH-3\",\"cleanup-revoke-BTC\",\"cleanup-revoke-ETH\",\"cleanup-withdraw\",\"cleanup-clear-allowance\"]",
+      "name": "cleanup sent 12 transactions: 2 grants, 6 closes, 2 revokes, a withdrawal, an allowance reset",
+      "ok": true
+    },
+    {
+      "detail": "reserved 12, used 12",
+      "name": "the last main step reserved for every one of them",
+      "ok": true
+    },
+    {
+      "detail": "{\"reserve\":\"402261513264000000\",\"fees\":\"13130448898320294\"}",
+      "name": "each cleanup gas limit fits the per-transaction reserve, and their fees fit the reserve",
+      "ok": true
+    },
+    {
+      "detail": "[]",
+      "name": "cleanup verified: nothing open, everything withdrawn, allowance zero, no grant",
+      "ok": true
+    },
+    {
+      "detail": "ABORTED rehearsal: run interrupted after opening both legs",
+      "name": "status ABORTED (exit 20)",
+      "ok": true
+    }
+  ],
+  "expected": "interrupted with both legs open and an allowance set: 12 cleanup transactions, all inside the reserve; cleanup verified (exit 20)",
+  "observed": {
+    "closes": [
+      {
+        "attempt": 1,
+        "filled": "41000",
+        "symbol": "BTC"
+      },
+      {
+        "attempt": 2,
+        "filled": "28000",
+        "symbol": "BTC"
+      },
+      {
+        "attempt": 3,
+        "filled": "56000",
+        "symbol": "BTC"
+      },
+      {
+        "attempt": 1,
+        "filled": "12900000000000000",
+        "symbol": "ETH"
+      },
+      {
+        "attempt": 2,
+        "filled": "8600000000000000",
+        "symbol": "ETH"
+      },
+      {
+        "attempt": 3,
+        "filled": "17300000000000000",
+        "symbol": "ETH"
+      }
+    ],
+    "exitCode": 20,
+    "fills": [
+      "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 attempt 1: third party took 372401000, left 41000 inside the limit",
+      "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 attempt 2: third party took 1231000, left 28000 inside the limit",
+      "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf attempt 1: third party took 128321400000000000000, left 12900000000000000 inside the limit",
+      "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf attempt 2: third party took 8486200000000000000, left 8600000000000000 inside the limit"
+    ],
+    "reserved": 12,
+    "seconds": 72,
+    "status": "ABORTED",
+    "used": 12
+  },
+  "pass": true,
+  "scenario": "cleanup-retries"
+}

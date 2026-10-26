@@ -1,0 +1,10 @@
+{
+  "abort": null,
+  "account": "0x7301F5d53949D0E05E5048aA97C9243C1693C603",
+  "guard": "0x26d918c21216cba35581c86978923c31abe5220d",
+  "invalidated": [],
+  "notDemonstrated": null,
+  "planDigest": "90c5c25de3f3130702b99b9e9de2014a5452bfddd394ce80c70610db11a2e685",
+  "rescueActionId": "0x6351db7259b062694cff6bc15b146589d9f106cce625297085d2466f116b8e95",
+  "version": "mr-live-run/3"
+}

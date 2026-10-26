@@ -22,7 +22,7 @@ export function renderReconciliation(s: AccountSnapshot, r: Reconciliation): str
     `  block               ${s.block.number}  ${s.block.hash}  (${new Date(Number(s.block.timestamp) * 1000).toISOString()})`,
     `  canonical recheck   ${s.canonical.ok ? "yes" : "NO"} at ${s.canonical.checkedAt}`,
     `  pools               ${s.coverage.activePools.length} active of ${s.coverage.factoryPools.length} deployed; outside active: positions ${s.coverage.nonzeroOutsideActive.length}, orders ${s.coverage.pendingOutsideActive.length}`,
-    `  resting orders      ${s.orders.length}   stops listed ${s.stops.rows.length} (live at block: ${s.stops.rows.filter((x) => x.liveAtBlock).length}; ${s.stops.source}${s.stops.error ? `, error: ${s.stops.error}` : ""})`,
+    `  resting orders      ${s.orders.length}   stops listed ${s.stops.rows.length} (live at block: ${s.stops.rows.filter((x) => x.liveAtBlock).length}; ${s.stops.source}${s.stops.pages ? `, ${s.stops.pages} page(s), indexer through block ${s.stops.indexedThrough}` : ""}${s.stops.error ? `, error: ${s.stops.error}` : ""})`,
     "",
     "  leg      size                        entry             mark              PnL (floor)        funding owed     MM",
   ]

@@ -1,0 +1,16 @@
+label: live-read-only (eth_call at historical blocks; nothing signed or sent)
+BTC-PERP pool 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 on Hideki 50383. Reproduce any line with:
+  cast call 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 'getProjectedCumulativeFundingPerUnit()(int256)' --block <N> --rpc-url https://api.hideki2.infra.testnet.somnia.network
+  cast call 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 'getCumulativeFundingPerUnit()(int256)' --block <N> --rpc-url https://api.hideki2.infra.testnet.somnia.network
+  cast call 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 'getLastFundingUpdateTimestampNs()(uint64)' --block <N> --rpc-url https://api.hideki2.infra.testnet.somnia.network
+
+block      timestamp    projected                                    cumulative                                   lastUpdate_s
+33609420   1793013097   3835938148066908521081661045016454156250     3835938148066908521081661045016454156250     1793009503
+33609455   1793013100   3835938148066908521081661045016454156250     3835938148066908521081661045016454156250     1793009503
+33609475   1793013102   3835938148066908521081661045016454156250     3835938148066908521081661045016454156250     1793009503
+33609479   1793013102   3835938148066908521081661045016454156250     3835938148066908521081661045016454156250     1793009503
+33609480   1793013103   3847394377531977757994965528658702781250     3835938148066908521081661045016454156250     1793009503
+33609481   1793013103   3847394377531977757994965528658702781250     3847394377531977757994965528658702781250     1793013103
+33609490   1793013104   3847394377531977757994965528658702781250     3847394377531977757994965528658702781250     1793013103
+
+Reading: the projected index is flat while the stored index is unchanged, steps at block 33609480 (timestamp = last update 1793009503 + 3600), and the stored index catches up one block later. Funding drift between an analysis and its execution therefore exists only when an hourly settlement falls in between. Fork block 33609475 is one second before this step; the fork rehearsal's funding-drift scenario crosses it.

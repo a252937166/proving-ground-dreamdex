@@ -1,27 +1,27 @@
 Margin Rescue: independent account reconciliation (read-only)
   account             0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745
   chain / bank        50383 / 0x478769E1177C0773c43A593DCCc4Ad15F15F1394
-  block               33515756  0x11b17523b230fb0992d076df080d2e1359ce4852f4b89e21cdc5f2f7cecbd9ad  (2026-10-26T08:35:26.000Z)
-  canonical recheck   yes at 2026-10-26T08:35:31.424Z
+  block               33646932  0x495efa244a026bb09ecbd89023818a3dfee3c348710f3921b7796eda570f4484  (2026-10-26T12:14:09.000Z)
+  canonical recheck   yes at 2026-10-26T12:14:17.785Z
   pools               6 active of 21 deployed; outside active: positions 0, orders 0
-  resting orders      0   stops listed 2 (live at block: 0; indexer-listed, chain-checked)
+  resting orders      0   stops listed 2 (live at block: 0; indexer-listed, chain-checked, 1 page(s), indexer through block 33647033)
 
   leg      size                        entry             mark              PnL (floor)        funding owed     MM
-  BTC                         0.05555          82,166.3       80,021.7867        -119.127711       104.900121  111.130256
-  ETH                           1.633        2,405.4739        2,320.0205        -139.545414         5.372602  94.714837
-  SOL                           28.55            104.93          100.8592        -116.221017        12.227711  71.988262
-  XRP                         2,664.4            1.3317            1.2835        -128.317943       -14.123995  85.496588
-  BNB                           1.822           731.179          735.6933           8.225117         6.842975  67.021662
-  SUI                           1,359            1.0324            0.9109        -165.084532         2.488738  61.897353
+  BTC                         0.05555          82,166.3       80,261.9764        -105.785171       107.450674  111.463819
+  ETH                           1.633        2,405.4739        2,328.2146        -126.164331          5.51501  95.049364
+  SOL                           28.55            104.93          101.5831         -95.553476         13.20132  72.50495
+  XRP                         2,664.4            1.3317            1.2932        -102.534934       -13.995569  86.141163
+  BNB                           1.822           731.179          741.5737          18.939192         7.010049  67.557366
+  SUI                           1,359            1.0324            0.9168        -157.034154         2.535284  62.299872
 
                       independent                 bank getter                 bank − independent (raw)
-  E_risk (equity)     1,026.297812                1,026.297812                0
-  MM                  492.24896                   492.24896                   0
-  IM                  984.49792                   984.49792                   0
-  CM                  246.12448                   246.12448                   0
+  E_risk (equity)     1,114.227821                1,114.227821                0
+  MM                  495.016537                  495.016537                  0
+  IM                  990.033074                  990.033074                  0
+  CM                  247.508268                  247.508268                  0
   unlocked / locked   1,804.077467 / 0
-  E_total             1,026.297812  (E_risk + locked)
-  buffer              534.048852  (E_risk − MM)
-  SDK truncation      E_risk would be 1,026.297812 (1 raw from the bank; 1 legs round differently)
+  E_total             1,114.227821  (E_risk + locked)
+  buffer              619.211283  (E_risk − MM)
+  SDK truncation      E_risk would be 1,114.227821 (1 raw from the bank; 1 legs round differently)
 
 VERDICT: EXACT

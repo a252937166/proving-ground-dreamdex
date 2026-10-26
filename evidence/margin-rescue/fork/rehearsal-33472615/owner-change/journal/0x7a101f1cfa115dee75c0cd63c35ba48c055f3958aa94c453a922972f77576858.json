@@ -1,0 +1,72 @@
+{
+  "actionId": "0x7a101f1cfa115dee75c0cd63c35ba48c055f3958aa94c453a922972f77576858",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0xd960976f3af59e7C112D918e0452F41fa89a3799"
+  },
+  "calldata": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e8480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf00a6b00983f398cb67acd5387a97af7c0b126a5d53ff62027413e5550b1633f2d33f",
+  "candidateId": "BTC-50",
+  "createdAt": "2026-10-26T13:59:53.445Z",
+  "fill": {
+    "requested": "62000",
+    "state": "NOT_APPLICABLE"
+  },
+  "forecast": {
+    "expectedFill": "62000",
+    "goal": "MEETS",
+    "scenarioBuffer": "46852456705977592125"
+  },
+  "goal": {
+    "state": "NOT_EVALUATED"
+  },
+  "history": [
+    {
+      "at": "2026-10-26T13:59:53.445Z",
+      "detail": "candidate BTC-50, scenario b99f7806b9a5e9fe",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-26T14:00:01.475Z",
+      "detail": "BTC position changed from 125000 to 94000; unlocked collateral changed from 60000000000000000000 to 59996262392000000000; re-analysis now selects BTC-25, not the confirmed BTC-50; position is 94000, not the confirmed 125000",
+      "event": "invalidated"
+    }
+  ],
+  "kind": "RESCUE",
+  "quote": {
+    "blockHash": "0xd54dd0656917cda24fd8f73cbce13636cc2c429542b61ca95306177f134a6a42",
+    "blockNumber": "33472625",
+    "validUntil": "1792999590"
+  },
+  "refreshes": [
+    {
+      "at": "2026-10-26T14:00:01.475Z",
+      "blockHash": "0x1f40cd6f3cf29679fd4d2c730e714c2f6befa27ddfce10954a76f28c285a04ec",
+      "blockNumber": "33472627",
+      "forecast": null,
+      "fundingDrift": "0",
+      "reasons": [
+        "BTC position changed from 125000 to 94000",
+        "unlocked collateral changed from 60000000000000000000 to 59996262392000000000",
+        "re-analysis now selects BTC-25, not the confirmed BTC-50",
+        "position is 94000, not the confirmed 125000"
+      ],
+      "verdict": "INVALIDATED"
+    }
+  ],
+  "request": {
+    "deadline": "1792999590",
+    "expectedSignedSize": "125000",
+    "isBid": false,
+    "limitPrice": "79743900000000000000000",
+    "nonce": "0xb00983f398cb67acd5387a97af7c0b126a5d53ff62027413e5550b1633f2d33f",
+    "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "quantity": "62000"
+  },
+  "scenarioId": "b99f7806b9a5e9fe28732e5736fbaedd5b3e4f0cb88a5af0b0c3996d9b192682",
+  "tx": {
+    "state": "INVALIDATED"
+  },
+  "version": "mr-action/1"
+}

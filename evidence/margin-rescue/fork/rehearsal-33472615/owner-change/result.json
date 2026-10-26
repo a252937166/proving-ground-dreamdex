@@ -1,0 +1,124 @@
+{
+  "cleanup": {
+    "checks": [
+      {
+        "detail": "block 33472633",
+        "name": "snapshot complete and canonical",
+        "ok": true
+      },
+      {
+        "detail": "21 pools read",
+        "name": "no position in any of the factory's pools",
+        "ok": true
+      },
+      {
+        "detail": "0 orders",
+        "name": "no resting order",
+        "ok": true
+      },
+      {
+        "detail": "0 listed, none live",
+        "name": "no live TP/SL stop",
+        "ok": true
+      },
+      {
+        "detail": "unlocked 0, locked 0",
+        "name": "bank balance withdrawn",
+        "ok": true
+      },
+      {
+        "detail": "0",
+        "name": "USDso allowance to the bank is zero",
+        "ok": true
+      },
+      {
+        "detail": "21 pools checked; global false",
+        "name": "guard holds no grant on any pool, nor a global one",
+        "ok": true
+      },
+      {
+        "detail": "none",
+        "name": "no unresolved transaction",
+        "ok": true
+      },
+      {
+        "detail": "every cleanup order went through the guard",
+        "name": "no unguarded order during cleanup",
+        "ok": true
+      }
+    ],
+    "closes": [
+      {
+        "actionId": "0xaedca960907c2be0cf62c5df22824c698d4a42e7c95d919c7619c08c761e05e5",
+        "attempt": 1,
+        "bindingOk": true,
+        "expected": "94000",
+        "filled": "94000",
+        "limit": "79743900000000000000000",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "94000",
+        "state": "CONFIRMED",
+        "symbol": "BTC",
+        "tx": "0x743233f66f3942217ece3e51d38ad2ade2b60162404e85f291aa1ab98cab953f"
+      },
+      {
+        "actionId": "0x0d760e63fb2a5dd1123b9657f9360e5cfff8b0937b452e249d03b622b557fc8c",
+        "attempt": 1,
+        "bindingOk": true,
+        "expected": "-38800000000000000",
+        "filled": "38800000000000000",
+        "limit": "2328620000000000000000",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "quantity": "38800000000000000",
+        "state": "CONFIRMED",
+        "symbol": "ETH",
+        "tx": "0x3a26dee9e1031044ebde5b92636f665c19b6874c68fd44b4d235731a6034b0cb"
+      }
+    ],
+    "final": {
+      "block": "33472633",
+      "blockHash": "0x63315ba9efaaedafd05173ca4cb3b391332cf59bdbfe2aa20b8f1c86945a8f31",
+      "stt": "9965242672054019664",
+      "usdso": "99969409000000000000"
+    },
+    "remaining": [],
+    "verified": true,
+    "version": "mr-cleanup/1"
+  },
+  "exitCode": 20,
+  "foreignActivity": [
+    {
+      "at": "2026-10-26T14:00:04.364Z",
+      "detail": "account nonce is 7; this run expected 6: another transaction was sent from the account"
+    }
+  ],
+  "gas": {
+    "cap": "2000000000000000000",
+    "committed": "0",
+    "spent": "29303535859735162"
+  },
+  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "invalidated": [
+    {
+      "actionId": "0x7a101f1cfa115dee75c0cd63c35ba48c055f3958aa94c453a922972f77576858",
+      "reasons": [
+        "BTC position changed from 125000 to 94000",
+        "unlocked collateral changed from 60000000000000000000 to 59996262392000000000",
+        "re-analysis now selects BTC-25, not the confirmed BTC-50",
+        "position is 94000, not the confirmed 125000"
+      ]
+    }
+  ],
+  "reason": "account nonce is 7; this run expected 6: another transaction was sent from the account",
+  "rescue": {
+    "actionId": "0x8e4f96aa6c163bcb850747a057dae9185a24bf77e4674d7ee3e46d2eac9832e4",
+    "fill": "NOT_APPLICABLE",
+    "goal": "NOT_EVALUATED",
+    "goalReason": "",
+    "tx": null,
+    "txState": "INVALIDATED"
+  },
+  "sentTransactions": 12,
+  "status": "ABORTED",
+  "version": "mr-live-run/3"
+}

@@ -1,13 +1,13 @@
 $ npm run snapshot
-# started 2026-10-26T08:38:28Z
+# started 2026-10-26T12:16:07Z
 
 > proving-ground-dreamdex@0.1.0 snapshot
 > tsx src/cli.ts snapshot
 
 dreamDEX BTC-PERP snapshot (read-only, live network)
-  queried at          2026-10-26T08:38:28.651Z  (6406 ms)
+  queried at          2026-10-26T12:16:08.045Z  (6110 ms)
   chain id            50383 (Somnia Hideki / Tokyo testnet)
-  block               33517697  at 2026-10-26T08:38:41.000Z  (book and mark read at this block)
+  block               33648236  at 2026-10-26T12:16:20.000Z  (book and mark read at this block)
   SDK                 @somnia-chain/markets-sdk 0.32.1
   RPC                 https://api.hideki2.infra.testnet.somnia.network
   indexer             https://hideki-dev.smk.somnia.host/v1/graphql
@@ -26,22 +26,22 @@ Market configuration
   max open interest   493.6309 BTC
   fees (bps x1000)    taker 0, maker 0
 
-Prices at block 33517697
-  mark                80,102.98  (tryGetMarkPrice ok: yes)
-  best bid            80,271.7  (0.03744 BTC)
-  best ask            80,271.8  (0.00019 BTC)
-  mid / spread        80,271.75 / 0.1 (0.01 bps)
-  mark vs mid         -21.02 bps
+Prices at block 33648236
+  mark                80,225.02  (tryGetMarkPrice ok: yes)
+  best bid            80,397.3  (0.02492 BTC)
+  best ask            80,398.9  (0.00019 BTC)
+  mid / spread        80,398.1 / 1.6 (0.19 bps)
+  mark vs mid         -21.52 bps
 
 Latest perp state (getPerpState)
-  mark                80,102.98
-  index               80,134.89  (oracle time 2026-10-26T08:38:40.000Z)
-  funding rate        0.1108% per 8 h window; next settlement 2026-10-26T09:11:43.000Z
-  open interest       320.65528 BTC
+  mark                80,225.02
+  index               80,257.72  (oracle time 2026-10-26T12:16:19.000Z)
+  funding rate        0.1157% per 8 h window; next settlement 2026-10-26T13:11:43.000Z
+  open interest       320.19245 BTC
 
 Proving Ground band: IOC limit within ±0.2% of mark (local calculation, not enforced on-chain)
-  allowed limits      79,942.8 .. 80,263.1
+  allowed limits      80,064.6 .. 80,385.4
   ask reachable       no  (a buy IOC with an in-band limit cannot reach the best ask now)
   bid reachable       yes  (a sell IOC with an in-band limit can reach the best bid now)
-  reachable depth     asks 0 BTC, bids 3.94567 BTC (within the top 20 levels read)
-# exit 0 at 2026-10-26T08:38:35Z
+  reachable depth     asks 0 BTC, bids 4.25526 BTC (within the top 20 levels read)
+# exit 0

@@ -1,0 +1,78 @@
+{
+  "account": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+  "chainId": 50383,
+  "createdAt": "2026-10-26T14:04:07.861Z",
+  "funding": "frozen: each portfolio keeps the funding owed as of its own snapshot; none accrues during the shock",
+  "id": "f0e0190f6124821fb1616b099d67b1d8552070fc478526adb6bb7f345821f720",
+  "integrity": {
+    "reconciliation": "EXACT",
+    "snapshotProblems": []
+  },
+  "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+  "markets": [
+    {
+      "baseDecimals": 8,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "1000",
+        "minQuantity": "13000",
+        "tickSize": "100000000000000000"
+      },
+      "oneBase": "100000000",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "referenceMark": "79976863574033333500000",
+      "risk": {
+        "closeOutMarginBps": "125",
+        "effectiveImfBps": "500",
+        "initialMarginBps": "500",
+        "maintenanceMarginBps": "250",
+        "maxPositionSize": "10000000000"
+      },
+      "scenarioPrice": "71979177216630000150000",
+      "shockBps": -1000,
+      "symbol": "BTC"
+    },
+    {
+      "baseDecimals": 18,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "100000000000000",
+        "minQuantity": "4000000000000000",
+        "tickSize": "10000000000000000"
+      },
+      "oneBase": "1000000000000000000",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "referenceMark": "2316659264564996000000",
+      "risk": {
+        "closeOutMarginBps": "125",
+        "effectiveImfBps": "500",
+        "initialMarginBps": "500",
+        "maintenanceMarginBps": "250",
+        "maxPositionSize": "399561200000000000000"
+      },
+      "scenarioPrice": "2432492227793245800000",
+      "shockBps": 500,
+      "symbol": "ETH"
+    }
+  ],
+  "model": "mr-model/1 (static shock; pnl floor, funding ceil, requirements ceil per leg)",
+  "numericBound": {
+    "basis": "deployment-exact: the reconstruction matched the bank to the raw unit at the reference block",
+    "perLegRawUnits": "0"
+  },
+  "reference": {
+    "blockHash": "0xd54dd0656917cda24fd8f73cbce13636cc2c429542b61ca95306177f134a6a42",
+    "blockNumber": "33472625",
+    "blockTimestamp": "1792999410"
+  },
+  "riskFingerprint": "e69f23566037d49ee8f00eae261ab4adab8bdf3d35347eb7c90761e874afa868",
+  "shock": "instantaneous static",
+  "targetBuffer": "45000000000000000000",
+  "version": "mr-scenario/1"
+}

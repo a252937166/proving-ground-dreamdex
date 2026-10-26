@@ -3,13 +3,19 @@
 //   npm run mr -- reconcile --account 0x… [--block N] [--out DIR]
 //   npm run mr -- analyze   --account 0x… --shock BTC=-8 --shock ETH=-12 --target 25 [--price ETH=2000] [--slippage-bps 50] [--include-cancel] [--block N] [--out DIR]
 //   npm run mr -- plan      --analysis DIR --guard 0x… [--candidate ID] [--deadline 120] [--journal DIR]
+//   npm run mr -- refresh   --analysis DIR --action 0x… [--journal DIR]
 //   npm run mr -- recompute --analysis DIR --action 0x… [--tx 0x…] [--journal DIR]
 //   npm run mr -- actions   [--journal DIR] [--resolve]
 //   npm run mr -- study-rounding [--block N] [--out FILE]
 //   npm run mr -- live-plan [--out FILE]
 //
+// Exit codes: reconcile 3 unless EXACT; analyze 3 when BLOCKED; plan/refresh 4 when the
+// confirmation is refused or invalidated; recompute 0 only for GOAL_MET (5 not settled,
+// 6 EVIDENCE_MISMATCH, 7 BASELINE_CHANGED or UNAVAILABLE, 8 GOAL_NOT_MET).
+//
 // --rpc URL reads from another endpoint with the same chain id (a local fork, for
 // example); everything else uses the Hideki RPC from .env or the SDK default.
+import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { parseArgs } from "node:util"
 import type { Address, Hex, PublicClient } from "viem"
@@ -17,12 +23,13 @@ import { loadConfig, sdkVersion } from "../config.js"
 import { parseDecimal } from "../units.js"
 import { PLACE_ORDER_FOR_SELECTOR, perpPoolAbi, reduceGuardAbi } from "./abi.js"
 import { actionIdOf, reduceCalldata, requestFromCandidate } from "./action.js"
-import { analyzeCandidates } from "./candidates.js"
+import { analyzeCandidates, type CandidateAnalysis } from "./candidates.js"
 import { ActionJournal, resolveAction } from "./journal.js"
 import { prettyJson, writeFileAtomic } from "./json.js"
 import { reconcile } from "./reconcile.js"
 import { bankLogsForOwner, recompute } from "./recompute.js"
 import { readActionReceipt } from "./receipt.js"
+import { refreshConfirmation } from "./refresh.js"
 import { renderAnalysis, renderReconciliation, renderRecompute } from "./report.js"
 import { createHidekiClient, sampleBlock } from "./rpc.js"
 import { buildScenario, scenarioCompatibility, type Scenario } from "./scenario.js"
@@ -36,6 +43,7 @@ const USAGE = `usage: npm run mr -- <command> [options]
   reconcile --account ADDR [--block N] [--out DIR]
   analyze --account ADDR --target USDSO [--shock BTC=-8] [--shock ETH=-12] [--price BTC=72000] [--slippage-bps 50] [--include-cancel] [--block N] [--out DIR]
   plan --analysis DIR --guard ADDR [--candidate ID] [--deadline SECONDS] [--journal DIR]
+  refresh --analysis DIR --action ID [--journal DIR]   (re-check a journalled confirmation against the account now)
   recompute --analysis DIR --action ID [--tx HASH] [--journal DIR]
   actions [--journal DIR] [--resolve]
   study-rounding [--block N] [--out FILE]
@@ -124,7 +132,7 @@ async function main(): Promise<number> {
       writeFileAtomic(join(values.out, "candidates.json"), prettyJson(analysis))
       writeFileAtomic(join(values.out, "analysis.txt"), text)
     }
-    return 0
+    return analysis.outcome === "BLOCKED" ? 3 : 0
   }
 
   if (command === "plan") {
@@ -135,12 +143,13 @@ async function main(): Promise<number> {
     const pool = analysis.candidates.find((c) => c.id === candidateId)?.reduce?.pool as Address | undefined
     if (!pool) throw new Error(`${candidateId} is not a reduction`)
     const guard = values.guard as Address
-    const pre = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account: ref.account, bookPools: [pool], listStops })
+    const pre = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account: ref.account, bookPools: [BTC_POOL, ETH_POOL], listStops })
     const problems = await planChecks(client, scenario, ref, pre, pool, guard)
     const { request, candidate } = requestFromCandidate(analysis, candidateId, ref, { deadlineSeconds: Number(values.deadline ?? 120), nowSeconds: pre.block.timestamp })
     const binding = { chainId: 50383, guard, marginBank: MARGIN_BANK, owner: ref.account }
     const actionId = actionIdOf(binding, request)
-    const fresh = simulateIoc(request.isBid ? pre.books[0].asks : pre.books[0].bids, request.isBid, request.quantity, request.limitPrice)
+    const book = pre.books.find((b) => sameAddress(b.pool, pool))!
+    const fresh = simulateIoc(request.isBid ? book.asks : book.bids, request.isBid, request.quantity, request.limitPrice)
     writeFileAtomic(join(values.analysis, `preflight-${actionId}.json`), prettyJson(pre))
     const summary = {
       actionId,
@@ -158,6 +167,7 @@ async function main(): Promise<number> {
     }
     const journal = new ActionJournal(journalDir)
     journal.create({
+      kind: "RESCUE",
       actionId,
       createdAt: new Date().toISOString(),
       binding,
@@ -168,16 +178,43 @@ async function main(): Promise<number> {
       forecast: { expectedFill: candidate.reduce!.expectedFill.toString(), scenarioBuffer: candidate.scenario!.buffer.toString(), goal: candidate.goal! },
       quote: { blockNumber: pre.block.number.toString(), blockHash: pre.block.hash, validUntil: request.deadline.toString() },
     })
-    console.log(prettyJson(summary))
-    console.log(`journalled as NOT_SENT in ${journalDir}. Nothing was signed or sent.`)
+    const check = refreshConfirmation({ scenario, confirmation: journal.get(actionId), analysisSnapshot: ref, original: analysis, fresh: pre, freshRecon: reconcile(pre), slippageBps: values["slippage-bps"] ? BigInt(values["slippage-bps"]) : 50n, minSecondsLeft: 30 })
+    if (check.verdict === "INVALIDATED") {
+      journal.update(actionId, "invalidated", (r) => (r.tx.state = "INVALIDATED"), check.reasons.join("; "))
+      console.log(prettyJson({ ...summary, refresh: { verdict: check.verdict, reasons: check.reasons } }))
+      console.error(`the account changed since the analysis; the confirmation was invalidated: ${check.reasons.join("; ")}. Run analyze again.`)
+      return 4
+    }
+    writeFileAtomic(join(values.analysis, `refresh-analysis-${actionId}.json`), prettyJson(check.analysisForRecompute))
+    console.log(prettyJson({ ...summary, refresh: { verdict: check.verdict, fundingDrift: check.fundingDrift } }))
+    console.log(`journalled as NOT_SENT in ${journalDir}. Nothing was signed or sent. Run \`refresh\` again right before signing.`)
     return 0
+  }
+
+  if (command === "refresh") {
+    if (!values.analysis || !values.action) throw new Error("--analysis and --action are required")
+    const { snapshot: ref, scenario, analysis } = loadAnalysis(values.analysis)
+    const journal = new ActionJournal(journalDir)
+    const record = journal.get(values.action)
+    if (record.tx.state !== "NOT_SENT") throw new Error(`action is ${record.tx.state}; only an unsent confirmation can be refreshed`)
+    const fresh = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account: record.binding.owner, bookPools: [BTC_POOL, ETH_POOL], listStops })
+    const check = refreshConfirmation({ scenario, confirmation: record, analysisSnapshot: ref, original: analysis, fresh, freshRecon: reconcile(fresh), slippageBps: values["slippage-bps"] ? BigInt(values["slippage-bps"]) : 50n, minSecondsLeft: 30 })
+    journal.update(record.actionId, check.verdict === "STILL_VALID" ? "refreshed" : "invalidated", (r) => {
+      if (check.verdict === "INVALIDATED") r.tx.state = "INVALIDATED"
+    }, check.reasons.join("; ") || `funding drift ${check.fundingDrift}`)
+    writeFileAtomic(join(values.analysis, `preflight-${record.actionId}.json`), prettyJson(fresh))
+    writeFileAtomic(join(values.analysis, `refresh-analysis-${record.actionId}.json`), prettyJson(check.analysisForRecompute))
+    console.log(prettyJson({ verdict: check.verdict, reasons: check.reasons, block: check.block, fundingDrift: check.fundingDrift }))
+    return check.verdict === "STILL_VALID" ? 0 : 4
   }
 
   if (command === "recompute") {
     if (!values.analysis || !values.action) throw new Error("--analysis and --action are required")
-    const { scenario, analysis } = loadAnalysis(values.analysis)
+    const { scenario, analysis: original } = loadAnalysis(values.analysis)
     const journal = new ActionJournal(journalDir)
     let record = journal.get(values.action)
+    const refreshed = join(values.analysis, `refresh-analysis-${record.actionId}.json`)
+    const analysis = existsSync(refreshed) ? readBigJson<CandidateAnalysis>(refreshed) : original
     if (values.tx && record.tx.state === "NOT_SENT") {
       const tx = await client.getTransaction({ hash: values.tx as Hex })
       record = journal.update(record.actionId, "attached", (r) => (r.tx = { state: "PENDING", from: tx.from, nonce: tx.nonce, hash: tx.hash, sentAt: "sent outside this tool" }), values.tx)
@@ -200,9 +237,9 @@ async function main(): Promise<number> {
       limitPrice: BigInt(record.request.limitPrice),
       requested: BigInt(record.request.quantity),
     })
-    const post = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account: record.binding.owner, blockNumber: receipt.blockNumber, bookPools: [pool], listStops })
+    const post = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account: record.binding.owner, blockNumber: receipt.blockNumber, bookPools: [BTC_POOL, ETH_POOL], listStops })
     const external = (await bankLogsForOwner(client, MARGIN_BANK, record.binding.owner, pre.block.number + 1n, receipt.blockNumber)).filter((l) => l.txHash !== record.tx.hash)
-    const result = recompute({ scenario, analysis, candidateId: record.candidateId, actionId: record.actionId, pre, post, receipt, externalLogs: external })
+    const result = recompute({ confirmation: record, scenario, analysis, pre, post, receipt, externalLogs: external })
     journal.update(record.actionId, "recomputed", (r) => {
       r.fill = { state: result.fill.state, requested: result.fill.requested.toString(), filled: result.fill.filled.toString() }
       r.goal = { state: result.goal.state, reason: result.goal.reason }
@@ -211,7 +248,7 @@ async function main(): Promise<number> {
     console.log(text)
     writeFileAtomic(join(values.analysis, `recompute-${record.actionId}.json`), prettyJson({ result, receipt, post }))
     writeFileAtomic(join(values.analysis, `recompute-${record.actionId}.txt`), text)
-    return 0
+    return { GOAL_MET: 0, EVIDENCE_MISMATCH: 6, BASELINE_CHANGED: 7, UNAVAILABLE: 7, GOAL_NOT_MET: 8, NOT_EVALUATED: 7 }[result.goal.state]
   }
 
   if (command === "actions") {

@@ -1,9 +1,9 @@
 {
   "account": "0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745",
   "chainId": 50383,
-  "createdAt": "2026-10-26T08:36:25.247Z",
+  "createdAt": "2026-10-26T12:15:23.254Z",
   "funding": "frozen: each portfolio keeps the funding owed as of its own snapshot; none accrues during the shock",
-  "id": "d8065a5e0a2d3f87f4beb771e779cafe63f881af861ce52efc98c7f93e2e20d9",
+  "id": "4189aad63c02797f79bd5029af38f781614c1d11515b6727884be7a76c20a393",
   "integrity": {
     "reconciliation": "EXACT",
     "snapshotProblems": []
@@ -23,7 +23,7 @@
       },
       "oneBase": "1000000000",
       "pool": "0x1Be21287cfB865a7c462Ff3c4f275E70BcccefE4",
-      "referenceMark": "911999332522000000",
+      "referenceMark": "915764271916500000",
       "risk": {
         "closeOutMarginBps": "250",
         "effectiveImfBps": "1000",
@@ -31,7 +31,7 @@
         "maintenanceMarginBps": "500",
         "maxPositionSize": "127000000000000"
       },
-      "scenarioPrice": "911999332522000000",
+      "scenarioPrice": "915764271916500000",
       "shockBps": null,
       "symbol": "SUI"
     },
@@ -48,7 +48,7 @@
       },
       "oneBase": "1000000000000000000",
       "pool": "0x3D2A99fE1e2BdEaA25024515A2D2202DAF9531aD",
-      "referenceMark": "736175535137491000000",
+      "referenceMark": "741353235914234000000",
       "risk": {
         "closeOutMarginBps": "250",
         "effectiveImfBps": "1000",
@@ -56,7 +56,7 @@
         "maintenanceMarginBps": "500",
         "maxPositionSize": "140000000000000000000"
       },
-      "scenarioPrice": "736175535137491000000",
+      "scenarioPrice": "741353235914234000000",
       "shockBps": null,
       "symbol": "BNB"
     },
@@ -73,7 +73,7 @@
       },
       "oneBase": "100000000",
       "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
-      "referenceMark": "80085595444458638500000",
+      "referenceMark": "80235995800376179500000",
       "risk": {
         "closeOutMarginBps": "125",
         "effectiveImfBps": "500",
@@ -81,7 +81,7 @@
         "maintenanceMarginBps": "250",
         "maxPositionSize": "10000000000"
       },
-      "scenarioPrice": "73678747808901947420000",
+      "scenarioPrice": "73817116136346085140000",
       "shockBps": -800,
       "symbol": "BTC"
     },
@@ -98,7 +98,7 @@
       },
       "oneBase": "1000000",
       "pool": "0x7058579F3248559963f79AdB937c6De9f953E060",
-      "referenceMark": "1285013889504000000",
+      "referenceMark": "1292570402446000000",
       "risk": {
         "closeOutMarginBps": "125",
         "effectiveImfBps": "500",
@@ -106,7 +106,7 @@
         "maintenanceMarginBps": "250",
         "maxPositionSize": "68926400000"
       },
-      "scenarioPrice": "1285013889504000000",
+      "scenarioPrice": "1292570402446000000",
       "shockBps": null,
       "symbol": "XRP"
     },
@@ -123,7 +123,7 @@
       },
       "oneBase": "1000000000",
       "pool": "0xB483ec1fb34996638677c20ab087b16F1896FA53",
-      "referenceMark": "100976264260568000000",
+      "referenceMark": "101525913278473000000",
       "risk": {
         "closeOutMarginBps": "125",
         "effectiveImfBps": "500",
@@ -131,7 +131,7 @@
         "maintenanceMarginBps": "250",
         "maxPositionSize": "4765440000000"
       },
-      "scenarioPrice": "100976264260568000000",
+      "scenarioPrice": "101525913278473000000",
       "shockBps": null,
       "symbol": "SOL"
     },
@@ -148,7 +148,7 @@
       },
       "oneBase": "1000000000000000000",
       "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
-      "referenceMark": "2322186663104354000000",
+      "referenceMark": "2327218735077028500000",
       "risk": {
         "closeOutMarginBps": "125",
         "effectiveImfBps": "500",
@@ -156,7 +156,7 @@
         "maintenanceMarginBps": "250",
         "maxPositionSize": "399561200000000000000"
       },
-      "scenarioPrice": "2043524263531831520000",
+      "scenarioPrice": "2047952486867785080000",
       "shockBps": -1200,
       "symbol": "ETH"
     }
@@ -167,9 +167,9 @@
     "perLegRawUnits": "0"
   },
   "reference": {
-    "blockHash": "0xfaab4f11df73f4fec47137c8fa29dc66415acdda647345feae9d47c52e5ac393",
-    "blockNumber": "33516295",
-    "blockTimestamp": "1793003780"
+    "blockHash": "0xdf2dfaf5d3d8936e9558262dfd4d12fec42ed275fd35d35914d3728d7a879512",
+    "blockNumber": "33647580",
+    "blockTimestamp": "1793016914"
   },
   "riskFingerprint": "a733906e5b65c70a9a4d7ad8cf2c965f6aef3809dd6e93d502087fca260ea5f4",
   "shock": "instantaneous static",

@@ -127,13 +127,31 @@ export function fixtureSnapshot(f: FixtureAccount): AccountSnapshot {
     books: f.markets.map((m) => ({ pool: POOL[m.symbol], bids: m.bids ?? [], asks: m.asks ?? [] })),
     problems: f.problems ?? [],
   }
-  // The fixture's "bank" answers exactly what the deployment formulas give, so the
-  // reconciliation is EXACT by construction. Live reconciliation is tested elsewhere.
+  return settleBank(snapshot)
+}
+
+// The fixture's "bank" answers exactly what the deployment formulas give, so the
+// reconciliation is EXACT by construction. Live reconciliation is tested elsewhere.
+// Call again after editing a snapshot's positions, collateral or funding.
+export function settleBank(snapshot: AccountSnapshot): AccountSnapshot {
   const fig = accountFigures(snapshot.collateral.unlocked, snapshot.collateral.locked, snapshotLegs(snapshot))
-  const basis = f.unlocked + (f.locked ?? 0n)
+  const basis = snapshot.collateral.unlocked + snapshot.collateral.locked
   snapshot.collateral.collateralBasis = basis > 0n ? basis : 0n
   snapshot.bank = { equity: fig.eRisk, imReq: fig.im, mmReq: fig.mm, cmReq: fig.cm, marginStatus: 0, tryEquityOk: true, tryEquity: fig.eRisk }
+  snapshot.capacities = snapshot.pools.map((p) => {
+    const size = snapshot.positions.find((x) => x.pool === p.pool)?.size ?? 0n
+    return { pool: p.pool, positionSize: size, pendingBidQuantity: 0n, pendingAskQuantity: 0n, pendingOppositeQuantity: 0n, effectiveReducingCapacity: size < 0n ? -size : size }
+  })
   return snapshot
+}
+
+// A deep copy of a snapshot moved to another block (same chain, same account).
+export function atBlock(snapshot: AccountSnapshot, number: bigint, timestamp = snapshot.block.timestamp + (number - snapshot.block.number)): AccountSnapshot {
+  const copy = structuredClone(snapshot)
+  const hash = `0x${number.toString(16).padStart(64, "0")}` as `0x${string}`
+  copy.block = { number, hash, timestamp }
+  copy.canonical = { ok: true, observedHash: hash, checkedAt: "fixture" }
+  return copy
 }
 
 export function fixtureReconciliation(s: AccountSnapshot) {

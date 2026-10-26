@@ -1,0 +1,93 @@
+{
+  "checks": [
+    {
+      "detail": "success nonce 7 > 6",
+      "name": "the reduction was in fact mined (seen without the outage)",
+      "ok": true
+    },
+    {
+      "detail": "UNRESOLVED_TX step 7 reduce (0x8342eb67c5981f684bba1d4450f7922460457a6282f869a1c9bc6090f9c04161) is UNKNOWN; resolve it before sending anything else",
+      "name": "the run stopped with UNRESOLVED_TX (exit 40)",
+      "ok": true
+    },
+    {
+      "detail": "reduce UNKNOWN receipt lookup failed (TimeoutError: The request took too long to respond.)",
+      "name": "the reduction stays UNKNOWN, not NOT_INCLUDED, although its nonce is used",
+      "ok": true
+    },
+    {
+      "detail": "committed 7626059421602904, maxCost 7626059421602904",
+      "name": "its worst-case fee stays reserved and no fee is invented",
+      "ok": true
+    },
+    {
+      "detail": "[\"deploy-guard\",\"approve\",\"deposit\",\"open-BTC-long\",\"open-ETH-short\",\"grant-BTC\",\"reduce\"]",
+      "name": "nothing else was sent (no cleanup)",
+      "ok": true
+    },
+    {
+      "detail": "UNKNOWN",
+      "name": "the journal mirrors UNKNOWN, not NOT_INCLUDED",
+      "ok": true
+    },
+    {
+      "detail": "[\"cleanup-close-BTC-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "name": "every cleanup order went through the guard",
+      "ok": true
+    },
+    {
+      "detail": "[\"1:deploy-guard:0:CONFIRMED\",\"2:approve:1:CONFIRMED\",\"3:deposit:2:CONFIRMED\",\"4:open-BTC-long:3:CONFIRMED\",\"5:open-ETH-short:4:CONFIRMED\",\"6:grant-BTC:5:CONFIRMED\",\"7:reduce:6:CONFIRMED\",\"8:cleanup-close-BTC-1:7:CONFIRMED\",\"9:cleanup-grant-ETH:8:CONFIRMED\",\"10:cleanup-close-ETH-1:9:CONFIRMED\",\"11:cleanup-revoke-BTC:10:CONFIRMED\",\"12:cleanup-revoke-ETH:11:CONFIRMED\",\"13:cleanup-withdraw:12:CONFIRMED\"]",
+      "name": "no transaction was sent twice",
+      "ok": true
+    },
+    {
+      "detail": "guard.json",
+      "name": "deployed guard verified against the approved runtime hash",
+      "ok": true
+    },
+    {
+      "detail": "CONFIRMED fee 5597671956940800",
+      "name": "after recovery the same transaction settles CONFIRMED with its real fee",
+      "ok": true
+    },
+    {
+      "detail": "COMPLETE ",
+      "name": "resume recomputes GOAL_MET and finishes with cleanup verified (exit 0)",
+      "ok": true
+    }
+  ],
+  "expected": "mined but unobservable: UNKNOWN, fee reserved, nothing else sent (exit 40); after recovery --resume settles it CONFIRMED with its fee and finishes (exit 0)",
+  "observed": {
+    "first": {
+      "exitCode": 40,
+      "gas": {
+        "cap": "2000000000000000000",
+        "committed": "7626059421602904",
+        "spent": "19317119479451752"
+      },
+      "probe": "receipt lookup failed (TimeoutError: The request took too long to respond.)",
+      "status": "UNRESOLVED_TX"
+    },
+    "lookupsFailed": 14,
+    "resumed": {
+      "exitCode": 0,
+      "gas": {
+        "cap": "2000000000000000000",
+        "committed": "0",
+        "spent": "34901164391885772"
+      },
+      "rescue": {
+        "actionId": "0xe42fbf3017fc5c8010730a804df02c62ca7a65342db600b46ea62d1459e50a46",
+        "fill": "REQUESTED_FILL",
+        "goal": "GOAL_MET",
+        "goalReason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
+        "tx": "0x8342eb67c5981f684bba1d4450f7922460457a6282f869a1c9bc6090f9c04161",
+        "txState": "CONFIRMED"
+      },
+      "status": "COMPLETE"
+    },
+    "seconds": 51
+  },
+  "pass": true,
+  "scenario": "rpc-outage"
+}

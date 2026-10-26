@@ -6,7 +6,7 @@ Two pieces of work against dreamDEX perps on the Somnia Hideki ("Tokyo") testnet
 - **Proving Ground** (earlier): a read-only BTC-PERP integration prototype with a local rule pre-check. Its description follows below, unchanged in substance.
 
 > **Status**
-> - Margin Rescue: reconciliation and analysis run against the live network **read-only**; the `ReduceOnlyGuard` contract and the execution path are tested **only on local forks** of the real venue. Nothing has been deployed, signed or sent on the live network. The live step is waiting for approval (`BLOCKED_LIVE`).
+> - Margin Rescue: reconciliation and analysis run against the live network **read-only**; the `ReduceOnlyGuard` contract and the live executor (receipt binding, pre-send refresh, guarded cleanup, transaction ledger, end-state verification) are tested **only on local forks** of the real venue, normally and with injected faults. Nothing has been deployed, signed or sent on the live network. The live step is waiting for approval (`BLOCKED_LIVE`).
 > - Proving Ground: no Proving Ground contract exists; its rule pre-check is a local calculation and is **not enforced on-chain**.
 > - Neither part meets the MVP track's live-order requirement yet: **no order has been placed on the live network from this code.**
 
@@ -21,7 +21,7 @@ It reads live BTC-PERP data and checks orders against the challenge's v2.2 rules
 | `npm run snapshot` | Prints BTC-PERP market configuration, mark price, best bid/ask, spread, index, funding and open interest, with query time, chain ID, pool address and block number | Live: dreamDEX indexer and Hideki RPC |
 | `npm run precheck` | Checks one IOC order against the Proving Ground v2.2 "Blitz" rules, using live market data and a hypothetical account state | Live market data plus a local calculation |
 | `npm run serve` | Local page at `http://127.0.0.1:8787` with live BTC data (auto-refresh) and the same pre-check | Live market data plus a local calculation |
-| `npm test` | Unit tests: the Proving Ground rule boundaries, unit handling and book derivations (38), plus the Margin Rescue accounting, scenario, candidate, journal and ABI tests | Fixtures and mocks only, no network |
+| `npm test` | Unit tests: the Proving Ground rule boundaries, unit handling and book derivations (38), plus the Margin Rescue accounting, scenario, candidate, journal, ABI, receipt-binding, recomputation, refresh, transaction-ledger and stop-paging tests | Fixtures and mocks only, no network |
 | `npm run test:live` | 8 read-only checks against the real network | Live |
 
 The order book and the mark price are read **at the same block**, so the band check compares like with like. `getSpotOrderBook` reports the block it read; the mark and the on-chain book parameters are then read at that block through the SDK's own viem client.

@@ -1,0 +1,13 @@
+{"at":"2026-10-26T13:59:39.774Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
+{"at":"2026-10-26T13:59:39.830Z","step":"guard verified","guard":"0x9f28a92015cd0cd542ea8bdd50973117fc6925ab","runtimeKeccak":"0x96a66a2b5d4afcfb4c80c7c683a7c6a7781f96251e651b09e1609a2c0bd54518"}
+{"at":"2026-10-26T13:59:47.134Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
+{"at":"2026-10-26T13:59:48.668Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
+{"at":"2026-10-26T13:59:53.444Z","step":"analysis","block":"33472625","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
+{"at":"2026-10-26T13:59:53.453Z","step":"confirmation journalled","actionId":"0x7a101f1cfa115dee75c0cd63c35ba48c055f3958aa94c453a922972f77576858","candidateId":"BTC-50","expectedSignedSize":"125000","quantity":"62000","limit":"79743900000000000000000","deadline":"1792999590"}
+{"at":"2026-10-26T14:00:01.481Z","step":"refresh","attempt":1,"verdict":"INVALIDATED","reasons":["BTC position changed from 125000 to 94000","unlocked collateral changed from 60000000000000000000 to 59996262392000000000","re-analysis now selects BTC-25, not the confirmed BTC-50","position is 94000, not the confirmed 125000"],"fundingDrift":"0"}
+{"at":"2026-10-26T14:00:01.499Z","step":"confirmation journalled","actionId":"0x8e4f96aa6c163bcb850747a057dae9185a24bf77e4674d7ee3e46d2eac9832e4","candidateId":"BTC-25","expectedSignedSize":"94000","quantity":"23000","limit":"79743900000000000000000","deadline":"1792999590"}
+{"at":"2026-10-26T14:00:02.423Z","step":"refresh","attempt":2,"verdict":"STILL_VALID","reasons":[],"fundingDrift":"0"}
+{"at":"2026-10-26T14:00:02.501Z","step":"main flow stopped","reason":"account nonce is 7; this run expected 6: another transaction was sent from the account"}
+{"at":"2026-10-26T14:00:08.127Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"CONFIRMED","filled":"94000"}
+{"at":"2026-10-26T14:00:18.924Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"38800000000000000"}
+{"at":"2026-10-26T14:00:29.134Z","step":"result","status":"ABORTED","exitCode":20,"reason":"account nonce is 7; this run expected 6: another transaction was sent from the account"}

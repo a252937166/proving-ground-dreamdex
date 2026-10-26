@@ -1,20 +1,20 @@
-compdef:153: _comps: assignment to invalid subscript range
 
 > proving-ground-dreamdex@0.1.0 mr:fork-e2e
-> tsx src/margin-rescue/forkE2e.ts --out evidence/margin-rescue/fork/e2e-33472615
+> tsx src/margin-rescue/forkE2e.ts --upstream http://127.0.0.1:8556 --out evidence/margin-rescue/fork/e2e-33472615
 
 fork of Hideki at block 33472615 (0x4fc3feaf3c2870434fe5cc88207b830bee0a435cf8b1378cf5f42ce23fe34000), clock held at 1792999410
 reference snapshot at fork block 33472616: 6 positions, reconciliation EXACT
-scenario 72923ff03e18cd2a: baseline buffer -262053001740297494188, outcome CANDIDATE_SELECTED ETH-50
+scenario 2d73979b848ff9b5: baseline buffer -262053001740297494188, outcome CANDIDATE_SELECTED ETH-50
 guard deployed at 0x0862aef600cd25c770e949c22edd74ae3dd0b077 (runtime 4294 bytes, keccak 0xdbeb3b1bc1c965487fa0cad120fe97c6abdefe24aea87a5d2eb1eb7af364f72b)
 owner granted the guard placeOrderFor on ETH only
-action 0xdc0e272bac87bbaf574f4ea5f98f84d36d2d8d119a2510a7e968e81242d779e6 (client id equals guard.actionIdOf)
-sent 0x29fb9584e5ee24034eec4009cfa164fdaeb31bc5574111885c762ac576e69417; journal PENDING
+action 0xf5a11605b9d06ae709c28a9cbbb6d26f0198c33800bf40cd57de5ca01297f192 (client id equals guard.actionIdOf)
+refresh at block 33472618: STILL_VALID; funding drift 0
+sent 0x7ec922aad89a3d1c7a2da4c52705e9b5794cbf1b7d8f68951c01e4f44ffd02e8; journal PENDING
 receipt read; journal CONFIRMED
 Margin Rescue: recomputed from the actual execution
-  action              0xdc0e272bac87bbaf574f4ea5f98f84d36d2d8d119a2510a7e968e81242d779e6
-  scenario            72923ff03e18cd2a502831c2935de36018033c8308a7f33568de32b3d907a19f
-  transaction         0x29fb9584e5ee24034eec4009cfa164fdaeb31bc5574111885c762ac576e69417  success  block 33472619  canonical yes
+  action              0xf5a11605b9d06ae709c28a9cbbb6d26f0198c33800bf40cd57de5ca01297f192
+  scenario            2d73979b848ff9b55fbfb4d9eff04cf6c156158aa8cc2c527c524209dd8d1851
+  transaction         0x7ec922aad89a3d1c7a2da4c52705e9b5794cbf1b7d8f68951c01e4f44ffd02e8  success  block 33472619  canonical yes
   fill                REQUESTED_FILL: 0.8165 of 0.8165 (expected 0.8165); unfilled 0
   fills               0.4316 @ 2,316.64, 0.3849 @ 2,316.5; all inside the limit: yes
   ledger              realized -72.586779  funding settled 5.325419  fees 0
@@ -46,7 +46,6 @@ Margin Rescue: recomputed from the actual execution
 
 GOAL: GOAL_MET (scenario buffer 6477807853842603039 ≥ target 0)
 
-stale confirmation 0x835201b6417858e9f86f20b9f25c2a861f01469e75ef8ee9c20a854ea4ac2dd0: REVERTED, PositionMismatch(1633000000000000000, 816500000000000000); account unchanged: true
+stale confirmation 0x62a8999480a3945fdca19cdb5a04eda1235af029210e2330050a09cd0b8021a7: REVERTED, PositionMismatch(1633000000000000000, 816500000000000000); account unchanged: true
 expired quote: quote expired; the action was invalidated and must be replanned; journal INVALIDATED
 evidence written to evidence/margin-rescue/fork/e2e-33472615
-exit 0

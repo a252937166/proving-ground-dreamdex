@@ -1,0 +1,120 @@
+{
+  "block": {
+    "hash": "0x2405d42a250fe5b4c3ba03a107ff4d0ac32c6f9c7384b82ce35ebc09b82ec9c1",
+    "number": "33472628",
+    "timestamp": "1792999410"
+  },
+  "fundingDrift": "0",
+  "reanalysis": {
+    "blockers": [],
+    "outcome": "CANDIDATE_SELECTED",
+    "selected": "ETH-75"
+  },
+  "reasons": [],
+  "refreshed": {
+    "costNow": "11079401158616400",
+    "goal": "MEETS",
+    "harmful": false,
+    "id": "ETH-75",
+    "kind": "REDUCE",
+    "label": "reduce ETH short by 75%",
+    "notionalReductionNow": "67414784598841383600",
+    "post": {
+      "legs": [
+        {
+          "avgEntryPrice": "80156656800000000000000",
+          "fundingOwed": "0",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "size": "125000"
+        },
+        {
+          "avgEntryPrice": "2316640000000000000000",
+          "fundingOwed": "0",
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "size": "-9700000000000000"
+        }
+      ],
+      "locked": "0",
+      "unlocked": "59988360000000000000"
+    },
+    "reasons": [],
+    "reduce": {
+      "depthReadExhausted": false,
+      "expectedFill": "29100000000000000",
+      "fees": "0",
+      "fills": [
+        {
+          "price": "2317040000000000000000",
+          "quantity": "29100000000000000"
+        }
+      ],
+      "fundingSettled": "0",
+      "isBid": true,
+      "limitPrice": "2328620000000000000000",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "realizedPnl": "-11640000000000000",
+      "requestedQuantity": "29100000000000000",
+      "symbol": "ETH",
+      "touch": "2317040000000000000000",
+      "unfilled": "0"
+    },
+    "remaining": [
+      {
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "size": "125000",
+        "symbol": "BTC"
+      },
+      {
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "size": "-9700000000000000",
+        "symbol": "ETH"
+      }
+    ],
+    "scenario": {
+      "buffer": "45803515257933466315",
+      "bufferLower": "45803515257933466315",
+      "bufferUpper": "45803515257933466315",
+      "cm": "1419614326629774807",
+      "eRisk": "48642743911193015927",
+      "eTotal": "48642743911193015927",
+      "healthRatioBps": "171323",
+      "im": "5678457306519099223",
+      "legs": [
+        {
+          "cm": "1124674644009843753",
+          "contribution": "-10221849479212499813",
+          "fundingOwed": "0",
+          "im": "4498698576039375010",
+          "mm": "2249349288019687505",
+          "notional": "89973971520787500187",
+          "pnlRoundsDifferently": true,
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "price": "71979177216630000150000",
+          "size": "125000",
+          "unrealizedPnl": "-10221849479212499813"
+        },
+        {
+          "cm": "294939682619931054",
+          "contribution": "-1123766609594484260",
+          "fundingOwed": "0",
+          "im": "1179758730479724213",
+          "mm": "589879365239862107",
+          "notional": "23595174609594484260",
+          "pnlRoundsDifferently": false,
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "price": "2432492227793245800000",
+          "size": "-9700000000000000",
+          "unrealizedPnl": "-1123766609594484260"
+        }
+      ],
+      "locked": "0",
+      "mm": "2839228653259549612",
+      "notional": "113569146130381984447",
+      "unlocked": "59988360000000000000"
+    },
+    "status": "EVALUATED",
+    "warnings": []
+  },
+  "stateChanges": [],
+  "verdict": "STILL_VALID"
+}

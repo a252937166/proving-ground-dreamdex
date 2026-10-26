@@ -7,7 +7,7 @@
 // candidate", never a global optimum.
 import { abs, fillFee, realizedPnl } from "./math.js"
 import { alignDown, protectiveLimit, simulateIoc, type Fill } from "./book.js"
-import { goalStatus, portfolioOf, valuePortfolio, SHOCKABLE, type GoalStatus, type Portfolio, type Scenario, type ScenarioValuation } from "./scenario.js"
+import { goalStatus, portfolioOf, scenarioCompatibility, valuePortfolio, SHOCKABLE, type GoalStatus, type Portfolio, type Scenario, type ScenarioValuation } from "./scenario.js"
 import { poolOf, sameAddress, type AccountSnapshot, type OrderRow, type StopRow } from "./snapshot.js"
 import type { Reconciliation } from "./reconcile.js"
 
@@ -17,6 +17,9 @@ export interface CandidateOptions {
   fractionsPct?: number[]
   slippageBps?: bigint
   includeCancel?: boolean
+  // Re-evaluate under an existing scenario at a LATER snapshot (the pre-send refresh):
+  // the snapshot must be compatible with the scenario instead of being its reference.
+  laterSnapshot?: boolean
 }
 
 export interface ReducePreview {
@@ -77,7 +80,10 @@ export function analyzeCandidates(s: Scenario, snapshot: AccountSnapshot, recon:
   const blockers = [...snapshot.problems]
   if (recon.verdict !== "EXACT") blockers.push(`reconciliation ${recon.verdict}: ${recon.reasons.join("; ")}`)
   if (snapshot.stops.error) blockers.push(`stops not listed: ${snapshot.stops.error}`)
-  if (s.reference.blockHash.toLowerCase() !== snapshot.block.hash.toLowerCase()) blockers.push("scenario was built from a different snapshot")
+  if (opts.laterSnapshot) {
+    if (snapshot.block.number < BigInt(s.reference.blockNumber)) blockers.push("snapshot is older than the scenario's reference block")
+    blockers.push(...scenarioCompatibility(s, snapshot))
+  } else if (s.reference.blockHash.toLowerCase() !== snapshot.block.hash.toLowerCase()) blockers.push("scenario was built from a different snapshot")
   // Account modes this version does not execute for. A linked child draws margin from a
   // main wallet and owes it principal; the guard's route pulls nothing, but the ledger
   // and the action's meaning differ, so such accounts are analysed and not acted on.

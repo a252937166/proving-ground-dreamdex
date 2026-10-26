@@ -1,0 +1,86 @@
+{
+  "checks": [
+    {
+      "detail": "block 33609494",
+      "name": "snapshot complete and canonical",
+      "ok": true
+    },
+    {
+      "detail": "21 pools read",
+      "name": "no position in any of the factory's pools",
+      "ok": true
+    },
+    {
+      "detail": "0 orders",
+      "name": "no resting order",
+      "ok": true
+    },
+    {
+      "detail": "0 listed, none live",
+      "name": "no live TP/SL stop",
+      "ok": true
+    },
+    {
+      "detail": "unlocked 0, locked 0",
+      "name": "bank balance withdrawn",
+      "ok": true
+    },
+    {
+      "detail": "0",
+      "name": "USDso allowance to the bank is zero",
+      "ok": true
+    },
+    {
+      "detail": "21 pools checked; global false",
+      "name": "guard holds no grant on any pool, nor a global one",
+      "ok": true
+    },
+    {
+      "detail": "none",
+      "name": "no unresolved transaction",
+      "ok": true
+    },
+    {
+      "detail": "every cleanup order went through the guard",
+      "name": "no unguarded order during cleanup",
+      "ok": true
+    }
+  ],
+  "closes": [
+    {
+      "actionId": "0x82fcce0a4951d382a3756c9b3aeb48c8bbba53b6531dc814a198227d7e7fb937",
+      "attempt": 1,
+      "bindingOk": true,
+      "expected": "62000",
+      "filled": "62000",
+      "limit": "79889700000000000000000",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "quantity": "62000",
+      "state": "CONFIRMED",
+      "symbol": "BTC",
+      "tx": "0x52c1fea8a12eb6e684abb4d07eb9b64c9adcd08077f70a0d915e4aa6fddf679c"
+    },
+    {
+      "actionId": "0xbaa3f875c9e27cff9caa096532d2b6c4db9e5f56d9e35c944fc62cbcd3be26b9",
+      "attempt": 1,
+      "bindingOk": true,
+      "expected": "-38700000000000000",
+      "filled": "38700000000000000",
+      "limit": "2334400000000000000000",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "quantity": "38700000000000000",
+      "state": "CONFIRMED",
+      "symbol": "ETH",
+      "tx": "0xc90cc6f6279aedd4b96afe45cddbdd74afd6dce566a3aea0b110d8e0f6403b99"
+    }
+  ],
+  "final": {
+    "block": "33609494",
+    "blockHash": "0x36fec9396b7bf2f01e2fc87f468576255851405a710879e487e7290a654b8b8d",
+    "stt": "9966066955470853132",
+    "usdso": "99937604436285451413"
+  },
+  "remaining": [],
+  "verified": true,
+  "version": "mr-cleanup/1"
+}

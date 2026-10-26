@@ -1,29 +1,37 @@
 {
+  "@somnia-chain/markets-sdk": "0.32.1",
+  "anvil": "anvil Version: 1.8.4",
+  "forge": "forge Version: 1.8.4",
+  "forge-std": {
+    "commit": "f3dae6e6ee381f25eb6a246f7da9b85c91a68219",
+    "tag": "v1.17.0"
+  },
+  "foundry_commit": "Commit SHA: 50af4efe189dc64bad2b75ed6990b835de66c4ae",
+  "git": {
+    "head": "42417630df79864d861b1a11f6fe60015e0b0ca7",
+    "repo": "proving-ground",
+    "uncommittedFiles": 98
+  },
+  "guard": {
+    "creationCodeKeccak": "0xfe518fcf8ca555a5b30a7fa051c5d9c31625bcdd4c0424447b12a41432cf1703",
+    "forTheTestEoa": {
+      "deployDataKeccak": "0x9917b8b6ee529eb0ab77abf107ee96c52e17f3e5f0336262a3be66507f067377",
+      "expectedRuntimeKeccak": "0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b"
+    },
+    "initBytes": 5329,
+    "runtimeBytes": 4294,
+    "runtimeKeccakBeforeImmutables": "0x322cf8dde983903a05255326d5869773d7d4f63533cae9ee67fb75fdb9d4aeb3",
+    "sourceSha256": {
+      "src/ReduceGuardChecks.sol": "f0db6b4d2f20a2771f884024662420665e6ed2a7de5d50bbd193877cdbeb4db4",
+      "src/ReduceOnlyGuard.sol": "aa878e306dc0070c8a4c9d332d756c0920cf46a7b5838929ceec6e6b8500757f",
+      "src/interfaces/IDreamDex.sol": "50af913372d43e1b82a774d648eacb09064b9ae64562cb4c5820c03283c86a81"
+    }
+  },
   "node": "v22.23.1",
   "npm": "10.9.8",
-  "typescript": "5.9.3",
-  "tsx": "4.23.15",
-  "viem": "2.57.7",
-  "@somnia-chain/markets-sdk": "0.32.1",
-  "forge": "forge Version: 1.8.4",
-  "anvil": "anvil Version: 1.8.4",
-  "foundry_commit": "Commit SHA: 50af4efe189dc64bad2b75ed6990b835de66c4ae",
-  "solc": "0.8.28 (optimizer 200 runs, evm cancun, bytecode_hash none, cbor_metadata false)",
-  "forge-std": {
-    "tag": "v1.17.0",
-    "commit": "f3dae6e6ee381f25eb6a246f7da9b85c91a68219"
-  },
   "os": "Darwin 27.0.0",
-  "guard": {
-    "source_sha256": "aa878e306dc0070c8a4c9d332d756c0920cf46a7b5838929ceec6e6b8500757f",
-    "checks_source_sha256": "f0db6b4d2f20a2771f884024662420665e6ed2a7de5d50bbd193877cdbeb4db4",
-    "runtime_bytes": 4294,
-    "runtime_keccak256": "0x322cf8dde983903a05255326d5869773d7d4f63533cae9ee67fb75fdb9d4aeb3",
-    "init_bytes": 5329
-  },
-  "git": {
-    "repo": "proving-ground",
-    "head_before_milestone_commit": "3ff3f652c3120bbc05ccffcb2e3680a67c1e31db",
-    "dirty_files": 12
-  }
+  "solc": "0.8.28+commit.7893614a (optimizer {\"enabled\":true,\"runs\":200}, evm cancun, bytecode_hash none, cbor_metadata false)",
+  "tsx": "4.23.15",
+  "typescript": "5.9.3",
+  "viem": "2.57.7"
 }

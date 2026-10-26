@@ -5,9 +5,10 @@ import { mkdtempSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 import { describe, it } from "node:test"
-import { getAddress, keccak256, toBytes, type Hex, type PublicClient } from "viem"
+import { getAddress, keccak256, toBytes, type Hex } from "viem"
 import { actionIdOf, REDUCE_TYPEHASH, reduceCalldata, type ReduceRequest } from "../../src/margin-rescue/action.js"
 import { ActionJournal, broadcast, JournalError, resolveAction } from "../../src/margin-rescue/journal.js"
+import { STRANGER_TX, StubChain } from "./mr-chain-stub.js"
 
 const binding = {
   chainId: 50383,
@@ -71,43 +72,26 @@ function journalWith() {
   return { j, make }
 }
 
-// A chain stub: tracks sent raw transactions and answers receipt/tx/nonce queries.
-function stubClient(state: { receipts?: Record<string, { status: "success" | "reverted" }>; pending?: string[]; nonce?: number; sent?: string[] }): PublicClient {
-  return {
-    request: async ({ method, params }: { method: string; params: unknown[] }) => {
-      if (method === "eth_sendRawTransaction") {
-        state.sent = [...(state.sent ?? []), params[0] as string]
-        return "0x"
-      }
-      throw new Error(`unexpected ${method}`)
-    },
-    getTransactionReceipt: async ({ hash }: { hash: Hex }) => {
-      const r = state.receipts?.[hash]
-      if (!r) throw new Error("not found")
-      return { ...r, blockNumber: 7n, blockHash: "0x07" }
-    },
-    getBlock: async () => ({ hash: "0x07" }),
-    getTransaction: async ({ hash }: { hash: Hex }) => {
-      if (state.pending?.includes(hash)) return { hash }
-      throw new Error("not found")
-    },
-    getTransactionCount: async () => state.nonce ?? 0,
-    getBlockNumber: async () => 0n,
-  } as unknown as PublicClient
-}
-
 describe("journal", () => {
+  // The journal's raw sends carry opaque bytes; the stub mines them under the next nonce.
+  const chain = (opts: { mine?: boolean; nonce?: number } = {}) => {
+    const c = new StubChain(opts.nonce ?? 5)
+    c.mine = opts.mine ?? false
+    return c
+  }
+
   it("persists the action before anything is sent, with the hash known first for raw sends", async () => {
     const { j, make } = journalWith()
     const rec = make("a")
     assert.equal(j.get(rec.actionId).tx.state, "NOT_SENT")
-    const state: { sent?: string[] } = {}
+    const c = chain()
     const raw = "0x02f8" as Hex
-    const after = await broadcast(j, rec.actionId, { kind: "raw", serialized: raw, from: binding.owner, nonce: 3 }, stubClient(state), 1_000n)
+    const after = await broadcast(j, rec.actionId, { kind: "raw", serialized: raw, from: binding.owner, nonce: 5 }, c.client(), 1_000n)
     assert.equal(after.tx.state, "PENDING")
     assert.equal(after.tx.hash, keccak256(raw))
-    assert.equal(after.tx.nonce, 3)
-    assert.deepEqual(state.sent, [raw])
+    assert.equal(after.tx.nonce, 5)
+    assert.equal(after.tx.sentAfterBlock, "100")
+    assert.deepEqual(c.sent, [raw])
     assert.deepEqual(
       j.get(rec.actionId).history.map((h) => h.event),
       ["created", "pending"],
@@ -117,7 +101,7 @@ describe("journal", () => {
   it("allows one unsettled action per owner at a time", async () => {
     const { j, make } = journalWith()
     const first = make("a")
-    await broadcast(j, first.actionId, { kind: "raw", serialized: "0x01", from: binding.owner, nonce: 1 }, stubClient({}), 1_000n)
+    await broadcast(j, first.actionId, { kind: "raw", serialized: "0x01", from: binding.owner, nonce: 5 }, chain().client(), 1_000n)
     assert.throws(() => make("b"), JournalError)
   })
 
@@ -130,10 +114,10 @@ describe("journal", () => {
   it("invalidates an expired quote instead of sending it", async () => {
     const { j, make } = journalWith()
     const rec = make("late", "999")
-    const state: { sent?: string[] } = {}
-    await assert.rejects(broadcast(j, rec.actionId, { kind: "raw", serialized: "0x01", from: binding.owner, nonce: 1 }, stubClient(state), 1_000n), /expired/)
+    const c = chain()
+    await assert.rejects(broadcast(j, rec.actionId, { kind: "raw", serialized: "0x01", from: binding.owner, nonce: 5 }, c.client(), 1_000n), /expired/)
     assert.equal(j.get(rec.actionId).tx.state, "INVALIDATED")
-    assert.equal(state.sent, undefined, "nothing left the process")
+    assert.equal(c.sent.length, 0, "nothing left the process")
   })
 
   it("settles from the original hash and never re-sends", async () => {
@@ -141,25 +125,41 @@ describe("journal", () => {
     const rec = make("a")
     const raw = "0x0abc" as Hex
     const hash = keccak256(raw)
-    const state: { sent?: string[]; receipts?: Record<string, { status: "success" | "reverted" }>; pending?: string[]; nonce?: number } = { pending: [hash] }
-    await broadcast(j, rec.actionId, { kind: "raw", serialized: raw, from: binding.owner, nonce: 5 }, stubClient(state), 1_000n)
-    assert.equal((await resolveAction(j, rec.actionId, stubClient(state))).tx.state, "PENDING", "still in the mempool")
-    state.pending = []
-    state.nonce = 5
-    assert.equal((await resolveAction(j, rec.actionId, stubClient(state))).tx.state, "UNKNOWN", "no receipt and nonce not yet used")
-    state.receipts = { [hash]: { status: "reverted" } }
-    const settled = await resolveAction(j, rec.actionId, stubClient(state))
+    const c = chain()
+    await broadcast(j, rec.actionId, { kind: "raw", serialized: raw, from: binding.owner, nonce: 5 }, c.client(), 1_000n)
+    assert.equal((await resolveAction(j, rec.actionId, c.client())).tx.state, "PENDING", "still in the mempool")
+    c.mempool.delete(hash)
+    assert.equal((await resolveAction(j, rec.actionId, c.client())).tx.state, "UNKNOWN", "not known to the node and its nonce still free")
+    c.include({ hash, from: binding.owner, nonce: 5 }, "reverted")
+    const settled = await resolveAction(j, rec.actionId, c.client())
     assert.equal(settled.tx.state, "REVERTED")
-    assert.equal(state.sent?.length, 1, "the action was broadcast exactly once")
+    assert.equal(c.sent.length, 1, "the action was broadcast exactly once")
   })
 
-  it("marks a hash that lost its nonce to another transaction as not included", async () => {
+  it("marks a hash as not included only when another transaction for its nonce is located", async () => {
     const { j, make } = journalWith()
     const rec = make("a")
-    const state: { nonce?: number } = {}
-    await broadcast(j, rec.actionId, { kind: "raw", serialized: "0x0def", from: binding.owner, nonce: 9 }, stubClient(state), 1_000n)
-    state.nonce = 10
-    assert.equal((await resolveAction(j, rec.actionId, stubClient(state))).tx.state, "NOT_INCLUDED")
+    const c = chain()
+    await broadcast(j, rec.actionId, { kind: "raw", serialized: "0x0def", from: binding.owner, nonce: 5 }, c.client(), 1_000n)
+    c.mempool.clear()
+    c.replace(5)
+    const settled = await resolveAction(j, rec.actionId, c.client())
+    assert.equal(settled.tx.state, "NOT_INCLUDED")
+    assert.equal(settled.tx.replacedBy, STRANGER_TX)
+  })
+
+  it("keeps an action UNKNOWN when its own mined transaction cannot be looked up", async () => {
+    const { j, make } = journalWith()
+    const rec = make("a")
+    const raw = "0x0bad" as Hex
+    const c = chain({ mine: true })
+    await broadcast(j, rec.actionId, { kind: "raw", serialized: raw, from: binding.owner, nonce: 5 }, c.client(), 1_000n)
+    c.outage.add("receipt")
+    c.outage.add("transaction")
+    const r = await resolveAction(j, rec.actionId, c.client())
+    assert.equal(r.tx.state, "UNKNOWN", "a used nonce is not proof of replacement")
+    c.outage.clear()
+    assert.equal((await resolveAction(j, rec.actionId, c.client())).tx.state, "CONFIRMED")
   })
 
   it("rejects illegal transitions", () => {

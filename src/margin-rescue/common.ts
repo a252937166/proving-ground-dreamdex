@@ -22,18 +22,58 @@ export function readBigJson<T>(path: string): T {
   return JSON.parse(readFileSync(path, "utf8"), (_k, v) => (typeof v === "string" && /^-?\d+$/.test(v) ? BigInt(v) : v)) as T
 }
 
+export const STOP_PAGE_SIZE = 200
+export const STOP_MAX_PAGES = 100
+
+type StopRef = { registry: string; orderIdRaw: string; status: string }
+
 // TP/SL stops have no on-chain enumeration; list them from the indexer (every status,
 // so a stop live at an older block is not missed) and let the snapshot check each one
-// on chain at its pinned block.
+// on chain at its pinned block. The listing is paged to the end, and the indexer's
+// processed height is read first, so a snapshot pinned past it is refused instead of
+// trusted.
 export function stopLister(indexerUrl?: string): StopLister {
   const cfg = loadConfig()
-  const markets = createMarkets(indexerUrl ? { ...cfg, indexerUrl } : cfg)
-  return async (account) =>
-    (await markets.client.listPerpStopOrders({ account, status: ["PENDING", "TRIGGERED", "TRIGGER_FAILED", "CANCELLED"], limit: 200 })).map((s) => ({
-      registry: s.registry,
-      orderIdRaw: s.orderIdRaw,
-      status: s.status,
-    }))
+  const url = indexerUrl ?? cfg.indexerUrl
+  const markets = createMarkets({ ...cfg, indexerUrl: url })
+  return async (account) => {
+    const indexedThrough = await indexerWatermark(url)
+    const listed = await pageAllStops((offset, limit) =>
+      markets.client.listPerpStopOrders({ account, status: ["PENDING", "TRIGGERED", "TRIGGER_FAILED", "CANCELLED"], limit, offset }).then((rows) =>
+        rows.map((s) => ({ registry: s.registry, orderIdRaw: s.orderIdRaw, status: s.status })),
+      ),
+    )
+    return { ...listed, indexedThrough }
+  }
+}
+
+// Page through a newest-first listing until a short page. A stop created while paging
+// shifts later rows down one place, which repeats a row rather than skipping one, so
+// rows are de-duplicated; every status is listed, so none drops out mid-way.
+export async function pageAllStops(
+  listPage: (offset: number, limit: number) => Promise<StopRef[]>,
+  pageSize = STOP_PAGE_SIZE,
+  maxPages = STOP_MAX_PAGES,
+): Promise<{ rows: StopRef[]; pages: number }> {
+  const seen = new Map<string, StopRef>()
+  for (let page = 0; page < maxPages; page++) {
+    const rows = await listPage(page * pageSize, pageSize)
+    for (const r of rows) seen.set(`${r.registry.toLowerCase()}:${r.orderIdRaw}`, r)
+    if (rows.length < pageSize) return { rows: [...seen.values()], pages: page + 1 }
+  }
+  throw new Error(`more than ${maxPages * pageSize} stop records; the listing was not completed`)
+}
+
+export async function indexerWatermark(url: string): Promise<bigint | null> {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ query: "query Watermark { chain_metadata { chain_id latest_processed_block } }" }),
+    signal: AbortSignal.timeout(20_000),
+  })
+  const body = (await res.json()) as { data?: { chain_metadata?: { chain_id: number; latest_processed_block: number | null }[] } }
+  const row = body.data?.chain_metadata?.find((r) => r.chain_id === 50383)
+  return row?.latest_processed_block == null ? null : BigInt(row.latest_processed_block)
 }
 
 export interface AnalysisFiles {

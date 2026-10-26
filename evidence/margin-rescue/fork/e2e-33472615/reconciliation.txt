@@ -2,9 +2,9 @@ Margin Rescue: independent account reconciliation (read-only)
   account             0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745
   chain / bank        50383 / 0x478769E1177C0773c43A593DCCc4Ad15F15F1394
   block               33472616  0x10d2a7b468c4be0cc5acbe39068d242ce0958615ef21f325f83c207d366f89be  (2026-10-26T07:23:30.000Z)
-  canonical recheck   yes at 2026-10-26T08:29:05.786Z
+  canonical recheck   yes at 2026-10-26T13:56:32.384Z
   pools               6 active of 21 deployed; outside active: positions 0, orders 0
-  resting orders      0   stops listed 2 (live at block: 0; indexer-listed, chain-checked)
+  resting orders      0   stops listed 2 (live at block: 0; indexer-listed, chain-checked, 1 page(s), indexer through block 33708297)
 
   leg      size                        entry             mark              PnL (floor)        funding owed     MM
   BTC                         0.05555          82,166.3       79,976.8635        -121.623193       104.287606  111.067869

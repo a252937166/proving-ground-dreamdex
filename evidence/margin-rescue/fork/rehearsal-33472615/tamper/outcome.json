@@ -1,0 +1,54 @@
+{
+  "checks": [
+    {
+      "detail": "{\"label\":\"as recorded\",\"goal\":\"GOAL_MET\",\"binding\":{\"ok\":true,\"failures\":[]}}",
+      "name": "the recorded evidence recomputes to GOAL_MET",
+      "ok": true
+    },
+    {
+      "detail": "[\"guard event action id 0xabababababababababababababababababababababababababababababababab is not the confirmed 0x98c49c09b676a37480be2fc3509ab86c970e882c266f102c2c402c09dccd87eb\"]",
+      "name": "guard event with another action id → EVIDENCE_MISMATCH",
+      "ok": true
+    },
+    {
+      "detail": "[\"transaction calldata differs from the confirmed calldata\"]",
+      "name": "calldata for a different limit → EVIDENCE_MISMATCH",
+      "ok": true
+    },
+    {
+      "detail": "[\"destination 0xc5856dfE3cc07d2A2f3A44F75bd52F1b1fdF782d is not the guard 0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\"]",
+      "name": "another destination → EVIDENCE_MISMATCH",
+      "ok": true
+    },
+    {
+      "detail": "[\"sender 0xc5856dfE3cc07d2A2f3A44F75bd52F1b1fdF782d is not the owner 0xd960976f3af59e7C112D918e0452F41fa89a3799\"]",
+      "name": "another sender → EVIDENCE_MISMATCH",
+      "ok": true
+    },
+    {
+      "detail": "[\"post snapshot block 33472626 0xbbda295665908e3a4a67013829da1eb9608538e99e9b64775817a532546ee445 is not the receipt block 33472627 0xbbda295665908e3a4a67013829da1eb9608538e99e9b64775817a532546ee445\"]",
+      "name": "post snapshot from the block before the receipt → EVIDENCE_MISMATCH",
+      "ok": true
+    },
+    {
+      "detail": "[\"the saved action id does not commit to the saved request and binding\",\"the saved calldata does not encode the saved request\",\"guard event quantity 62000 is not the confirmed 61999\",\"candidate BTC-50 (62000 @ 79743900000000000000000) is not the confirmed request (61999 @ 79743900000000000000000)\"]",
+      "name": "a confirmation for another quantity → EVIDENCE_MISMATCH",
+      "ok": true
+    }
+  ],
+  "expected": "recorded → GOAL_MET; every altered variant → EVIDENCE_MISMATCH",
+  "observed": {
+    "results": [
+      "as recorded: GOAL_MET",
+      "guard event with another action id: EVIDENCE_MISMATCH",
+      "calldata for a different limit: EVIDENCE_MISMATCH",
+      "another destination: EVIDENCE_MISMATCH",
+      "another sender: EVIDENCE_MISMATCH",
+      "post snapshot from the block before the receipt: EVIDENCE_MISMATCH",
+      "a confirmation for another quantity: EVIDENCE_MISMATCH"
+    ],
+    "seconds": 0
+  },
+  "pass": true,
+  "scenario": "tamper"
+}

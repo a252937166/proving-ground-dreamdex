@@ -1,0 +1,12 @@
+{"at":"2026-10-26T14:02:36.380Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
+{"at":"2026-10-26T14:02:39.614Z","step":"guard verified","guard":"0x9f28a92015cd0cd542ea8bdd50973117fc6925ab","runtimeKeccak":"0x96a66a2b5d4afcfb4c80c7c683a7c6a7781f96251e651b09e1609a2c0bd54518"}
+{"at":"2026-10-26T14:02:45.973Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
+{"at":"2026-10-26T14:02:47.518Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
+{"at":"2026-10-26T14:02:47.960Z","step":"main flow stopped","reason":"rehearsal: run interrupted after opening both legs"}
+{"at":"2026-10-26T14:02:57.159Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"CONFIRMED","filled":"41000"}
+{"at":"2026-10-26T14:03:05.212Z","step":"cleanup close","symbol":"BTC","attempt":2,"state":"CONFIRMED","filled":"28000"}
+{"at":"2026-10-26T14:03:12.536Z","step":"cleanup close","symbol":"BTC","attempt":3,"state":"CONFIRMED","filled":"56000"}
+{"at":"2026-10-26T14:03:26.684Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"12900000000000000"}
+{"at":"2026-10-26T14:03:34.359Z","step":"cleanup close","symbol":"ETH","attempt":2,"state":"CONFIRMED","filled":"8600000000000000"}
+{"at":"2026-10-26T14:03:39.345Z","step":"cleanup close","symbol":"ETH","attempt":3,"state":"CONFIRMED","filled":"17300000000000000"}
+{"at":"2026-10-26T14:03:47.119Z","step":"result","status":"ABORTED","exitCode":20,"reason":"rehearsal: run interrupted after opening both legs"}

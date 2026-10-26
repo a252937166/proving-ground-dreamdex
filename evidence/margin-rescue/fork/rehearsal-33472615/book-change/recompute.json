@@ -1,0 +1,289 @@
+{
+  "actionId": "0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397",
+  "actual": {
+    "currentHealth": {
+      "buffer": "56702364742915652473",
+      "eRisk": "59763431601261205675",
+      "mm": "3061066858345553202"
+    },
+    "scenario": {
+      "buffer": "45803515257933466315",
+      "bufferLower": "45803515257933466315",
+      "bufferUpper": "45803515257933466315",
+      "cm": "1419614326629774807",
+      "eRisk": "48642743911193015927",
+      "eTotal": "48642743911193015927",
+      "healthRatioBps": "171323",
+      "im": "5678457306519099223",
+      "legs": [
+        {
+          "cm": "1124674644009843753",
+          "contribution": "-10221849479212499813",
+          "fundingOwed": "0",
+          "im": "4498698576039375010",
+          "mm": "2249349288019687505",
+          "notional": "89973971520787500187",
+          "pnlRoundsDifferently": true,
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "price": "71979177216630000150000",
+          "size": "125000",
+          "unrealizedPnl": "-10221849479212499813"
+        },
+        {
+          "cm": "294939682619931054",
+          "contribution": "-1123766609594484260",
+          "fundingOwed": "0",
+          "im": "1179758730479724213",
+          "mm": "589879365239862107",
+          "notional": "23595174609594484260",
+          "pnlRoundsDifferently": false,
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "price": "2432492227793245800000",
+          "size": "-9700000000000000",
+          "unrealizedPnl": "-1123766609594484260"
+        }
+      ],
+      "locked": "0",
+      "mm": "2839228653259549612",
+      "notional": "113569146130381984447",
+      "unlocked": "59988360000000000000"
+    }
+  },
+  "baseline": {
+    "scenario": {
+      "buffer": "40674217333430427216",
+      "bufferLower": "40674217333430427216",
+      "bufferUpper": "40674217333430427216",
+      "cm": "2304433374489567966",
+      "eRisk": "45283084082409563147",
+      "eTotal": "45283084082409563147",
+      "healthRatioBps": "98252",
+      "im": "9217733497958271862",
+      "legs": [
+        {
+          "cm": "1124674644009843753",
+          "contribution": "-10221849479212499813",
+          "fundingOwed": "0",
+          "im": "4498698576039375010",
+          "mm": "2249349288019687505",
+          "notional": "89973971520787500187",
+          "pnlRoundsDifferently": true,
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "price": "71979177216630000150000",
+          "size": "125000",
+          "unrealizedPnl": "-10221849479212499813"
+        },
+        {
+          "cm": "1179758730479724213",
+          "contribution": "-4495066438377937040",
+          "fundingOwed": "0",
+          "im": "4719034921918896852",
+          "mm": "2359517460959448426",
+          "notional": "94380698438377937040",
+          "pnlRoundsDifferently": false,
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "price": "2432492227793245800000",
+          "size": "-38800000000000000",
+          "unrealizedPnl": "-4495066438377937040"
+        }
+      ],
+      "locked": "0",
+      "mm": "4608866748979135931",
+      "notional": "184354669959165437227",
+      "unlocked": "60000000000000000000"
+    }
+  },
+  "binding": {
+    "failures": [],
+    "ok": true
+  },
+  "candidateId": "ETH-75",
+  "differences": {
+    "bufferVsForecast": "0",
+    "fillVsForecast": "0",
+    "untouchedLegsFundingDrift": "0"
+  },
+  "externalChanges": [],
+  "fill": {
+    "filled": "29100000000000000",
+    "fills": [
+      {
+        "price": "2317040000000000000000",
+        "quantity": "29100000000000000"
+      }
+    ],
+    "priceBoundRespected": true,
+    "requested": "29100000000000000",
+    "state": "REQUESTED_FILL",
+    "unfilled": "0"
+  },
+  "goal": {
+    "reason": "scenario buffer 45803515257933466315 ≥ target 45000000000000000000",
+    "state": "GOAL_MET"
+  },
+  "ledger": {
+    "checks": [
+      {
+        "expected": "-38800000000000000",
+        "name": "guard saw the confirmed position",
+        "observed": "-38800000000000000",
+        "ok": true
+      },
+      {
+        "expected": "-9700000000000000",
+        "name": "guard event matches the post size",
+        "observed": "-9700000000000000",
+        "ok": true
+      },
+      {
+        "expected": "-9700000000000000",
+        "name": "size moved by exactly the fills",
+        "observed": "-9700000000000000",
+        "ok": true
+      },
+      {
+        "expected": "same side or flat",
+        "name": "no flip and no growth",
+        "observed": "-9700000000000000",
+        "ok": true
+      },
+      {
+        "expected": "limit 2328620000000000000000",
+        "name": "every fill inside the confirmed limit",
+        "observed": "2317040000000000000000",
+        "ok": true
+      },
+      {
+        "expected": "false",
+        "name": "IOC left nothing resting",
+        "observed": "false",
+        "ok": true
+      },
+      {
+        "expected": "-11640000000000000",
+        "name": "realized PnL = floor per fill",
+        "observed": "-11640000000000000",
+        "ok": true
+      },
+      {
+        "expected": "0",
+        "name": "funding settled once, on the whole position",
+        "observed": "0",
+        "ok": true
+      },
+      {
+        "expected": "0",
+        "name": "fees = rate on each fill's notional",
+        "observed": "0",
+        "ok": true
+      },
+      {
+        "expected": "2316640000000000000000",
+        "name": "entry kept on a partial close",
+        "observed": "2316640000000000000000",
+        "ok": true
+      },
+      {
+        "expected": "21643722683000819243720643463148437500",
+        "name": "funding index reset",
+        "observed": "21643722683000819243720643463148437500",
+        "ok": true
+      },
+      {
+        "expected": "0",
+        "name": "transient margin lock released",
+        "observed": "0",
+        "ok": true
+      },
+      {
+        "expected": "-11640000000000000",
+        "name": "unlocked moved by realized − funding − fees",
+        "observed": "-11640000000000000",
+        "ok": true
+      },
+      {
+        "expected": "0",
+        "name": "locked collateral unchanged",
+        "observed": "0",
+        "ok": true
+      },
+      {
+        "expected": "none",
+        "name": "no wallet pull, deposit or withdrawal",
+        "observed": "none",
+        "ok": true
+      },
+      {
+        "expected": "40000000000000000000/0",
+        "name": "wallet USDso and allowance unchanged",
+        "observed": "40000000000000000000/0",
+        "ok": true
+      },
+      {
+        "expected": "none",
+        "name": "no other bank rows for the owner",
+        "observed": "none",
+        "ok": true
+      }
+    ],
+    "fees": "0",
+    "fundingSettled": "0",
+    "realizedPnl": "-11640000000000000"
+  },
+  "planned": {
+    "expectedFill": "29100000000000000",
+    "requested": "29100000000000000",
+    "scenario": {
+      "buffer": "45803515257933466315",
+      "bufferLower": "45803515257933466315",
+      "bufferUpper": "45803515257933466315",
+      "cm": "1419614326629774807",
+      "eRisk": "48642743911193015927",
+      "eTotal": "48642743911193015927",
+      "healthRatioBps": "171323",
+      "im": "5678457306519099223",
+      "legs": [
+        {
+          "cm": "1124674644009843753",
+          "contribution": "-10221849479212499813",
+          "fundingOwed": "0",
+          "im": "4498698576039375010",
+          "mm": "2249349288019687505",
+          "notional": "89973971520787500187",
+          "pnlRoundsDifferently": true,
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "price": "71979177216630000150000",
+          "size": "125000",
+          "unrealizedPnl": "-10221849479212499813"
+        },
+        {
+          "cm": "294939682619931054",
+          "contribution": "-1123766609594484260",
+          "fundingOwed": "0",
+          "im": "1179758730479724213",
+          "mm": "589879365239862107",
+          "notional": "23595174609594484260",
+          "pnlRoundsDifferently": false,
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "price": "2432492227793245800000",
+          "size": "-9700000000000000",
+          "unrealizedPnl": "-1123766609594484260"
+        }
+      ],
+      "locked": "0",
+      "mm": "2839228653259549612",
+      "notional": "113569146130381984447",
+      "unlocked": "59988360000000000000"
+    }
+  },
+  "postReconciliation": "EXACT",
+  "scenarioId": "abf03e16392495014d86246b853ac75709db381527934242c233523ce9377b0b",
+  "tx": {
+    "blockHash": "0x39d4536d84b1316e62bcfe3c87841d0e39b9b15e5098d34ddd56ba3791bc06ce",
+    "blockNumber": "33472629",
+    "canonical": true,
+    "hash": "0x277d9c79baca825e41213938cc28433ab7d181a5aeacecb3c60f15851580bb35",
+    "status": "success"
+  },
+  "version": "mr-recompute/2"
+}

@@ -95,9 +95,11 @@ export interface StopListing {
   source: "indexer-listed, chain-checked" | "not listed"
   rows: StopRow[]
   error: string | null
+  pages?: number
+  indexedThrough?: bigint | null
 }
 
-export type StopLister = (account: Address) => Promise<{ registry: string; orderIdRaw: string; status: string }[]>
+export type StopLister = (account: Address) => Promise<{ rows: { registry: string; orderIdRaw: string; status: string }[]; pages: number; indexedThrough: bigint | null }>
 
 export interface AccountSnapshot {
   version: typeof SNAPSHOT_VERSION
@@ -243,7 +245,7 @@ export async function readAccountSnapshot(client: PublicClient, opts: SnapshotOp
     return { pool, bids: bids.map((l) => ({ price: l.price, quantity: l.quantity })), asks: asks.map((l) => ({ price: l.price, quantity: l.quantity })) }
   })
 
-  const stops = await listStops(opts, pools, at)
+  const stops = await listStops(opts, pools, at, block)
   if (stops.error) problems.push(`stops not listed: ${stops.error}`)
 
   const canonical = await checkCanonical(client, block)
@@ -275,7 +277,7 @@ export async function readAccountSnapshot(client: PublicClient, opts: SnapshotOp
   }
 }
 
-type At = <T>(address: Address, abi: Parameters<typeof readAt>[2]["abi"], functionName: string, args?: readonly unknown[], from?: Address) => Promise<T>
+export type At = <T>(address: Address, abi: Parameters<typeof readAt>[2]["abi"], functionName: string, args?: readonly unknown[], from?: Address) => Promise<T>
 
 async function readPoolInfo(pool: Address, at: At, factory: Address, bank: Address, problems: string[]): Promise<PoolInfo> {
   type Snap = readonly [boolean, { oneBase: bigint; markPrice: bigint; projectedCumulativeFunding: bigint; effectiveIMFBps: bigint; maintenanceMarginBps: bigint; closeOutMarginBps: bigint }]
@@ -318,7 +320,7 @@ async function readPoolInfo(pool: Address, at: At, factory: Address, bank: Addre
   }
 }
 
-async function listStops(opts: SnapshotOptions, pools: PoolInfo[], at: At): Promise<StopListing> {
+export async function listStops(opts: Pick<SnapshotOptions, "account" | "listStops">, pools: PoolInfo[], at: At, block: BlockRef): Promise<StopListing> {
   if (!opts.listStops) return { source: "not listed", rows: [], error: "no stop lister configured" }
   let listed: Awaited<ReturnType<StopLister>>
   try {
@@ -326,8 +328,13 @@ async function listStops(opts: SnapshotOptions, pools: PoolInfo[], at: At): Prom
   } catch (e) {
     return { source: "not listed", rows: [], error: shortError(e) }
   }
+  const { pages, indexedThrough } = listed
+  if (indexedThrough === null) return { source: "not listed", rows: [], error: "the indexer did not report its processed height", pages, indexedThrough }
+  if (indexedThrough < block.number) {
+    return { source: "not listed", rows: [], error: `the indexer has processed only through block ${indexedThrough}, before the pinned block ${block.number}; stops created in between could be missing`, pages, indexedThrough }
+  }
   type Pending = readonly [boolean, { orderWithTrigger: { order: { isBid: boolean; owner: Address; quantity: bigint }; orderType: number; triggerPrice: bigint; triggerOperator: number }; somiPaid: bigint; intent: number }]
-  const rows = await mapLimit(listed, 4, async (s) => {
+  const rows = await mapLimit(listed.rows, 4, async (s) => {
     const registry = s.registry as Address
     const [live, o] = await at<Pending>(registry, perpStopRegistryAbi, "getPendingOrder", [BigInt(s.orderIdRaw)])
     const pool = pools.find((p) => p.stopRegistry && sameAddress(p.stopRegistry, registry))?.pool ?? null
@@ -346,7 +353,7 @@ async function listStops(opts: SnapshotOptions, pools: PoolInfo[], at: At): Prom
       somiPaid: o.somiPaid,
     }
   })
-  return { source: "indexer-listed, chain-checked", rows, error: null }
+  return { source: "indexer-listed, chain-checked", rows, error: null, pages, indexedThrough }
 }
 
 function unique(addresses: Address[]): Address[] {

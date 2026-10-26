@@ -1,0 +1,109 @@
+{
+  "cleanup": {
+    "checks": [
+      {
+        "detail": "block 33472634",
+        "name": "snapshot complete and canonical",
+        "ok": true
+      },
+      {
+        "detail": "21 pools read",
+        "name": "no position in any of the factory's pools",
+        "ok": true
+      },
+      {
+        "detail": "0 orders",
+        "name": "no resting order",
+        "ok": true
+      },
+      {
+        "detail": "0 listed, none live",
+        "name": "no live TP/SL stop",
+        "ok": true
+      },
+      {
+        "detail": "unlocked 0, locked 0",
+        "name": "bank balance withdrawn",
+        "ok": true
+      },
+      {
+        "detail": "0",
+        "name": "USDso allowance to the bank is zero",
+        "ok": true
+      },
+      {
+        "detail": "21 pools checked; global false",
+        "name": "guard holds no grant on any pool, nor a global one",
+        "ok": true
+      },
+      {
+        "detail": "none",
+        "name": "no unresolved transaction",
+        "ok": true
+      },
+      {
+        "detail": "every cleanup order went through the guard",
+        "name": "no unguarded order during cleanup",
+        "ok": true
+      }
+    ],
+    "closes": [
+      {
+        "actionId": "0x311e83e7a175bae34d404333b4918c2025399918dc838ea951c27c4ad7316e82",
+        "attempt": 1,
+        "bindingOk": true,
+        "expected": "63000",
+        "filled": "63000",
+        "limit": "79743900000000000000000",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "63000",
+        "state": "CONFIRMED",
+        "symbol": "BTC",
+        "tx": "0x3fce9112ab1dbf9e41de132b42a71eb4b46a9d8b0a439375cae888861a41bd64"
+      },
+      {
+        "actionId": "0x880f1995e4240354442671df9f72469c024d126735d157e3efc51808ed5d88d9",
+        "attempt": 1,
+        "bindingOk": true,
+        "expected": "-38800000000000000",
+        "filled": "38800000000000000",
+        "limit": "2328620000000000000000",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "quantity": "38800000000000000",
+        "state": "CONFIRMED",
+        "symbol": "ETH",
+        "tx": "0x9d61ca863a6f0f22f8b930b6ae3fc6aa36132c128ed2c13b88d876ab7e2b6878"
+      }
+    ],
+    "final": {
+      "block": "33472634",
+      "blockHash": "0xead42e77eecf87117b9ed190ed3234c2a07290bbb5c0607b904051f868d46203",
+      "stt": "9965699475109908374",
+      "usdso": "99969409000000000000"
+    },
+    "remaining": [],
+    "verified": true,
+    "version": "mr-cleanup/1"
+  },
+  "exitCode": 0,
+  "foreignActivity": [],
+  "gas": {
+    "cap": "2000000000000000000",
+    "committed": "0",
+    "spent": "34300524890091626"
+  },
+  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "invalidated": [],
+  "reason": null,
+  "rescue": {
+    "actionId": "0xb32ad76f26ccf1b3172cc494aa3c01573b1664dbdab193c696a6812c8e2db31c",
+    "fill": "REQUESTED_FILL",
+    "goal": "GOAL_MET",
+    "goalReason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
+    "tx": "0xfc8d9a0af5ef9df6c4b05b2b7ae5552329d7d49655f65c67404fc20418ff8368",
+    "txState": "CONFIRMED"
+  },
+  "sentTransactions": 13,
+  "status": "COMPLETE",
+  "version": "mr-live-run/3"
+}

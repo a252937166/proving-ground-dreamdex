@@ -1,0 +1,73 @@
+{
+  "anvil": "anvil Version: 1.8.4",
+  "clockHeldAt": "1792999410",
+  "forkBlock": "33472615",
+  "forkBlockHash": "0x4fc3feaf3c2870434fe5cc88207b830bee0a435cf8b1378cf5f42ce23fe34000",
+  "label": "fork",
+  "outcomes": [
+    {
+      "expected": "exit 0, COMPLETE, GOAL_MET, cleanup verified",
+      "failed": [],
+      "pass": true,
+      "scenario": "happy"
+    },
+    {
+      "expected": "recorded → GOAL_MET; every altered variant → EVIDENCE_MISMATCH",
+      "failed": [],
+      "pass": true,
+      "scenario": "tamper"
+    },
+    {
+      "expected": "first confirmation INVALIDATED (book changed), one re-confirmation under the same scenario sent; cleanup verified",
+      "failed": [],
+      "pass": true,
+      "scenario": "book-change"
+    },
+    {
+      "expected": "PARTIAL_FILL recomputed from the fills; exit 10 unless the actual fill still meets the goal; cleanup verified",
+      "failed": [],
+      "pass": true,
+      "scenario": "partial-fill"
+    },
+    {
+      "expected": "INVALIDATED (position changed); nothing sent; ABORTED on foreign activity (exit 20); cleanup verified",
+      "failed": [],
+      "pass": true,
+      "scenario": "owner-change"
+    },
+    {
+      "expected": "exit 40 with the reduction UNKNOWN and nothing else sent; after mining, --resume settles it (sent once), recomputes, cleans up: exit 0",
+      "failed": [],
+      "pass": true,
+      "scenario": "timeout"
+    },
+    {
+      "expected": "mined but unobservable: UNKNOWN, fee reserved, nothing else sent (exit 40); after recovery --resume settles it CONFIRMED with its fee and finishes (exit 0)",
+      "failed": [],
+      "pass": true,
+      "scenario": "rpc-outage"
+    },
+    {
+      "expected": "REFUSED (exit 1) with zero signatures and broadcasts; collateral 4 USDso and allowance 6 USDso untouched",
+      "failed": [],
+      "pass": true,
+      "scenario": "preflight-refusal"
+    },
+    {
+      "expected": "interrupted with both legs open and an allowance set: 12 cleanup transactions, all inside the reserve; cleanup verified (exit 20)",
+      "failed": [],
+      "pass": true,
+      "scenario": "cleanup-retries"
+    },
+    {
+      "expected": "guarded BTC closes find no liquidity; no unguarded fallback; CLEANUP_INCOMPLETE (exit 30)",
+      "failed": [],
+      "pass": true,
+      "scenario": "cleanup-fail"
+    }
+  ],
+  "owner": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+  "planDigest": "51cb547625b3c54f64da62e2be5619f9e1f38b81d5d5c674db0586d99865f3f9",
+  "thirdParty": "0xc5856dfE3cc07d2A2f3A44F75bd52F1b1fdF782d",
+  "warning": "Local anvil fork of Hideki with throwaway accounts funded on the fork. Nothing here was broadcast to the live network."
+}

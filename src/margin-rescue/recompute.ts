@@ -1,21 +1,24 @@
 // Recompute the SAME scenario from what actually happened.
 //
-// Inputs: the scenario and the candidate's forecast, the snapshot taken just before
-// sending (pre), the decoded receipt, a snapshot at the receipt's block (post), and
-// every MarginBank row naming the owner between the two. The ledger between pre and
-// post must be explained by this transaction's own rows; anything else marks the
-// result BASELINE_CHANGED rather than crediting the action with it. The remaining
-// portfolio is then valued at the scenario's ORIGINAL absolute prices.
+// Inputs: the saved confirmation (journal record), the scenario and the analysis it
+// came from, the snapshot taken just before sending (pre), the decoded receipt, a
+// snapshot at the receipt's block (post), and every MarginBank row naming the owner
+// between the two. First the receipt is bound to the confirmation (sender, guard,
+// calldata, action id, pool, quantity, limit, deadline, blocks); evidence that does not
+// match is rejected as EVIDENCE_MISMATCH. Then the ledger between pre and post must be
+// explained by this transaction's own rows; anything else marks the result
+// BASELINE_CHANGED rather than crediting the action with it. The remaining portfolio
+// is valued at the scenario's ORIGINAL absolute prices.
 import type { Address, Hex, Log, PublicClient } from "viem"
 import { fillFee, fundingOwed, realizedPnl } from "./math.js"
 import { goalStatus, portfolioOf, scenarioCompatibility, valuePortfolio, type Scenario, type ScenarioValuation } from "./scenario.js"
 import { poolOf, sameAddress, type AccountSnapshot } from "./snapshot.js"
 import { reconcile } from "./reconcile.js"
-import { decodeLogs, fillState, type ActionReceipt, type DecodedLog } from "./receipt.js"
+import { decodeLogs, fillState, requestOf, verifyBinding, type ActionReceipt, type BindingResult, type DecodedLog } from "./receipt.js"
 import type { CandidateAnalysis } from "./candidates.js"
-import type { FillState, GoalState } from "./journal.js"
+import type { ActionRecord, FillState, GoalState } from "./journal.js"
 
-export const RECOMPUTE_VERSION = "mr-recompute/1"
+export const RECOMPUTE_VERSION = "mr-recompute/2"
 
 export interface LedgerCheck {
   name: string
@@ -30,6 +33,7 @@ export interface RecomputeResult {
   candidateId: string
   actionId: Hex
   tx: { hash: Hex | null; status: string; blockNumber: bigint | null; blockHash: Hex | null; canonical: boolean }
+  binding: BindingResult
   fill: { state: FillState; requested: bigint; filled: bigint; unfilled: bigint; fills: { price: bigint; quantity: bigint }[]; priceBoundRespected: boolean }
   ledger: { realizedPnl: bigint; fundingSettled: bigint; fees: bigint; checks: LedgerCheck[] }
   externalChanges: string[]
@@ -42,10 +46,9 @@ export interface RecomputeResult {
 }
 
 export interface RecomputeInput {
+  confirmation: ActionRecord
   scenario: Scenario
   analysis: CandidateAnalysis
-  candidateId: string
-  actionId: Hex
   pre: AccountSnapshot
   post: AccountSnapshot
   receipt: ActionReceipt | null
@@ -53,13 +56,25 @@ export interface RecomputeInput {
 }
 
 export function recompute(input: RecomputeInput): RecomputeResult {
-  const { scenario, analysis, pre, post, receipt } = input
-  const candidate = analysis.candidates.find((c) => c.id === input.candidateId)
-  if (!candidate?.reduce) throw new Error(`${input.candidateId} is not a reduction candidate`)
-  const pool = candidate.reduce.pool
+  const { confirmation, scenario, analysis, pre, post, receipt } = input
+  const candidate = analysis.candidates.find((c) => c.id === confirmation.candidateId)
+  if (!candidate?.reduce) throw new Error(`${confirmation.candidateId} is not a reduction candidate`)
+  const req = requestOf(confirmation)
+  const pool = req.pool
   const info = poolOf(pre, pool)
   const target = BigInt(scenario.targetBuffer)
-  const requested = candidate.reduce.requestedQuantity
+  const requested = req.quantity
+  const binding: BindingResult = receipt ? verifyBinding(confirmation, receipt, { pre, post }) : { ok: false, failures: ["no receipt"] }
+  const bind = (ok: boolean, what: string) => {
+    if (!ok) binding.failures.push(what)
+  }
+  bind(confirmation.scenarioId === scenario.id, `confirmation scenario ${confirmation.scenarioId.slice(0, 16)} is not ${scenario.id.slice(0, 16)}`)
+  bind(analysis.scenarioId === scenario.id, "the analysis was made under another scenario")
+  bind(
+    sameAddress(candidate.reduce.pool, req.pool) && candidate.reduce.isBid === req.isBid && candidate.reduce.requestedQuantity === req.quantity && candidate.reduce.limitPrice === req.limitPrice,
+    `candidate ${candidate.id} (${candidate.reduce.requestedQuantity} @ ${candidate.reduce.limitPrice}) is not the confirmed request (${req.quantity} @ ${req.limitPrice})`,
+  )
+  binding.ok = binding.failures.length === 0
   const preLeg = pre.positions.find((p) => sameAddress(p.pool, pool))
   const postLeg = post.positions.find((p) => sameAddress(p.pool, pool))
   const checks: LedgerCheck[] = []
@@ -93,7 +108,7 @@ export function recompute(input: RecomputeInput): RecomputeResult {
     check("guard event matches the post size", receipt.guard?.sizeAfter === postSize, postSize, receipt.guard?.sizeAfter)
     check("size moved by exactly the fills", postSize === preLeg.size - sign * filled, preLeg.size - sign * filled, postSize)
     check("no flip and no growth", sign > 0n ? postSize >= 0n && postSize <= preLeg.size : postSize <= 0n && postSize >= preLeg.size, "same side or flat", postSize)
-    check("every fill inside the confirmed limit", receipt.priceBoundRespected, `limit ${candidate.reduce.limitPrice}`, receipt.fills.map((f) => f.price).join(","))
+    check("every fill inside the confirmed limit", receipt.priceBoundRespected, `limit ${req.limitPrice}`, receipt.fills.map((f) => f.price).join(","))
     check("IOC left nothing resting", !receipt.rested, false, receipt.rested)
     check("realized PnL = floor per fill", realized === expectedRealized, expectedRealized, realized)
     check("funding settled once, on the whole position", receipt.owner.fundingSettled.length <= 1 && funding === expectedFunding, expectedFunding, funding)
@@ -144,6 +159,7 @@ export function recompute(input: RecomputeInput): RecomputeResult {
 
   let goal: { state: GoalState; reason: string }
   if (!receipt) goal = { state: "UNAVAILABLE", reason: "no receipt" }
+  else if (!binding.ok) goal = { state: "EVIDENCE_MISMATCH", reason: binding.failures.join("; ") }
   else if (!receipt.canonical || !post.canonical.ok) goal = { state: "UNAVAILABLE", reason: "receipt or post snapshot not canonical" }
   else if (postRecon.verdict !== "EXACT") goal = { state: "UNAVAILABLE", reason: `post-state reconciliation ${postRecon.verdict}: ${postRecon.reasons.join("; ")}` }
   else if (compat.length) goal = { state: "BASELINE_CHANGED", reason: compat.join("; ") }
@@ -160,8 +176,8 @@ export function recompute(input: RecomputeInput): RecomputeResult {
   return {
     version: RECOMPUTE_VERSION,
     scenarioId: scenario.id,
-    candidateId: input.candidateId,
-    actionId: input.actionId,
+    candidateId: confirmation.candidateId,
+    actionId: confirmation.actionId,
     tx: {
       hash: receipt?.txHash ?? null,
       status: receipt?.status ?? "not sent",
@@ -169,6 +185,7 @@ export function recompute(input: RecomputeInput): RecomputeResult {
       blockHash: receipt?.blockHash ?? null,
       canonical: receipt?.canonical ?? false,
     },
+    binding,
     fill: {
       state: receipt ? fillState(receipt, requested) : "NO_FILL",
       requested,
@@ -181,11 +198,11 @@ export function recompute(input: RecomputeInput): RecomputeResult {
     externalChanges,
     postReconciliation: postRecon.verdict,
     planned: { requested, expectedFill: candidate.reduce.expectedFill, scenario: candidate.scenario ?? null },
-    actual: { scenario: actualScenario, currentHealth: { eRisk: postRecon.independent.eRisk, mm: postRecon.independent.mm, buffer: postRecon.independent.buffer } },
+    actual: { scenario: binding.ok ? actualScenario : null, currentHealth: { eRisk: postRecon.independent.eRisk, mm: postRecon.independent.mm, buffer: postRecon.independent.buffer } },
     baseline: { scenario: analysis.baseline.scenario },
     differences: {
       fillVsForecast: filled - candidate.reduce.expectedFill,
-      bufferVsForecast: actualScenario && candidate.scenario ? actualScenario.buffer - candidate.scenario.buffer : null,
+      bufferVsForecast: binding.ok && actualScenario && candidate.scenario ? actualScenario.buffer - candidate.scenario.buffer : null,
       untouchedLegsFundingDrift: untouchedDrift,
     },
     goal,

@@ -1,0 +1,133 @@
+{
+  "checks": [
+    {
+      "detail": "[\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\"]",
+      "name": "every cleanup order went through the guard",
+      "ok": true
+    },
+    {
+      "detail": "[\"1:deploy-guard:0:CONFIRMED\",\"2:approve:1:CONFIRMED\",\"3:deposit:2:CONFIRMED\",\"4:open-BTC-long:3:CONFIRMED\",\"5:open-ETH-short:4:CONFIRMED\",\"6:grant-BTC:5:CONFIRMED\",\"7:reduce:6:CONFIRMED\",\"8:cleanup-grant-ETH:7:CONFIRMED\",\"9:cleanup-close-ETH-1:8:CONFIRMED\",\"10:cleanup-revoke-BTC:9:CONFIRMED\",\"11:cleanup-revoke-ETH:10:CONFIRMED\"]",
+      "name": "no transaction was sent twice",
+      "ok": true
+    },
+    {
+      "detail": "guard.json",
+      "name": "deployed guard verified against the approved runtime hash",
+      "ok": true
+    },
+    {
+      "detail": "3",
+      "name": "the third party emptied the book inside each close's limit",
+      "ok": true
+    },
+    {
+      "detail": "[\"1 WOULD_REVERT tx null ImmediateOrCancelNoFill()\",\"2 WOULD_REVERT tx null ImmediateOrCancelNoFill()\",\"3 WOULD_REVERT tx null ImmediateOrCancelNoFill()\"]",
+      "name": "every guarded BTC close was refused in simulation (WOULD_REVERT) and never broadcast (tx null); none filled",
+      "ok": true
+    },
+    {
+      "detail": "[\"deploy-guard\",\"approve\",\"deposit\",\"open-BTC-long\",\"open-ETH-short\",\"grant-BTC\",\"reduce\",\"cleanup-grant-ETH\",\"cleanup-close-ETH-1\",\"cleanup-revoke-BTC\",\"cleanup-revoke-ETH\"]",
+      "name": "no BTC close appears in the run ledger",
+      "ok": true
+    },
+    {
+      "detail": "[{\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"symbol\":\"ETH\",\"attempt\":1,\"actionId\":\"0xfa6703e1f1dbdeb9dd823607a7576db5ffa6e83b973a6d0a3a76e6a0c9e8e1f0\",\"expected\":\"-38800000000000000\",\"quantity\":\"38800000000000000\",\"limit\":\"2328620000000000000000\",\"tx\":\"0xc3fb8dbeee1af8e7193fdb8c380f3721b81de5c91348267bd756d35dd31c773e\",\"state\":\"CONFIRMED\",\"filled\":\"38800000000000000\",\"bindingOk\":true}]",
+      "name": "the other leg was still closed through the guard",
+      "ok": true
+    },
+    {
+      "detail": "[\"BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent\",\"collateral left in the bank: 1 position(s) and 0 order(s) remain\"]",
+      "name": "the BTC position is reported as left open",
+      "ok": true
+    },
+    {
+      "detail": "{\"name\":\"guard holds no grant on any pool, nor a global one\",\"ok\":true,\"detail\":\"21 pools checked; global false\"}",
+      "name": "the guard's grants were still revoked",
+      "ok": true
+    },
+    {
+      "detail": "[\"cleanup-grant-ETH 0x7bbc67e6\",\"cleanup-close-ETH-1 0xdd0c33d7\",\"cleanup-revoke-BTC 0x7bbc67e6\",\"cleanup-revoke-ETH 0x7bbc67e6\"]",
+      "name": "no unguarded order was sent instead",
+      "ok": true
+    },
+    {
+      "detail": "CLEANUP_INCOMPLETE BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent; collateral left in the bank: 1 position(s) and 0 order(s) remain; no position in any of the factory's pools: 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0:63000; bank balance withdrawn: unlocked 59977004784000000000, locked 0",
+      "name": "the run reports CLEANUP_INCOMPLETE (exit 30)",
+      "ok": true
+    },
+    {
+      "detail": "[{\"name\":\"snapshot complete and canonical\",\"ok\":true,\"detail\":\"block 33472634\"},{\"name\":\"no position in any of the factory's pools\",\"ok\":false,\"detail\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0:63000\"},{\"name\":\"no resting order\",\"ok\":true,\"detail\":\"0 orders\"},{\"name\":\"no live TP/SL stop\",\"ok\":true,\"detail\":\"0 listed, none live\"},{\"name\":\"bank balance withdrawn\",\"ok\":false,\"detail\":\"unlocked 59977004784000000000, locked 0\"},{\"name\":\"USDso allowance to the bank is zero\",\"ok\":true,\"detail\":\"0\"},{\"name\":\"guard holds no grant on any pool, nor a global one\",\"ok\":true,\"detail\":\"21 pools checked; global false\"},{\"name\":\"no unresolved transaction\",\"ok\":true,\"detail\":\"none\"},{\"name\":\"no unguarded order during cleanup\",\"ok\":true,\"detail\":\"every cleanup order went through the guard\"}]",
+      "name": "collateral was not withdrawn while a position remains",
+      "ok": true
+    }
+  ],
+  "expected": "guarded BTC closes find no liquidity; no unguarded fallback; CLEANUP_INCOMPLETE (exit 30)",
+  "observed": {
+    "closes": [
+      {
+        "actionId": "0x053bc2c541069acb9d87d3351876cd08194e60e0c8440aa7787a7ba30885ed2a",
+        "attempt": 1,
+        "bindingOk": null,
+        "expected": "63000",
+        "filled": "0",
+        "limit": "79743900000000000000000",
+        "note": "ImmediateOrCancelNoFill()",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "63000",
+        "state": "WOULD_REVERT",
+        "symbol": "BTC",
+        "tx": null
+      },
+      {
+        "actionId": "0xa167b2329c08b4b01d95621b0a97fe9cddf4aaea43ff0338325f267a8c4a951b",
+        "attempt": 2,
+        "bindingOk": null,
+        "expected": "63000",
+        "filled": "0",
+        "limit": "79008000000000000000000",
+        "note": "ImmediateOrCancelNoFill()",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "63000",
+        "state": "WOULD_REVERT",
+        "symbol": "BTC",
+        "tx": null
+      },
+      {
+        "actionId": "0xfff31177fe411576168c03e8b5552c9b764edc91f771e8fff7092236c585a9bc",
+        "attempt": 3,
+        "bindingOk": null,
+        "expected": "63000",
+        "filled": "0",
+        "limit": "78605000000000000000000",
+        "note": "ImmediateOrCancelNoFill()",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "63000",
+        "state": "WOULD_REVERT",
+        "symbol": "BTC",
+        "tx": null
+      },
+      {
+        "actionId": "0xfa6703e1f1dbdeb9dd823607a7576db5ffa6e83b973a6d0a3a76e6a0c9e8e1f0",
+        "attempt": 1,
+        "bindingOk": true,
+        "expected": "-38800000000000000",
+        "filled": "38800000000000000",
+        "limit": "2328620000000000000000",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "quantity": "38800000000000000",
+        "state": "CONFIRMED",
+        "symbol": "ETH",
+        "tx": "0xc3fb8dbeee1af8e7193fdb8c380f3721b81de5c91348267bd756d35dd31c773e"
+      }
+    ],
+    "exitCode": 30,
+    "remaining": [
+      "BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent",
+      "collateral left in the bank: 1 position(s) and 0 order(s) remain"
+    ],
+    "seconds": 79,
+    "status": "CLEANUP_INCOMPLETE"
+  },
+  "pass": true,
+  "scenario": "cleanup-fail"
+}

@@ -1,35 +1,35 @@
 $ npm run precheck -- --side buy --qty 0.01
-# started 2026-10-26T08:38:35Z
+# started 2026-10-26T12:16:14Z
 
 > proving-ground-dreamdex@0.1.0 precheck
 > tsx src/cli.ts precheck --side buy --qty 0.01
 
 Proving Ground v2.2 Blitz order pre-check
 LOCAL CALCULATION ONLY. No Proving Ground contract is deployed; nothing below is enforced on-chain.
-  market data         live, block 33517765 (2026-10-26T08:38:47.000Z), chain 50383, pool 0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0
-  order               BUY 0.01 BTC, IOC, limit 80,271.8 (best ask, above the band)
+  market data         live, block 33648304 (2026-10-26T12:16:27.000Z), chain 50383, pool 0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0
+  order               BUY 0.01 BTC, IOC, limit 80,393.6 (best ask, above the band)
   account (assumed)   position 0 BTC, equity 1,000 USDso; threshold 950
-  mark                80,103.53
+  mark                80,225.4
   classification      RISK_INCREASING
 
-  PASS   MARK_AVAILABLE     [venue] on-chain mark 80,103.53 is readable
-  PASS   TICK_SIZE          [venue] limit 80,271.8 must be a positive multiple of 0.1
+  PASS   MARK_AVAILABLE     [venue] on-chain mark 80,225.4 is readable
+  PASS   TICK_SIZE          [venue] limit 80,393.6 must be a positive multiple of 0.1
   PASS   LOT_SIZE           [venue] quantity 0.01 BTC must be a positive multiple of 0.00001 BTC
   PASS   MIN_QUANTITY       [venue] quantity must be at least 0.00013 BTC
-  FAIL   PRICE_BAND         [blitz] limit 80,271.8 must be within 79,943.4 .. 80,263.7 (±0.2% of mark)  -> planned revert PreTradeViolation(BAND)
+  FAIL   PRICE_BAND         [blitz] limit 80,393.6 must be within 80,065 .. 80,385.8 (±0.2% of mark)  -> planned revert PreTradeViolation(BAND)
   PASS   NO_REVERSAL        [blitz] an opposite-side order may not exceed |position| 0 BTC; close to zero first
   PASS   MAX_POSITION_SIZE  [venue] |position| after the fill 0.01 BTC must not exceed 100 BTC
   PASS   EQUITY_BEFORE      [blitz] equity 1,000 must be at least the threshold 950 USDso
-  PASS   LEVERAGE_AFTER     [blitz] worst-case leverage after 0.802x must be at most 5x
-  PASS   EQUITY_AFTER       [blitz] worst-case equity after 998.3173 must be at least 950 USDso
+  PASS   LEVERAGE_AFTER     [blitz] worst-case leverage after 0.803x must be at most 5x
+  PASS   EQUITY_AFTER       [blitz] worst-case equity after 998.318 must be at least 950 USDso
 
 Worst-case estimate (full fill at the limit, mark unchanged)
-  fill notional       802.718 USDso
+  fill notional       803.936 USDso
   fee                 0 USDso
-  mark-to-market      -1.6826 USDso
-  equity after        998.3173 USDso
-  position after      0.01 BTC (notional 801.0353 USDso)
-  leverage after      0.802x (limit 5x for risk-increasing orders)
+  mark-to-market      -1.6819 USDso
+  equity after        998.318 USDso
+  position after      0.01 BTC (notional 802.254 USDso)
+  leverage after      0.803x (limit 5x for risk-increasing orders)
 
 VERDICT: REJECT (PRICE_BAND)
-# exit 0 at 2026-10-26T08:38:41Z
+# exit 0

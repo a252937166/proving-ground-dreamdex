@@ -1,0 +1,11 @@
+{
+  "account": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+  "chainId": 50383,
+  "createdAt": "2026-10-26T14:02:31.848Z",
+  "foreignActivity": [],
+  "gasCap": "2000000000000000000",
+  "planDigest": "51cb547625b3c54f64da62e2be5619f9e1f38b81d5d5c674db0586d99865f3f9",
+  "startNonce": 2,
+  "steps": [],
+  "version": "mr-run-ledger/1"
+}

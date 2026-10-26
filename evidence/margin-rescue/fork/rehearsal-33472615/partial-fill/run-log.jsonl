@@ -1,0 +1,13 @@
+{"at":"2026-10-26T13:58:42.968Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
+{"at":"2026-10-26T13:58:46.167Z","step":"guard verified","guard":"0x9f28a92015cd0cd542ea8bdd50973117fc6925ab","runtimeKeccak":"0x96a66a2b5d4afcfb4c80c7c683a7c6a7781f96251e651b09e1609a2c0bd54518"}
+{"at":"2026-10-26T13:58:56.054Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
+{"at":"2026-10-26T13:58:58.071Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
+{"at":"2026-10-26T13:59:02.282Z","step":"analysis","block":"33472625","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
+{"at":"2026-10-26T13:59:02.293Z","step":"confirmation journalled","actionId":"0x0bd65192b41a61e03b257b962fe204b4ca2138ea04d5d359c1f4d573e6090424","candidateId":"BTC-50","expectedSignedSize":"125000","quantity":"62000","limit":"79743900000000000000000","deadline":"1792999590"}
+{"at":"2026-10-26T13:59:14.577Z","step":"refresh","attempt":1,"verdict":"STILL_VALID","reasons":[],"fundingDrift":"0"}
+{"at":"2026-10-26T13:59:17.299Z","step":"reduce","actionId":"0x0bd65192b41a61e03b257b962fe204b4ca2138ea04d5d359c1f4d573e6090424","tx":"0xdef4a617792383858761dd022d7792728433573e96a18cab4647d31683d6f5a8","state":"CONFIRMED"}
+{"at":"2026-10-26T13:59:21.407Z","step":"recompute","binding":true,"fill":"PARTIAL_FILL","goal":"GOAL_NOT_MET"}
+{"at":"2026-10-26T13:59:21.411Z","step":"soft loss check","where":"after the reduction","eTotal":"59729820294469488690"}
+{"at":"2026-10-26T13:59:26.348Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"CONFIRMED","filled":"94000"}
+{"at":"2026-10-26T13:59:31.492Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"38800000000000000"}
+{"at":"2026-10-26T13:59:36.776Z","step":"result","status":"NOT_DEMONSTRATED","exitCode":10,"reason":"rescue goal GOAL_NOT_MET: scenario buffer 43666648019704009671 < target 45000000000000000000"}

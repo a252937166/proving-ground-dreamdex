@@ -1,0 +1,149 @@
+{
+  "blockHash": "0x39d4536d84b1316e62bcfe3c87841d0e39b9b15e5098d34ddd56ba3791bc06ce",
+  "blockNumber": "33472629",
+  "canonical": true,
+  "filled": "29100000000000000",
+  "fills": [
+    {
+      "makerOrderId": "3504881374004824447804",
+      "price": "2317040000000000000000",
+      "quantity": "29100000000000000"
+    }
+  ],
+  "from": "0xd960976f3af59e7c112d918e0452f41fa89a3799",
+  "gasUsed": "2501778",
+  "guard": {
+    "actionId": "0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397",
+    "limitPrice": "2328620000000000000000",
+    "orderId": "18815678955183752289096",
+    "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+    "quantity": "29100000000000000",
+    "sizeAfter": "-9700000000000000",
+    "sizeBefore": "-38800000000000000"
+  },
+  "guardEvents": 1,
+  "logs": [
+    {
+      "address": "0x478769e1177c0773c43a593dccc4ad15f15f1394",
+      "args": {
+        "account": "0x47537E3A3ea6e9391F3B26Ea45618db6828c8bfF",
+        "amount": "3371293200000000000",
+        "perpPool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+      },
+      "logIndex": 0,
+      "name": "CollateralUnlocked"
+    },
+    {
+      "address": "0x478769e1177c0773c43a593dccc4ad15f15f1394",
+      "args": {
+        "account": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+        "avgEntryPrice": "2316640000000000000000",
+        "entryFundingIndex": "21643722683000819243720643463148437500",
+        "newSize": "-9700000000000000",
+        "perpPool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "realizedPnl": "-11640000000000000"
+      },
+      "logIndex": 1,
+      "name": "PositionUpdated"
+    },
+    {
+      "address": "0x478769e1177c0773c43a593dccc4ad15f15f1394",
+      "args": {
+        "account": "0x47537E3A3ea6e9391F3B26Ea45618db6828c8bfF",
+        "avgEntryPrice": "2317120610859461575460",
+        "entryFundingIndex": "21643722683000819243720643463148437500",
+        "newSize": "-14451000000000000000",
+        "perpPool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "realizedPnl": "0"
+      },
+      "logIndex": 2,
+      "name": "PositionUpdated"
+    },
+    {
+      "address": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
+      "args": {
+        "openInterest": "616713600000000000000"
+      },
+      "logIndex": 3,
+      "name": "OpenInterestUpdated"
+    },
+    {
+      "address": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
+      "args": {
+        "fillPrice": "2317040000000000000000",
+        "makerOrderId": "3504881374004824447804",
+        "makerRemainingQuantity": "834200000000000000",
+        "quantityFilled": "29100000000000000",
+        "takerOrderId": "18815678955183752289096",
+        "takerRemainingQuantity": "0"
+      },
+      "logIndex": 4,
+      "name": "OrderFilled"
+    },
+    {
+      "address": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
+      "args": {
+        "orderId": "18815678955183752289096",
+        "placedOrder": {
+          "expireTimestampNs": "1792999590000000000",
+          "fullQuantity": "29100000000000000",
+          "isBid": true,
+          "orderId": "18815678955183752289096",
+          "owner": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+          "price": "2328620000000000000000",
+          "quantityRemaining": "0",
+          "userData": "1899430816935932823"
+        }
+      },
+      "logIndex": 5,
+      "name": "OrderPlaced"
+    },
+    {
+      "address": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+      "args": {
+        "actionId": "0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397",
+        "limitPrice": "2328620000000000000000",
+        "orderId": "18815678955183752289096",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "quantity": "29100000000000000",
+        "sizeAfter": "-9700000000000000",
+        "sizeBefore": "-38800000000000000"
+      },
+      "logIndex": 6,
+      "name": "ReduceExecuted"
+    }
+  ],
+  "owner": {
+    "fees": [],
+    "fundingSettled": [],
+    "locked": "0",
+    "other": [],
+    "otherPools": [],
+    "positionUpdates": [
+      {
+        "avgEntryPrice": "2316640000000000000000",
+        "entryFundingIndex": "21643722683000819243720643463148437500",
+        "newSize": "-9700000000000000",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "realizedPnl": "-11640000000000000"
+      }
+    ],
+    "unlocked": "0",
+    "walletMoves": []
+  },
+  "placedBy": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+  "priceBoundRespected": true,
+  "rested": false,
+  "status": "success",
+  "takerOrderId": "18815678955183752289096",
+  "to": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "tx": {
+    "chainId": 50383,
+    "from": "0xd960976f3af59e7c112d918e0452f41fa89a3799",
+    "input": "0xdd0c33d7000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddfffffffffffffffffffffffffffffffffffffffffffffffffff76279b06b7000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000067624bbaf6c00000000000000000000000000000000000000000000000007e3c182071461e0000000000000000000000000000000000000000000000000000000000006adf00a626b054f46c79cda0bd3b43d45dddd30b30a25893447c99360e0f1853f9e9691a",
+    "nonce": 7,
+    "to": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+    "value": "0"
+  },
+  "txHash": "0x277d9c79baca825e41213938cc28433ab7d181a5aeacecb3c60f15851580bb35"
+}

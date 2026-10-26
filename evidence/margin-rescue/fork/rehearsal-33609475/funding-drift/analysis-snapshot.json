@@ -1,0 +1,601 @@
+{
+  "account": "0x7301F5d53949D0E05E5048aA97C9243C1693C603",
+  "accountMode": {
+    "creditFloor": "0",
+    "fundingPayer": "0x0000000000000000000000000000000000000000",
+    "isolated": false,
+    "mainFundedPrincipal": "0"
+  },
+  "bank": {
+    "cmReq": "2364839429759632971",
+    "equity": "59822845096597466690",
+    "imReq": "9459357719038531880",
+    "marginStatus": 0,
+    "mmReq": "4729678859519265941",
+    "tryEquity": "59822845096597466690",
+    "tryEquityOk": true
+  },
+  "block": {
+    "hash": "0xbd75df2ef72192fb3e8fbfbfa967c2c4a07dc963172311df4fadcb29671e4134",
+    "number": "33609485",
+    "timestamp": "1793013102"
+  },
+  "books": [
+    {
+      "asks": [
+        {
+          "price": "80305000000000000000000",
+          "quantity": "3620000"
+        },
+        {
+          "price": "80308600000000000000000",
+          "quantity": "1247000"
+        },
+        {
+          "price": "80309600000000000000000",
+          "quantity": "1247000"
+        },
+        {
+          "price": "80309800000000000000000",
+          "quantity": "7486000"
+        },
+        {
+          "price": "80310400000000000000000",
+          "quantity": "2495000"
+        },
+        {
+          "price": "80312200000000000000000",
+          "quantity": "8735000"
+        },
+        {
+          "price": "80313100000000000000000",
+          "quantity": "14975000"
+        },
+        {
+          "price": "80314800000000000000000",
+          "quantity": "28703000"
+        },
+        {
+          "price": "80318300000000000000000",
+          "quantity": "56158000"
+        },
+        {
+          "price": "80424000000000000000000",
+          "quantity": "10000000"
+        },
+        {
+          "price": "80453900000000000000000",
+          "quantity": "10000000"
+        },
+        {
+          "price": "80482900000000000000000",
+          "quantity": "20000000"
+        },
+        {
+          "price": "80527200000000000000000",
+          "quantity": "20000000"
+        },
+        {
+          "price": "80634700000000000000000",
+          "quantity": "4788000"
+        },
+        {
+          "price": "80695100000000000000000",
+          "quantity": "24784000"
+        },
+        {
+          "price": "81700000000000000000000",
+          "quantity": "79638000"
+        },
+        {
+          "price": "81736500000000000000000",
+          "quantity": "33397000"
+        },
+        {
+          "price": "82000000000000000000000",
+          "quantity": "36392000"
+        },
+        {
+          "price": "82410000000000000000000",
+          "quantity": "17705000"
+        },
+        {
+          "price": "82800000000000000000000",
+          "quantity": "17064000"
+        },
+        {
+          "price": "82897000000000000000000",
+          "quantity": "40910000"
+        },
+        {
+          "price": "82900000000000000000000",
+          "quantity": "95067000"
+        },
+        {
+          "price": "82992700000000000000000",
+          "quantity": "2409000"
+        },
+        {
+          "price": "83000000000000000000000",
+          "quantity": "71154000"
+        },
+        {
+          "price": "83500000000000000000000",
+          "quantity": "58568000"
+        },
+        {
+          "price": "83512000000000000000000",
+          "quantity": "37754000"
+        },
+        {
+          "price": "83997000000000000000000",
+          "quantity": "3571000"
+        },
+        {
+          "price": "84000000000000000000000",
+          "quantity": "29109000"
+        },
+        {
+          "price": "85953000000000000000000",
+          "quantity": "2326000"
+        },
+        {
+          "price": "86578000000000000000000",
+          "quantity": "14173000"
+        }
+      ],
+      "bids": [
+        {
+          "price": "80291100000000000000000",
+          "quantity": "1852000"
+        },
+        {
+          "price": "80290800000000000000000",
+          "quantity": "2495000"
+        },
+        {
+          "price": "80290300000000000000000",
+          "quantity": "3743000"
+        },
+        {
+          "price": "80289900000000000000000",
+          "quantity": "5615000"
+        },
+        {
+          "price": "80289100000000000000000",
+          "quantity": "8735000"
+        },
+        {
+          "price": "80288000000000000000000",
+          "quantity": "14975000"
+        },
+        {
+          "price": "80286500000000000000000",
+          "quantity": "28703000"
+        },
+        {
+          "price": "80286200000000000000000",
+          "quantity": "1248000"
+        },
+        {
+          "price": "80285000000000000000000",
+          "quantity": "1248000"
+        },
+        {
+          "price": "80283000000000000000000",
+          "quantity": "56158000"
+        },
+        {
+          "price": "80282000000000000000000",
+          "quantity": "23380000"
+        },
+        {
+          "price": "80280000000000000000000",
+          "quantity": "8344000"
+        },
+        {
+          "price": "80252000000000000000000",
+          "quantity": "25610000"
+        },
+        {
+          "price": "80224700000000000000000",
+          "quantity": "41639000"
+        },
+        {
+          "price": "80194200000000000000000",
+          "quantity": "21690000"
+        },
+        {
+          "price": "80115200000000000000000",
+          "quantity": "21700000"
+        },
+        {
+          "price": "80111300000000000000000",
+          "quantity": "20805000"
+        },
+        {
+          "price": "80107300000000000000000",
+          "quantity": "41611000"
+        },
+        {
+          "price": "80103300000000000000000",
+          "quantity": "62420000"
+        },
+        {
+          "price": "80046300000000000000000",
+          "quantity": "21720000"
+        },
+        {
+          "price": "80011100000000000000000",
+          "quantity": "31000"
+        },
+        {
+          "price": "79750000000000000000000",
+          "quantity": "4122000"
+        },
+        {
+          "price": "79708200000000000000000",
+          "quantity": "62000"
+        },
+        {
+          "price": "79705000000000000000000",
+          "quantity": "62000"
+        },
+        {
+          "price": "79704900000000000000000",
+          "quantity": "62000"
+        },
+        {
+          "price": "79405000000000000000000",
+          "quantity": "1259000"
+        },
+        {
+          "price": "79000000000000000000000",
+          "quantity": "12658000"
+        },
+        {
+          "price": "78500000000000000000000",
+          "quantity": "40338000"
+        },
+        {
+          "price": "78000000000000000000000",
+          "quantity": "1282000"
+        },
+        {
+          "price": "76627200000000000000000",
+          "quantity": "13000"
+        }
+      ],
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+    },
+    {
+      "asks": [
+        {
+          "price": "2322790000000000000000",
+          "quantity": "6500000000000000"
+        },
+        {
+          "price": "2322910000000000000000",
+          "quantity": "8617400000000000000"
+        },
+        {
+          "price": "2322940000000000000000",
+          "quantity": "3015800000000000000"
+        },
+        {
+          "price": "2323580000000000000000",
+          "quantity": "30158600000000000000"
+        },
+        {
+          "price": "2325580000000000000000",
+          "quantity": "9330100000000000000"
+        },
+        {
+          "price": "2326270000000000000000",
+          "quantity": "4700000000000000"
+        },
+        {
+          "price": "2326870000000000000000",
+          "quantity": "9442400000000000000"
+        },
+        {
+          "price": "2328760000000000000000",
+          "quantity": "387500000000000000"
+        },
+        {
+          "price": "2329310000000000000000",
+          "quantity": "9432100000000000000"
+        },
+        {
+          "price": "2331010000000000000000",
+          "quantity": "9036800000000000000"
+        },
+        {
+          "price": "2331310000000000000000",
+          "quantity": "7054400000000000000"
+        },
+        {
+          "price": "2350360000000000000000",
+          "quantity": "4254600000000000000"
+        },
+        {
+          "price": "2358360000000000000000",
+          "quantity": "4240200000000000000"
+        },
+        {
+          "price": "2365360000000000000000",
+          "quantity": "4227600000000000000"
+        },
+        {
+          "price": "2431770000000000000000",
+          "quantity": "822400000000000000"
+        },
+        {
+          "price": "2448730000000000000000",
+          "quantity": "51200000000000000"
+        },
+        {
+          "price": "2540000000000000000000",
+          "quantity": "4300000000000000"
+        },
+        {
+          "price": "2540020000000000000000",
+          "quantity": "2945500000000000000"
+        },
+        {
+          "price": "2549090000000000000000",
+          "quantity": "1176800000000000000"
+        }
+      ],
+      "bids": [
+        {
+          "price": "2322090000000000000000",
+          "quantity": "392100000000000000"
+        },
+        {
+          "price": "2322030000000000000000",
+          "quantity": "861700000000000000"
+        },
+        {
+          "price": "2321980000000000000000",
+          "quantity": "3016100000000000000"
+        },
+        {
+          "price": "2321830000000000000000",
+          "quantity": "8617400000000000000"
+        },
+        {
+          "price": "2321570000000000000000",
+          "quantity": "30158600000000000000"
+        },
+        {
+          "price": "2320700000000000000000",
+          "quantity": "7181800000000000000"
+        },
+        {
+          "price": "2320590000000000000000",
+          "quantity": "14364200000000000000"
+        },
+        {
+          "price": "2320480000000000000000",
+          "quantity": "21547300000000000000"
+        },
+        {
+          "price": "2317600000000000000000",
+          "quantity": "7034200000000000000"
+        },
+        {
+          "price": "2316300000000000000000",
+          "quantity": "9443400000000000000"
+        },
+        {
+          "price": "2314830000000000000000",
+          "quantity": "387500000000000000"
+        },
+        {
+          "price": "2314730000000000000000",
+          "quantity": "7042500000000000000"
+        },
+        {
+          "price": "2313300000000000000000",
+          "quantity": "7047600000000000000"
+        },
+        {
+          "price": "2311610000000000000000",
+          "quantity": "7053000000000000000"
+        },
+        {
+          "price": "2281970000000000000000",
+          "quantity": "876400000000000000"
+        },
+        {
+          "price": "2259300000000000000000",
+          "quantity": "885200000000000000"
+        },
+        {
+          "price": "2250000000000000000000",
+          "quantity": "6717100000000000000"
+        },
+        {
+          "price": "2222000000000000000000",
+          "quantity": "2621200000000000000"
+        },
+        {
+          "price": "2200000000000000000000",
+          "quantity": "2344600000000000000"
+        },
+        {
+          "price": "2128340000000000000000",
+          "quantity": "4000000000000000"
+        }
+      ],
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+    }
+  ],
+  "canonical": {
+    "checkedAt": "2026-10-26T13:56:37.458Z",
+    "observedHash": "0xbd75df2ef72192fb3e8fbfbfa967c2c4a07dc963172311df4fadcb29671e4134",
+    "ok": true
+  },
+  "capacities": [
+    {
+      "effectiveReducingCapacity": "124000",
+      "pendingAskQuantity": "0",
+      "pendingBidQuantity": "0",
+      "pendingOppositeQuantity": "0",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "positionSize": "124000"
+    },
+    {
+      "effectiveReducingCapacity": "38700000000000000",
+      "pendingAskQuantity": "0",
+      "pendingBidQuantity": "0",
+      "pendingOppositeQuantity": "0",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "positionSize": "-38700000000000000"
+    }
+  ],
+  "chainId": 50383,
+  "collateral": {
+    "collateralBasis": "60000000000000000000",
+    "locked": "0",
+    "unlocked": "60000000000000000000"
+  },
+  "collateralToken": "0xed7993A74dAe1e6656B704A424DcD8711aAf4F72",
+  "coverage": {
+    "activePools": [
+      "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+    ],
+    "factoryPools": [
+      "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "0xB483ec1fb34996638677c20ab087b16F1896FA53",
+      "0x63B47eD4A7DE0FdE659b0d82441dD74828b7297A",
+      "0x7058579F3248559963f79AdB937c6De9f953E060",
+      "0xC410012e39765Cd5f772e84BAcB19554AEC040Df",
+      "0x3D2A99fE1e2BdEaA25024515A2D2202DAF9531aD",
+      "0x34fa62909f77699a7a6278D992F72Ff31c7a619D",
+      "0x1Be21287cfB865a7c462Ff3c4f275E70BcccefE4",
+      "0xf71b619450baFe953F47b9b556416A3A67b443b5",
+      "0xde9762B6b441133D1314C68864ae4e63A6eE45C7",
+      "0x74b05B9B8c8F180b53b7891018F3B254B3E658C9",
+      "0x1cD15ae8bFf0FE0a7F49233BE8b90734775bA454",
+      "0x0F464d57c1FD839E4d87A408BBcCDAb8f77E6394",
+      "0xD9b6A347A3Ae9FD6BA21179D3343F2c8A922F697",
+      "0x2a73129F26917124bd2A47a9B355C395C537F050",
+      "0x76c981a52530cdF9497559140aAfCd8CD16836E7",
+      "0xfA9B9e50CC1745113d57893991aF200a74c86B6f",
+      "0x352636aB146039851Ef06D6367A106d5FB4E6409",
+      "0xDCb0Ad226727b2cE92857F0aF5751389d42B2A3f",
+      "0x2a1822b02039DDf0e293F3F7243673fc03EAF16c"
+    ],
+    "nonzeroOutsideActive": [],
+    "pendingOutsideActive": []
+  },
+  "factory": "0xE631fAEE547baeE07353E290f0562ea67d856560",
+  "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+  "orders": [],
+  "pools": [
+    {
+      "baseDecimals": 8,
+      "baseToken": "0xa77fA353dAC50DE5c15676AC910C221A4d2Bd6b5",
+      "closeOutMarginBps": "125",
+      "effectiveImfBps": "500",
+      "grid": {
+        "lotSize": "1000",
+        "minQuantity": "13000",
+        "tickSize": "100000000000000000"
+      },
+      "maintenanceMarginBps": "250",
+      "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+      "markPrice": "80130369547325848500000",
+      "marketStatus": 0,
+      "oneBase": "100000000",
+      "params": {
+        "closeOutMarginBps": "125",
+        "initialMarginBps": "500",
+        "insuranceFundShareBps": "0",
+        "maintenanceMarginBps": "250",
+        "makerFeeBpsTimes1k": "0",
+        "maxOpenInterest": "49363090000",
+        "maxPositionSize": "10000000000",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "priceable": true,
+      "projectedCumulativeFunding": "3835938148066908521081661045016454156250",
+      "registered": true,
+      "restricted": false,
+      "stopRegistry": "0x52E2ccebAeC9332672C247e9A90AA3d61FB615ef",
+      "symbol": "BTC"
+    },
+    {
+      "baseDecimals": 18,
+      "baseToken": "0x1516CcebcA301d0651bc27dCDF9b1c2f18C3b4cd",
+      "closeOutMarginBps": "125",
+      "effectiveImfBps": "500",
+      "grid": {
+        "lotSize": "100000000000000",
+        "minQuantity": "4000000000000000",
+        "tickSize": "10000000000000000"
+      },
+      "maintenanceMarginBps": "250",
+      "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+      "markPrice": "2321072251733503500000",
+      "marketStatus": 0,
+      "oneBase": "1000000000000000000",
+      "params": {
+        "closeOutMarginBps": "125",
+        "initialMarginBps": "500",
+        "insuranceFundShareBps": "0",
+        "maintenanceMarginBps": "250",
+        "makerFeeBpsTimes1k": "0",
+        "maxOpenInterest": "7991225000000000000000",
+        "maxPositionSize": "399561200000000000000",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "priceable": true,
+      "projectedCumulativeFunding": "21730792995231473812470643463148437500",
+      "registered": true,
+      "restricted": false,
+      "stopRegistry": "0x44BFA5b28684e8D2156d15b85902da18F02b3a34",
+      "symbol": "ETH"
+    }
+  ],
+  "positions": [
+    {
+      "avgEntryPrice": "80305000000000000000000",
+      "entryFundingIndex": "3835938148066908521081661045016454156250",
+      "lastUpdatedTimestampNs": "0",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "size": "124000"
+    },
+    {
+      "avgEntryPrice": "2322090000000000000000",
+      "entryFundingIndex": "21730792995231473812470643463148437500",
+      "lastUpdatedTimestampNs": "0",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "size": "-38700000000000000"
+    }
+  ],
+  "problems": [],
+  "readStartedAt": "2026-10-26T13:56:33.454Z",
+  "stops": {
+    "error": null,
+    "indexedThrough": "33708430",
+    "pages": 1,
+    "rows": [],
+    "source": "indexer-listed, chain-checked"
+  },
+  "system": {
+    "fullyWired": true,
+    "liquidationEngine": "0xA66d3C24Ad4a389d863846905D8173e1017e9F4D"
+  },
+  "version": "mr-account-snapshot/1",
+  "wallet": {
+    "allowanceToBank": "0",
+    "usdso": "40000000000000000000"
+  }
+}

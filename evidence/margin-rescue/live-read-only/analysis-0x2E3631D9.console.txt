@@ -1,5 +1,3 @@
-$ npm run mr -- analyze --account 0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745 --shock BTC=-8 --shock ETH=-12 --target 0 --out evidence/margin-rescue/live-read-only/analysis-0x2E3631D9
-# started 2026-10-26T08:36:09Z
 
 > proving-ground-dreamdex@0.1.0 mr
 > tsx src/margin-rescue/cli.ts analyze --account 0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745 --shock BTC=-8 --shock ETH=-12 --target 0 --out evidence/margin-rescue/live-read-only/analysis-0x2E3631D9
@@ -7,61 +5,60 @@ $ npm run mr -- analyze --account 0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745 --s
 Margin Rescue: independent account reconciliation (read-only)
   account             0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745
   chain / bank        50383 / 0x478769E1177C0773c43A593DCCc4Ad15F15F1394
-  block               33516295  0xfaab4f11df73f4fec47137c8fa29dc66415acdda647345feae9d47c52e5ac393  (2026-10-26T08:36:20.000Z)
-  canonical recheck   yes at 2026-10-26T08:36:25.232Z
+  block               33647580  0xdf2dfaf5d3d8936e9558262dfd4d12fec42ed275fd35d35914d3728d7a879512  (2026-10-26T12:15:14.000Z)
+  canonical recheck   yes at 2026-10-26T12:15:23.237Z
   pools               6 active of 21 deployed; outside active: positions 0, orders 0
-  resting orders      0   stops listed 2 (live at block: 0; indexer-listed, chain-checked)
+  resting orders      0   stops listed 2 (live at block: 0; indexer-listed, chain-checked, 1 page(s), indexer through block 33647688)
 
   leg      size                        entry             mark              PnL (floor)        funding owed     MM
-  BTC                         0.05555          82,166.3       80,085.5954        -115.583138       104.900121  111.21887
-  ETH                           1.633        2,405.4739        2,322.1866        -136.008085         5.372602  94.80327
-  SOL                           28.55            104.93          100.9762        -112.879155        12.227711  72.071808
-  XRP                         2,664.4            1.3317             1.285        -124.390472       -14.123995  85.594775
-  BNB                           1.822           731.179          736.1755           9.103687         6.842975  67.065591
-  SUI                           1,359            1.0324            0.9119        -163.624507         2.488738  61.970354
+  BTC                         0.05555          82,166.3       80,235.9958        -107.228398       107.450674  111.427739
+  ETH                           1.633        2,405.4739        2,327.2187        -127.790711          5.51501  95.008704
+  SOL                           28.55            104.93          101.5259         -97.186675         13.20132  72.46412
+  XRP                         2,664.4            1.3317            1.2925        -104.256899       -13.952477  86.098114
+  BNB                           1.822           731.179          741.3532          18.537457         7.078376  67.537279
+  SUI                           1,359            1.0324            0.9157        -158.507954         2.550863  62.226182
 
                       independent                 bank getter                 bank − independent (raw)
-  E_risk (equity)     1,042.987642                1,042.987642                0
-  MM                  492.72467                   492.72467                   0
-  IM                  985.449341                  985.449341                  0
-  CM                  246.362335                  246.362335                  0
+  E_risk (equity)     1,105.800517                1,105.800517                0
+  MM                  494.762141                  494.762141                  0
+  IM                  989.524282                  989.524282                  0
+  CM                  247.38107                   247.38107                   0
   unlocked / locked   1,804.077467 / 0
-  E_total             1,042.987642  (E_risk + locked)
-  buffer              550.262972  (E_risk − MM)
-  SDK truncation      E_risk would be 1,042.987642 (1 raw from the bank; 1 legs round differently)
+  E_total             1,105.800517  (E_risk + locked)
+  buffer              611.038376  (E_risk − MM)
+  SDK truncation      E_risk would be 1,105.800517 (1 raw from the bank; 1 legs round differently)
 
 VERDICT: EXACT
 
 Margin Rescue: finite repair candidates under one fixed scenario (read-only analysis)
-  scenario id         d8065a5e0a2d3f87f4beb771e779cafe63f881af861ce52efc98c7f93e2e20d9
-  reference           block 33516295 0xfaab4f11df73f4fec47137c8fa29dc66415acdda647345feae9d47c52e5ac393
+  scenario id         4189aad63c02797f79bd5029af38f781614c1d11515b6727884be7a76c20a393
+  reference           block 33647580 0xdf2dfaf5d3d8936e9558262dfd4d12fec42ed275fd35d35914d3728d7a879512
   model               mr-model/1 (static shock; pnl floor, funding ceil, requirements ceil per leg); instantaneous static; funding frozen
   target buffer       0 USDso (scenario E_risk − scenario MM)
 
   market   reference mark      scenario price      shock
-  SUI                  0.9119              0.9119  held at reference
-  BNB                736.1755            736.1755  held at reference
-  BTC             80,085.5954         73,678.7478  -8%
-  XRP                   1.285               1.285  held at reference
-  SOL                100.9762            100.9762  held at reference
-  ETH              2,322.1866          2,043.5242  -12%
+  SUI                  0.9157              0.9157  held at reference
+  BNB                741.3532            741.3532  held at reference
+  BTC             80,235.9958         73,817.1161  -8%
+  XRP                  1.2925              1.2925  held at reference
+  SOL                101.5259            101.5259  held at reference
+  ETH              2,327.2187          2,047.9524  -12%
 
-  baseline now        E_risk 1,042.987642  E_total 1,042.987642  MM 492.72467  buffer 550.262972  health 2.1167x
-  baseline scenario   E_risk 232.031558  E_total 232.031558  MM 472.450768  buffer -240.41921  health 0.4911x  -> FAILS
+  baseline now        E_risk 1,105.800517  E_total 1,105.800517  MM 494.762141  buffer 611.038376  health 2.235x
+  baseline scenario   E_risk 293.189968  E_total 293.189968  MM 474.446877  buffer -181.256908  health 0.6179x  -> FAILS
 
   id          status       goal       notional cut now     cost now (slippage+fees)   scenario buffer        notes
-  NONE        EVALUATED    FAILS                       0                          0             -240.41921   
-  BTC-25      EVALUATED    FAILS                1,111.58                  -2.386035            -123.539604   sell 0.01388 limit 79,856.3, expect 0.01388
-  BTC-50      EVALUATED    FAILS                2,223.97                  -4.771074              -6.578506   sell 0.02777 limit 79,856.3, expect 0.02777
-  BTC-75      EVALUATED    MEETS                3,336.36                  -7.154661             110.381139   sell 0.04166 limit 79,856.3, expect 0.04166
-  BTC-100     EVALUATED    MEETS                4,448.75                  -9.529947             227.332483   sell 0.05555 limit 79,856.3, expect 0.05555
-  ETH-25      EVALUATED    FAILS                  947.91                  -0.703466            -105.111587   sell 0.4082 limit 2,312.3, expect 0.4082
-  ETH-50      EVALUATED    MEETS                1,896.06                  -1.407104              30.229182   sell 0.8165 limit 2,312.3, expect 0.8165
-  ETH-75      EVALUATED    MEETS                2,843.98                   -2.11057             165.536805   sell 1.2247 limit 2,312.3, expect 1.2247
-  ETH-100     EVALUATED    MEETS                3,792.13                  -2.814209             300.877575   sell 1.633 limit 2,312.3, expect 1.633
+  NONE        EVALUATED    FAILS                       0                          0            -181.256908   
+  BTC-25      EVALUATED    FAILS                1,113.67                  -2.356882             -64.191437   sell 0.01388 limit 80,003.8, expect 0.01388
+  BTC-50      EVALUATED    MEETS                2,228.15                  -4.715462              52.958375   sell 0.02777 limit 80,003.8, expect 0.02777
+  BTC-75      EVALUATED    MEETS                3,342.63                  -7.074042             170.108187   sell 0.04166 limit 80,003.8, expect 0.04166
+  BTC-100     EVALUATED    MEETS                 4,457.1                  -9.432623                287.258   sell 0.05555 limit 80,003.8, expect 0.05555
+  ETH-25      EVALUATED    FAILS                  949.97                  -0.404634             -45.956436   sell 0.4082 limit 2,316.57, expect 0.4082
+  ETH-50      EVALUATED    MEETS                1,900.17                  -0.809367              89.377181   sell 0.8165 limit 2,316.57, expect 0.8165
+  ETH-75      EVALUATED    MEETS                2,850.14                  -1.210349                224.674   sell 1.2247 limit 2,316.57, expect 1.2247
+  ETH-100     EVALUATED    MEETS                3,800.34                  -1.525024             359.917559   sell 1.633 limit 2,316.57, expect 1.633
 
 OUTCOME: CANDIDATE_SELECTED -> ETH-50 (preferred among the evaluated candidates only; not a global optimum)
 Not modelled (listed): 0 resting orders, 0 live stops. Resting orders and TP/SL stops are listed, not simulated: the static shock does not fill orders or fire stops along the way.
 This is a static what-if on the stated prices. It does not predict prices, fills or liquidation, and an expected fill is not a guaranteed fill.
 
-# exit 0 at 2026-10-26T08:36:25Z

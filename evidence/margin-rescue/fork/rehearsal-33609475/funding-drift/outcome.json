@@ -1,0 +1,65 @@
+{
+  "checks": [
+    {
+      "detail": "[\"cleanup-close-BTC-1→0x26d918c21216cba35581c86978923c31abe5220d\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x26d918c21216cba35581c86978923c31abe5220d\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "name": "every cleanup order went through the guard",
+      "ok": true
+    },
+    {
+      "detail": "[\"1:deploy-guard:0:CONFIRMED\",\"2:approve:1:CONFIRMED\",\"3:deposit:2:CONFIRMED\",\"4:open-BTC-long:3:CONFIRMED\",\"5:open-ETH-short:4:CONFIRMED\",\"6:grant-BTC:5:CONFIRMED\",\"7:reduce:6:CONFIRMED\",\"8:cleanup-close-BTC-1:7:CONFIRMED\",\"9:cleanup-grant-ETH:8:CONFIRMED\",\"10:cleanup-close-ETH-1:9:CONFIRMED\",\"11:cleanup-revoke-BTC:10:CONFIRMED\",\"12:cleanup-revoke-ETH:11:CONFIRMED\",\"13:cleanup-withdraw:12:CONFIRMED\"]",
+      "name": "no transaction was sent twice",
+      "ok": true
+    },
+    {
+      "detail": "guard.json",
+      "name": "deployed guard verified against the approved runtime hash",
+      "ok": true
+    },
+    {
+      "detail": "{\"from\":\"1793013102\",\"to\":\"1793013103\"}",
+      "name": "the clock crossed a funding settlement between the analysis and the refresh",
+      "ok": true
+    },
+    {
+      "detail": "[]",
+      "name": "the refresh kept the confirmation (accrual is not a structural change)",
+      "ok": true
+    },
+    {
+      "detail": "14205563714548587",
+      "name": "the refresh reported non-zero funding drift",
+      "ok": true
+    },
+    {
+      "detail": "{\"fundingSettled\":\"14205563714548587\",\"failed\":[]}",
+      "name": "the reduction settled the drifted funding, and every ledger check holds",
+      "ok": true
+    },
+    {
+      "detail": "{\"failures\":[],\"ok\":true}",
+      "name": "the receipt is bound to the confirmation",
+      "ok": true
+    },
+    {
+      "detail": "COMPLETE ",
+      "name": "status COMPLETE and cleanup verified",
+      "ok": true
+    }
+  ],
+  "expected": "a funding settlement crossed after the analysis: STILL_VALID with the drift reported; the reduction settles the drifted funding exactly; COMPLETE",
+  "observed": {
+    "bufferVsForecast": "0",
+    "crossed": {
+      "from": "1793013102",
+      "to": "1793013103"
+    },
+    "fundingDrift": "14205563714548587",
+    "fundingSettled": "14205563714548587",
+    "goal": "GOAL_MET",
+    "seconds": 68,
+    "status": "COMPLETE",
+    "untouchedLegsFundingDrift": "0"
+  },
+  "pass": true,
+  "scenario": "funding-drift"
+}

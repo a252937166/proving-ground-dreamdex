@@ -453,7 +453,7 @@
     }
   ],
   "canonical": {
-    "checkedAt": "2026-10-26T08:29:05.786Z",
+    "checkedAt": "2026-10-26T13:56:32.384Z",
     "observedHash": "0x10d2a7b468c4be0cc5acbe39068d242ce0958615ef21f325f83c207d366f89be",
     "ok": true
   },
@@ -797,9 +797,11 @@
     }
   ],
   "problems": [],
-  "readStartedAt": "2026-10-26T08:26:48.786Z",
+  "readStartedAt": "2026-10-26T13:55:58.811Z",
   "stops": {
     "error": null,
+    "indexedThrough": "33708297",
+    "pages": 1,
     "rows": [
       {
         "indexedStatus": "CANCELLED",

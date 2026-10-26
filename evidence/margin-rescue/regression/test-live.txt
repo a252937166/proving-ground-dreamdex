@@ -1,20 +1,20 @@
 $ npm run test:live
-# started 2026-10-26T08:38:20Z
+# started 2026-10-26T12:16:00Z
 
 > proving-ground-dreamdex@0.1.0 test:live
 > tsx --test --test-reporter=spec test/live/*.test.ts
 
-# block 33517625 (2026-10-26T08:38:33.000Z), pool 0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0, mark 80,107.78
+# block 33648165 (2026-10-26T12:16:13.000Z), pool 0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0, mark 80,232.84
 ▶ live BTC-PERP snapshot
-  ✔ is on chain 50383 (0.830583ms)
-  ✔ finds the BTC-PERP pool and it has contract code (403.316959ms)
-  ✔ indexer market config matches the on-chain book parameters (0.895ms)
-  ✔ reads a live mark price at the book's block (0.401958ms)
-  ✔ block time is close to local time (0.217291ms)
-  ✔ book is non-empty, uncrossed, sorted and on the tick/lot grid (0.637333ms)
-  ✔ mark is within 5% of the mid (sanity) (0.335292ms)
-  ✔ runs the local pre-check on live data (1.703875ms)
-✔ live BTC-PERP snapshot (6633.05725ms)
+  ✔ is on chain 50383 (1.068417ms)
+  ✔ finds the BTC-PERP pool and it has contract code (422.498625ms)
+  ✔ indexer market config matches the on-chain book parameters (0.93925ms)
+  ✔ reads a live mark price at the book's block (0.211083ms)
+  ✔ block time is close to local time (0.408583ms)
+  ✔ book is non-empty, uncrossed, sorted and on the tick/lot grid (0.701833ms)
+  ✔ mark is within 5% of the mid (sanity) (0.524417ms)
+  ✔ runs the local pre-check on live data (1.708834ms)
+✔ live BTC-PERP snapshot (6805.576042ms)
 ℹ tests 8
 ℹ suites 1
 ℹ pass 8
@@ -22,5 +22,5 @@ $ npm run test:live
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 7014.848042
-# exit 0 at 2026-10-26T08:38:28Z
+ℹ duration_ms 7307.445042
+# exit 0

@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "detail": "preflight: the bank account is not empty; an allowance of 6000000000000000000 to the bank already exists",
+      "name": "the preflight refused the account (existing collateral and allowance)",
+      "ok": true
+    },
+    {
+      "detail": "REFUSED 1",
+      "name": "status REFUSED, exit 1, no cleanup",
+      "ok": true
+    },
+    {
+      "detail": "0 signatures, 0 steps",
+      "name": "nothing was signed or broadcast",
+      "ok": true
+    },
+    {
+      "detail": "{\"before\":{\"block\":\"33472622\",\"nonce\":2,\"stt\":\"9999413844330490415\",\"usdso\":\"96000000000000000000\",\"allowance\":\"6000000000000000000\",\"unlocked\":\"4000000000000000000\",\"locked\":\"0\",\"pools\":0,\"guardCode\":\"0x\"},\"after\":{\"block\":\"33472622\",\"nonce\":2,\"stt\":\"9999413844330490415\",\"usdso\":\"96000000000000000000\",\"allowance\":\"6000000000000000000\",\"unlocked\":\"4000000000000000000\",\"locked\":\"0\",\"pools\":0,\"guardCode\":\"0x\"}}",
+      "name": "the account is exactly as it was (no block mined, same nonce, balances, allowance and collateral; no guard)",
+      "ok": true
+    },
+    {
+      "detail": "REFUSED preflight: the bank account is not empty; an allowance of 6000000000000000000 to the bank already exists",
+      "name": "a --resume of the refused run also refuses, touching nothing",
+      "ok": true
+    }
+  ],
+  "expected": "REFUSED (exit 1) with zero signatures and broadcasts; collateral 4 USDso and allowance 6 USDso untouched",
+  "observed": {
+    "after": {
+      "allowance": "6000000000000000000",
+      "block": "33472622",
+      "guardCode": "0x",
+      "locked": "0",
+      "nonce": 2,
+      "pools": 0,
+      "stt": "9999413844330490415",
+      "unlocked": "4000000000000000000",
+      "usdso": "96000000000000000000"
+    },
+    "before": {
+      "allowance": "6000000000000000000",
+      "block": "33472622",
+      "guardCode": "0x",
+      "locked": "0",
+      "nonce": 2,
+      "pools": 0,
+      "stt": "9999413844330490415",
+      "unlocked": "4000000000000000000",
+      "usdso": "96000000000000000000"
+    },
+    "exitCode": 1,
+    "reason": "preflight: the bank account is not empty; an allowance of 6000000000000000000 to the bank already exists",
+    "seconds": 6,
+    "status": "REFUSED"
+  },
+  "pass": true,
+  "scenario": "preflight-refusal"
+}

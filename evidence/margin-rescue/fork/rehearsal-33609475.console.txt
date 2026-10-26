@@ -1,0 +1,10 @@
+
+> proving-ground-dreamdex@0.1.0 mr:fork-rehearsal
+> tsx src/margin-rescue/forkRehearsal.ts --upstream http://127.0.0.1:8556 --block 33609475 --port 8549 --only funding-drift --out evidence/margin-rescue/fork/rehearsal-33609475
+
+fork of block 33609475 (0xa978e0320976b87fc5307a5ed9a95e84b782ef513ea19ac863b876a1babf38f0); owner 0x7301F5d53949D0E05E5048aA97C9243C1693C603; third party 0xB344642307bCe787eB7D7426e890D752b3a29DCC; plan digest 90c5c25de3f3130702b99b9e9de2014a5452bfddd394ce80c70610db11a2e685
+
+== funding-drift
+PASS funding-drift: all checks hold
+
+1/1 scenarios pass; evidence in evidence/margin-rescue/fork/rehearsal-33609475

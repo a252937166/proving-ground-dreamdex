@@ -1,0 +1,28 @@
+{
+  "deployTx": "0x38753feaeef7ee09f2ed5693a1a62b45eb997e47fac885a1ef40d9f0f0d68910",
+  "deployment": {
+    "compiler": "0.8.28+commit.7893614a",
+    "creationCodeKeccak": "0xfe518fcf8ca555a5b30a7fa051c5d9c31625bcdd4c0424447b12a41432cf1703",
+    "deployDataKeccak": "0x4c28348fb8a5f33e2e3b9c491a0501a399ff7053b06bf5bf2f984d48f1681bee",
+    "expectedRuntimeKeccak": "0x96a66a2b5d4afcfb4c80c7c683a7c6a7781f96251e651b09e1609a2c0bd54518",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "owner": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+    "pools": [
+      "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+    ],
+    "runtimeBytes": 4294,
+    "sourceSha256": {
+      "src/ReduceGuardChecks.sol": "f0db6b4d2f20a2771f884024662420665e6ed2a7de5d50bbd193877cdbeb4db4",
+      "src/ReduceOnlyGuard.sol": "aa878e306dc0070c8a4c9d332d756c0920cf46a7b5838929ceec6e6b8500757f",
+      "src/interfaces/IDreamDex.sol": "50af913372d43e1b82a774d648eacb09064b9ae64562cb4c5820c03283c86a81"
+    }
+  },
+  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "problems": [],
+  "verified": true
+}

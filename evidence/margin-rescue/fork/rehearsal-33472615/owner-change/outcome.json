@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "detail": "[\"cleanup-close-BTC-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "name": "every cleanup order went through the guard",
+      "ok": true
+    },
+    {
+      "detail": "[\"1:deploy-guard:0:CONFIRMED\",\"2:approve:1:CONFIRMED\",\"3:deposit:2:CONFIRMED\",\"4:open-BTC-long:3:CONFIRMED\",\"5:open-ETH-short:4:CONFIRMED\",\"6:grant-BTC:5:CONFIRMED\",\"7:cleanup-close-BTC-1:7:CONFIRMED\",\"8:cleanup-grant-ETH:8:CONFIRMED\",\"9:cleanup-close-ETH-1:9:CONFIRMED\",\"10:cleanup-revoke-BTC:10:CONFIRMED\",\"11:cleanup-revoke-ETH:11:CONFIRMED\",\"12:cleanup-withdraw:12:CONFIRMED\"]",
+      "name": "no transaction was sent twice",
+      "ok": true
+    },
+    {
+      "detail": "guard.json",
+      "name": "deployed guard verified against the approved runtime hash",
+      "ok": true
+    },
+    {
+      "detail": "0xb6e0d88dc9dbe4f21ac090e11a5e1f4f88261b202b88047c705c6f7a7de62899",
+      "name": "the owner's own trade landed after the analysis",
+      "ok": true
+    },
+    {
+      "detail": "[{\"actionId\":\"0x7a101f1cfa115dee75c0cd63c35ba48c055f3958aa94c453a922972f77576858\",\"reasons\":[\"BTC position changed from 125000 to 94000\",\"unlocked collateral changed from 60000000000000000000 to 59996262392000000000\",\"re-analysis now selects BTC-25, not the confirmed BTC-50\",\"position is 94000, not the confirmed 125000\"]}]",
+      "name": "the refresh invalidated the first confirmation (position changed)",
+      "ok": true
+    },
+    {
+      "detail": "[\"0x7a101f1c INVALIDATED\",\"0x8e4f96aa INVALIDATED\"]",
+      "name": "no rescue confirmation was ever sent",
+      "ok": true
+    },
+    {
+      "detail": "ABORTED account nonce is 7; this run expected 6: another transaction was sent from the account",
+      "name": "the run detected the foreign transaction and aborted",
+      "ok": true
+    },
+    {
+      "detail": "[]",
+      "name": "cleanup verified despite the foreign transaction",
+      "ok": true
+    }
+  ],
+  "expected": "INVALIDATED (position changed); nothing sent; ABORTED on foreign activity (exit 20); cleanup verified",
+  "observed": {
+    "exitCode": 20,
+    "foreignActivity": [
+      {
+        "at": "2026-10-26T14:00:04.364Z",
+        "detail": "account nonce is 7; this run expected 6: another transaction was sent from the account"
+      }
+    ],
+    "injected": "0xb6e0d88dc9dbe4f21ac090e11a5e1f4f88261b202b88047c705c6f7a7de62899",
+    "invalidated": [
+      {
+        "actionId": "0x7a101f1cfa115dee75c0cd63c35ba48c055f3958aa94c453a922972f77576858",
+        "reasons": [
+          "BTC position changed from 125000 to 94000",
+          "unlocked collateral changed from 60000000000000000000 to 59996262392000000000",
+          "re-analysis now selects BTC-25, not the confirmed BTC-50",
+          "position is 94000, not the confirmed 125000"
+        ]
+      }
+    ],
+    "seconds": 52,
+    "status": "ABORTED"
+  },
+  "pass": true,
+  "scenario": "owner-change"
+}

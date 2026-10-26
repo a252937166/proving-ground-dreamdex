@@ -1,0 +1,80 @@
+{
+  "checks": [
+    {
+      "detail": "[\"cleanup-close-BTC-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "name": "every cleanup order went through the guard",
+      "ok": true
+    },
+    {
+      "detail": "[\"1:deploy-guard:0:CONFIRMED\",\"2:approve:1:CONFIRMED\",\"3:deposit:2:CONFIRMED\",\"4:open-BTC-long:3:CONFIRMED\",\"5:open-ETH-short:4:CONFIRMED\",\"6:grant-BTC:5:CONFIRMED\",\"7:reduce:6:CONFIRMED\",\"8:cleanup-close-BTC-1:7:CONFIRMED\",\"9:cleanup-grant-ETH:8:CONFIRMED\",\"10:cleanup-close-ETH-1:9:CONFIRMED\",\"11:cleanup-revoke-BTC:10:CONFIRMED\",\"12:cleanup-revoke-ETH:11:CONFIRMED\",\"13:cleanup-withdraw:12:CONFIRMED\"]",
+      "name": "no transaction was sent twice",
+      "ok": true
+    },
+    {
+      "detail": "guard.json",
+      "name": "deployed guard verified against the approved runtime hash",
+      "ok": true
+    },
+    {
+      "detail": "372411000",
+      "name": "the third party took liquidity right before the send",
+      "ok": true
+    },
+    {
+      "detail": "{\"filled\":\"31000\",\"fills\":[{\"price\":\"79832700000000000000000\",\"quantity\":\"31000\"}],\"priceBoundRespected\":true,\"requested\":\"62000\",\"state\":\"PARTIAL_FILL\",\"unfilled\":\"31000\"}",
+      "name": "the guarded IOC filled only part of the request",
+      "ok": true
+    },
+    {
+      "detail": "{\"failures\":[],\"ok\":true}",
+      "name": "the receipt is bound to the confirmation",
+      "ok": true
+    },
+    {
+      "detail": "[]",
+      "name": "every ledger check holds for the actual fill",
+      "ok": true
+    },
+    {
+      "detail": "{\"reason\":\"scenario buffer 43666648019704009671 < target 45000000000000000000\",\"state\":\"GOAL_NOT_MET\"}",
+      "name": "the goal is computed from the actual fill (not GOAL_MET by forecast)",
+      "ok": true
+    },
+    {
+      "detail": "10 GOAL_NOT_MET",
+      "name": "exit code is 0 only if the actual fill still met the goal",
+      "ok": true
+    },
+    {
+      "detail": "[]",
+      "name": "cleanup verified",
+      "ok": true
+    }
+  ],
+  "expected": "PARTIAL_FILL recomputed from the fills; exit 10 unless the actual fill still meets the goal; cleanup verified",
+  "observed": {
+    "exitCode": 10,
+    "fill": {
+      "filled": "31000",
+      "fills": [
+        {
+          "price": "79832700000000000000000",
+          "quantity": "31000"
+        }
+      ],
+      "priceBoundRespected": true,
+      "requested": "62000",
+      "state": "PARTIAL_FILL",
+      "unfilled": "31000"
+    },
+    "goal": {
+      "reason": "scenario buffer 43666648019704009671 < target 45000000000000000000",
+      "state": "GOAL_NOT_MET"
+    },
+    "seconds": 57,
+    "status": "NOT_DEMONSTRATED",
+    "thirdPartyTook": "372411000"
+  },
+  "pass": true,
+  "scenario": "partial-fill"
+}

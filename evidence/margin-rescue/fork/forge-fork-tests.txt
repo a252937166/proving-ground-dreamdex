@@ -1,13 +1,23 @@
-$ (cd contracts && forge test --match-path 'test/fork/*' -vv)
-# started 2026-10-26T08:34:10Z
+
+> proving-ground-dreamdex@0.1.0 test:fork
+> cd contracts && forge test --match-path 'test/fork/*'
+
 No files changed, compilation skipped
 
-Ran 4 tests for test/fork/PostconditionRollback.fork.t.sol:PostconditionRollbackForkTest
-[PASS] test_negativeControls_areDistinctErrors() (gas: 513987)
-[PASS] test_realFlip_postconditionRevertsAfterFill_andAllStateRollsBack() (gas: 10526871)
-[PASS] test_realIncrease_postconditionReverts() (gas: 3633726)
-[PASS] test_reductionBeyondClaim_postconditionReverts() (gas: 4394676)
-Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 3.72s (36.10ms CPU time)
+Ran 6 tests for test/fork/VenueSemantics.fork.t.sol:VenueSemanticsForkTest
+[PASS] test_expiryBoundary() (gas: 2610339)
+[PASS] test_ioc_zeroFill_reverts() (gas: 158215)
+[PASS] test_noFifthOrderType() (gas: 227433)
+[PASS] test_operatorRoute_perPoolGrant_noWalletPull() (gas: 3221126)
+[PASS] test_restingReduceOrder_outlivesPosition() (gas: 5298920)
+[PASS] test_selfMatch_cancelTaker_reverts() (gas: 1211214)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 541.87s (41.55s CPU time)
+
+Ran 3 tests for test/fork/AccountLedger.fork.t.sol:AccountLedgerForkTest
+[PASS] test_cancelOrdinaryOrder_conservesCollateral() (gas: 2670145)
+[PASS] test_priorLiquidation_invalidatesConfirmedAction() (gas: 6234360)
+[PASS] test_realAccount_partialReduce_ledger() (gas: 9057276)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 547.20s (62.64s CPU time)
 
 Ran 25 tests for test/fork/ReduceOnlyGuard.fork.t.sol:ReduceOnlyGuardForkTest
 [PASS] test_concurrentConfirmations_secondIsStale() (gas: 2741723)
@@ -23,15 +33,7 @@ Ran 25 tests for test/fork/ReduceOnlyGuard.fork.t.sol:ReduceOnlyGuardForkTest
 [PASS] test_malformedQuantities() (gas: 515266)
 [PASS] test_otherAccountsUnreachable() (gas: 217419)
 [PASS] test_perFillBound_buy_depthBeyondLimit() (gas: 2700982)
-Logs:
-  buy limit 2317040000000000000000 next ask 2317190000000000000000
-  fills 1 max price 2317040000000000000000
-
 [PASS] test_perFillBound_sell_depthBeyondLimit() (gas: 3648427)
-Logs:
-  sell limit 80142900000000000000000 next bid 80142000000000000000000
-  fills 2 min price 80142900000000000000000
-
 [PASS] test_positionChangedAfterPriorPartialClose() (gas: 2644901)
 [PASS] test_positionNowFlat() (gas: 4423443)
 [PASS] test_positionNowReversed() (gas: 4561298)
@@ -43,42 +45,13 @@ Logs:
 [PASS] test_untrustedPool() (gas: 189851)
 [PASS] test_wrongCaller() (gas: 153617)
 [PASS] test_zeroFill_revertsAndKeepsIdUnused() (gas: 1068627)
-Suite result: ok. 25 passed; 0 failed; 0 skipped; finished in 3.74s (66.25ms CPU time)
+Suite result: ok. 25 passed; 0 failed; 0 skipped; finished in 547.20s (149.90s CPU time)
 
-Ran 6 tests for test/fork/VenueSemantics.fork.t.sol:VenueSemanticsForkTest
-[PASS] test_expiryBoundary() (gas: 2610339)
-[PASS] test_ioc_zeroFill_reverts() (gas: 158215)
-[PASS] test_noFifthOrderType() (gas: 227433)
-[PASS] test_operatorRoute_perPoolGrant_noWalletPull() (gas: 3221126)
-[PASS] test_restingReduceOrder_outlivesPosition() (gas: 5298920)
-Logs:
-  pending ask after close 3000000 locked 0
+Ran 4 tests for test/fork/PostconditionRollback.fork.t.sol:PostconditionRollbackForkTest
+[PASS] test_negativeControls_areDistinctErrors() (gas: 513987)
+[PASS] test_realFlip_postconditionRevertsAfterFill_andAllStateRollsBack() (gas: 10526871)
+[PASS] test_realIncrease_postconditionReverts() (gas: 3633726)
+[PASS] test_reductionBeyondClaim_postconditionReverts() (gas: 4394676)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 550.14s (75.34s CPU time)
 
-[PASS] test_selfMatch_cancelTaker_reverts() (gas: 1211214)
-Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 9.99s (6.32s CPU time)
-
-Ran 3 tests for test/fork/AccountLedger.fork.t.sol:AccountLedgerForkTest
-[PASS] test_cancelOrdinaryOrder_conservesCollateral() (gas: 2670145)
-Logs:
-  released lock (raw) 79343100000000000000
-
-[PASS] test_priorLiquidation_invalidatesConfirmedAction() (gas: 6234360)
-Logs:
-  margin status under the mocked mark 3
-  BTC size after liquidation
-  0
-
-[PASS] test_realAccount_partialReduce_ledger() (gas: 9057276)
-Logs:
-  account 0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745 active markets 6
-  funding owed on the whole BTC position (raw)
-  104287606558759752764
-  funding settled (raw)
-  104287606558759752764
-  realized PnL (raw)
-  -56171061000000000000
-
-Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 9.99s (2.12s CPU time)
-
-Ran 4 test suites in 10.00s (27.44s CPU time): 38 tests passed, 0 failed, 0 skipped (38 total tests)
-# exit 0 at 2026-10-26T08:34:21Z
+Ran 4 test suites in 550.15s (2186.41s CPU time): 38 tests passed, 0 failed, 0 skipped (38 total tests)

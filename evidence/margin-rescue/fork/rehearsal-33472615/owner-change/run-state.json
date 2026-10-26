@@ -1,0 +1,20 @@
+{
+  "abort": "account nonce is 7; this run expected 6: another transaction was sent from the account",
+  "account": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
+  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "invalidated": [
+    {
+      "actionId": "0x7a101f1cfa115dee75c0cd63c35ba48c055f3958aa94c453a922972f77576858",
+      "reasons": [
+        "BTC position changed from 125000 to 94000",
+        "unlocked collateral changed from 60000000000000000000 to 59996262392000000000",
+        "re-analysis now selects BTC-25, not the confirmed BTC-50",
+        "position is 94000, not the confirmed 125000"
+      ]
+    }
+  ],
+  "notDemonstrated": null,
+  "planDigest": "51cb547625b3c54f64da62e2be5619f9e1f38b81d5d5c674db0586d99865f3f9",
+  "rescueActionId": "0x8e4f96aa6c163bcb850747a057dae9185a24bf77e4674d7ee3e46d2eac9832e4",
+  "version": "mr-live-run/3"
+}

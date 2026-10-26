@@ -1,0 +1,17 @@
+{
+  "cleanup": null,
+  "exitCode": 1,
+  "foreignActivity": [],
+  "gas": {
+    "cap": "2000000000000000000",
+    "committed": "0",
+    "spent": "0"
+  },
+  "guard": null,
+  "invalidated": [],
+  "reason": "preflight: the bank account is not empty; an allowance of 6000000000000000000 to the bank already exists",
+  "rescue": null,
+  "sentTransactions": 0,
+  "status": "REFUSED",
+  "version": "mr-live-run/3"
+}

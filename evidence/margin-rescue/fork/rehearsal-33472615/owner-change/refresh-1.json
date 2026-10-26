@@ -1,0 +1,25 @@
+{
+  "block": {
+    "hash": "0x1f40cd6f3cf29679fd4d2c730e714c2f6befa27ddfce10954a76f28c285a04ec",
+    "number": "33472627",
+    "timestamp": "1792999410"
+  },
+  "fundingDrift": "0",
+  "reanalysis": {
+    "blockers": [],
+    "outcome": "CANDIDATE_SELECTED",
+    "selected": "BTC-25"
+  },
+  "reasons": [
+    "BTC position changed from 125000 to 94000",
+    "unlocked collateral changed from 60000000000000000000 to 59996262392000000000",
+    "re-analysis now selects BTC-25, not the confirmed BTC-50",
+    "position is 94000, not the confirmed 125000"
+  ],
+  "refreshed": null,
+  "stateChanges": [
+    "BTC position changed from 125000 to 94000",
+    "unlocked collateral changed from 60000000000000000000 to 59996262392000000000"
+  ],
+  "verdict": "INVALIDATED"
+}

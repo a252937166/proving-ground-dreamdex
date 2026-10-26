@@ -1,10 +1,13 @@
-// Decode what one guarded reduction actually did, from its canonical receipt: the
-// guard's event, the IOC's own fills (OrderFilled with this taker order id), and every
-// MarginBank row naming the owner. Nothing here trusts the receipt status alone.
+// Decode what one guarded reduction actually did, from its canonical receipt and the
+// transaction itself: the guard's event, the IOC's own fills (OrderFilled with this
+// taker order id), and every MarginBank row naming the owner. Nothing here trusts the
+// receipt status alone, and nothing is credited to an action until verifyBinding has
+// tied the transaction, its calldata and the guard's event to the saved confirmation.
 import { decodeEventLog, type Abi, type Address, type Hex, type Log, type PublicClient } from "viem"
 import { marginBankEventsAbi, orderBookEventsAbi, perpPoolEventsAbi, reduceGuardAbi } from "./abi.js"
-import { sameAddress } from "./snapshot.js"
-import type { FillState } from "./journal.js"
+import { actionIdOf, reduceCalldata, type ReduceRequest } from "./action.js"
+import { sameAddress, type AccountSnapshot } from "./snapshot.js"
+import type { ActionRecord, FillState } from "./journal.js"
 
 const ABI = [...orderBookEventsAbi, ...marginBankEventsAbi, ...perpPoolEventsAbi, ...reduceGuardAbi] as unknown as Abi
 
@@ -30,6 +33,10 @@ export interface ActionReceipt {
   from: Address
   to: Address | null
   gasUsed: bigint
+  // The transaction as the node returns it (eth_getTransactionByHash).
+  tx: { from: Address; to: Address | null; input: Hex; nonce: number; value: bigint; chainId: number | null }
+  guardEvents: number // ReduceExecuted events from ANY address in this transaction
+  placedBy: Address | null // owner of the pool's OrderPlaced row for the taker order
   guard: { actionId: Hex; pool: Address; orderId: bigint; sizeBefore: bigint; sizeAfter: bigint; quantity: bigint; limitPrice: bigint } | null
   takerOrderId: bigint | null
   fills: ReceiptFill[]
@@ -73,7 +80,7 @@ export function decodeLogs(logs: Log[]): DecodedLog[] {
 }
 
 export async function readActionReceipt(client: PublicClient, txHash: Hex, expect: ReceiptExpectation): Promise<ActionReceipt> {
-  const receipt = await client.getTransactionReceipt({ hash: txHash })
+  const [receipt, tx] = await Promise.all([client.getTransactionReceipt({ hash: txHash }), client.getTransaction({ hash: txHash })])
   const block = await client.getBlock({ blockNumber: receipt.blockNumber })
   return summarize(
     {
@@ -85,6 +92,7 @@ export async function readActionReceipt(client: PublicClient, txHash: Hex, expec
       from: receipt.from,
       to: receipt.to,
       gasUsed: receipt.gasUsed,
+      tx: { from: tx.from, to: tx.to ?? null, input: tx.input, nonce: tx.nonce, value: tx.value, chainId: tx.chainId ?? null },
     },
     decodeLogs(receipt.logs as Log[]),
     expect,
@@ -92,7 +100,7 @@ export async function readActionReceipt(client: PublicClient, txHash: Hex, expec
 }
 
 export function summarize(
-  head: Pick<ActionReceipt, "txHash" | "status" | "blockNumber" | "blockHash" | "canonical" | "from" | "to" | "gasUsed">,
+  head: Pick<ActionReceipt, "txHash" | "status" | "blockNumber" | "blockHash" | "canonical" | "from" | "to" | "gasUsed" | "tx">,
   logs: DecodedLog[],
   expect: ReceiptExpectation,
 ): ActionReceipt {
@@ -109,8 +117,9 @@ export function summarize(
         limitPrice: guardLog.args.limitPrice as bigint,
       }
     : null
-  const placed = logs.find((l) => l.name === "OrderPlaced" && sameAddress(l.address, expect.pool) && isOwner((l.args.placedOrder as { owner: string }).owner))
-  const takerOrderId = guard?.orderId ?? ((placed?.args.orderId as bigint | undefined) ?? null)
+  const takerOrderId = guard?.orderId ?? null
+  const placed = logs.find((l) => l.name === "OrderPlaced" && sameAddress(l.address, expect.pool) && (l.args.orderId as bigint) === takerOrderId)
+  const placedBy = placed ? ((placed.args.placedOrder as { owner: Address }).owner ?? null) : null
   const fills: ReceiptFill[] = logs
     .filter((l) => l.name === "OrderFilled" && sameAddress(l.address, expect.pool) && takerOrderId !== null && (l.args.takerOrderId as bigint) === takerOrderId)
     .map((l) => ({ makerOrderId: l.args.makerOrderId as bigint, quantity: l.args.quantityFilled as bigint, price: l.args.fillPrice as bigint }))
@@ -155,7 +164,76 @@ export function summarize(
         owner.other.push(l.name)
     }
   }
-  return { ...head, guard, takerOrderId, fills, filled, rested, priceBoundRespected, owner, logs }
+  const guardEvents = logs.filter((l) => l.name === "ReduceExecuted").length
+  return { ...head, guardEvents, placedBy, guard, takerOrderId, fills, filled, rested, priceBoundRespected, owner, logs }
+}
+
+export function requestOf(r: ActionRecord): ReduceRequest {
+  return {
+    pool: r.request.pool,
+    expectedSignedSize: BigInt(r.request.expectedSignedSize),
+    isBid: r.request.isBid,
+    quantity: BigInt(r.request.quantity),
+    limitPrice: BigInt(r.request.limitPrice),
+    deadline: BigInt(r.request.deadline),
+    nonce: r.request.nonce,
+  }
+}
+
+export interface BindingResult {
+  ok: boolean
+  failures: string[]
+}
+
+// Tie one receipt (and the snapshot read after it) to the SAVED confirmation, field by
+// field. Any mismatch rejects the evidence: nothing in it may be credited to the action.
+export function verifyBinding(record: ActionRecord, receipt: ActionReceipt, snapshots: { pre?: AccountSnapshot; post?: AccountSnapshot } = {}): BindingResult {
+  const f: string[] = []
+  const expect = (ok: boolean, what: string) => {
+    if (!ok) f.push(what)
+  }
+  const req = requestOf(record)
+  const b = record.binding
+  // The confirmation itself must be internally consistent.
+  expect(b.chainId === 50383, `confirmation chain ${b.chainId} is not 50383`)
+  expect(actionIdOf(b, req) === record.actionId, "the saved action id does not commit to the saved request and binding")
+  expect(reduceCalldata(req).toLowerCase() === record.calldata.toLowerCase(), "the saved calldata does not encode the saved request")
+  // The transaction is the one this confirmation sent.
+  expect(!!record.tx.hash && receipt.txHash.toLowerCase() === record.tx.hash.toLowerCase(), `transaction ${receipt.txHash} is not the journalled ${record.tx.hash ?? "(none)"}`)
+  expect(sameAddress(receipt.tx.from, b.owner) && sameAddress(receipt.from, b.owner), `sender ${receipt.tx.from} is not the owner ${b.owner}`)
+  expect(!!receipt.tx.to && sameAddress(receipt.tx.to, b.guard) && !!receipt.to && sameAddress(receipt.to, b.guard), `destination ${receipt.tx.to} is not the guard ${b.guard}`)
+  expect(receipt.tx.input.toLowerCase() === record.calldata.toLowerCase(), "transaction calldata differs from the confirmed calldata")
+  expect(receipt.tx.value === 0n, `transaction carries value ${receipt.tx.value}`)
+  expect(receipt.tx.chainId === null || receipt.tx.chainId === 50383, `transaction chain ${receipt.tx.chainId}`)
+  expect(record.tx.nonce === undefined || receipt.tx.nonce === record.tx.nonce, `transaction nonce ${receipt.tx.nonce} is not the journalled ${record.tx.nonce}`)
+  expect(receipt.canonical, "receipt block is not canonical")
+  // The guard's own record of what it executed.
+  if (receipt.status === "success") {
+    expect(receipt.guardEvents === 1, `${receipt.guardEvents} ReduceExecuted events in the transaction (expected exactly 1)`)
+    const g = receipt.guard
+    if (!g) f.push(`no ReduceExecuted event from the guard ${b.guard}`)
+    else {
+      expect(g.actionId.toLowerCase() === record.actionId.toLowerCase(), `guard event action id ${g.actionId} is not the confirmed ${record.actionId}`)
+      expect(sameAddress(g.pool, req.pool), `guard event pool ${g.pool} is not the confirmed ${req.pool}`)
+      expect(g.quantity === req.quantity, `guard event quantity ${g.quantity} is not the confirmed ${req.quantity}`)
+      expect(g.limitPrice === req.limitPrice, `guard event limit ${g.limitPrice} is not the confirmed ${req.limitPrice}`)
+      expect(g.sizeBefore === req.expectedSignedSize, `guard event size before ${g.sizeBefore} is not the confirmed ${req.expectedSignedSize}`)
+    }
+    expect(!!receipt.placedBy && sameAddress(receipt.placedBy, b.owner), `the taker order was placed for ${receipt.placedBy ?? "nobody"}, not the owner`)
+  } else {
+    expect(receipt.guardEvents === 0 && receipt.fills.length === 0, "a reverted transaction shows guard events or fills")
+  }
+  // Snapshots must be the account's, read before the transaction and AT its block.
+  const { pre, post } = snapshots
+  if (pre) {
+    expect(sameAddress(pre.account, b.owner), "pre-execution snapshot is another account")
+    expect(pre.block.number < receipt.blockNumber, `pre-execution snapshot block ${pre.block.number} is not before the receipt block ${receipt.blockNumber}`)
+  }
+  if (post) {
+    expect(sameAddress(post.account, b.owner), "post-execution snapshot is another account")
+    expect(post.block.number === receipt.blockNumber && post.block.hash.toLowerCase() === receipt.blockHash.toLowerCase(), `post snapshot block ${post.block.number} ${post.block.hash} is not the receipt block ${receipt.blockNumber} ${receipt.blockHash}`)
+  }
+  return { ok: f.length === 0, failures: f }
 }
 
 export function fillState(r: ActionReceipt, requested: bigint): FillState {

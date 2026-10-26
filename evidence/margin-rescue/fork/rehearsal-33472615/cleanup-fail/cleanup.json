@@ -1,0 +1,118 @@
+{
+  "checks": [
+    {
+      "detail": "block 33472634",
+      "name": "snapshot complete and canonical",
+      "ok": true
+    },
+    {
+      "detail": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0:63000",
+      "name": "no position in any of the factory's pools",
+      "ok": false
+    },
+    {
+      "detail": "0 orders",
+      "name": "no resting order",
+      "ok": true
+    },
+    {
+      "detail": "0 listed, none live",
+      "name": "no live TP/SL stop",
+      "ok": true
+    },
+    {
+      "detail": "unlocked 59977004784000000000, locked 0",
+      "name": "bank balance withdrawn",
+      "ok": false
+    },
+    {
+      "detail": "0",
+      "name": "USDso allowance to the bank is zero",
+      "ok": true
+    },
+    {
+      "detail": "21 pools checked; global false",
+      "name": "guard holds no grant on any pool, nor a global one",
+      "ok": true
+    },
+    {
+      "detail": "none",
+      "name": "no unresolved transaction",
+      "ok": true
+    },
+    {
+      "detail": "every cleanup order went through the guard",
+      "name": "no unguarded order during cleanup",
+      "ok": true
+    }
+  ],
+  "closes": [
+    {
+      "actionId": "0x053bc2c541069acb9d87d3351876cd08194e60e0c8440aa7787a7ba30885ed2a",
+      "attempt": 1,
+      "bindingOk": null,
+      "expected": "63000",
+      "filled": "0",
+      "limit": "79743900000000000000000",
+      "note": "ImmediateOrCancelNoFill()",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "quantity": "63000",
+      "state": "WOULD_REVERT",
+      "symbol": "BTC",
+      "tx": null
+    },
+    {
+      "actionId": "0xa167b2329c08b4b01d95621b0a97fe9cddf4aaea43ff0338325f267a8c4a951b",
+      "attempt": 2,
+      "bindingOk": null,
+      "expected": "63000",
+      "filled": "0",
+      "limit": "79008000000000000000000",
+      "note": "ImmediateOrCancelNoFill()",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "quantity": "63000",
+      "state": "WOULD_REVERT",
+      "symbol": "BTC",
+      "tx": null
+    },
+    {
+      "actionId": "0xfff31177fe411576168c03e8b5552c9b764edc91f771e8fff7092236c585a9bc",
+      "attempt": 3,
+      "bindingOk": null,
+      "expected": "63000",
+      "filled": "0",
+      "limit": "78605000000000000000000",
+      "note": "ImmediateOrCancelNoFill()",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "quantity": "63000",
+      "state": "WOULD_REVERT",
+      "symbol": "BTC",
+      "tx": null
+    },
+    {
+      "actionId": "0xfa6703e1f1dbdeb9dd823607a7576db5ffa6e83b973a6d0a3a76e6a0c9e8e1f0",
+      "attempt": 1,
+      "bindingOk": true,
+      "expected": "-38800000000000000",
+      "filled": "38800000000000000",
+      "limit": "2328620000000000000000",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "quantity": "38800000000000000",
+      "state": "CONFIRMED",
+      "symbol": "ETH",
+      "tx": "0xc3fb8dbeee1af8e7193fdb8c380f3721b81de5c91348267bd756d35dd31c773e"
+    }
+  ],
+  "final": {
+    "block": "33472634",
+    "blockHash": "0x1581fd80e55da7defa290d99e7a6dbde405fc003890868c4395bdc032726362e",
+    "stt": "9970833677832656899",
+    "usdso": "40000000000000000000"
+  },
+  "remaining": [
+    "BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent",
+    "collateral left in the bank: 1 position(s) and 0 order(s) remain"
+  ],
+  "verified": false,
+  "version": "mr-cleanup/1"
+}

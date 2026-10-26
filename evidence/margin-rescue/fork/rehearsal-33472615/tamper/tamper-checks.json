@@ -1,0 +1,77 @@
+{
+  "label": "fork (offline recomputation of the happy run's evidence)",
+  "results": [
+    {
+      "binding": {
+        "failures": [],
+        "ok": true
+      },
+      "goal": "GOAL_MET",
+      "label": "as recorded"
+    },
+    {
+      "binding": {
+        "failures": [
+          "guard event action id 0xabababababababababababababababababababababababababababababababab is not the confirmed 0x98c49c09b676a37480be2fc3509ab86c970e882c266f102c2c402c09dccd87eb"
+        ],
+        "ok": false
+      },
+      "goal": "EVIDENCE_MISMATCH",
+      "label": "guard event with another action id"
+    },
+    {
+      "binding": {
+        "failures": [
+          "transaction calldata differs from the confirmed calldata"
+        ],
+        "ok": false
+      },
+      "goal": "EVIDENCE_MISMATCH",
+      "label": "calldata for a different limit"
+    },
+    {
+      "binding": {
+        "failures": [
+          "destination 0xc5856dfE3cc07d2A2f3A44F75bd52F1b1fdF782d is not the guard 0x9f28a92015cd0cd542ea8bdd50973117fc6925ab"
+        ],
+        "ok": false
+      },
+      "goal": "EVIDENCE_MISMATCH",
+      "label": "another destination"
+    },
+    {
+      "binding": {
+        "failures": [
+          "sender 0xc5856dfE3cc07d2A2f3A44F75bd52F1b1fdF782d is not the owner 0xd960976f3af59e7C112D918e0452F41fa89a3799"
+        ],
+        "ok": false
+      },
+      "goal": "EVIDENCE_MISMATCH",
+      "label": "another sender"
+    },
+    {
+      "binding": {
+        "failures": [
+          "post snapshot block 33472626 0xbbda295665908e3a4a67013829da1eb9608538e99e9b64775817a532546ee445 is not the receipt block 33472627 0xbbda295665908e3a4a67013829da1eb9608538e99e9b64775817a532546ee445"
+        ],
+        "ok": false
+      },
+      "goal": "EVIDENCE_MISMATCH",
+      "label": "post snapshot from the block before the receipt"
+    },
+    {
+      "binding": {
+        "failures": [
+          "the saved action id does not commit to the saved request and binding",
+          "the saved calldata does not encode the saved request",
+          "guard event quantity 62000 is not the confirmed 61999",
+          "candidate BTC-50 (62000 @ 79743900000000000000000) is not the confirmed request (61999 @ 79743900000000000000000)"
+        ],
+        "ok": false
+      },
+      "goal": "EVIDENCE_MISMATCH",
+      "label": "a confirmation for another quantity"
+    }
+  ],
+  "source": "evidence/margin-rescue/fork/rehearsal-33472615/happy"
+}

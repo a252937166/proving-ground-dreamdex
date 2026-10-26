@@ -1,9 +1,9 @@
 {
   "account": "0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745",
   "chainId": 50383,
-  "createdAt": "2026-10-26T08:29:05.801Z",
+  "createdAt": "2026-10-26T13:56:32.394Z",
   "funding": "frozen: each portfolio keeps the funding owed as of its own snapshot; none accrues during the shock",
-  "id": "72923ff03e18cd2a502831c2935de36018033c8308a7f33568de32b3d907a19f",
+  "id": "2d73979b848ff9b55fbfb4d9eff04cf6c156158aa8cc2c527c524209dd8d1851",
   "integrity": {
     "reconciliation": "EXACT",
     "snapshotProblems": []

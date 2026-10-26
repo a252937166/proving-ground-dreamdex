@@ -8,7 +8,13 @@
 // eth_getBlockByHash and then checked against eth_getBlockByNumber, so a hash that is
 // not canonical is refused rather than silently read at another block.
 //
-// Usage: node tools/rpc-shim.mjs [port] [upstream]
+// With SHIM_CACHE=1 it also remembers answers to state reads made at an explicit block
+// number (eth_getStorageAt, eth_getCode, eth_getBalance, eth_getTransactionCount,
+// eth_getBlockByNumber). State at a fixed past block does not change, and anvil asks
+// for the same slots again after every evm_revert, so repeated fork runs stop paying
+// one network round trip per slot.
+//
+// Usage: [SHIM_CACHE=1] node tools/rpc-shim.mjs [port] [upstream]
 import http from "node:http";
 
 const port = Number(process.argv[2] ?? process.env.SHIM_PORT ?? 8546);
@@ -26,10 +32,22 @@ const BLOCK_PARAM = {
 
 const counts = new Map();
 const hashToNumber = new Map();
+const CACHEABLE = { eth_getStorageAt: 2, eth_getCode: 1, eth_getBalance: 1, eth_getTransactionCount: 1, eth_getBlockByNumber: 0 };
+const cache = process.env.SHIM_CACHE === "1" ? new Map() : null;
+let hits = 0;
 
+// Transport failures (the upstream dropping a connection under many concurrent fork
+// reads) are retried; a JSON-RPC error answer is returned as is.
 async function post(body) {
-  const res = await fetch(upstream, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-  return res.json();
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const res = await fetch(upstream, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+      return await res.json();
+    } catch (err) {
+      if (attempt >= 4) throw err;
+      await new Promise((r) => setTimeout(r, 250 * 2 ** attempt));
+    }
+  }
 }
 
 async function canonicalNumberForHash(hash) {
@@ -58,7 +76,17 @@ async function rewrite(req) {
 
 async function handleOne(req) {
   try {
-    return await post(await rewrite(req));
+    const rewritten = await rewrite(req);
+    const index = CACHEABLE[rewritten.method];
+    const block = index === undefined || !Array.isArray(rewritten.params) ? undefined : rewritten.params[index];
+    const key = cache && typeof block === "string" && /^0x[0-9a-f]+$/i.test(block) ? `${rewritten.method}:${JSON.stringify(rewritten.params)}` : null;
+    if (key && cache.has(key)) {
+      hits++;
+      return { jsonrpc: "2.0", id: req.id ?? null, result: cache.get(key) };
+    }
+    const answer = await post(rewritten);
+    if (key && answer && answer.error === undefined && answer.result !== undefined && answer.result !== null) cache.set(key, answer.result);
+    return answer;
   } catch (err) {
     return { jsonrpc: "2.0", id: req.id ?? null, error: { code: -32000, message: `rpc-shim: ${err.message}` } };
   }
@@ -83,6 +111,6 @@ const server = http.createServer((request, response) => {
 
 server.listen(port, "127.0.0.1", () => console.log(`rpc-shim http://127.0.0.1:${port} -> ${upstream}`));
 process.on("SIGTERM", () => {
-  console.log("rpc-shim calls:", JSON.stringify(Object.fromEntries(counts)));
+  console.log("rpc-shim calls:", JSON.stringify(Object.fromEntries(counts)), cache ? `cache hits ${hits}, entries ${cache.size}` : "");
   process.exit(0);
 });

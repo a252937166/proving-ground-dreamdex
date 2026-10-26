@@ -1,0 +1,14 @@
+{"step":"start","planDigest":"51cb547625b3c54f64da62e2be5619f9e1f38b81d5d5c674db0586d99865f3f9","account":"0xd960976f3af59e7C112D918e0452F41fa89a3799","rpc":"http://127.0.0.1:8550","out":"evidence/margin-rescue/fork/rehearsal-33472615/happy","resume":false}
+{"at":"2026-10-26T13:56:21.372Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
+{"at":"2026-10-26T13:56:23.872Z","step":"guard verified","guard":"0x9f28a92015cd0cd542ea8bdd50973117fc6925ab","runtimeKeccak":"0x96a66a2b5d4afcfb4c80c7c683a7c6a7781f96251e651b09e1609a2c0bd54518"}
+{"at":"2026-10-26T13:56:29.639Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
+{"at":"2026-10-26T13:56:33.849Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
+{"at":"2026-10-26T13:56:37.943Z","step":"analysis","block":"33472625","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
+{"at":"2026-10-26T13:56:37.956Z","step":"confirmation journalled","actionId":"0x98c49c09b676a37480be2fc3509ab86c970e882c266f102c2c402c09dccd87eb","candidateId":"BTC-50","expectedSignedSize":"125000","quantity":"62000","limit":"79743900000000000000000","deadline":"1792999590"}
+{"at":"2026-10-26T13:56:44.911Z","step":"refresh","attempt":1,"verdict":"STILL_VALID","reasons":[],"fundingDrift":"0"}
+{"at":"2026-10-26T13:56:49.382Z","step":"reduce","actionId":"0x98c49c09b676a37480be2fc3509ab86c970e882c266f102c2c402c09dccd87eb","tx":"0x932f85fd2f84f97888b6a7c6cb31b26232b49495bc44e1f7be86d72c1bb764c6","state":"CONFIRMED"}
+{"at":"2026-10-26T13:56:58.516Z","step":"recompute","binding":true,"fill":"REQUESTED_FILL","goal":"GOAL_MET"}
+{"at":"2026-10-26T13:56:58.519Z","step":"soft loss check","where":"after the reduction","eTotal":"59878507586519155305"}
+{"at":"2026-10-26T13:57:04.463Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"CONFIRMED","filled":"63000"}
+{"at":"2026-10-26T13:57:16.854Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"38800000000000000"}
+{"at":"2026-10-26T13:57:43.953Z","step":"result","status":"COMPLETE","exitCode":0,"reason":null}

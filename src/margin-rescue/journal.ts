@@ -2,23 +2,27 @@
 // is broadcast, and transaction state, actual fill and scenario-goal status are kept
 // as three separate fields: a successful receipt is not a fill, and a fill is not a
 // repair. At most one action per owner may be pending or unknown at a time, and an
-// ambiguous send is resolved from its own hash and nonce, never by sending again.
+// ambiguous send is resolved from its own hash and nonce (outcome.ts), never by sending
+// again: a failed lookup or a bare nonce increase leaves it UNKNOWN.
 import { readdirSync } from "node:fs"
 import { join } from "node:path"
 import { keccak256, type Address, type Hex, type PublicClient } from "viem"
 import { prettyJson, readJson, writeFileAtomic } from "./json.js"
+import { findNonceConsumer, probeTransaction } from "./outcome.js"
 import type { ActionBinding } from "./action.js"
 
 export const ACTION_RECORD_VERSION = "mr-action/1"
 
 export type TxState = "NOT_SENT" | "PENDING" | "UNKNOWN" | "REVERTED" | "CONFIRMED" | "NOT_INCLUDED" | "INVALIDATED"
 export type FillState = "NOT_APPLICABLE" | "NO_FILL" | "PARTIAL_FILL" | "REQUESTED_FILL"
-export type GoalState = "NOT_EVALUATED" | "GOAL_MET" | "GOAL_NOT_MET" | "BASELINE_CHANGED" | "UNAVAILABLE"
+// EVIDENCE_MISMATCH: the receipt, its calldata or the guard's event does not match the
+// saved confirmation, so nothing in it may be credited to the action.
+export type GoalState = "NOT_EVALUATED" | "GOAL_MET" | "GOAL_NOT_MET" | "BASELINE_CHANGED" | "UNAVAILABLE" | "EVIDENCE_MISMATCH"
 
 const NEXT: Record<TxState, TxState[]> = {
   NOT_SENT: ["PENDING", "INVALIDATED"],
   PENDING: ["PENDING", "CONFIRMED", "REVERTED", "UNKNOWN", "NOT_INCLUDED"],
-  UNKNOWN: ["UNKNOWN", "CONFIRMED", "REVERTED", "NOT_INCLUDED"],
+  UNKNOWN: ["UNKNOWN", "PENDING", "CONFIRMED", "REVERTED", "NOT_INCLUDED"],
   REVERTED: [],
   CONFIRMED: [],
   NOT_INCLUDED: [],
@@ -35,9 +39,21 @@ export interface StoredRequest {
   nonce: Hex
 }
 
+export interface RefreshRecord {
+  at: string
+  blockNumber: string
+  blockHash: Hex
+  verdict: "STILL_VALID" | "INVALIDATED"
+  reasons: string[]
+  fundingDrift: string // raw USDso, change in total funding owed since the analysis
+  forecast: { expectedFill: string; scenarioBuffer: string; goal: string } | null
+}
+
 export interface ActionRecord {
   version: typeof ACTION_RECORD_VERSION
   actionId: Hex
+  // RESCUE: the analysed repair; CLEANUP: a guarded full close while unwinding a run.
+  kind?: "RESCUE" | "CLEANUP"
   createdAt: string
   binding: ActionBinding
   scenarioId: string
@@ -46,7 +62,8 @@ export interface ActionRecord {
   calldata: Hex
   forecast: { expectedFill: string; scenarioBuffer: string; goal: string }
   quote: { blockNumber: string; blockHash: Hex; validUntil: string }
-  tx: { state: TxState; from?: Address; nonce?: number; hash?: Hex; sentAt?: string; blockNumber?: string; blockHash?: Hex; revert?: string }
+  refreshes?: RefreshRecord[]
+  tx: { state: TxState; from?: Address; nonce?: number; hash?: Hex; sentAt?: string; sentAfterBlock?: string; blockNumber?: string; blockHash?: Hex; revert?: string; replacedBy?: Hex }
   fill: { state: FillState; requested: string; filled?: string }
   goal: { state: GoalState; reason?: string }
   history: { at: string; event: string; detail?: string }[]
@@ -127,10 +144,11 @@ export async function broadcast(
     journal.update(actionId, "invalidated", (x) => (x.tx.state = "INVALIDATED"), "quote expired before sending; replan")
     throw new JournalError("quote expired; the action was invalidated and must be replanned")
   }
+  const sentAfterBlock = (await client.getBlockNumber()).toString()
   if (send.kind === "raw") {
     const hash = keccak256(send.serialized)
     journal.update(actionId, "pending", (x) => {
-      x.tx = { state: "PENDING", from: send.from, nonce: send.nonce, hash, sentAt: new Date().toISOString() }
+      x.tx = { state: "PENDING", from: send.from, nonce: send.nonce, hash, sentAt: new Date().toISOString(), sentAfterBlock }
     })
     try {
       await client.request({ method: "eth_sendRawTransaction", params: [send.serialized] })
@@ -140,7 +158,7 @@ export async function broadcast(
     return journal.get(actionId)
   }
   journal.update(actionId, "pending", (x) => {
-    x.tx = { state: "PENDING", from: send.from, nonce: send.nonce, sentAt: new Date().toISOString() }
+    x.tx = { state: "PENDING", from: send.from, nonce: send.nonce, sentAt: new Date().toISOString(), sentAfterBlock }
   })
   try {
     const hash = await send.submit()
@@ -150,51 +168,65 @@ export async function broadcast(
   }
 }
 
-// Settle a PENDING or UNKNOWN action from chain data alone. Never re-sends: a hash with
-// no receipt stays pending; a consumed nonce without our hash is NOT_INCLUDED, which
-// still requires a fresh analysis before anything else is sent.
+// Settle a PENDING or UNKNOWN action from chain data alone (outcome.ts). Never re-sends.
+// Only a canonical receipt settles it as CONFIRMED / REVERTED, and only a located
+// transaction with another hash for its nonce makes it NOT_INCLUDED; a failed lookup,
+// a hash the node does not know, or a used nonce whose transaction was not located
+// leaves it UNKNOWN.
 export async function resolveAction(journal: ActionJournal, actionId: string, client: PublicClient): Promise<ActionRecord> {
   const r = journal.get(actionId)
   if (r.tx.state !== "PENDING" && r.tx.state !== "UNKNOWN") return r
-  if (r.tx.hash) {
-    const receipt = await client.getTransactionReceipt({ hash: r.tx.hash }).catch(() => null)
-    if (receipt) {
-      const canonical = await client.getBlock({ blockNumber: receipt.blockNumber }).then((b) => b.hash === receipt.blockHash)
-      if (!canonical) return journal.update(actionId, "receipt-not-canonical", (x) => (x.tx.state = "UNKNOWN"), receipt.blockHash)
-      return journal.update(actionId, receipt.status === "success" ? "confirmed" : "reverted", (x) => {
-        x.tx.state = receipt.status === "success" ? "CONFIRMED" : "REVERTED"
-        x.tx.blockNumber = receipt.blockNumber.toString()
-        x.tx.blockHash = receipt.blockHash
+  if (r.tx.from === undefined || r.tx.nonce === undefined) return journal.update(actionId, "unresolved", (x) => (x.tx.state = "UNKNOWN"), "no sender and nonce recorded")
+  const sentAfterBlock = r.tx.sentAfterBlock === undefined ? undefined : BigInt(r.tx.sentAfterBlock)
+  if (!r.tx.hash) {
+    // The node signed and the process stopped before the hash was saved: the hash is
+    // whatever transaction consumed the recorded nonce, if it can be located.
+    const found = await findNonceConsumer(client, r.tx.from, r.tx.nonce, sentAfterBlock)
+    if (found.kind !== "found") return journal.update(actionId, "unresolved", (x) => (x.tx.state = "UNKNOWN"), "hash not saved; the transaction for its nonce was not located")
+    journal.update(actionId, "hash-recovered", (x) => (x.tx.hash = found.value.hash), found.value.hash)
+    return resolveAction(journal, actionId, client)
+  }
+  const p = await probeTransaction(client, { hash: r.tx.hash, from: r.tx.from, nonce: r.tx.nonce, sentAfterBlock })
+  switch (p.state) {
+    case "MINED":
+      return journal.update(actionId, p.receipt.status === "success" ? "confirmed" : "reverted", (x) => {
+        x.tx.state = p.receipt.status === "success" ? "CONFIRMED" : "REVERTED"
+        x.tx.blockNumber = p.receipt.blockNumber.toString()
+        x.tx.blockHash = p.receipt.blockHash
       })
-    }
-    const pending = await client.getTransaction({ hash: r.tx.hash }).catch(() => null)
-    if (pending) return journal.update(actionId, "still-pending", (x) => (x.tx.state = "PENDING"))
+    case "REPLACED":
+      return journal.update(actionId, "nonce-consumed", (x) => {
+        x.tx.state = "NOT_INCLUDED"
+        x.tx.replacedBy = p.by
+      }, p.detail)
+    case "PENDING":
+      return journal.update(actionId, "still-pending", (x) => (x.tx.state = "PENDING"), p.detail)
+    case "UNKNOWN":
+      return journal.update(actionId, "unresolved", (x) => (x.tx.state = "UNKNOWN"), p.detail)
   }
-  if (r.tx.from !== undefined && r.tx.nonce !== undefined) {
-    const latest = await client.getTransactionCount({ address: r.tx.from, blockTag: "latest" })
-    if (latest > r.tx.nonce) {
-      if (!r.tx.hash) {
-        // The node signed and the process stopped before the hash was saved: look for
-        // the transaction by sender and nonce in recent blocks.
-        const found = await findByNonce(client, r.tx.from, r.tx.nonce, 500n)
-        if (found) {
-          journal.update(actionId, "hash-recovered", (x) => (x.tx.hash = found), found)
-          return resolveAction(journal, actionId, client)
-        }
-      }
-      return journal.update(actionId, "nonce-consumed", (x) => (x.tx.state = r.tx.hash ? "NOT_INCLUDED" : "UNKNOWN"), `nonce ${r.tx.nonce} used; latest ${latest}`)
-    }
-  }
-  return journal.update(actionId, "unresolved", (x) => (x.tx.state = "UNKNOWN"))
 }
 
-async function findByNonce(client: PublicClient, from: Address, nonce: number, lookback: bigint): Promise<Hex | null> {
-  const head = await client.getBlockNumber()
-  for (let n = head; n >= 0n && n > head - lookback; n--) {
-    const block = await client.getBlock({ blockNumber: n, includeTransactions: true })
-    for (const tx of block.transactions) {
-      if (typeof tx !== "string" && tx.from.toLowerCase() === from.toLowerCase() && tx.nonce === nonce) return tx.hash
-    }
-  }
-  return null
+// For an action the run's own ledger sent (txlog.ts), the ledger is the authority: copy
+// its settled state instead of looking the transaction up again.
+export function mirrorStep(
+  journal: ActionJournal,
+  actionId: string,
+  step: { state: TxState; hash: Hex; receipt?: { blockNumber: bigint; blockHash: Hex }; replacedBy?: Hex; lastProbe?: string },
+): ActionRecord {
+  const r = journal.get(actionId)
+  if (r.tx.hash && r.tx.hash.toLowerCase() !== step.hash.toLowerCase()) throw new JournalError(`ledger step ${step.hash} is not action ${actionId}'s transaction ${r.tx.hash}`)
+  if (r.tx.state === step.state && r.tx.blockHash === step.receipt?.blockHash) return r
+  return journal.update(
+    actionId,
+    `ledger: ${step.state.toLowerCase()}`,
+    (x) => {
+      x.tx.state = step.state
+      if (step.receipt) {
+        x.tx.blockNumber = step.receipt.blockNumber.toString()
+        x.tx.blockHash = step.receipt.blockHash
+      }
+      if (step.replacedBy) x.tx.replacedBy = step.replacedBy
+    },
+    step.lastProbe,
+  )
 }

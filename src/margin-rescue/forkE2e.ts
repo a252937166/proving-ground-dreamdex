@@ -11,9 +11,7 @@
 //   npm run rpc-shim &            # anvil needs it too (see tools/rpc-shim.mjs)
 //   (cd contracts && forge build)
 //   npm run mr:fork-e2e -- [--block 33472615] [--account 0x…] [--out DIR]
-import { spawn, execFileSync, type ChildProcess } from "node:child_process"
-import { existsSync, readFileSync } from "node:fs"
-import { homedir } from "node:os"
+import { readFileSync } from "node:fs"
 import { join } from "node:path"
 import { parseArgs } from "node:util"
 import { BaseError, decodeErrorResult, encodeDeployData, encodeFunctionData, keccak256, type Abi, type Address, type Hex, type PublicClient } from "viem"
@@ -22,18 +20,18 @@ import { actionIdOf, reduceCalldata, requestFromCandidate, type ReduceRequest } 
 import { analyzeCandidates } from "./candidates.js"
 import { BTC_POOL, ETH_POOL, MARGIN_BANK, OPERATOR_REGISTRY, stopLister } from "./common.js"
 import { ActionJournal, broadcast, resolveAction } from "./journal.js"
-import { prettyJson, sha256Hex, writeFileAtomic } from "./json.js"
+import { prettyJson, writeFileAtomic } from "./json.js"
+import { anvilVersion, checksums, startAnvil, stopAnvil, waitReceipt } from "./forkTools.js"
 import { reconcile } from "./reconcile.js"
 import { bankLogsForOwner, recompute } from "./recompute.js"
 import { readActionReceipt } from "./receipt.js"
+import { refreshConfirmation } from "./refresh.js"
 import { renderAnalysis, renderReconciliation, renderRecompute } from "./report.js"
 import { createHidekiClient, sampleBlock } from "./rpc.js"
 import { buildScenario } from "./scenario.js"
 import { poolOf, readAccountSnapshot, type AccountSnapshot } from "./snapshot.js"
 
 const ARTIFACT = new URL("../../contracts/out/ReduceOnlyGuard.sol/ReduceOnlyGuard.json", import.meta.url)
-// foundryup installs to ~/.foundry/bin, which npm scripts do not always have on PATH.
-const ANVIL = process.env.ANVIL ?? (existsSync(join(homedir(), ".foundry/bin/anvil")) ? join(homedir(), ".foundry/bin/anvil") : "anvil")
 
 async function main() {
   const { values } = parseArgs({
@@ -106,15 +104,20 @@ async function main() {
 
     // 3. Pre-flight snapshot, action id (checked against the contract), journal, send.
     const journal = new ActionJournal(join(out, "journal"))
-    const pre = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account, bookPools: [pool], listStops })
-    const { request } = requestFromCandidate(analysis, candidate.id, ref, { deadlineSeconds: 120, nowSeconds: pre.block.timestamp })
+    const { request } = requestFromCandidate(analysis, candidate.id, ref, { deadlineSeconds: 120, nowSeconds: ref.block.timestamp })
     const binding = { chainId: 50383, guard, marginBank: MARGIN_BANK, owner: account }
     const actionId = actionIdOf(binding, request)
     const onchainId = (await client.readContract({ address: guard, abi: reduceGuardAbi, functionName: "actionIdOf", args: [request] })) as Hex
     if (onchainId !== actionId) throw new Error(`action id mismatch: client ${actionId}, guard ${onchainId}`)
     note(`action ${actionId} (client id equals guard.actionIdOf)`)
-    createRecord(journal, binding, actionId, request, scenario.id, candidate, pre)
+    createRecord(journal, binding, actionId, request, scenario.id, candidate, ref)
+    // Refresh: the whole account again, the same scenario, the confirmed request now.
+    const pre = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account, bookPools: [BTC_POOL, ETH_POOL], listStops })
+    const check = refreshConfirmation({ scenario, confirmation: journal.get(actionId), analysisSnapshot: ref, original: analysis, fresh: pre, freshRecon: reconcile(pre), slippageBps: 50n, minSecondsLeft: 30 })
+    note(`refresh at block ${pre.block.number}: ${check.verdict}${check.reasons.length ? ` (${check.reasons.join("; ")})` : ""}; funding drift ${check.fundingDrift}`)
+    if (check.verdict !== "STILL_VALID") throw new Error("the confirmation did not survive the refresh")
     writeFileAtomic(join(out, "preflight-snapshot.json"), prettyJson(pre))
+    writeFileAtomic(join(out, "refresh-analysis.json"), prettyJson(check.analysisForRecompute))
     const nonce = await client.getTransactionCount({ address: account })
     await holdClock()
     const sent = await broadcast(
@@ -131,9 +134,10 @@ async function main() {
 
     // 4. Receipt, post snapshot, external rows, recompute.
     const receipt = await readActionReceipt(client, settled.tx.hash!, { guard, pool, owner: account, marginBank: MARGIN_BANK, isBid: request.isBid, limitPrice: request.limitPrice, requested: request.quantity })
-    const post = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account, blockNumber: receipt.blockNumber, bookPools: [pool], listStops })
+    const post = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account, blockNumber: receipt.blockNumber, bookPools: [BTC_POOL, ETH_POOL], listStops })
     const external = (await bankLogsForOwner(client, MARGIN_BANK, account, pre.block.number + 1n, receipt.blockNumber)).filter((l) => l.txHash !== receipt.txHash)
-    const result = recompute({ scenario, analysis, candidateId: candidate.id, actionId, pre, post, receipt, externalLogs: external })
+    const result = recompute({ confirmation: journal.get(actionId), scenario, analysis: check.analysisForRecompute, pre, post, receipt, externalLogs: external })
+    if (!result.binding.ok) throw new Error(`receipt binding failed: ${result.binding.failures.join("; ")}`)
     journal.update(actionId, "recomputed", (r) => {
       r.fill = { state: result.fill.state, requested: result.fill.requested.toString(), filled: result.fill.filled.toString() }
       r.goal = { state: result.goal.state, reason: result.goal.reason }
@@ -204,7 +208,7 @@ async function main() {
         goal: result.goal,
         staleConfirmation: { actionId: staleId, tx: staleRecord.tx.hash, state: staleRecord.tx.state, revert: reason, accountUnchanged: unchanged },
         expiredQuote: { actionId: lateId, state: journal.get(lateId).tx.state },
-        anvil: execFileSync(ANVIL, ["--version"]).toString().split("\n")[0],
+        anvil: anvilVersion(),
         log,
       }),
     )
@@ -213,16 +217,6 @@ async function main() {
   } finally {
     await stopAnvil(anvil)
   }
-}
-
-// SIGTERM lets anvil write its RPC cache (~/.foundry/cache/rpc), which makes the next run
-// at the same block fast; SIGKILL only if it does not exit.
-async function stopAnvil(child: ChildProcess) {
-  if (child.exitCode !== null) return
-  const exited = new Promise((r) => child.once("exit", r))
-  child.kill("SIGTERM")
-  const timeout = new Promise((r) => setTimeout(r, 15_000, "timeout"))
-  if ((await Promise.race([exited, timeout])) === "timeout") child.kill("SIGKILL")
 }
 
 function big(_k: string, v: unknown) {
@@ -251,12 +245,6 @@ async function send(client: PublicClient, holdClock: () => Promise<unknown>, tx:
   return receipt
 }
 
-// A cold fork fetches every storage slot a transaction touches from Hideki, one at a
-// time, so the first execution of an order can take minutes.
-function waitReceipt(client: PublicClient, hash: Hex) {
-  return client.waitForTransactionReceipt({ hash, timeout: 1_800_000, pollingInterval: 1_000 })
-}
-
 async function revertReason(client: PublicClient, tx: { from: Address; to: Address; data: Hex }, blockNumber: bigint): Promise<string> {
   try {
     await client.call({ account: tx.from, to: tx.to, data: tx.data, blockNumber })
@@ -275,34 +263,6 @@ async function revertReason(client: PublicClient, tx: { from: Address; to: Addre
       return data
     }
   }
-}
-
-function checksums(dir: string): string {
-  const files = execFileSync("find", [dir, "-type", "f", "!", "-name", "SHA256SUMS"]).toString().trim().split("\n").sort()
-  return files.map((f) => `${sha256Hex(readFileSync(f))}  ${f.slice(dir.length + 1)}`).join("\n") + "\n"
-}
-
-async function rpcUp(port: string): Promise<boolean> {
-  try {
-    const res = await fetch(`http://127.0.0.1:${port}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_chainId", params: [] }) })
-    return res.ok
-  } catch {
-    return false
-  }
-}
-
-async function startAnvil(upstream: string, block: bigint, port: string): Promise<ChildProcess> {
-  // Never reuse a node already on the port: its state would not be this fork.
-  if (await rpcUp(port)) throw new Error(`port ${port} is already serving JSON-RPC; stop that node or pass --port`)
-  const child = spawn(ANVIL, ["--fork-url", upstream, "--fork-block-number", block.toString(), "--port", port, "--chain-id", "50383", "--silent"], { stdio: "ignore" })
-  process.on("exit", () => child.exitCode === null && child.kill("SIGKILL"))
-  for (let i = 0; i < 120; i++) {
-    await new Promise((r) => setTimeout(r, 1000))
-    if (child.exitCode !== null) throw new Error(`anvil exited with code ${child.exitCode}`)
-    if (await rpcUp(port)) return child
-  }
-  child.kill("SIGTERM")
-  throw new Error("anvil did not start; is the rpc shim running on the upstream URL?")
 }
 
 main().then(
