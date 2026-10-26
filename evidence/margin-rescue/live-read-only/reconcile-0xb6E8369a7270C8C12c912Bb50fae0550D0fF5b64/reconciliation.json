@@ -1,0 +1,89 @@
+{
+  "account": "0xb6E8369a7270C8C12c912Bb50fae0550D0fF5b64",
+  "bank": {
+    "cmReq": "2017761806438722183",
+    "collateralBasis": "29007765781249999994",
+    "equity": "36616248023852033024",
+    "imReq": "8071047225754888730",
+    "marginStatus": 0,
+    "mmReq": "4035523612877444365",
+    "tryEquity": "36616248023852033024",
+    "tryEquityOk": true
+  },
+  "block": {
+    "hash": "0xc0ef5e1cf90657e8ba33f4d4816a186ce8f9de4a6d4d0e0534f3f4bad7a302f0",
+    "number": "33515595"
+  },
+  "diffs": {
+    "cmReq": "0",
+    "collateralBasis": "0",
+    "equity": "0",
+    "imReq": "0",
+    "mmReq": "0"
+  },
+  "independent": {
+    "buffer": "32580724410974588659",
+    "cm": "2017761806438722183",
+    "eRisk": "36616248023852033024",
+    "eTotal": "36616248023852033024",
+    "im": "8071047225754888730",
+    "legs": [
+      {
+        "cm": "190027297675371695",
+        "contribution": "-1722854434924895721",
+        "fundingOwed": "657542248954631321",
+        "im": "760109190701486780",
+        "mm": "380054595350743390",
+        "notional": "15202183814029735600",
+        "pnlRoundsDifferently": false,
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "price": "80011493758051240000000",
+        "size": "19000",
+        "unrealizedPnl": "-1065312185970264400"
+      },
+      {
+        "cm": "173987547136379288",
+        "contribution": "2443088988481000354",
+        "fundingOwed": "-71252759391343354",
+        "im": "695950188545517150",
+        "mm": "347975094272758575",
+        "notional": "13919003770910343000",
+        "pnlRoundsDifferently": false,
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "price": "2319833961818390500000",
+        "size": "-6000000000000000",
+        "unrealizedPnl": "2371836229089657000"
+      },
+      {
+        "cm": "1653746961626971200",
+        "contribution": "6888247689045928397",
+        "fundingOwed": "-211896702835352398",
+        "im": "6614987846507884800",
+        "mm": "3307493923253942400",
+        "notional": "33074939232539424000",
+        "pnlRoundsDifferently": false,
+        "pool": "0xD9b6A347A3Ae9FD6BA21179D3343F2c8A922F697",
+        "price": "250567721458632000000",
+        "size": "-132000000",
+        "unrealizedPnl": "6676350986210575999"
+      }
+    ],
+    "locked": "0",
+    "mm": "4035523612877444365",
+    "notional": "62196126817479502600",
+    "unlocked": "29007765781249999994"
+  },
+  "model": {
+    "funding": "ceil",
+    "pnl": "floor",
+    "requirements": "ceil per leg on floored notional"
+  },
+  "reasons": [],
+  "truncation": {
+    "eRisk": "36616248023852033024",
+    "legsRoundingDifferently": 0,
+    "minusBank": "0"
+  },
+  "verdict": "EXACT",
+  "version": "mr-reconciliation/1"
+}

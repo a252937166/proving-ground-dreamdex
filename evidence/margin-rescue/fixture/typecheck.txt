@@ -1,0 +1,7 @@
+$ npm run typecheck
+# started 2026-10-26T08:48:19Z
+
+> proving-ground-dreamdex@0.1.0 typecheck
+> tsc --noEmit
+
+# exit 0 at 2026-10-26T08:48:22Z

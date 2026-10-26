@@ -1,0 +1,34 @@
+Margin Rescue: recomputed from the actual execution
+  action              0xdc0e272bac87bbaf574f4ea5f98f84d36d2d8d119a2510a7e968e81242d779e6
+  scenario            72923ff03e18cd2a502831c2935de36018033c8308a7f33568de32b3d907a19f
+  transaction         0x29fb9584e5ee24034eec4009cfa164fdaeb31bc5574111885c762ac576e69417  success  block 33472619  canonical yes
+  fill                REQUESTED_FILL: 0.8165 of 0.8165 (expected 0.8165); unfilled 0
+  fills               0.4316 @ 2,316.64, 0.3849 @ 2,316.5; all inside the limit: yes
+  ledger              realized -72.586779  funding settled 5.325419  fees 0
+    ok   guard saw the confirmed position
+    ok   guard event matches the post size
+    ok   size moved by exactly the fills
+    ok   no flip and no growth
+    ok   every fill inside the confirmed limit
+    ok   IOC left nothing resting
+    ok   realized PnL = floor per fill
+    ok   funding settled once, on the whole position
+    ok   fees = rate on each fill's notional
+    ok   entry kept on a partial close
+    ok   funding index reset
+    ok   transient margin lock released
+    ok   unlocked moved by realized − funding − fees
+    ok   locked collateral unchanged
+    ok   no wallet pull, deposit or withdrawal
+    ok   wallet USDso and allowance unchanged
+    ok   no other bank rows for the owner
+  external changes    none detected
+  post reconciliation EXACT
+
+  baseline (scenario) E_risk 209.812828  E_total 209.812828  MM 471.865829  buffer -262.053001  health 0.4446x
+  forecast (scenario) E_risk 436.729487  E_total 436.729487  MM 430.251679  buffer 6.477807  health 1.015x
+  actual   (scenario) E_risk 436.729487  E_total 436.729487  MM 430.251679  buffer 6.477807  health 1.015x
+  actual health now   E_risk 1,019.132943  MM 444.811765  buffer 574.321177 (at current marks)
+  vs forecast         fill 0  buffer 0  funding drift on untouched legs 0
+
+GOAL: GOAL_MET (scenario buffer 6477807853842603039 ≥ target 0)

@@ -1,0 +1,31 @@
+Margin Rescue: finite repair candidates under one fixed scenario (read-only analysis)
+  scenario id         72923ff03e18cd2a502831c2935de36018033c8308a7f33568de32b3d907a19f
+  reference           block 33472616 0x10d2a7b468c4be0cc5acbe39068d242ce0958615ef21f325f83c207d366f89be
+  model               mr-model/1 (static shock; pnl floor, funding ceil, requirements ceil per leg); instantaneous static; funding frozen
+  target buffer       0 USDso (scenario E_risk − scenario MM)
+
+  market   reference mark      scenario price      shock
+  SUI                  0.9083              0.9083  held at reference
+  BNB                738.8451            738.8451  held at reference
+  BTC             79,976.8635         73,578.7144  -8%
+  XRP                   1.283               1.283  held at reference
+  SOL                100.8226            100.8226  held at reference
+  ETH              2,316.6592          2,038.6601  -12%
+
+  baseline now        E_risk 1,019.202559  E_total 1,019.202559  MM 492.100573  buffer 527.101986  health 2.0711x
+  baseline scenario   E_risk 209.812828  E_total 209.812828  MM 471.865829  buffer -262.053001  health 0.4446x  -> FAILS
+
+  id          status       goal       notional cut now     cost now (slippage+fees)   scenario buffer        notes
+  NONE        EVALUATED    FAILS                       0                          0            -262.053001   
+  BTC-25      EVALUATED    FAILS                1,110.07                  -2.325835            -145.389042   sell 0.01388 limit 79,743.9, expect 0.01388
+  BTC-50      EVALUATED    FAILS                2,220.95                  -4.629588              -28.66479   sell 0.02777 limit 79,743.9, expect 0.02777
+  BTC-75      EVALUATED    MEETS                3,331.83                  -6.923333              88.049453   sell 0.04166 limit 79,743.9, expect 0.04166
+  BTC-100     EVALUATED    MEETS                4,442.71                  -9.217078             204.763698   sell 0.05555 limit 79,743.9, expect 0.05555
+  ETH-25      EVALUATED    FAILS                  945.66                   0.007863            -127.777101   sell 0.4082 limit 2,305.06, expect 0.4082
+  ETH-50      EVALUATED    MEETS                1,891.55                   0.069615               6.477807   sell 0.8165 limit 2,305.06, expect 0.8165
+  ETH-75      EVALUATED    MEETS                2,837.21                   0.134627              140.69656   sell 1.2247 limit 2,305.06, expect 1.2247
+  ETH-100     EVALUATED    MEETS                 3,783.1                   0.199655             274.948193   sell 1.633 limit 2,305.06, expect 1.633
+
+OUTCOME: CANDIDATE_SELECTED -> ETH-50 (preferred among the evaluated candidates only; not a global optimum)
+Not modelled (listed): 0 resting orders, 0 live stops. Resting orders and TP/SL stops are listed, not simulated: the static shock does not fill orders or fire stops along the way.
+This is a static what-if on the stated prices. It does not predict prices, fills or liquidation, and an expected fill is not a guaranteed fill.

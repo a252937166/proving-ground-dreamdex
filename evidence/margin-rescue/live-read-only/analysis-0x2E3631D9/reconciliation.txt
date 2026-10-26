@@ -1,0 +1,27 @@
+Margin Rescue: independent account reconciliation (read-only)
+  account             0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745
+  chain / bank        50383 / 0x478769E1177C0773c43A593DCCc4Ad15F15F1394
+  block               33516295  0xfaab4f11df73f4fec47137c8fa29dc66415acdda647345feae9d47c52e5ac393  (2026-10-26T08:36:20.000Z)
+  canonical recheck   yes at 2026-10-26T08:36:25.232Z
+  pools               6 active of 21 deployed; outside active: positions 0, orders 0
+  resting orders      0   stops listed 2 (live at block: 0; indexer-listed, chain-checked)
+
+  leg      size                        entry             mark              PnL (floor)        funding owed     MM
+  BTC                         0.05555          82,166.3       80,085.5954        -115.583138       104.900121  111.21887
+  ETH                           1.633        2,405.4739        2,322.1866        -136.008085         5.372602  94.80327
+  SOL                           28.55            104.93          100.9762        -112.879155        12.227711  72.071808
+  XRP                         2,664.4            1.3317             1.285        -124.390472       -14.123995  85.594775
+  BNB                           1.822           731.179          736.1755           9.103687         6.842975  67.065591
+  SUI                           1,359            1.0324            0.9119        -163.624507         2.488738  61.970354
+
+                      independent                 bank getter                 bank − independent (raw)
+  E_risk (equity)     1,042.987642                1,042.987642                0
+  MM                  492.72467                   492.72467                   0
+  IM                  985.449341                  985.449341                  0
+  CM                  246.362335                  246.362335                  0
+  unlocked / locked   1,804.077467 / 0
+  E_total             1,042.987642  (E_risk + locked)
+  buffer              550.262972  (E_risk − MM)
+  SDK truncation      E_risk would be 1,042.987642 (1 raw from the bank; 1 legs round differently)
+
+VERDICT: EXACT

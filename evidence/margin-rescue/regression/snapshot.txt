@@ -1,0 +1,47 @@
+$ npm run snapshot
+# started 2026-10-26T08:38:28Z
+
+> proving-ground-dreamdex@0.1.0 snapshot
+> tsx src/cli.ts snapshot
+
+dreamDEX BTC-PERP snapshot (read-only, live network)
+  queried at          2026-10-26T08:38:28.651Z  (6406 ms)
+  chain id            50383 (Somnia Hideki / Tokyo testnet)
+  block               33517697  at 2026-10-26T08:38:41.000Z  (book and mark read at this block)
+  SDK                 @somnia-chain/markets-sdk 0.32.1
+  RPC                 https://api.hideki2.infra.testnet.somnia.network
+  indexer             https://hideki-dev.smk.somnia.host/v1/graphql
+
+Market configuration
+  market              BTC-PERP
+  pool address        0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0
+  margin bank         0x478769e1177c0773c43a593dccc4ad15f15f1394
+  stop registry       0x52e2ccebaec9332672c247e9a90aa3d61fb615ef
+  tick size           0.1 USDso
+  lot size            0.00001 BTC
+  min quantity        0.00013 BTC
+  book params         indexer config matches on-chain getOrderBookParameters(): yes
+  margin (bps)        initial 500, maintenance 250, close-out 125
+  max position        100 BTC
+  max open interest   493.6309 BTC
+  fees (bps x1000)    taker 0, maker 0
+
+Prices at block 33517697
+  mark                80,102.98  (tryGetMarkPrice ok: yes)
+  best bid            80,271.7  (0.03744 BTC)
+  best ask            80,271.8  (0.00019 BTC)
+  mid / spread        80,271.75 / 0.1 (0.01 bps)
+  mark vs mid         -21.02 bps
+
+Latest perp state (getPerpState)
+  mark                80,102.98
+  index               80,134.89  (oracle time 2026-10-26T08:38:40.000Z)
+  funding rate        0.1108% per 8 h window; next settlement 2026-10-26T09:11:43.000Z
+  open interest       320.65528 BTC
+
+Proving Ground band: IOC limit within ±0.2% of mark (local calculation, not enforced on-chain)
+  allowed limits      79,942.8 .. 80,263.1
+  ask reachable       no  (a buy IOC with an in-band limit cannot reach the best ask now)
+  bid reachable       yes  (a sell IOC with an in-band limit can reach the best bid now)
+  reachable depth     asks 0 BTC, bids 3.94567 BTC (within the top 20 levels read)
+# exit 0 at 2026-10-26T08:38:35Z

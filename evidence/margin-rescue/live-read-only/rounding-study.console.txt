@@ -1,0 +1,35 @@
+$ npm run mr -- study-rounding --out evidence/margin-rescue/live-read-only/rounding-study.json
+# started 2026-10-26T08:36:25Z
+
+> proving-ground-dreamdex@0.1.0 mr
+> tsx src/margin-rescue/cli.ts study-rounding --out evidence/margin-rescue/live-read-only/rounding-study.json
+
+{
+  "accountsWithSuchLeg": 5429,
+  "block": {
+    "hash": "0x5f531b66c25d09fa2b188b5756f41deb67ccc45460c92e82994a55d68d41bf5d",
+    "number": "33516436",
+    "timestamp": "1793003794"
+  },
+  "cmExact": 7700,
+  "compared": 7700,
+  "equityFloorExact": 7700,
+  "equityTruncExact": 2271,
+  "imExact": 7700,
+  "legs": 10855,
+  "legsRoundingDifferently": 5620,
+  "maxLegs": 21,
+  "mismatches": [],
+  "mmExact": 7700,
+  "multiMarketAccounts": 1164,
+  "pools": 21,
+  "sideEntries": 10855,
+  "skipped": {
+    "inconsistentRows": 0,
+    "unpriceable": 0
+  },
+  "truncFailuresWithoutSuchLeg": 0,
+  "version": "mr-rounding-study/1"
+}
+
+# exit 0 at 2026-10-26T08:38:13Z

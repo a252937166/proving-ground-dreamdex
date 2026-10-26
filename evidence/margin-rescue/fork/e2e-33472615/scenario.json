@@ -1,0 +1,178 @@
+{
+  "account": "0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745",
+  "chainId": 50383,
+  "createdAt": "2026-10-26T08:29:05.801Z",
+  "funding": "frozen: each portfolio keeps the funding owed as of its own snapshot; none accrues during the shock",
+  "id": "72923ff03e18cd2a502831c2935de36018033c8308a7f33568de32b3d907a19f",
+  "integrity": {
+    "reconciliation": "EXACT",
+    "snapshotProblems": []
+  },
+  "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+  "markets": [
+    {
+      "baseDecimals": 9,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "1000000000",
+        "minQuantity": "13000000000",
+        "tickSize": "100000000000000"
+      },
+      "oneBase": "1000000000",
+      "pool": "0x1Be21287cfB865a7c462Ff3c4f275E70BcccefE4",
+      "referenceMark": "908340230942000000",
+      "risk": {
+        "closeOutMarginBps": "250",
+        "effectiveImfBps": "1000",
+        "initialMarginBps": "1000",
+        "maintenanceMarginBps": "500",
+        "maxPositionSize": "127000000000000"
+      },
+      "scenarioPrice": "908340230942000000",
+      "shockBps": null,
+      "symbol": "SUI"
+    },
+    {
+      "baseDecimals": 18,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "1000000000000000",
+        "minQuantity": "14000000000000000",
+        "tickSize": "1000000000000000"
+      },
+      "oneBase": "1000000000000000000",
+      "pool": "0x3D2A99fE1e2BdEaA25024515A2D2202DAF9531aD",
+      "referenceMark": "738845116908694000000",
+      "risk": {
+        "closeOutMarginBps": "250",
+        "effectiveImfBps": "1000",
+        "initialMarginBps": "1000",
+        "maintenanceMarginBps": "500",
+        "maxPositionSize": "140000000000000000000"
+      },
+      "scenarioPrice": "738845116908694000000",
+      "shockBps": null,
+      "symbol": "BNB"
+    },
+    {
+      "baseDecimals": 8,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "1000",
+        "minQuantity": "13000",
+        "tickSize": "100000000000000000"
+      },
+      "oneBase": "100000000",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "referenceMark": "79976863574033333500000",
+      "risk": {
+        "closeOutMarginBps": "125",
+        "effectiveImfBps": "500",
+        "initialMarginBps": "500",
+        "maintenanceMarginBps": "250",
+        "maxPositionSize": "10000000000"
+      },
+      "scenarioPrice": "73578714488110666820000",
+      "shockBps": -800,
+      "symbol": "BTC"
+    },
+    {
+      "baseDecimals": 6,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "100000",
+        "minQuantity": "6900000",
+        "tickSize": "100000000000000"
+      },
+      "oneBase": "1000000",
+      "pool": "0x7058579F3248559963f79AdB937c6De9f953E060",
+      "referenceMark": "1283026990166000000",
+      "risk": {
+        "closeOutMarginBps": "125",
+        "effectiveImfBps": "500",
+        "initialMarginBps": "500",
+        "maintenanceMarginBps": "250",
+        "maxPositionSize": "68926400000"
+      },
+      "scenarioPrice": "1283026990166000000",
+      "shockBps": null,
+      "symbol": "XRP"
+    },
+    {
+      "baseDecimals": 9,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "10000000",
+        "minQuantity": "100000000",
+        "tickSize": "10000000000000000"
+      },
+      "oneBase": "1000000000",
+      "pool": "0xB483ec1fb34996638677c20ab087b16F1896FA53",
+      "referenceMark": "100822630797450000000",
+      "risk": {
+        "closeOutMarginBps": "125",
+        "effectiveImfBps": "500",
+        "initialMarginBps": "500",
+        "maintenanceMarginBps": "250",
+        "maxPositionSize": "4765440000000"
+      },
+      "scenarioPrice": "100822630797450000000",
+      "shockBps": null,
+      "symbol": "SOL"
+    },
+    {
+      "baseDecimals": 18,
+      "fees": {
+        "makerFeeBpsTimes1k": "0",
+        "takerFeeBpsTimes1k": "0"
+      },
+      "grid": {
+        "lotSize": "100000000000000",
+        "minQuantity": "4000000000000000",
+        "tickSize": "10000000000000000"
+      },
+      "oneBase": "1000000000000000000",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "referenceMark": "2316659264564996000000",
+      "risk": {
+        "closeOutMarginBps": "125",
+        "effectiveImfBps": "500",
+        "initialMarginBps": "500",
+        "maintenanceMarginBps": "250",
+        "maxPositionSize": "399561200000000000000"
+      },
+      "scenarioPrice": "2038660152817196480000",
+      "shockBps": -1200,
+      "symbol": "ETH"
+    }
+  ],
+  "model": "mr-model/1 (static shock; pnl floor, funding ceil, requirements ceil per leg)",
+  "numericBound": {
+    "basis": "deployment-exact: the reconstruction matched the bank to the raw unit at the reference block",
+    "perLegRawUnits": "0"
+  },
+  "reference": {
+    "blockHash": "0x10d2a7b468c4be0cc5acbe39068d242ce0958615ef21f325f83c207d366f89be",
+    "blockNumber": "33472616",
+    "blockTimestamp": "1792999410"
+  },
+  "riskFingerprint": "a733906e5b65c70a9a4d7ad8cf2c965f6aef3809dd6e93d502087fca260ea5f4",
+  "shock": "instantaneous static",
+  "targetBuffer": "0",
+  "version": "mr-scenario/1"
+}

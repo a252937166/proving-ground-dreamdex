@@ -1,0 +1,156 @@
+$ npm test
+# started 2026-10-26T08:48:22Z
+
+> proving-ground-dreamdex@0.1.0 test
+> tsx --test --test-reporter=spec test/unit/*.test.ts
+
+▶ ABI drift against the SDK
+  ✔ marginBankAbi matches the SDK (0.366333ms)
+  ✔ perpPoolAbi matches the SDK (0.09425ms)
+  ✔ perpPoolFactoryAbi matches the SDK (0.037667ms)
+  ✔ erc20Abi matches the SDK (0.0355ms)
+  ✔ operatorRegistryAbi matches the SDK (0.033ms)
+  ✔ perpStopRegistryAbi matches the SDK (0.03475ms)
+  ✔ marginBankWriteAbi matches the SDK (0.027875ms)
+  ✔ placeOrderFor has the selector the SDK grants to operators (0.869375ms)
+✔ ABI drift against the SDK (2.035458ms)
+▶ rounding primitives
+  ✔ floors, truncates and ceils signed quotients the way the bank does (0.400833ms)
+  ✔ negative fractional PnL floors one raw unit below truncation (0.061458ms)
+  ✔ funding owed ceils for payers and receivers alike (0.045166ms)
+  ✔ realized PnL floors per fill and fees use the floored fill notional (0.098042ms)
+  ✔ health ratio is not applicable when MM is zero (0.045417ms)
+✔ rounding primitives (1.063209ms)
+▶ fixture A: joint downside shock, reductions before the shock
+  ✔ reconciles at the reference marks (0.083417ms)
+  ✔ no action: E_risk 100, MM 247.5, buffer -147.5 (0.211959ms)
+  ✔ reduce the BTC long by 2,000 notional: E_risk 300, MM 202.5, buffer 97.5 (0.26025ms)
+  ✔ reduce the ETH short by 2,000 notional: E_risk -100, MM 202.5, buffer -302.5 (removing the hedge hurts) (0.169542ms)
+  ✔ BTC planned 2,000 but filled 1,000: E_risk 200, MM 225, buffer -25 (0.264917ms)
+  ✔ never re-applies the percentage to a new mark (0.131917ms)
+✔ fixture A: joint downside shock, reductions before the shock (1.321209ms)
+▶ fixture B: locks, funding and an absolute-price scenario
+  ✔ reference: E_risk 97, E_total 117, MM 20, buffer 77 (0.353292ms)
+  ✔ scenario BTC 60 / ETH 80, no action: E_risk -3, E_total 17, MM 22, buffer -25 (0.055417ms)
+  ✔ cancelling the ordinary order (no fee): E_risk 17, E_total 17, MM 22, buffer -5 (0.054ms)
+  ✔ closing BTC at 99 with fee 1 settles its funding once: unlocked 93; E_risk 35, E_total 55, MM 16, buffer 19 (0.121709ms)
+✔ fixture B: locks, funding and an absolute-price scenario (0.634917ms)
+▶ goal boundaries
+  ✔ meets at exactly the target, fails one raw unit below, meets one above (0.053584ms)
+  ✔ an interval crossing the target is uncertain, never met (0.026917ms)
+  ✔ a per-leg numerical bound widens the buffer on both sides (1.409833ms)
+✔ goal boundaries (1.539417ms)
+▶ edge cases
+  ✔ includes a third market at its reference price and refuses to shock it (0.462583ms)
+  ✔ handles a negative unlocked balance (0.074167ms)
+  ✔ an account with no positions has MM zero and no health ratio (0.072042ms)
+  ✔ an upside scenario hurts the short and helps the long (0.182708ms)
+  ✔ partial execution with fees across two levels (0.099333ms)
+✔ edge cases (0.948917ms)
+▶ scenario identity and invalidation
+  ✔ has a content id that any edit breaks (0.195625ms)
+  ✔ stores absolute scenario prices for every held market (0.036584ms)
+  ✔ is invalidated by a changed risk configuration or a newly held market (0.124625ms)
+✔ scenario identity and invalidation (0.389167ms)
+▶ action id
+  ✔ matches the Solidity vector in contracts/test/unit (actionIdOf) (0.867334ms)
+  ✔ commits to every field, the guard and the chain (1.222042ms)
+  ✔ encodes the guard call (0.183209ms)
+✔ action id (2.6455ms)
+▶ journal
+  ✔ persists the action before anything is sent, with the hash known first for raw sends (12.846625ms)
+  ✔ allows one unsettled action per owner at a time (9.007459ms)
+  ✔ refuses to create the same action twice (5.695917ms)
+  ✔ invalidates an expired quote instead of sending it (6.818167ms)
+  ✔ settles from the original hash and never re-sends (21.971333ms)
+  ✔ marks a hash that lost its nonce to another transaction as not included (13.022167ms)
+  ✔ rejects illegal transitions (4.87875ms)
+✔ journal (74.49675ms)
+▶ IOC simulation
+  ✔ stops at the limit on each side (0.5235ms)
+  ✔ rounds protective limits toward the trader (0.064541ms)
+✔ IOC simulation (0.9975ms)
+▶ candidate analysis
+  ✔ evaluates NONE and every valid 25/50/75/100% reduction (6.320666ms)
+  ✔ does not manufacture a trade when doing nothing meets the target (0.518917ms)
+  ✔ selects the smallest notional reduction that meets the target, and flags the hedge removal (0.3035ms)
+  ✔ returns NO_FEASIBLE_CANDIDATE when nothing evaluated meets the target (0.213875ms)
+  ✔ refuses to recommend when the snapshot has problems (0.329667ms)
+  ✔ refuses to recommend for a linked child account (0.426625ms)
+  ✔ removes duplicates, sub-minimum sizes and dust remainders, saying why (0.430916ms)
+  ✔ marks a reduction the book cannot fill inside the limit as unavailable (0.378792ms)
+  ✔ forecasts a depth-limited partial fill and says so (0.195084ms)
+  ✔ refuses a reduction that would self-match an own resting order (0.180916ms)
+  ✔ models cancelling ordinary orders as a lock release with no MM or equity gain (0.17575ms)
+✔ candidate analysis (9.704167ms)
+▶ classify
+  ✔ treats any order from flat as risk-increasing (0.273375ms)
+  ✔ treats a same-side order as risk-increasing (0.078583ms)
+  ✔ treats an opposite-side order up to |position| as reducing, including closing to zero (0.089667ms)
+  ✔ treats an opposite-side order larger than |position| as a reversal (0.0415ms)
+✔ classify (0.786375ms)
+▶ price band (±0.2% of mark, inclusive)
+  ✔ computes exact tick-aligned edges (0.314834ms)
+  ✔ admits the edges and rejects one tick beyond (0.042375ms)
+  ✔ keeps edges inside the band for an irregular mark (0.115375ms)
+  ✔ rejects an out-of-band limit with the planned BAND error (0.396875ms)
+✔ price band (±0.2% of mark, inclusive) (0.9815ms)
+▶ venue order format
+  ✔ rejects a price off the tick grid (0.139291ms)
+  ✔ rejects a quantity off the lot grid (0.1535ms)
+  ✔ rejects a quantity below the minimum and accepts exactly the minimum (0.08325ms)
+  ✔ rejects a zero quantity (0.069167ms)
+  ✔ rejects a position that would exceed the venue maximum (0.053583ms)
+✔ venue order format (0.60775ms)
+▶ risk-increasing admission (5x, equity >= 950)
+  ✔ admits exactly 5x and rejects one lot more (0.20625ms)
+  ✔ counts the fill cost against equity: 4.98x at mark becomes > 5x at the band edge (0.38675ms)
+  ✔ rejects when equity is already below the threshold (0.074042ms)
+  ✔ rejects when the worst-case fill would take equity below the threshold (0.077083ms)
+  ✔ charges the taker fee (0.04275ms)
+  ✔ treats a short the same way (0.040208ms)
+✔ risk-increasing admission (5x, equity >= 950) (0.878209ms)
+▶ genuine reducing orders
+  ✔ are exempt from the leverage limit: a 6x position may be cut to 5.5x (0.0635ms)
+  ✔ commit even when the realised loss crosses the floor, then breach (0.035875ms)
+  ✔ are allowed below the threshold where a risk-increasing order is not (0.049209ms)
+  ✔ still have to respect the price band (0.034417ms)
+✔ genuine reducing orders (0.219666ms)
+▶ prohibited reversal
+  ✔ is rejected with the planned ReversalNotAllowed error (0.044792ms)
+✔ prohibited reversal (0.063208ms)
+▶ mark unavailable
+  ✔ rejects without evaluating mark-dependent rules (0.041208ms)
+✔ mark unavailable (0.057667ms)
+▶ published constants
+  ✔ match the v2.2 Blitz table (0.030333ms)
+✔ published constants (0.046166ms)
+▶ parseDecimal
+  ✔ parses exactly (0.231708ms)
+  ✔ refuses to round or guess (0.17175ms)
+✔ parseDecimal (0.742792ms)
+▶ formatDecimal and notional
+  ✔ formats with grouping and trimmed zeros (0.174583ms)
+  ✔ computes USDso notional from base units (0.047333ms)
+✔ formatDecimal and notional (0.276792ms)
+▶ deriveBook
+  ✔ computes top of book, spread and band depth (0.1745ms)
+  ✔ reports when the top of book is outside the band (0.125334ms)
+  ✔ handles an empty side (0.15525ms)
+✔ deriveBook (0.59225ms)
+▶ runPrecheck input handling
+  ✔ defaults the limit to the touch and the account to a fresh 1,000 USDso run (0.337958ms)
+  ✔ uses the band edge when it still reaches a touch beyond the band (0.38475ms)
+  ✔ keeps the touch price when no in-band limit can reach it, so the band check fails (0.191958ms)
+  ✔ uses a given price as is (0.068ms)
+  ✔ rejects bad input (0.058792ms)
+✔ runPrecheck input handling (1.159208ms)
+ℹ tests 95
+ℹ suites 23
+ℹ pass 95
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 610.083542
+# exit 0 at 2026-10-26T08:48:23Z

@@ -1,0 +1,35 @@
+compdef:153: _comps: assignment to invalid subscript range
+
+> proving-ground-dreamdex@0.1.0 mr:fork-rehearsal
+> tsx src/margin-rescue/forkRehearsal.ts
+
+plan evidence/margin-rescue/fork/live-rehearsal-33472615/live-plan.fork.json digest 56ddb8fc00541bbd434803a37a3f23c742eda3fc5d28be6e65a285bbd335ecc0 for fork account 0x057b40f0500d2882744c872162FC81bAaF042b79
+{"step":"start","planDigest":"56ddb8fc00541bbd434803a37a3f23c742eda3fc5d28be6e65a285bbd335ecc0","account":"0x057b40f0500d2882744c872162FC81bAaF042b79","rpc":"http://127.0.0.1:8548"}
+{"step":"preflight","stt":"10000000000000000000","usdso":"100000000000000000000"}
+{"step":"approve","to":"0xed7993A74dAe1e6656B704A424DcD8711aAf4F72","selector":"0x095ea7b3","nonce":0,"gas":"69911","gasPrice":"5019576922","hash":"0x0884a5517c2429c4e450b02d6db5287083b963c2b483271fcad564584a30d1ea","state":"signed, about to broadcast"}
+{"step":"approve","hash":"0x0884a5517c2429c4e450b02d6db5287083b963c2b483271fcad564584a30d1ea","status":"success","block":"33472618","gasUsed":"53425","gasSpent":"268170897057850"}
+{"step":"deposit","to":"0x478769E1177C0773c43A593DCCc4Ad15F15F1394","selector":"0xb6b55f25","nonce":1,"gas":"153198","gasPrice":"4517133386","hash":"0x5024329664349416d227cbe9e4896889fc4b666e7c2fed24ce34e0d56b815f6a","state":"signed, about to broadcast"}
+{"step":"deposit","hash":"0x5024329664349416d227cbe9e4896889fc4b666e7c2fed24ce34e0d56b815f6a","status":"success","block":"33472619","gasUsed":"111090","gasSpent":"769979244908590"}
+{"step":"open BTC long","to":"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0","selector":"0x4e978373","nonce":2,"gas":"3927106","gasPrice":"4077498225","hash":"0x361fd5c7dc04bf02ccbc2e9f5db7813573451b997c95e9815f8edec9d75dc22d","state":"signed, about to broadcast"}
+{"step":"open BTC long","hash":"0x361fd5c7dc04bf02ccbc2e9f5db7813573451b997c95e9815f8edec9d75dc22d","status":"success","block":"33472620","gasUsed":"2778725","gasSpent":"12100225500171715"}
+{"step":"open ETH short","to":"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf","selector":"0x4e978373","nonce":3,"gas":"3643914","gasPrice":"3692953473","hash":"0x19902ecd91fac2354989c2a55c22023af5b1a631abc1da173957d2977f6fc392","state":"signed, about to broadcast"}
+{"step":"open ETH short","hash":"0x19902ecd91fac2354989c2a55c22023af5b1a631abc1da173957d2977f6fc392","status":"success","block":"33472621","gasUsed":"2645088","gasSpent":"21868412416162339"}
+{"step":"deploy guard","to":"contract creation","selector":"0x60c06040","nonce":4,"gas":"1426518","gasPrice":"3356453008","hash":"0x2826f63f740b3dc8819cf31e3312a73aa729cb3a51acf1f4b5d13462dccd9fa1","state":"signed, about to broadcast"}
+{"step":"deploy guard","hash":"0x2826f63f740b3dc8819cf31e3312a73aa729cb3a51acf1f4b5d13462dccd9fa1","status":"success","block":"33472622","gasUsed":"1097322","gasSpent":"25551522143806915"}
+{"step":"guard","guard":"0xa066c0a60ff547c1a2c2364477673c3dda053376","runtimeKeccak":"0xc82cbb8c10a40891d269fb9ec7ae5e7f423f67a38c0e2a8d29ff5a6c5d6d1edf"}
+{"step":"analysis","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
+{"step":"grant","to":"0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a","selector":"0x7bbc67e6","nonce":5,"gas":"73294","gasPrice":"3061939479","hash":"0x11c2386d7d733d58fca3b5ffa5d20796b2629479c01d611c7e122512f9a5705b","state":"signed, about to broadcast"}
+{"step":"grant","hash":"0x11c2386d7d733d58fca3b5ffa5d20796b2629479c01d611c7e122512f9a5705b","status":"success","block":"33472623","gasUsed":"55960","gasSpent":"25722868277051755"}
+{"step":"reduce","actionId":"0xf8b6e8a5f13e8e7688a9c85098671f027cea2a8b85292407f8972cda90532af5","hash":"0x5f883d730cda9994c82f2028be2347984192362b4d9d91025b87638125afa494","state":"CONFIRMED"}
+{"step":"recompute","fill":"REQUESTED_FILL","goal":"GOAL_MET"}
+{"step":"revoke grant","to":"0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a","selector":"0x7bbc67e6","nonce":7,"gas":"48057","gasPrice":"2578750307","hash":"0xe5b8410f7091d9520079fc8bd0ba74ba80a4521569040e792c887df4b0ee6021","state":"signed, about to broadcast"}
+{"step":"revoke grant","hash":"0xe5b8410f7091d9520079fc8bd0ba74ba80a4521569040e792c887df4b0ee6021","status":"success","block":"33472625","gasUsed":"32051","gasSpent":"32912481667640612"}
+{"step":"close 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0","to":"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0","selector":"0x4e978373","nonce":8,"gas":"3357494","gasPrice":"2381407362","hash":"0x981cd52d044258f464debfbbf919f7adc7e3b4669b9d8fd1140660ffa85651f2","state":"signed, about to broadcast"}
+{"step":"close 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0","hash":"0x981cd52d044258f464debfbbf919f7adc7e3b4669b9d8fd1140660ffa85651f2","status":"success","block":"33472626","gasUsed":"2472307","gasSpent":"38800051758564746"}
+{"step":"close 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf","to":"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf","selector":"0x4e978373","nonce":9,"gas":"3258530","gasPrice":"2208788363","hash":"0xf35d5dc86194fc223b8839649102d26db33f88c46e6cf1472fa0a55fb4284a79","state":"signed, about to broadcast"}
+{"step":"close 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf","hash":"0xf35d5dc86194fc223b8839649102d26db33f88c46e6cf1472fa0a55fb4284a79","status":"success","block":"33472627","gasUsed":"2392571","gasSpent":"44084734741016019"}
+{"step":"withdraw","to":"0x478769E1177C0773c43A593DCCc4Ad15F15F1394","selector":"0x2e1a7d4d","nonce":10,"gas":"93336","gasPrice":"2057738020","hash":"0x4efe51bda5e1c9110327155eb91e8c0b7a77b6e17252f879f3541bd852b6297e","state":"signed, about to broadcast"}
+{"step":"withdraw","hash":"0x4efe51bda5e1c9110327155eb91e8c0b7a77b6e17252f879f3541bd852b6297e","status":"success","block":"33472628","gasUsed":"66134","gasSpent":"44220821187230699"}
+{"step":"final","stt":"9955779178812769301","usdso":"99969409000000000000","bank":{"unlockedCollateralBalance":"0","lockedCollateral":"0","activePerpPools":[]},"gasSpent":"44220821187230699"}
+liveRun exited 0; evidence in evidence/margin-rescue/fork/live-rehearsal-33472615
+exit 0

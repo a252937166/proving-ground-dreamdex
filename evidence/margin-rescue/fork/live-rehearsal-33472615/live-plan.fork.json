@@ -1,0 +1,173 @@
+{
+  "account": {
+    "address": "0x057b40f0500d2882744c872162FC81bAaF042b79",
+    "allowanceToBank": "0",
+    "bank": {
+      "activePerpPools": [],
+      "lockedCollateral": "0",
+      "unlockedCollateralBalance": "0"
+    },
+    "nonce": 0,
+    "stt": "10000000000000000000",
+    "usdso": "100000000000000000000"
+  },
+  "bounds": {
+    "gas": {
+      "approveEstimate": "53778",
+      "deployEstimate": "1097322",
+      "perOrderCap": "10000000",
+      "sttCap": "2000000000000000000",
+      "transactions": "12",
+      "worstCaseSttAtCurrentPrice": "563169645794405768"
+    },
+    "lossStop": "unwind (steps 10–13) if E_total falls below 45 USDso, i.e. a loss of 15 USDso",
+    "maxAllowanceUsdso": "60000000000000000000",
+    "maxDepositUsdso": "60000000000000000000",
+    "maxLossUsdso": "15000000000000000000",
+    "maxSlippageBpsPerOrder": "50",
+    "openingNotionalUsdso": {
+      "btcLong": "100000000000000000000",
+      "ethShort": "90000000000000000000",
+      "total": "190000000000000000000"
+    },
+    "openingQuantities": {
+      "btc": "125000",
+      "eth": "38800000000000000"
+    }
+  },
+  "label": "fork rehearsal: throwaway account funded on the fork",
+  "markets": [
+    {
+      "bestAsk": "80144700000000000000000",
+      "bestBid": "80144600000000000000000",
+      "imBps": "500",
+      "lot": "1000",
+      "mark": "79976863574033333500000",
+      "min": "13000",
+      "mmBps": "250",
+      "oneBase": "100000000",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "symbol": "BTC",
+      "takerFee": "0",
+      "tick": "100000000000000000"
+    },
+    {
+      "bestAsk": "2317040000000000000000",
+      "bestBid": "2316640000000000000000",
+      "imBps": "500",
+      "lot": "100000000000000",
+      "mark": "2316659264564996000000",
+      "min": "4000000000000000",
+      "mmBps": "250",
+      "oneBase": "1000000000000000000",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "symbol": "ETH",
+      "takerFee": "0",
+      "tick": "10000000000000000"
+    }
+  ],
+  "network": {
+    "chainId": 50383,
+    "forbidden": [
+      "any other chain or mainnet",
+      "Perps Arena / smart wallets",
+      "transfers to any other address",
+      "TP/SL stops",
+      "EIP-7702"
+    ],
+    "gasPrice": "5019576922"
+  },
+  "readAt": {
+    "block": "33472617",
+    "hash": "0xb77767cfeb80f868c5bec637c9dc1f9d66e7a9d9e84942a883cde6ceea7370e7",
+    "timestamp": "1792999410"
+  },
+  "scenario": {
+    "shocksBps": {
+      "BTC": -1000,
+      "ETH": 500
+    },
+    "targetBufferUsdso": "45000000000000000000"
+  },
+  "status": "PROPOSAL — not authorised; nothing in this file has been signed or sent",
+  "steps": [
+    {
+      "call": "read-only preflight",
+      "detail": "re-read STT/USDso balances, bank state, both books and marks; abort if any balance is short, a mark is stale, a fee is non-zero, or the account already holds positions",
+      "n": 0
+    },
+    {
+      "call": "USDso.approve(0x478769E1177C0773c43A593DCCc4Ad15F15F1394, 60000000000000000000)",
+      "data": "0x095ea7b3000000000000000000000000478769e1177c0773c43a593dccc4ad15f15f139400000000000000000000000000000000000000000000000340aad21b3b700000",
+      "detail": "exact allowance, not unlimited",
+      "n": 1,
+      "to": "0xed7993A74dAe1e6656B704A424DcD8711aAf4F72"
+    },
+    {
+      "call": "MarginBank.deposit(60000000000000000000)",
+      "data": "0xb6b55f2500000000000000000000000000000000000000000000000340aad21b3b700000",
+      "n": 2,
+      "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
+    },
+    {
+      "call": "BTC PerpPool.placeOrder(isBid=true, qty=125000, limit=80545400000000000000000, IOC)",
+      "detail": "opens a BTC long of ~100 USDso notional; limit re-derived at send time as best ask + 50 bps",
+      "n": 3,
+      "to": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+    },
+    {
+      "call": "ETH PerpPool.placeOrder(isBid=false, qty=38800000000000000, limit=2305060000000000000000, IOC)",
+      "detail": "opens an ETH short of ~90 USDso notional; limit re-derived at send time as best bid − 50 bps",
+      "n": 4,
+      "to": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+    },
+    {
+      "call": "deploy ReduceOnlyGuard(owner=0x057b40f0500d2882744c872162FC81bAaF042b79, bank=0x478769E1177C0773c43A593DCCc4Ad15F15F1394, pools=[BTC, ETH])",
+      "detail": "estimated gas 1097322",
+      "n": 5
+    },
+    {
+      "call": "OperatorPermissionsRegistry(0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a).setOperatorApprovalForPool(<selected pool>, <guard>, [0x80054449], true)",
+      "detail": "placeOrderFor only, on the one pool of the selected candidate",
+      "n": 6
+    },
+    {
+      "call": "analyse (read-only) and journal the selected candidate as NOT_SENT",
+      "detail": "scenario {\"BTC\":-1000,\"ETH\":500} bps, target buffer 45 USDso; up to nine candidates evaluated; nothing is sent if no action is needed or none is feasible",
+      "n": 7
+    },
+    {
+      "call": "guard.reduce(<confirmed request>)",
+      "detail": "one IOC through the guard; exact expected position, deadline ≤ 120 s",
+      "n": 8
+    },
+    {
+      "call": "npm run mr -- recompute",
+      "detail": "receipt, fills, ledger, post snapshot, same scenario",
+      "n": 9
+    },
+    {
+      "call": "setOperatorApprovalForPool(<pool>, <guard>, [0x80054449], false)",
+      "detail": "cleanup: revoke the grant",
+      "n": 10
+    },
+    {
+      "call": "PerpPool.placeOrder IOC on each remaining leg (sell BTC / buy ETH) with protective limits",
+      "detail": "cleanup: close every remaining position; repeat only after a fresh read",
+      "n": 11
+    },
+    {
+      "call": "MarginBank.withdraw(<unlocked balance>)",
+      "detail": "cleanup: return collateral to the EOA wallet",
+      "n": 12,
+      "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
+    },
+    {
+      "call": "USDso.approve(0x478769E1177C0773c43A593DCCc4Ad15F15F1394, 0)",
+      "detail": "cleanup: clear any allowance left",
+      "n": 13,
+      "to": "0xed7993A74dAe1e6656B704A424DcD8711aAf4F72"
+    }
+  ],
+  "version": "mr-live-plan/1"
+}

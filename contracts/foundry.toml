@@ -1,0 +1,18 @@
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+libs = ["lib"]
+out = "out"
+cache_path = "cache"
+solc_version = "0.8.28"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
+bytecode_hash = "none"
+cbor_metadata = false
+
+[rpc_endpoints]
+# Hideki rejects EIP-1898 block objects on eth_getBalance and friends, which Foundry's
+# fork backend sends. Run `node ../tools/rpc-shim.mjs` and point forks at it.
+hideki = "${HIDEKI_FORK_RPC}"

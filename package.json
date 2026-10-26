@@ -18,7 +18,14 @@
     "serve": "tsx src/server.ts",
     "test": "tsx --test --test-reporter=spec test/unit/*.test.ts",
     "test:live": "tsx --test --test-reporter=spec test/live/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "mr": "tsx src/margin-rescue/cli.ts",
+    "mr:fork-e2e": "tsx src/margin-rescue/forkE2e.ts",
+    "rpc-shim": "node tools/rpc-shim.mjs",
+    "test:contracts": "cd contracts && forge test --match-path 'test/unit/*'",
+    "test:fork": "cd contracts && forge test --match-path 'test/fork/*'",
+    "mr:live": "tsx src/margin-rescue/liveRun.ts",
+    "mr:fork-rehearsal": "tsx src/margin-rescue/forkRehearsal.ts"
   },
   "dependencies": {
     "@somnia-chain/markets-sdk": "0.32.1",

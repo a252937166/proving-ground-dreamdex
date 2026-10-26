@@ -7,3 +7,5 @@ node_modules/
 .playwright-cli/
 coverage/
 dist/
+# Margin Rescue action journal (default location; evidence runs write their own)
+.margin-rescue/

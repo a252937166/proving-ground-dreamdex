@@ -1,0 +1,38 @@
+$ npm run mr -- reconcile --account 0x5c693d3D7DaCFd71F6F70A0cB6010A773e004d68 --out evidence/margin-rescue/live-read-only/reconcile-0x5c693d3D7DaCFd71F6F70A0cB6010A773e004d68
+# started 2026-10-26T08:35:31Z
+
+> proving-ground-dreamdex@0.1.0 mr
+> tsx src/margin-rescue/cli.ts reconcile --account 0x5c693d3D7DaCFd71F6F70A0cB6010A773e004d68 --out evidence/margin-rescue/live-read-only/reconcile-0x5c693d3D7DaCFd71F6F70A0cB6010A773e004d68
+
+Margin Rescue: independent account reconciliation (read-only)
+  account             0x5c693d3D7DaCFd71F6F70A0cB6010A773e004d68
+  chain / bank        50383 / 0x478769E1177C0773c43A593DCCc4Ad15F15F1394
+  block               33515920  0x5031a03b6a79d8e8d7f0a997d2f0fae75b81ae56bc262eb95965125615a13ee5  (2026-10-26T08:35:43.000Z)
+  canonical recheck   yes at 2026-10-26T08:35:49.240Z
+  pools               9 active of 21 deployed; outside active: positions 0, orders 0
+  resting orders      0   stops listed 0 (live at block: 0; indexer-listed, chain-checked)
+
+  leg      size                        entry             mark              PnL (floor)        funding owed     MM
+  BTC                         0.01148          82,413.4       80,049.4691         -27.137926        38.354451  22.974197
+  ETH                          0.7811         2,546.843        2,321.5645        -175.965047         8.132091  45.334351
+  SOL                           -0.85            117.75          100.9324          14.294948        -0.683363  2.144813
+  HYPE                          -5.34             85.21           76.7008          45.438973        -0.497488  10.23956
+  XRP                          -721.1            1.3939            1.2842           79.16603         1.384952  23.151174
+  DOGE                        -11,400             0.088            0.0768         127.947017        -4.993061  43.802499
+  BNB                           -0.13           766.328          735.9381           3.950678         -1.01198  4.783598
+  NEAR                            197            5.0557            4.5037        -108.735261         4.524841  44.361881
+  WLD                          -1,957            0.5128            0.4399         142.766924        -6.089955  86.097677
+
+                      independent                 bank getter                 bank − independent (raw)
+  E_risk (equity)     3,060.630419                3,060.630419                0
+  MM                  282.889755                  282.889755                  0
+  IM                  565.77951                   565.77951                   0
+  CM                  141.444877                  141.444877                  0
+  unlocked / locked   2,998.024566 / 0
+  E_total             3,060.630419  (E_risk + locked)
+  buffer              2,777.740663  (E_risk − MM)
+  SDK truncation      E_risk would be 3,060.630419 (1 raw from the bank; 1 legs round differently)
+
+VERDICT: EXACT
+
+# exit 0 at 2026-10-26T08:35:49Z

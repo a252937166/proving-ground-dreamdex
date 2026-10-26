@@ -1,0 +1,55 @@
+{
+  "actionId": "0x541274a900801a23c6b5219869c3faedf6ac426657376c05ae132e6f736e271e",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0x0862aef600cd25c770e949c22edd74ae3dd0b077",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745"
+  },
+  "calldata": "0xdd0c33d7000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf00000000000000000000000000000000000000000000000016a994d91636800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b54ca6c8b1b400000000000000000000000000000000000000000000000007cf5223144c9ea0000000000000000000000000000000000000000000000000000000000006adeffe95ec0c54a6ea837711f6cbe70f823e7e261b1c98972bca190d9243325c3757fa6",
+  "candidateId": "ETH-50",
+  "createdAt": "2026-10-26T08:33:25.529Z",
+  "fill": {
+    "requested": "816500000000000000",
+    "state": "NOT_APPLICABLE"
+  },
+  "forecast": {
+    "expectedFill": "816500000000000000",
+    "goal": "MEETS",
+    "scenarioBuffer": "6477807853842603039"
+  },
+  "goal": {
+    "state": "NOT_EVALUATED"
+  },
+  "history": [
+    {
+      "at": "2026-10-26T08:33:25.530Z",
+      "detail": "candidate ETH-50, scenario 72923ff03e18cd2a",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-26T08:33:25.538Z",
+      "detail": "quote expired before sending; replan",
+      "event": "invalidated"
+    }
+  ],
+  "quote": {
+    "blockHash": "0x9789da10c2ba04d4f55e0c96077aabd4816be3e92684e5cf7f17e255f869554c",
+    "blockNumber": "33472620",
+    "validUntil": "1792999401"
+  },
+  "request": {
+    "deadline": "1792999401",
+    "expectedSignedSize": "1633000000000000000",
+    "isBid": false,
+    "limitPrice": "2305060000000000000000",
+    "nonce": "0x5ec0c54a6ea837711f6cbe70f823e7e261b1c98972bca190d9243325c3757fa6",
+    "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+    "quantity": "816500000000000000"
+  },
+  "scenarioId": "72923ff03e18cd2a502831c2935de36018033c8308a7f33568de32b3d907a19f",
+  "tx": {
+    "state": "INVALIDATED"
+  },
+  "version": "mr-action/1"
+}

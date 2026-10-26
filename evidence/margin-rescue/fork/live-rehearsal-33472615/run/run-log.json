@@ -1,0 +1,253 @@
+[
+  {
+    "account": "0x057b40f0500d2882744c872162FC81bAaF042b79",
+    "at": "2026-10-26T08:39:41.745Z",
+    "planDigest": "56ddb8fc00541bbd434803a37a3f23c742eda3fc5d28be6e65a285bbd335ecc0",
+    "rpc": "http://127.0.0.1:8548",
+    "step": "start"
+  },
+  {
+    "at": "2026-10-26T08:39:41.761Z",
+    "step": "preflight",
+    "stt": "10000000000000000000",
+    "usdso": "100000000000000000000"
+  },
+  {
+    "at": "2026-10-26T08:39:41.776Z",
+    "gas": "69911",
+    "gasPrice": "5019576922",
+    "hash": "0x0884a5517c2429c4e450b02d6db5287083b963c2b483271fcad564584a30d1ea",
+    "nonce": 0,
+    "selector": "0x095ea7b3",
+    "state": "signed, about to broadcast",
+    "step": "approve",
+    "to": "0xed7993A74dAe1e6656B704A424DcD8711aAf4F72"
+  },
+  {
+    "at": "2026-10-26T08:39:42.213Z",
+    "block": "33472618",
+    "gasSpent": "268170897057850",
+    "gasUsed": "53425",
+    "hash": "0x0884a5517c2429c4e450b02d6db5287083b963c2b483271fcad564584a30d1ea",
+    "status": "success",
+    "step": "approve"
+  },
+  {
+    "at": "2026-10-26T08:39:44.744Z",
+    "gas": "153198",
+    "gasPrice": "4517133386",
+    "hash": "0x5024329664349416d227cbe9e4896889fc4b666e7c2fed24ce34e0d56b815f6a",
+    "nonce": 1,
+    "selector": "0xb6b55f25",
+    "state": "signed, about to broadcast",
+    "step": "deposit",
+    "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
+  },
+  {
+    "at": "2026-10-26T08:39:45.177Z",
+    "block": "33472619",
+    "gasSpent": "769979244908590",
+    "gasUsed": "111090",
+    "hash": "0x5024329664349416d227cbe9e4896889fc4b666e7c2fed24ce34e0d56b815f6a",
+    "status": "success",
+    "step": "deposit"
+  },
+  {
+    "at": "2026-10-26T08:45:19.492Z",
+    "gas": "3927106",
+    "gasPrice": "4077498225",
+    "hash": "0x361fd5c7dc04bf02ccbc2e9f5db7813573451b997c95e9815f8edec9d75dc22d",
+    "nonce": 2,
+    "selector": "0x4e978373",
+    "state": "signed, about to broadcast",
+    "step": "open BTC long",
+    "to": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+  },
+  {
+    "at": "2026-10-26T08:45:19.919Z",
+    "block": "33472620",
+    "gasSpent": "12100225500171715",
+    "gasUsed": "2778725",
+    "hash": "0x361fd5c7dc04bf02ccbc2e9f5db7813573451b997c95e9815f8edec9d75dc22d",
+    "status": "success",
+    "step": "open BTC long"
+  },
+  {
+    "at": "2026-10-26T08:45:45.800Z",
+    "gas": "3643914",
+    "gasPrice": "3692953473",
+    "hash": "0x19902ecd91fac2354989c2a55c22023af5b1a631abc1da173957d2977f6fc392",
+    "nonce": 3,
+    "selector": "0x4e978373",
+    "state": "signed, about to broadcast",
+    "step": "open ETH short",
+    "to": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+  },
+  {
+    "at": "2026-10-26T08:45:46.267Z",
+    "block": "33472621",
+    "gasSpent": "21868412416162339",
+    "gasUsed": "2645088",
+    "hash": "0x19902ecd91fac2354989c2a55c22023af5b1a631abc1da173957d2977f6fc392",
+    "status": "success",
+    "step": "open ETH short"
+  },
+  {
+    "at": "2026-10-26T08:45:48.491Z",
+    "gas": "1426518",
+    "gasPrice": "3356453008",
+    "hash": "0x2826f63f740b3dc8819cf31e3312a73aa729cb3a51acf1f4b5d13462dccd9fa1",
+    "nonce": 4,
+    "selector": "0x60c06040",
+    "state": "signed, about to broadcast",
+    "step": "deploy guard",
+    "to": "contract creation"
+  },
+  {
+    "at": "2026-10-26T08:45:48.929Z",
+    "block": "33472622",
+    "gasSpent": "25551522143806915",
+    "gasUsed": "1097322",
+    "hash": "0x2826f63f740b3dc8819cf31e3312a73aa729cb3a51acf1f4b5d13462dccd9fa1",
+    "status": "success",
+    "step": "deploy guard"
+  },
+  {
+    "at": "2026-10-26T08:45:48.937Z",
+    "guard": "0xa066c0a60ff547c1a2c2364477673c3dda053376",
+    "runtimeKeccak": "0xc82cbb8c10a40891d269fb9ec7ae5e7f423f67a38c0e2a8d29ff5a6c5d6d1edf",
+    "step": "guard"
+  },
+  {
+    "at": "2026-10-26T08:47:14.730Z",
+    "outcome": "CANDIDATE_SELECTED",
+    "reconciliation": "EXACT",
+    "selected": "BTC-50",
+    "step": "analysis"
+  },
+  {
+    "at": "2026-10-26T08:47:19.072Z",
+    "gas": "73294",
+    "gasPrice": "3061939479",
+    "hash": "0x11c2386d7d733d58fca3b5ffa5d20796b2629479c01d611c7e122512f9a5705b",
+    "nonce": 5,
+    "selector": "0x7bbc67e6",
+    "state": "signed, about to broadcast",
+    "step": "grant",
+    "to": "0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a"
+  },
+  {
+    "at": "2026-10-26T08:47:19.493Z",
+    "block": "33472623",
+    "gasSpent": "25722868277051755",
+    "gasUsed": "55960",
+    "hash": "0x11c2386d7d733d58fca3b5ffa5d20796b2629479c01d611c7e122512f9a5705b",
+    "status": "success",
+    "step": "grant"
+  },
+  {
+    "actionId": "0xf8b6e8a5f13e8e7688a9c85098671f027cea2a8b85292407f8972cda90532af5",
+    "at": "2026-10-26T08:47:24.073Z",
+    "hash": "0x5f883d730cda9994c82f2028be2347984192362b4d9d91025b87638125afa494",
+    "state": "CONFIRMED",
+    "step": "reduce"
+  },
+  {
+    "at": "2026-10-26T08:47:24.593Z",
+    "fill": "REQUESTED_FILL",
+    "goal": "GOAL_MET",
+    "step": "recompute"
+  },
+  {
+    "at": "2026-10-26T08:47:24.613Z",
+    "gas": "48057",
+    "gasPrice": "2578750307",
+    "hash": "0xe5b8410f7091d9520079fc8bd0ba74ba80a4521569040e792c887df4b0ee6021",
+    "nonce": 7,
+    "selector": "0x7bbc67e6",
+    "state": "signed, about to broadcast",
+    "step": "revoke grant",
+    "to": "0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a"
+  },
+  {
+    "at": "2026-10-26T08:47:25.037Z",
+    "block": "33472625",
+    "gasSpent": "32912481667640612",
+    "gasUsed": "32051",
+    "hash": "0xe5b8410f7091d9520079fc8bd0ba74ba80a4521569040e792c887df4b0ee6021",
+    "status": "success",
+    "step": "revoke grant"
+  },
+  {
+    "at": "2026-10-26T08:47:25.097Z",
+    "gas": "3357494",
+    "gasPrice": "2381407362",
+    "hash": "0x981cd52d044258f464debfbbf919f7adc7e3b4669b9d8fd1140660ffa85651f2",
+    "nonce": 8,
+    "selector": "0x4e978373",
+    "state": "signed, about to broadcast",
+    "step": "close 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "to": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+  },
+  {
+    "at": "2026-10-26T08:47:25.526Z",
+    "block": "33472626",
+    "gasSpent": "38800051758564746",
+    "gasUsed": "2472307",
+    "hash": "0x981cd52d044258f464debfbbf919f7adc7e3b4669b9d8fd1140660ffa85651f2",
+    "status": "success",
+    "step": "close 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+  },
+  {
+    "at": "2026-10-26T08:47:27.245Z",
+    "gas": "3258530",
+    "gasPrice": "2208788363",
+    "hash": "0xf35d5dc86194fc223b8839649102d26db33f88c46e6cf1472fa0a55fb4284a79",
+    "nonce": 9,
+    "selector": "0x4e978373",
+    "state": "signed, about to broadcast",
+    "step": "close 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+    "to": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+  },
+  {
+    "at": "2026-10-26T08:47:27.674Z",
+    "block": "33472627",
+    "gasSpent": "44084734741016019",
+    "gasUsed": "2392571",
+    "hash": "0xf35d5dc86194fc223b8839649102d26db33f88c46e6cf1472fa0a55fb4284a79",
+    "status": "success",
+    "step": "close 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+  },
+  {
+    "at": "2026-10-26T08:47:27.694Z",
+    "gas": "93336",
+    "gasPrice": "2057738020",
+    "hash": "0x4efe51bda5e1c9110327155eb91e8c0b7a77b6e17252f879f3541bd852b6297e",
+    "nonce": 10,
+    "selector": "0x2e1a7d4d",
+    "state": "signed, about to broadcast",
+    "step": "withdraw",
+    "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
+  },
+  {
+    "at": "2026-10-26T08:47:28.124Z",
+    "block": "33472628",
+    "gasSpent": "44220821187230699",
+    "gasUsed": "66134",
+    "hash": "0x4efe51bda5e1c9110327155eb91e8c0b7a77b6e17252f879f3541bd852b6297e",
+    "status": "success",
+    "step": "withdraw"
+  },
+  {
+    "at": "2026-10-26T08:47:28.134Z",
+    "bank": {
+      "activePerpPools": [],
+      "lockedCollateral": "0",
+      "unlockedCollateralBalance": "0"
+    },
+    "gasSpent": "44220821187230699",
+    "step": "final",
+    "stt": "9955779178812769301",
+    "usdso": "99969409000000000000"
+  }
+]

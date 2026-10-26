@@ -1,27 +1,32 @@
-# Proving Ground: dreamDEX BTC-PERP integration prototype
+# dreamDEX perps tools: Margin Rescue validation and the Proving Ground prototype
 
-A small, **read-only** integration with dreamDEX perps on the Somnia Hideki ("Tokyo") testnet, built with the official [`@somnia-chain/markets-sdk`](https://www.npmjs.com/package/@somnia-chain/markets-sdk).
+Two pieces of work against dreamDEX perps on the Somnia Hideki ("Tokyo") testnet (chain 50383), built with the official [`@somnia-chain/markets-sdk`](https://www.npmjs.com/package/@somnia-chain/markets-sdk):
 
-It is the first working piece of **Proving Ground**, a planned testnet trading challenge for the dreamDEX Perps Builder Bounty. In that challenge a contract-owned account trades BTC-PERP under published rules and every run ends with verifiable on-chain evidence. This repository does not implement the challenge. It reads live BTC-PERP data and checks orders against the challenge's v2.2 rules **locally**.
+- **Margin Rescue** (current): independent account reconciliation, a fixed multi-market price scenario, a finite set of reduction candidates, a reduce-only execution guard, and recomputation from actual fills. See **[MARGIN_RESCUE.md](MARGIN_RESCUE.md)** for the runbook, the semantics and the evidence.
+- **Proving Ground** (earlier): a read-only BTC-PERP integration prototype with a local rule pre-check. Its description follows below, unchanged in substance.
 
-> **Status: integration prototype, not the MVP.**
-> - Reads live market data only. No private key, no wallet, no signing, no transactions.
-> - No Proving Ground contract exists yet. The rule pre-check is a local calculation and is **not enforced on-chain**.
-> - It does **not** meet the MVP track's live-order requirement. No order has been placed from this code.
+> **Status**
+> - Margin Rescue: reconciliation and analysis run against the live network **read-only**; the `ReduceOnlyGuard` contract and the execution path are tested **only on local forks** of the real venue. Nothing has been deployed, signed or sent on the live network. The live step is waiting for approval (`BLOCKED_LIVE`).
+> - Proving Ground: no Proving Ground contract exists; its rule pre-check is a local calculation and is **not enforced on-chain**.
+> - Neither part meets the MVP track's live-order requirement yet: **no order has been placed on the live network from this code.**
 
-## What it does
+## Proving Ground prototype
+
+It reads live BTC-PERP data and checks orders against the challenge's v2.2 rules **locally**. In that planned challenge a contract-owned account would trade BTC-PERP under published rules; this repository does not implement the challenge.
+
+### What it does
 
 | Component | What it does | Data |
 |---|---|---|
 | `npm run snapshot` | Prints BTC-PERP market configuration, mark price, best bid/ask, spread, index, funding and open interest, with query time, chain ID, pool address and block number | Live: dreamDEX indexer and Hideki RPC |
 | `npm run precheck` | Checks one IOC order against the Proving Ground v2.2 "Blitz" rules, using live market data and a hypothetical account state | Live market data plus a local calculation |
 | `npm run serve` | Local page at `http://127.0.0.1:8787` with live BTC data (auto-refresh) and the same pre-check | Live market data plus a local calculation |
-| `npm test` | 38 unit tests of the rule boundaries, unit handling and book derivations | Fixtures only, no network |
+| `npm test` | Unit tests: the Proving Ground rule boundaries, unit handling and book derivations (38), plus the Margin Rescue accounting, scenario, candidate, journal and ABI tests | Fixtures and mocks only, no network |
 | `npm run test:live` | 8 read-only checks against the real network | Live |
 
 The order book and the mark price are read **at the same block**, so the band check compares like with like. `getSpotOrderBook` reports the block it read; the mark and the on-chain book parameters are then read at that block through the SDK's own viem client.
 
-## Network and versions
+### Network and versions
 
 | | |
 |---|---|
@@ -36,7 +41,7 @@ The order book and the mark price are read **at the same block**, so the band ch
 
 All endpoints can be overridden in `.env` (see `.env.example`). Nothing in this repository needs a secret.
 
-## Install and run
+### Install and run
 
 ```bash
 git clone https://github.com/a252937166/proving-ground-dreamdex.git
@@ -60,11 +65,11 @@ npm run serve                          # then open http://127.0.0.1:8787
 | `--position` | Hypothetical current position in BTC, signed | `0` (flat) |
 | `--equity` | Hypothetical current equity in USDso | `1000` (a fresh Blitz allocation) |
 
-## Verify
+### Verify
 
 ```bash
 npm run typecheck    # tsc --noEmit
-npm test             # 38 unit tests, fixtures only
+npm test             # all unit tests (Proving Ground and Margin Rescue), fixtures and mocks only
 npm run test:live    # 8 read-only tests against the live network
 ```
 
@@ -77,7 +82,7 @@ The live tests check that:
 - the mark is within 5% of the mid;
 - the pre-check runs on live data.
 
-## SDK and contract calls used
+### SDK and contract calls used
 
 | Call | Purpose | Source |
 |---|---|---|
@@ -89,7 +94,7 @@ The live tests check that:
 | `client.getPerpRiskParams(pool)` | Margin ratios, max position, max open interest, fees | Chain |
 | `client.getPerpState(pool)` | Index price, funding rate, open interest (latest block) | Chain |
 
-## Sample output (real)
+### Sample output (real)
 
 Captured 2026-10-21 from the live network. Full files are in [`evidence/`](evidence/).
 
@@ -139,11 +144,11 @@ VERDICT: REJECT (NO_REVERSAL)
 
 ![Local page with live BTC-PERP data](evidence/page.png)
 
-### An observation from the live data
+#### An observation from the live data
 
 In every capture on 2026-10-21 between 13:00 and 13:13 UTC, the BTC-PERP book traded about 12–24 bps above the on-chain mark price; the funding rate was positive at about 0.13% per 8 h. With the band at ±0.2% of mark, a band-limited **buy** IOC often could not reach the best ask, while a sell could. dreamDEX's 2026-10-19 dev update lists work on "the mid/mark price gap", so this may change. The v2.2 rule numbers are provisional until IOC slippage is measured, and `npm run snapshot` measures the gap at any block.
 
-## The rules being checked (v2.2 "Blitz", provisional numbers)
+### The rules being checked (v2.2 "Blitz", provisional numbers)
 
 | Rule | Check | Planned contract revert |
 |---|---|---|
@@ -160,18 +165,18 @@ The planned contract checks the risk-increasing rules again **after** the fill, 
 
 Not modelled locally: the 60-minute expiry, tester authorization, one-operation-at-a-time locking, the pass condition, funding accrued between trades, and anything else that needs the account contract.
 
-## What is tested, and how
+### What is tested, and how
 
 | Layer | Status |
 |---|---|
 | Live network reads (indexer + RPC) | Done: `npm run snapshot`, `npm run test:live`, files in `evidence/` |
-| Local rule pre-check | Done: 38 fixture-based unit tests (`npm test`), plus a live run in `npm run test:live` |
-| Fork tests | **None yet** |
+| Local rule pre-check | Done: 38 fixture-based unit tests (part of `npm test`), plus a live run in `npm run test:live` |
+| Fork tests | Margin Rescue only: `npm run test:fork` (see [MARGIN_RESCUE.md](MARGIN_RESCUE.md)). None for Proving Ground |
 | Proving Ground contracts (House, ChallengeAccount, Referee) | **Not started** in this repository |
 | Somnia Reactivity subscriptions | **Not started** |
-| Order placement, deposits, withdrawals | **None.** This code never signs or sends a transaction |
+| Order placement, deposits, withdrawals | **None on the live network.** The CLI never signs or sends; Margin Rescue's fork tests place orders only on local forks |
 
-## Limitations and unfinished work
+### Limitations and unfinished work
 
 - Read-only. It places no orders, so it is not evidence of live trading.
 - The rule pre-check is local. Until the account contract exists and is tested, nothing enforces these rules.

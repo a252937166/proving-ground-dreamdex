@@ -1,0 +1,70 @@
+{
+  "actionId": "0xf8b6e8a5f13e8e7688a9c85098671f027cea2a8b85292407f8972cda90532af5",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0xa066c0a60ff547c1a2c2364477673c3dda053376",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x057b40f0500d2882744c872162FC81bAaF042b79"
+  },
+  "calldata": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e8480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf006a340c199f0828cf1f7e6c78448755c9afdb18c46b6dc0a5da624506a0cdd85d66",
+  "candidateId": "BTC-50",
+  "createdAt": "2026-10-26T08:47:21.494Z",
+  "fill": {
+    "filled": "62000",
+    "requested": "62000",
+    "state": "REQUESTED_FILL"
+  },
+  "forecast": {
+    "expectedFill": "62000",
+    "goal": "MEETS",
+    "scenarioBuffer": "46852456705977592125"
+  },
+  "goal": {
+    "reason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
+    "state": "GOAL_MET"
+  },
+  "history": [
+    {
+      "at": "2026-10-26T08:47:21.495Z",
+      "detail": "candidate BTC-50, scenario 5a61c849e7dc44e7",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-26T08:47:23.634Z",
+      "event": "pending"
+    },
+    {
+      "at": "2026-10-26T08:47:24.067Z",
+      "event": "confirmed"
+    },
+    {
+      "at": "2026-10-26T08:47:24.568Z",
+      "event": "recomputed"
+    }
+  ],
+  "quote": {
+    "blockHash": "0xa7459c2a6c44c68862656f90db0bc0230e167ab7fd1862f73d581680d6df2731",
+    "blockNumber": "33472623",
+    "validUntil": "1792999530"
+  },
+  "request": {
+    "deadline": "1792999530",
+    "expectedSignedSize": "125000",
+    "isBid": false,
+    "limitPrice": "79743900000000000000000",
+    "nonce": "0x340c199f0828cf1f7e6c78448755c9afdb18c46b6dc0a5da624506a0cdd85d66",
+    "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "quantity": "62000"
+  },
+  "scenarioId": "5a61c849e7dc44e77f9b8c28accdcbe7287e22b08f22cfcdcaf3f73cf5d7260b",
+  "tx": {
+    "blockHash": "0xe9ee6d8f68f8a7116728832ecc2cf609a3d0ce6be8192454d1c4477c42712e59",
+    "blockNumber": "33472624",
+    "from": "0x057b40f0500d2882744c872162FC81bAaF042b79",
+    "hash": "0x5f883d730cda9994c82f2028be2347984192362b4d9d91025b87638125afa494",
+    "nonce": 6,
+    "sentAt": "2026-10-26T08:47:23.634Z",
+    "state": "CONFIRMED"
+  },
+  "version": "mr-action/1"
+}
