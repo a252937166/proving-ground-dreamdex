@@ -6,7 +6,7 @@ Two pieces of work against dreamDEX perps on the Somnia Hideki ("Tokyo") testnet
 - **Proving Ground** (earlier): a read-only BTC-PERP integration prototype with a local rule pre-check. Its description follows below, unchanged in substance.
 
 > **Status**
-> - Margin Rescue: reconciliation and analysis run against the live network **read-only**; the `ReduceOnlyGuard` contract and the live executor (receipt binding, pre-send refresh, guarded cleanup, transaction ledger, end-state verification) are tested **only on local forks** of the real venue, normally and with injected faults. Nothing has been deployed, signed or sent on the live network. The live step is waiting for approval (`BLOCKED_LIVE`).
+> - Margin Rescue: reconciliation and analysis run against the live network **read-only**; the `ReduceOnlyGuard` contract and the live executor (receipt binding, pre-send refresh, guarded cleanup, transaction ledger, end-state verification) are tested on local forks of the real venue, normally and with injected faults. The live run is authorized but **has not been executed**: its plan was regenerated read-only on 2026-10-27 (block 34,671,145, SHA-256 `a21e43c5…dc18a7`), and it is signed only in the owner's terminal, which holds the test account's key. Nothing has been deployed, signed or sent on the live network yet.
 > - Proving Ground: no Proving Ground contract exists; its rule pre-check is a local calculation and is **not enforced on-chain**.
 > - Neither part meets the MVP track's live-order requirement yet: **no order has been placed on the live network from this code.**
 

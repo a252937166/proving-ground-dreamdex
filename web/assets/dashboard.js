@@ -186,6 +186,7 @@ function renderLive(p) {
         <h3>Live run 1 finished: ${esc(run.status)} (exit ${run.exitCode})</h3>
         <p class="panel-note">${met ? "The guarded reduction was bound, recomputed from its fills and met the goal, and cleanup was verified." : esc(run.reason ?? "See the run's evidence for what happened.")}</p>
         ${run.rescue?.tx ? `<p class="panel-note">Reduction ${copyable(run.rescue.tx)} · ${esc(run.rescue.txState)} · ${esc(run.rescue.fill)}</p>` : ""}
+        ${run.verification ? `<p class="panel-note">Read back from the chain at block ${blockNo(run.verification.endBlock.number)}: ${run.verification.verdict.allChecksHold ? `all ${run.verification.checks.length} checks hold` : `${run.verification.checks.filter((c) => !c.ok).length} of ${run.verification.checks.length} checks fail`} · gas ${usd(run.verification.reconciliation.stt.spent, 4)} STT · trading result ${usd(run.verification.reconciliation.usdso.result, 4, { paren: true })} USDso</p>` : ""}
         <p class="next"><a class="btn secondary small" href="${href("app?run=live-1#result")}">Read the whole run</a></p>
       </div>
       <span class="badge ${met ? "met" : "call"} big pop">${met ? `${ICON.ok}Goal met` : esc(run.status.replaceAll("_", " ").toLowerCase())}</span>`

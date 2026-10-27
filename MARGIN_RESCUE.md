@@ -2,7 +2,7 @@
 
 Margin Rescue asks one question about a dreamDEX perps account on the Somnia Hideki ("Tokyo") testnet: **if BTC and ETH move together by a stated amount, how much of the account's maintenance buffer is left, and which of a few concrete reductions would bring it back to a target?** It then executes one chosen reduction through a guard that cannot flip or grow the position, and recomputes the same fixed scenario from what actually filled.
 
-> **Status: BLOCKED_LIVE (live transactions pending authorization).** Accounting, scenario analysis, the reduce-only guard and the live executor are implemented and tested; the executor has been run against the real venue on local forks, normally and with injected faults. **Nothing has been signed or sent on the live network**: no guard is deployed, no margin deposited, no order placed. The live step needs one approval of one plan file; its exact calls and bounds are in [`evidence/margin-rescue/live-read-only/live-plan.json`](evidence/margin-rescue/).
+> **Status: live run authorized, not yet executed.** Accounting, scenario analysis, the reduce-only guard and the live executor are implemented and tested; the executor has been run against the real venue on local forks, normally and with injected faults. **Nothing has been signed or sent on the live network yet**: no guard is deployed, no margin deposited, no order placed. The run's plan was regenerated read-only on 2026-10-27 at block 34,671,145 (`mr-live-plan/3`, SHA-256 `a21e43c579d47b04ce5cdaec14a2c38c973a54e81c0e3213e22fd3fe90dc18a7`; the same calls and bounds as [`evidence/margin-rescue/live-read-only/live-plan.json`](evidence/margin-rescue/), at that block's prices). It is signed only in the owner's terminal, which holds the test account's key; its evidence will be published in [`evidence/margin-rescue/live-write/`](evidence/margin-rescue/live-write/).
 >
 > It is an engineering milestone, not a product: no UI beyond the CLI, no hosting, and the candidate set is finite (no global optimisation).
 
@@ -142,14 +142,21 @@ npm run mr:fork-rehearsal                                         # the live exe
 npm run mr:fork-rehearsal -- --block 33609475 --only funding-drift   # crosses a real hourly funding settlement
 ```
 
-The live run itself (only after the owner approves one specific plan file; the key comes from the environment of that one command and is never written anywhere):
+The live run itself (only after the owner approves one specific plan file; the key comes from the environment of that one terminal and is never typed on a command line or written anywhere). The run writes to a private, git-ignored folder; its evidence reaches the repository only through the read-back and the scanned copy below:
 
 ```bash
-npm run mr -- live-plan --out live-plan.json      # regenerate, then approve this exact file
+npm run mr -- live-plan --out live-plan.json      # regenerate (read-only), then approve this exact file
 shasum -a 256 live-plan.json
-MR_SIGNER_KEY=0x… npm run mr:live -- --plan live-plan.json --approve <sha256> --out evidence/margin-rescue/live-write/run-1
-MR_SIGNER_KEY=0x… npm run mr:live -- --plan live-plan.json --approve <sha256> --out evidence/margin-rescue/live-write/run-1 --resume   # only after exit 40
+read -rs "MR_SIGNER_KEY?Test account key: " && export MR_SIGNER_KEY      # zsh; the input is not echoed or kept in history
+npm run mr:live -- --plan live-plan.json --approve <sha256> --out .margin-rescue/live/run-1
+npm run mr:live -- --plan live-plan.json --approve <sha256> --out .margin-rescue/live/run-1 --resume   # only after exit 40
+unset MR_SIGNER_KEY
+
+npm run mr:verify-run -- --run .margin-rescue/live/run-1      # read-only: every receipt, the end state at one block, gas and collateral, the fixed-scenario recomputation
+npm run mr:publish-run -- --from .margin-rescue/live/run-1 --to evidence/margin-rescue/live-write/run-1   # scanned copy for the repository
 ```
+
+`mr:verify-run` reads every transaction of the run ledger and the account again from the chain, without the executor's code: sender, nonce, destination, calldata hash, status and fee of each receipt; no other transaction from the account; the deployed guard against the approved runtime hash; at one block, no position or resting order in any factory pool, no live stop, every grant revoked, the bank account empty and the allowance zero; STT spent equal to the receipt fees and the USDso result equal to realized PnL − funding − fees; and the scenario's absolute prices re-derived from the chain marks at its reference block, then the account valued at those prices just before and at the reduction's block. `mr:publish-run` refuses a folder that holds the key, a signed transaction or a mnemonic, replaces local paths and private URLs, and lists every file with the SHA-256 of the original and the copy in `SANITIZATION.md`.
 
 `mr:live` exits 0 only when the guarded reduction is bound, recomputed `GOAL_MET` and cleanup is verified; 1 when it refused before signing anything (plan or key mismatch, a failed preflight such as an account that already holds collateral or an allowance, a read failure, a first step that would revert in simulation): nothing was broadcast and no cleanup ran; 10 when cleanup is verified but no reduction was demonstrated (no action needed, nothing feasible, confirmation invalidated, goal not met); 20 when a started run aborted (soft loss stop, a transaction from the account that the run did not send, an interruption) and cleanup is verified; 30 when cleanup is not verified; 40 when a transaction is unresolved (nothing else was sent; resume later).
 

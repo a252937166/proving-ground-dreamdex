@@ -435,7 +435,7 @@ async function loadRuns() {
       (r, i) => `<label class="run-option" style="--i:${i}">
         <input type="radio" name="run" value="${esc(r.id)}" ${r.id === initial.id ? "checked" : ""}>
         <span class="run-label">${esc(r.label)}</span>
-        <span class="run-state ${r.present ? "ok-ink" : "wait-ink"}">${r.kind === "live" ? (r.present ? "Recorded" : "Not run yet") : "Recorded on a fork"}</span>
+        <span class="run-state ${r.present ? "ok-ink" : "wait-ink"}">${r.kind === "live" ? (r.present ? "Run on the live testnet" : "Not run yet") : "Recorded on a fork"}</span>
       </label>`,
     )
     .join("")
@@ -508,7 +508,7 @@ function renderRun(run) {
     <div class="panel-head"><h2>${esc(run.label)}</h2>${badge}</div>
     <dl class="facts run">
       <div><dt>Account</dt><dd>${copyable(run.account, short(run.account, 8, 6))}</dd></div>
-      <div><dt>Where</dt><dd>${run.kind === "fork" ? `local fork of Somnia Hideki at block ${blockNo(run.forkBlock)}` : "Somnia Hideki, chain 50383"}</dd></div>
+      <div><dt>Where</dt><dd>${run.kind === "fork" ? `local fork of Somnia Hideki at block ${blockNo(run.forkBlock)}` : "the live Somnia Hideki testnet, chain 50383"}</dd></div>
       <div><dt>Scenario</dt><dd>${run.scenario.markets.filter((m) => m.shockBps !== null).map((m) => `${esc(m.symbol)} ${pct(m.shockBps)} to ${price(m.scenarioPrice)}`).join(" · ")} · target ${usd(run.scenario.targetBuffer)} USDso</dd></div>
       <div><dt>Chosen</dt><dd><b>${esc(candidateName({ id: x.candidateId, kind: "REDUCE" }))}</b> · ${run.analysis.selected === x.candidateId ? "the smallest evaluated reduction that met the target" : "a re-confirmation under the same scenario"}</dd></div>
       <div><dt>Transaction</dt><dd>${copyable(x.tx.hash, short(x.tx.hash, 10, 6))} · block ${blockNo(x.tx.blockNumber)} · ${esc(x.tx.status)}${x.tx.canonical ? " · canonical" : ""}</dd></div>
@@ -553,7 +553,40 @@ function renderRun(run) {
   </div>
   ${run.steps.length ? renderSteps(run) : ""}
   ${run.cleanup ? `<div class="panel"><div class="panel-head"><h2>Cleanup</h2><p class="status">${run.cleanup.verified ? "Verified" : "NOT verified"}</p></div><ul class="check-list">${run.cleanup.checks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)} <span class="muted">${esc(c.detail)}</span></span></li>`).join("")}</ul></div>` : ""}
-  <p class="work-foot">Raw evidence: <a href="${esc(evidence)}/recompute.txt">recompute.txt</a> · <a href="${esc(evidence)}/analysis.txt">analysis.txt</a></p>`
+  ${run.verification ? renderVerification(run.verification) : ""}
+  <p class="work-foot">Raw evidence: ${(run.files ?? ["recompute.txt", "analysis.txt"]).map((f) => `<a href="${esc(evidence)}/${esc(f)}">${esc(f)}</a>`).join(" · ")}</p>`
+}
+
+// tools/verify-live-run.ts: every receipt and the end state read again from the chain,
+// without the executor's code; its figures, not the executor's, are shown here.
+function renderVerification(v) {
+  const s = v.reconciliation.stt
+  const u = v.reconciliation.usdso
+  const groups = [
+    ["transactions", "Transactions"],
+    ["guard", "Guard"],
+    ["rescue", "Fixed-scenario recomputation"],
+    ["cleanup", `End state at block ${blockNo(v.endBlock.number)}`],
+    ["reconciliation", "Gas and collateral"],
+  ]
+  const held = v.checks.filter((c) => c.ok).length
+  const list = groups
+    .map(([g, title]) => {
+      const cs = v.checks.filter((c) => c.group === g)
+      if (!cs.length) return ""
+      return `<h3 class="check-group">${esc(title)}</h3><ul class="check-list">${cs.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)}${c.ok ? "" : ` <span class="muted">${esc(c.detail)}</span>`}</span></li>`).join("")}</ul>`
+    })
+    .join("")
+  return `<div class="panel">
+    <div class="panel-head"><h2>Read back from the chain</h2><p class="status"><span class="num" data-count>${held}</span> of ${v.checks.length} hold</p></div>
+    <p class="outcome">A separate script read every transaction, its receipt and the account again from the public Hideki RPC, at one block for the end state, and recomputed the scenario from the chain at the scenario's fixed prices.</p>
+    <dl class="facts">
+      <div><dt>Gas</dt><dd>${usd(s.spent, 6)} STT spent = ${usd(s.receiptFees, 6)} STT in receipt fees · cap ${usd(s.cap, 0)} STT</dd></div>
+      <div><dt>Collateral</dt><dd>deposited ${usd(u.deposited, 4)}, withdrawn ${usd(u.withdrawn, 4)} USDso: ${money(u.result)} = realized ${money(u.realizedPnl)} − funding ${money(u.funding)} − fees ${money(u.fees)}</dd></div>
+      ${v.rescue ? `<div><dt>At the fixed prices</dt><dd>buffer ${money(v.rescue.before)} before, ${money(v.rescue.after)} after the reduction · ${esc(v.rescue.goal.replaceAll("_", " ").toLowerCase())}</dd></div>` : ""}
+    </dl>
+    ${list}
+  </div>`
 }
 
 function recomputeNote(rc, target, d, sym) {
@@ -566,15 +599,17 @@ function recomputeNote(rc, target, d, sym) {
 }
 
 function renderSteps(run) {
+  const fees = run.kind === "live" && run.steps.some((s) => s.fee !== null && s.fee !== undefined)
   const rows = run.steps
-    .map((s, i) => `<tr style="--i:${i}"><td class="step-id">${esc(s.id)}</td><td class="opt2">${esc(s.phase)}</td><td>${esc(s.state.toLowerCase())}</td><td>${s.hash ? copyable(s.hash) : "—"}</td><td class="n opt2">${s.block ? blockNo(s.block) : "—"}</td></tr>`)
+    .map((s, i) => `<tr style="--i:${i}"><td class="step-id">${esc(s.id)}</td><td class="opt2">${esc(s.phase)}</td><td>${esc(s.state.toLowerCase())}</td><td>${s.hash ? copyable(s.hash) : "—"}</td><td class="n opt2">${s.block ? blockNo(s.block) : "—"}</td>${fees ? `<td class="n opt2">${s.fee ? usd(s.fee, 6) : "—"}</td>` : ""}</tr>`)
     .join("")
   return `<div class="panel">
     <div class="panel-head"><h2>Every transaction the run sent</h2><p class="status">${run.steps.length} transactions</p></div>
     <div class="table-wrap"><table class="data compact">
-      <thead><tr><th scope="col">Step</th><th scope="col" class="opt2">Phase</th><th scope="col">State</th><th scope="col">Hash</th><th scope="col" class="n opt2">Block</th></tr></thead>
+      <thead><tr><th scope="col">Step</th><th scope="col" class="opt2">Phase</th><th scope="col">State</th><th scope="col">Hash</th><th scope="col" class="n opt2">Block</th>${fees ? `<th scope="col" class="n opt2">Fee, STT</th>` : ""}</tr></thead>
       <tbody class="stagger">${rows}</tbody>
     </table></div>
+    <p class="model-note">${run.kind === "live" ? "These are transactions on the live Somnia Hideki testnet (chain 50383); click a hash to copy it and look it up with <code>eth_getTransactionReceipt</code> on the public RPC." : "These hashes exist only on the local fork the run used; they are not on the live network."}</p>
   </div>`
 }
 

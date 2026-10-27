@@ -27,8 +27,20 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # The guard's build: the guard-binding unit tests skip without it, and the
+      # Solidity unit tests need it. forge-std is pinned to the commit in versions.json.
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.8.4
+      - name: Build the guard
+        working-directory: contracts
+        run: |
+          git clone --quiet --depth 1 --branch v1.17.0 https://github.com/foundry-rs/forge-std lib/forge-std
+          test "$(git -C lib/forge-std rev-parse HEAD)" = f3dae6e6ee381f25eb6a246f7da9b85c91a68219
+          forge build
       - run: npm run typecheck
       - run: npm test
+      - run: npm run test:contracts
       - run: npm run build:site
         env:
           SITE_BASE: /${{ github.event.repository.name }}/

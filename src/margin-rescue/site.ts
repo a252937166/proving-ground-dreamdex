@@ -10,7 +10,9 @@ import type { Scenario } from "./scenario.js"
 
 const ROOT = new URL("../../", import.meta.url).pathname
 const EVIDENCE = join(ROOT, "evidence/margin-rescue")
-const PLAN = join(ROOT, "live-plan.json")
+// The plan live run 1 executed, published with its evidence; before the run, the
+// working copy's plan file (not committed).
+const PLAN = [join(EVIDENCE, "live-write/run-1/live-plan.json"), join(ROOT, "live-plan.json")]
 
 const readJson = <T = any>(path: string): T => JSON.parse(readFileSync(path, "utf8"))
 const readText = (path: string): string | null => (existsSync(path) ? readFileSync(path, "utf8") : null)
@@ -43,8 +45,9 @@ function gitHead(): { commit: string | null; branch: string | null } {
 }
 
 export function planSummary() {
-  if (!existsSync(PLAN)) return null
-  const raw = readFileSync(PLAN)
+  const path = PLAN.find((p) => existsSync(p))
+  if (!path) return null
+  const raw = readFileSync(path)
   const p = JSON.parse(raw.toString("utf8"))
   return {
     sha256: createHash("sha256").update(raw).digest("hex"),
@@ -116,7 +119,21 @@ export function proofSummary() {
 function runSummary(dir: string) {
   if (!existsSync(join(dir, "result.json"))) return existsSync(dir) ? { state: "IN_PROGRESS" as const } : null
   const r = readJson(join(dir, "result.json"))
-  return { state: "FINISHED" as const, status: r.status, exitCode: r.exitCode, reason: r.reason, rescue: r.rescue, sentTransactions: r.sentTransactions }
+  return { state: "FINISHED" as const, status: r.status, exitCode: r.exitCode, reason: r.reason, rescue: r.rescue, sentTransactions: r.sentTransactions, verification: verificationSummary(dir) }
+}
+
+// tools/verify-live-run.ts: the run read back from the chain, independently of the executor.
+function verificationSummary(dir: string) {
+  if (!existsSync(join(dir, "verification.json"))) return null
+  const v = readJson(join(dir, "verification.json"))
+  return {
+    verdict: v.verdict,
+    verifiedAt: v.verifiedAt,
+    endBlock: v.endBlock,
+    reconciliation: v.reconciliation,
+    rescue: v.rescue.tx ? { tx: v.rescue.tx, block: v.rescue.block, filled: v.rescue.filled, goal: v.rescue.goal, before: v.rescue.before.buffer, after: v.rescue.after.buffer, prices: v.rescue.scenario.prices } : null,
+    checks: v.checks.map((c: { group: string; name: string; ok: boolean; detail: string }) => ({ group: c.group, name: c.name, ok: c.ok, detail: c.detail })),
+  }
 }
 
 // ---- recorded runs (the app's third screen) ----
@@ -159,8 +176,10 @@ export function readRun(id: string) {
     execution: { candidateId: recompute.candidateId, tx: recompute.tx, fill: recompute.fill, ledgerChecks: recompute.ledger.checks, externalChanges: recompute.externalChanges, postReconciliation: recompute.postReconciliation },
     recompute: { goal: recompute.goal, baseline: recompute.baseline.scenario, forecast: recompute.planned.scenario, actual: recompute.actual.scenario, currentHealth: recompute.actual.currentHealth, differences: recompute.differences },
     guard: guard ? { address: guard.guard, verified: guard.verified, deployTx: guard.deployTx } : meta ? { address: meta.guard, verified: true, deployTx: null } : null,
-    steps: ledger?.steps.map((s: any) => ({ id: s.id, phase: s.phase, state: s.state, hash: s.hash ?? null, block: s.receipt?.blockNumber ?? null })) ?? [],
-    cleanup: result?.cleanup ? { verified: result.cleanup.checks.every((c: any) => c.ok), checks: result.cleanup.checks } : null,
+    steps: ledger?.steps.map((s: any) => ({ id: s.id, phase: s.phase, state: s.state, hash: s.hash ?? null, block: s.receipt?.blockNumber ?? null, fee: s.receipt?.fee ?? null })) ?? [],
+    cleanup: result?.cleanup ? { verified: result.cleanup.checks.every((c: any) => c.ok), checks: result.cleanup.checks, final: result.cleanup.final ?? null } : null,
     gas: result?.gas ?? null,
+    verification: verificationSummary(dir),
+    files: readdirSync(dir).filter((f) => /\.(txt|md)$/.test(f)).sort(),
   }
 }

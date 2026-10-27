@@ -281,7 +281,7 @@ a131f803c83bdfedbf58f75cc8682c9b9d07dcdfaf7a178685430cc60e0fb6e7  ./live-read-on
 b32e400d780ae5cee2a29e9d63ee0dfc9a8596af23eef39b62604eccbd43ef7c  ./live-read-only/rounding-study.json
 376609387aa2aec467a713d1a4aa796221a5c71421dac775c1ab6f8e26b63fa0  ./live-read-only/stop-pagination.console.txt
 768aa59e25b33ebaebc24800064423880bf9335e2d91297c8b4c1c24188b5a1f  ./live-read-only/stop-pagination.json
-eaa69c700c7f031d18e1d1fdadb7c1b40b0e90e8aa40cdbdfa4d845536d2a7a0  ./live-write/README.md
+84db2343aade905e2857b77ad13ba892f4674478df45f749975b792c1bc8eeb3  ./live-write/README.md
 730969f72f53b23d3ba0db15d4b6394bbf99352acb8e07d2e0e7bcce45675ad0  ./README.md
 2c10dfc639cfad940d03ae4870b6c0f408f54c26d1a26461f6994143c6553af3  ./regression/precheck.txt
 6d5a600258eee6236958fb136916bec6267b57031eaa4f1f742e4adc26717649  ./regression/snapshot.txt
