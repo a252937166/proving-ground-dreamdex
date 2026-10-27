@@ -10,6 +10,16 @@ Two pieces of work against dreamDEX perps on the Somnia Hideki ("Tokyo") testnet
 > - Proving Ground: no Proving Ground contract exists; its rule pre-check is a local calculation and is **not enforced on-chain**.
 > - Neither part meets the MVP track's live-order requirement yet: **no order has been placed on the live network from this code.**
 
+## X posts
+
+One published post link has been recorded. The final MVP selection needs 2 or 3 posts tagging **@DreamDEXSomnia**.
+
+- [Margin Rescue product introduction — 2026-10-27](https://x.com/Mrooo03/status/2115008447959925191)
+
+After each post is published, record its actual permalink, publication date and supporting evidence here. Drafts, scheduled posts and compose links do not count as published posts. The final selection should explain the user problem, demonstrate a verified result, and show the live Tokyo workflow once it has actually run.
+
+The daily topics, ready-to-post drafts and evidence checks are in [social/X_POSTING_PLAN.md](social/X_POSTING_PLAN.md). Publication is tracked in [social/POST_LOG.md](social/POST_LOG.md).
+
 ## Website
 
 `npm run serve` starts a local, read-only site at http://127.0.0.1:8787. It binds to 127.0.0.1, holds no key and sends nothing.
