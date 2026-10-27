@@ -1,0 +1,4 @@
+Fonts served with this site (latin subsets, woff2), downloaded 2026-10-27 from Google Fonts:
+- martian-mono-latin.woff2: Martian Mono (Evil Martians), variable weight 100–800 and width 75–112.5%, SIL Open Font License 1.1
+- geist-latin.woff2: Geist (Vercel, basement.studio), variable weight 100–900, SIL Open Font License 1.1
+- geist-mono-latin.woff2: Geist Mono (Vercel, basement.studio), variable weight 100–900, SIL Open Font License 1.1

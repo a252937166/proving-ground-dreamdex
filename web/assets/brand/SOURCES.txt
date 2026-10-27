@@ -1,0 +1,8 @@
+dreamdex-logo-offwhite.svg, dreamdex-mark-offwhite.svg
+  Official dreamDEX logo files, unmodified, from the dreamDEX logo pack (rev 1.0, 2026-06-11),
+  downloaded 2026-10-27 from dreamDEX's Brand Assets page
+  (https://dreamdex.notion.site/Branding-Assets-dreamDEX-395b7df18a6b80a195fde5ea4dcb2bd0).
+  Used per the pack's rules: the supplied file, off-white #F0F0F0 on a dark background, clear space of
+  at least 0.3x the mark height on every side, never recoloured, outlined, stretched or given effects.
+  dreamDEX is a third party. Margin Rescue is an independent project built on dreamDEX's perps testnet
+  and is not affiliated with or endorsed by dreamDEX.

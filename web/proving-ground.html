@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proving Ground prototype</title>
+<link rel="icon" href="data:,">
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1b1d21; --muted: #646a73; --line: #e2e0d8;
+    --bid: #0f7b4f; --ask: #b4372f; --warn-bg: #fff4d6; --warn-ink: #6b4e00; --accent: #2c4bd1;
+    --pass: #0f7b4f; --fail: #b4372f; --exempt: #646a73; --band: rgba(44, 75, 209, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121417; --panel: #1b1e23; --ink: #e9eaec; --muted: #9aa1ab; --line: #2c3037;
+      --bid: #3ecf8e; --ask: #ff7a6e; --warn-bg: #3a3014; --warn-ink: #f3d68a; --accent: #8ea2ff;
+      --pass: #3ecf8e; --fail: #ff7a6e; --exempt: #9aa1ab; --band: rgba(142, 162, 255, 0.10);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .num, code, td.n { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  header, main, footer { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 28px; }
+  h1 { margin: 0; font-size: 26px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin-top: 2px; }
+  .notice { margin: 16px 0 20px; padding: 12px 14px; border-radius: 8px; background: var(--warn-bg); color: var(--warn-ink); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  h2 { margin: 0 0 12px; font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .tag { font-size: 11px; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); text-transform: none; }
+  .mark { font-size: 34px; font-weight: 600; }
+  .touch { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+  .touch > div { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+  .label { color: var(--muted); font-size: 12px; }
+  .bid { color: var(--bid); } .ask { color: var(--ask); }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 3px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { color: var(--muted); width: 44%; }
+  td.n { text-align: right; }
+  .ladder td { border: 0; padding: 1px 4px; }
+  .ladder td:first-child { width: auto; }
+  .ladder tr.in td { background: var(--band); }
+  .ladder .sep td { border-top: 1px dashed var(--line); color: var(--muted); text-align: center; font-size: 12px; }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  label { display: grid; gap: 3px; font-size: 13px; color: var(--muted); }
+  input, select, button { font: inherit; padding: 7px 9px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); min-width: 0; }
+  button { grid-column: 1 / -1; background: var(--accent); color: #fff; border: 0; cursor: pointer; font-weight: 600; }
+  .verdict { margin: 14px 0 8px; font-size: 20px; font-weight: 700; }
+  .verdict.REJECT { color: var(--fail); } .verdict.ADMIT { color: var(--pass); } .verdict.ADMIT_THEN_BREACH { color: var(--warn-ink); }
+  .checks td:first-child { width: 72px; font-weight: 600; }
+  .pass { color: var(--pass); } .fail { color: var(--fail); } .exempt { color: var(--exempt); }
+  .small { font-size: 12px; color: var(--muted); }
+  .err { color: var(--fail); }
+  footer { padding: 18px 16px 40px; color: var(--muted); font-size: 13px; }
+  footer table td:first-child { width: 160px; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  a { color: var(--accent); }
+  .break { word-break: break-all; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Proving Ground</h1>
+  <div class="sub">dreamDEX BTC-PERP integration prototype · Somnia Hideki (Tokyo) testnet · chain 50383</div>
+  <div class="notice">
+    <strong>Read-only prototype.</strong> Market data is read live from dreamDEX through
+    <code>@somnia-chain/markets-sdk</code>. The order pre-check is a <strong>local calculation</strong> of the
+    Proving Ground v2.2 rules. No Proving Ground contract is deployed, so nothing here is enforced on-chain.
+    No wallet, no signing, no orders.
+  </div>
+</header>
+
+<main class="grid">
+  <section>
+    <h2>Live market <span class="row"><span class="tag" id="age">loading…</span><label class="row small" style="display:flex"><input type="checkbox" id="auto" checked> auto</label></span></h2>
+    <div class="label">Mark price (on-chain, same block as the book)</div>
+    <div class="mark num" id="mark">—</div>
+    <div class="touch">
+      <div><div class="label">Best bid</div><div class="num bid" id="bid">—</div><div class="small num" id="bidq"></div></div>
+      <div><div class="label">Best ask</div><div class="num ask" id="ask">—</div><div class="small num" id="askq"></div></div>
+    </div>
+    <table>
+      <tr><td>Spread</td><td class="n" id="spread">—</td></tr>
+      <tr><td>Mark vs mid</td><td class="n" id="mvm">—</td></tr>
+      <tr><td>±0.2% band (local)</td><td class="n" id="band">—</td></tr>
+      <tr><td>Touch reachable in band</td><td class="n" id="inband">—</td></tr>
+      <tr><td>Index (latest)</td><td class="n" id="index">—</td></tr>
+      <tr><td>Funding rate</td><td class="n" id="funding">—</td></tr>
+      <tr><td>Open interest</td><td class="n" id="oi">—</td></tr>
+    </table>
+    <h2 style="margin-top:16px">Book <span class="tag">shaded = reachable by an in-band IOC</span></h2>
+    <table class="ladder num" id="ladder"></table>
+  </section>
+
+  <section>
+    <h2>Order pre-check <span class="tag">local calculation</span></h2>
+    <form id="form">
+      <label>Side<select name="side"><option value="buy">Buy</option><option value="sell">Sell</option></select></label>
+      <label>Quantity (BTC)<input name="qty" value="0.01" inputmode="decimal"></label>
+      <label>IOC limit (USDso)<input name="price" placeholder="blank = in-band limit reaching the touch" inputmode="decimal"></label>
+      <label>Current position (BTC, signed)<input name="position" value="0" inputmode="decimal"></label>
+      <label>Current equity (USDso)<input name="equity" value="1000" inputmode="decimal"></label>
+      <label>Breach threshold<input value="950 (v2.2 fixed)" disabled></label>
+      <button type="submit">Check order</button>
+    </form>
+    <div id="result" class="small" style="margin-top:12px">Position and equity describe a hypothetical challenge account; the default is a fresh 1,000 USDso Blitz run.</div>
+    <h2 style="margin-top:18px">Market configuration</h2>
+    <table id="config"></table>
+  </section>
+</main>
+
+<footer>
+  <table id="meta"></table>
+  <p>Raw data: <a href="/api/snapshot">/api/snapshot</a>. Planned contract errors are named for reference only; the contracts are not built or deployed.</p>
+</footer>
+
+<script>
+const $ = (id) => document.getElementById(id)
+const fmt = (raw, decimals, maxFrac = decimals) => {
+  if (raw === null || raw === undefined) return "—"
+  let v = BigInt(raw); const neg = v < 0n; if (neg) v = -v
+  const base = 10n ** BigInt(decimals)
+  const frac = (v % base).toString().padStart(decimals, "0").slice(0, maxFrac).replace(/0+$/, "")
+  const whole = (v / base).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  return (neg ? "-" : "") + whole + (frac ? "." + frac : "")
+}
+const px = (r) => fmt(r, 18, 2)
+const usd = (r) => fmt(r, 18, 4)
+let snap = null, baseDec = 8
+const btc = (r) => fmt(r, baseDec) + " BTC"
+const iso = (s) => new Date(s * 1000).toISOString().replace(".000Z", "Z")
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]))
+
+function renderSnapshot(s) {
+  snap = s; baseDec = s.market.baseDecimals
+  const d = s.derived
+  $("mark").textContent = px(s.mark.price)
+  $("bid").textContent = d.bestBid ? px(d.bestBid.price) : "empty"
+  $("ask").textContent = d.bestAsk ? px(d.bestAsk.price) : "empty"
+  $("bidq").textContent = d.bestBid ? btc(d.bestBid.quantity) : ""
+  $("askq").textContent = d.bestAsk ? btc(d.bestAsk.quantity) : ""
+  $("spread").textContent = d.spread === null ? "—" : `${px(d.spread)} (${d.spreadBps} bps)`
+  $("mvm").textContent = d.markVsMidBps === null ? "—" : `${d.markVsMidBps} bps`
+  $("band").textContent = `${px(d.band.low)} – ${px(d.band.high)}`
+  $("inband").textContent = `bid ${d.bestBidWithinBand ? "yes" : "no"} · ask ${d.bestAskWithinBand ? "yes" : "no"}`
+  $("index").textContent = px(s.state.indexPrice)
+  $("funding").textContent = `${Number(BigInt(s.state.fundingRate) * 1000000n / 10n ** 18n) / 10000}% / ${s.state.fundingWindowSec / 3600}h`
+  $("oi").textContent = btc(s.state.openInterest)
+
+  const rows = []
+  const asks = s.book.asks.slice(0, 8).reverse(), bids = s.book.bids.slice(0, 8)
+  for (const l of asks) rows.push(`<tr class="${BigInt(l.price) <= BigInt(d.band.high) ? "in" : ""}"><td class="ask">${px(l.price)}</td><td class="n">${fmt(l.quantity, baseDec)}</td></tr>`)
+  rows.push(`<tr class="sep"><td colspan="2">mark ${px(s.mark.price)}</td></tr>`)
+  for (const l of bids) rows.push(`<tr class="${BigInt(l.price) >= BigInt(d.band.low) ? "in" : ""}"><td class="bid">${px(l.price)}</td><td class="n">${fmt(l.quantity, baseDec)}</td></tr>`)
+  $("ladder").innerHTML = rows.join("")
+
+  const m = s.market, r = m.risk
+  $("config").innerHTML = [
+    ["Market", m.symbol], ["Pool", `<code class="break">${m.poolAddress}</code>`], ["Tick size", `${px(m.tickSize)} USDso`],
+    ["Lot size", btc(m.lotSize)], ["Min quantity", btc(m.minQuantity)],
+    ["Margin (bps)", `IM ${r.initialMarginBps} · MM ${r.maintenanceMarginBps} · close-out ${r.closeOutMarginBps}`],
+    ["Max position", btc(r.maxPositionSize)], ["Fees (bps×1000)", `taker ${r.takerFeeBpsTimes1k} · maker ${r.makerFeeBpsTimes1k}`],
+    ["Indexer = on-chain params", m.onchainBookParamsMatchIndexer ? "yes" : "NO"],
+  ].map(([k, v]) => `<tr><td>${k}</td><td class="n">${v}</td></tr>`).join("")
+
+  $("meta").innerHTML = [
+    ["Block", `${s.block.number} · ${iso(s.block.timestamp)}`], ["Queried at", `${s.queriedAt} (${s.elapsedMs} ms)`],
+    ["Chain id", s.chainId], ["SDK", `${s.sdk.package} ${s.sdk.version}`],
+    ["RPC", `<span class="break">${esc(s.endpoints.rpcUrl)}</span>`], ["Indexer", `<span class="break">${esc(s.endpoints.indexerUrl)}</span>`],
+  ].map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("")
+  $("age").textContent = `block ${s.block.number}`
+}
+
+async function refresh() {
+  try {
+    const res = await fetch("/api/snapshot")
+    const body = await res.json()
+    if (!res.ok) throw new Error(body.error)
+    renderSnapshot(body)
+    if (lastCheck) await check(lastCheck)
+  } catch (e) { $("age").textContent = "read failed"; console.error(e) }
+}
+
+let lastCheck = null
+async function check(params) {
+  lastCheck = params
+  const res = await fetch("/api/precheck?" + new URLSearchParams(params))
+  const body = await res.json()
+  if (!res.ok) { $("result").innerHTML = `<span class="err">${esc(body.error)}</span>`; return }
+  const r = body.result, e = r.estimate
+  const lev = e.postLeverageX1000 === null ? "n/a" : `${Number(e.postLeverageX1000) / 1000}x`
+  $("result").innerHTML = `
+    <div class="verdict ${r.verdict}">${r.verdict.replaceAll("_", " ")}</div>
+    <div>${esc(r.classification.replace("_", "-").toLowerCase())} · limit ${px(body.input.price)} (${esc(body.priceSource)}) · block ${body.block.number}</div>
+    ${r.verdict === "ADMIT_THEN_BREACH" ? "<div>The reducing order would commit, then the account would record EQUITY_FLOOR and start its exit.</div>" : ""}
+    <table class="checks" style="margin-top:8px">${r.checks.map((c) => `<tr><td class="${c.status}">${c.status.toUpperCase()}</td><td>${esc(c.rule)} <span class="small">[${c.source}]</span><br><span class="small">${esc(c.detail)}${c.status === "fail" && c.plannedError ? ` → planned revert <code>${esc(c.plannedError)}</code>` : ""}</span></td></tr>`).join("")}</table>
+    <table style="margin-top:8px">
+      <tr><td>Worst case</td><td class="n">full fill at the limit, mark unchanged</td></tr>
+      <tr><td>Equity after</td><td class="n">${usd(e.postEquity)} USDso</td></tr>
+      <tr><td>Position after</td><td class="n">${btc(e.newSize)}</td></tr>
+      <tr><td>Leverage after</td><td class="n">${lev}</td></tr>
+      <tr><td>Mark-to-market · fee</td><td class="n">${usd(e.markToMarket)} · ${usd(e.fee)}</td></tr>
+    </table>`
+}
+
+$("form").addEventListener("submit", (ev) => {
+  ev.preventDefault()
+  const p = Object.fromEntries(new FormData(ev.target))
+  if (!p.price) delete p.price
+  check(p).catch((e) => ($("result").innerHTML = `<span class="err">${esc(e.message)}</span>`))
+})
+setInterval(() => $("auto").checked && refresh(), 3000)
+refresh()
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+// Data behind the local website: the evidence summary, the recorded runs, and a read-only
+// account analysis. It reads files under evidence/ and public chain state; it never
+// signs or sends anything, and nothing here touches a key.
+import { createHash } from "node:crypto"
+import { existsSync, readdirSync, readFileSync } from "node:fs"
+import { join } from "node:path"
+import { isAddress, type Address, type PublicClient } from "viem"
+import { analyzeCandidates, type CandidateAnalysis } from "./candidates.js"
+import { BTC_POOL, ETH_POOL, MARGIN_BANK, stopLister } from "./common.js"
+import { accountFigures } from "./math.js"
+import { reconcile, snapshotLegs } from "./reconcile.js"
+import { buildScenario, type Scenario } from "./scenario.js"
+import { poolOf, readAccountSnapshot } from "./snapshot.js"
+
+const ROOT = new URL("../../", import.meta.url).pathname
+const EVIDENCE = join(ROOT, "evidence/margin-rescue")
+const PLAN = join(ROOT, "live-plan.json")
+
+const readJson = <T = any>(path: string): T => JSON.parse(readFileSync(path, "utf8"))
+const readText = (path: string): string | null => (existsSync(path) ? readFileSync(path, "utf8") : null)
+
+// "Ran 4 test suites …: 38 tests passed, 0 failed, 0 skipped (38 total tests)"
+function forgeCounts(text: string | null) {
+  const m = text && /(\d+) tests passed, (\d+) failed, (\d+) skipped \((\d+) total tests\)/.exec(text)
+  return m ? { passed: Number(m[1]), failed: Number(m[2]), total: Number(m[4]) } : null
+}
+
+// node --test spec reporter footer: "ℹ tests 178" / "ℹ pass 178" / "ℹ fail 0"
+function nodeTestCounts(text: string | null) {
+  const n = (k: string) => Number(new RegExp(`ℹ ${k} (\\d+)`).exec(text ?? "")?.[1] ?? NaN)
+  return text ? { passed: n("pass"), failed: n("fail"), total: n("tests") } : null
+}
+
+function gitHead(): { commit: string | null; branch: string | null } {
+  try {
+    const head = readFileSync(join(ROOT, ".git/HEAD"), "utf8").trim()
+    if (!head.startsWith("ref: ")) return { commit: head, branch: null }
+    const ref = head.slice(5)
+    const loose = join(ROOT, ".git", ref)
+    const commit = existsSync(loose)
+      ? readFileSync(loose, "utf8").trim()
+      : (readText(join(ROOT, ".git/packed-refs"))?.split("\n").find((l) => l.endsWith(` ${ref}`))?.split(" ")[0] ?? null)
+    return { commit, branch: ref.replace("refs/heads/", "") }
+  } catch {
+    return { commit: null, branch: null }
+  }
+}
+
+export function planSummary() {
+  if (!existsSync(PLAN)) return null
+  const raw = readFileSync(PLAN)
+  const p = JSON.parse(raw.toString("utf8"))
+  return {
+    sha256: createHash("sha256").update(raw).digest("hex"),
+    version: p.version,
+    chainId: p.network?.chainId ?? 50383,
+    readAt: p.readAt,
+    account: p.account.address,
+    depositUsdso: p.bounds.maxDepositUsdso,
+    softStopUsdso: p.bounds.softLossStopUsdso,
+    gasCapStt: p.bounds.gas.sttCap,
+    worstCaseStt: p.bounds.gas.worstCaseSttAtCurrentPrice,
+    transactions: p.bounds.gas.transactions,
+    opening: p.bounds.openingNotionalUsdso,
+  }
+}
+
+// Every proof the site shows, read from the evidence folder at request time.
+export function proofSummary() {
+  const rehearsals = readdirSync(join(EVIDENCE, "fork"))
+    .filter((d) => d.startsWith("rehearsal-") && existsSync(join(EVIDENCE, "fork", d, "rehearsal.json")))
+    .map((d) => {
+      const r = readJson(join(EVIDENCE, "fork", d, "rehearsal.json"))
+      return { forkBlock: r.forkBlock, dir: `fork/${d}`, outcomes: r.outcomes.map((o: any) => ({ scenario: o.scenario, pass: o.pass, expected: o.expected })) }
+    })
+  const e2eDir = join(EVIDENCE, "fork/e2e-33472615")
+  const e2eRun = readJson(join(e2eDir, "run.json"))
+  const e2eRecompute = readJson(join(e2eDir, "recompute.json"))
+  const liveRo = join(EVIDENCE, "live-read-only")
+  const reconciliations = readdirSync(liveRo)
+    .filter((d) => d.startsWith("reconcile-") && existsSync(join(liveRo, d, "reconciliation.json")))
+    .map((d) => {
+      const r = readJson(join(liveRo, d, "reconciliation.json"))
+      const s = readJson(join(liveRo, d, "snapshot.json"))
+      return { account: r.account, block: r.block.number, verdict: r.verdict, markets: new Set(s.positions.map((p: any) => p.pool.toLowerCase())).size, orders: s.orders.length }
+    })
+    .sort((a, b) => a.markets - b.markets)
+  const study = readJson(join(liveRo, "rounding-study.json"))
+  return {
+    generatedAt: new Date().toISOString(),
+    git: gitHead(),
+    fixture: {
+      unit: nodeTestCounts(readText(join(EVIDENCE, "fixture/npm-test.txt"))),
+      solidityMock: forgeCounts(readText(join(EVIDENCE, "fixture/forge-unit-mock.txt"))),
+      typecheckClean: !/error TS\d+/.test(readText(join(EVIDENCE, "fixture/typecheck.txt")) ?? "error TS0"),
+    },
+    fork: {
+      forgeFork: forgeCounts(readText(join(EVIDENCE, "fork/forge-fork-tests.txt"))),
+      rehearsals,
+      e2e: {
+        forkBlock: e2eRun.forkBlock,
+        account: e2eRun.account,
+        selected: e2eRun.selected,
+        goal: e2eRun.goal.state,
+        tx: e2eRun.tx?.hash ?? e2eRecompute.tx.hash,
+        filled: e2eRecompute.fill.filled,
+        fills: e2eRecompute.fill.fills,
+        baselineBuffer: e2eRecompute.baseline.scenario.buffer,
+        actualBuffer: e2eRecompute.actual.scenario.buffer,
+      },
+    },
+    liveReadOnly: {
+      reconciliations,
+      roundingStudy: { block: study.block.number, compared: study.compared, floorExact: study.equityFloorExact, truncExact: study.equityTruncExact, pools: study.pools, mismatches: study.mismatches.length },
+    },
+    liveWrite: { plan: planSummary(), run: runSummary(join(EVIDENCE, "live-write/run-1")) },
+  }
+}
+
+function runSummary(dir: string) {
+  if (!existsSync(join(dir, "result.json"))) return existsSync(dir) ? { state: "IN_PROGRESS" as const } : null
+  const r = readJson(join(dir, "result.json"))
+  return { state: "FINISHED" as const, status: r.status, exitCode: r.exitCode, reason: r.reason, rescue: r.rescue, sentTransactions: r.sentTransactions }
+}
+
+// ---- recorded runs (the app's third screen) ----
+
+const RUNS = [
+  { id: "live-1", kind: "live", dir: "live-write/run-1", label: "Live run 1 · Somnia Hideki" },
+  { id: "fork-e2e", kind: "fork", dir: "fork/e2e-33472615", label: "Fork · real 6-market account" },
+  { id: "fork-plan", kind: "fork", dir: "fork/rehearsal-33472615/happy", label: "Fork · rehearsal of the live plan" },
+] as const
+
+export function listRuns() {
+  return RUNS.map((r) => ({ id: r.id, kind: r.kind, label: r.label, present: existsSync(join(EVIDENCE, r.dir, "recompute.json")) }))
+}
+
+export function readRun(id: string) {
+  const run = RUNS.find((r) => r.id === id)
+  if (!run) return null
+  const dir = join(EVIDENCE, run.dir)
+  const base = { id: run.id, kind: run.kind, label: run.label, evidence: `evidence/margin-rescue/${run.dir}` }
+  if (!existsSync(join(dir, "recompute.json"))) return { ...base, present: false, progress: runSummary(dir), plan: run.kind === "live" ? planSummary() : null }
+
+  const scenario = readJson<Scenario>(join(dir, "scenario.json"))
+  const analysis = readJson<CandidateAnalysis>(join(dir, "candidates.json"))
+  const recompute = readJson(join(dir, "recompute.json"))
+  const result = existsSync(join(dir, "result.json")) ? readJson(join(dir, "result.json")) : null
+  // run.json: the end-to-end script; a rehearsal scenario's fork block is in its parent's rehearsal.json.
+  const meta = existsSync(join(dir, "run.json")) ? readJson(join(dir, "run.json")) : existsSync(join(dir, "../rehearsal.json")) ? readJson(join(dir, "../rehearsal.json")) : null
+  const ledger = existsSync(join(dir, "run-ledger.json")) ? readJson(join(dir, "run-ledger.json")) : null
+  const guard = existsSync(join(dir, "guard.json")) ? readJson(join(dir, "guard.json")) : null
+  return {
+    ...base,
+    present: true,
+    status: result?.status ?? (recompute.goal.state === "GOAL_MET" ? "COMPLETE" : "NOT_DEMONSTRATED"),
+    exitCode: result?.exitCode ?? null,
+    reason: result?.reason ?? null,
+    account: scenario.account,
+    forkBlock: meta?.forkBlock ?? null,
+    scenario: { id: scenario.id, reference: scenario.reference, markets: scenario.markets.map((m) => ({ symbol: m.symbol, baseDecimals: m.baseDecimals, referenceMark: m.referenceMark, scenarioPrice: m.scenarioPrice, shockBps: m.shockBps })), targetBuffer: scenario.targetBuffer },
+    analysis: { selected: analysis.selected, outcome: analysis.outcome, baseline: analysis.baseline, candidates: analysis.candidates.map(slimCandidate) },
+    execution: { candidateId: recompute.candidateId, tx: recompute.tx, fill: recompute.fill, ledgerChecks: recompute.ledger.checks, externalChanges: recompute.externalChanges, postReconciliation: recompute.postReconciliation },
+    recompute: { goal: recompute.goal, baseline: recompute.baseline.scenario, forecast: recompute.planned.scenario, actual: recompute.actual.scenario, currentHealth: recompute.actual.currentHealth, differences: recompute.differences },
+    guard: guard ? { address: guard.guard, verified: guard.verified, deployTx: guard.deployTx } : meta ? { address: meta.guard, verified: true, deployTx: null } : null,
+    steps: ledger?.steps.map((s: any) => ({ id: s.id, phase: s.phase, state: s.state, hash: s.hash ?? null, block: s.receipt?.blockNumber ?? null })) ?? [],
+    cleanup: result?.cleanup ? { verified: result.cleanup.checks.every((c: any) => c.ok), checks: result.cleanup.checks } : null,
+    gas: result?.gas ?? null,
+  }
+}
+
+function slimCandidate(c: CandidateAnalysis["candidates"][number]) {
+  return {
+    id: c.id,
+    kind: c.kind,
+    label: c.label,
+    status: c.status,
+    reasons: c.reasons,
+    warnings: c.warnings,
+    duplicateOf: c.duplicateOf,
+    goal: c.goal,
+    harmful: c.harmful,
+    costNow: c.costNow,
+    notionalReductionNow: c.notionalReductionNow,
+    scenarioBuffer: c.scenario?.buffer,
+    scenarioERisk: c.scenario?.eRisk,
+    scenarioMm: c.scenario?.mm,
+    reduce: c.reduce && { symbol: c.reduce.symbol, isBid: c.reduce.isBid, requestedQuantity: c.reduce.requestedQuantity, expectedFill: c.reduce.expectedFill, limitPrice: c.reduce.limitPrice, touch: c.reduce.touch, unfilled: c.reduce.unfilled, fees: c.reduce.fees },
+    remaining: c.remaining,
+  }
+}
+
+// ---- live, read-only account analysis (the app's first two screens) ----
+
+export interface AnalyzeInput {
+  account: string
+  btcPct: string
+  ethPct: string
+  targetUsdso: string
+}
+
+const PCT = /^-?\d{1,2}(\.\d{1,2})?$/
+const USD = /^-?\d{1,9}(\.\d{1,6})?$/
+
+export function parseAnalyzeInput(q: Record<string, string>): AnalyzeInput {
+  const account = (q.account ?? "").trim()
+  if (!isAddress(account, { strict: false })) throw new Error("account must be a 0x address")
+  const btcPct = q.btc ?? "-8"
+  const ethPct = q.eth ?? "-12"
+  const targetUsdso = q.target ?? "0"
+  for (const [k, v] of [["BTC shock", btcPct], ["ETH shock", ethPct]]) if (!PCT.test(v) || Math.abs(Number(v)) >= 90) throw new Error(`${k} must be a percentage between -90 and 90 with up to two decimals`)
+  if (!USD.test(targetUsdso)) throw new Error("target must be a USDso amount with up to six decimals")
+  return { account, btcPct, ethPct, targetUsdso }
+}
+
+const toBps = (pct: string) => Math.round(Number(pct) * 100)
+const toRaw = (usd: string) => {
+  const neg = usd.startsWith("-")
+  const [w, f = ""] = usd.replace("-", "").split(".")
+  const raw = BigInt(w) * 10n ** 18n + BigInt((f + "0".repeat(18)).slice(0, 18))
+  return neg ? -raw : raw
+}
+
+export async function analyzeAccount(client: PublicClient, input: AnalyzeInput) {
+  const started = Date.now()
+  const snapshot = await readAccountSnapshot(client, { marginBank: MARGIN_BANK, account: input.account as Address, bookPools: [BTC_POOL, ETH_POOL], listStops: stopLister() })
+  const recon = reconcile(snapshot)
+  const scenario = buildScenario(snapshot, recon, { shocksBps: { BTC: toBps(input.btcPct), ETH: toBps(input.ethPct) }, targetBuffer: toRaw(input.targetUsdso) })
+  const analysis = analyzeCandidates(scenario, snapshot, recon)
+  const now = accountFigures(snapshot.collateral.unlocked, snapshot.collateral.locked, snapshotLegs(snapshot))
+  return {
+    input,
+    elapsedMs: Date.now() - started,
+    account: snapshot.account,
+    block: snapshot.block,
+    canonical: snapshot.canonical,
+    problems: snapshot.problems,
+    coverage: { factoryPools: snapshot.coverage.factoryPools.length, activePools: snapshot.coverage.activePools.length },
+    collateral: snapshot.collateral,
+    legs: now.legs.map((l) => {
+      const info = poolOf(snapshot, l.pool)
+      const p = snapshot.positions.find((x) => x.pool.toLowerCase() === l.pool.toLowerCase())!
+      return { symbol: info.symbol, baseDecimals: info.baseDecimals, size: l.size, entry: p.avgEntryPrice, mark: l.price, notional: l.notional, unrealizedPnl: l.unrealizedPnl, fundingOwed: l.fundingOwed, mm: l.mm }
+    }),
+    orders: snapshot.orders.length,
+    stops: { listed: snapshot.stops.rows.length, live: snapshot.stops.rows.filter((r) => r.liveAtBlock).length, error: snapshot.stops.error },
+    reconciliation: { verdict: recon.verdict, reasons: recon.reasons, independent: { eRisk: recon.independent.eRisk, eTotal: recon.independent.eTotal, mm: recon.independent.mm, im: recon.independent.im, buffer: recon.independent.buffer }, bank: recon.bank, diffs: recon.diffs },
+    scenario: { id: scenario.id, markets: scenario.markets.map((m) => ({ symbol: m.symbol, baseDecimals: m.baseDecimals, referenceMark: m.referenceMark, scenarioPrice: m.scenarioPrice, shockBps: m.shockBps })), targetBuffer: scenario.targetBuffer },
+    analysis: { outcome: analysis.outcome, selected: analysis.selected, ranking: analysis.ranking, blockers: analysis.blockers, baseline: analysis.baseline, candidates: analysis.candidates.map(slimCandidate), excluded: { orders: analysis.excludedFromModel.orders.length, stops: analysis.excludedFromModel.stops.length, note: analysis.excludedFromModel.note } },
+  }
+}

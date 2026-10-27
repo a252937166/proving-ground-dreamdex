@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js","motion");setTimeout(function(){window.__mr||document.documentElement.classList.remove("motion")},2500)</script>
+<title>Guide · Margin Rescue</title>
+<meta name="description" content="How to read a dreamDEX account under a joint BTC/ETH move, compare reductions, read a recorded result, and run Margin Rescue from the command line.">
+<meta name="theme-color" content="#0c0a09">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/site.js"></script>
+</head>
+<body class="doc">
+<div class="read-progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<!--site-head-->
+
+<div class="doc-layout">
+  <aside class="doc-side" aria-label="Guide contents">
+    <details open>
+      <summary>On this page<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+      <div class="side-group">
+        <p class="side-label">Guide</p>
+        <ul class="side-links" data-spy>
+          <li class="side-ink" aria-hidden="true"></li>
+          <li><a href="#before">Before you start</a></li>
+          <li><a href="#read">Read an account</a></li>
+          <li><a href="#compare">Compare reductions</a></li>
+          <li><a href="#result">Read a recorded result</a></li>
+          <li><a href="#cli">Run it locally</a></li>
+          <li><a href="#execute">Reduce on your own account</a></li>
+          <li><a href="#limits">What the numbers do not say</a></li>
+          <li><a href="#trouble">When something looks wrong</a></li>
+        </ul>
+      </div>
+      <div class="side-group">
+        <p class="side-label">Also read</p>
+        <ul class="side-links">
+          <li><a class="out" href="/technology">Technology<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a></li>
+          <li><a class="out" href="/technology#dreamdex">dreamDEX components<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a></li>
+          <li><a class="out" href="/app">Open the app<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a></li>
+        </ul>
+      </div>
+    </details>
+  </aside>
+
+  <main id="main" class="doc-main">
+    <header class="doc-title">
+      <h1>Using Margin Rescue</h1>
+      <p class="doc-lede">There are two ways in. The app runs in your browser, read-only, for any public dreamDEX account. The command line does the same reads and can also prepare and verify a guarded reduction on an account you own. Neither ever asks for a key.</p>
+      <ul class="doc-chips">
+        <li>App: read-only, in the browser</li>
+        <li>CLI: Node 20.12 or later</li>
+        <li><span class="ping" aria-hidden="true"></span>Testnet only</li>
+      </ul>
+    </header>
+
+    <section id="before">
+      <h2>Before you start</h2>
+      <ul>
+        <li>You need the public address of a dreamDEX perps account on the Somnia Hideki testnet (chain 50383). The account must hold positions for there to be anything to rescue.</li>
+        <li>The app needs nothing installed. It is served by the project's local server, which reads public chain data and never signs anything.</li>
+        <li>For the command line you need Node 20.12 or later and npm. Foundry is needed only for the contract tests and the fork rehearsals.</li>
+      </ul>
+    </section>
+
+    <section id="read">
+      <h2>Read an account</h2>
+      <ol class="steps">
+        <li>Open the <a href="/app">app</a> and paste the account address.</li>
+        <li>Set how far BTC and ETH move, in percent, or pick a preset. Negative is down. The default is BTC −8% and ETH −12%.</li>
+        <li>Set the target buffer in USDso: how much equity you want left above maintenance margin after the move. 0 means “not below maintenance”.</li>
+        <li>Choose <b>Analyze</b>. The account is read at one block across all 21 pools, which usually takes 15 to 25 seconds.</li>
+      </ol>
+      <p>The first thing to check is the reconciliation verdict. <code>EXACT</code> means the independent rebuild matched dreamDEX's MarginBank to the raw unit, so the analysis can be trusted. Anything else blocks a recommendation, and the reason is shown.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <caption>The figures</caption>
+          <thead><tr><th scope="col">Name</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>E_risk</code></td><td>Health equity: unlocked collateral plus unrealized PnL minus funding owed. This is what the bank compares with its requirements.</td></tr>
+            <tr><td><code>E_total</code></td><td><code>E_risk</code> plus collateral locked behind resting orders.</td></tr>
+            <tr><td><code>MM</code></td><td>Maintenance margin across every held market.</td></tr>
+            <tr><td><code>buffer</code></td><td><code>E_risk − MM</code>. Below zero, the account is under maintenance.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The meter beside the verdict draws health equity against the dashed maintenance line, now and at the scenario. The scenario row shows each held market's reference mark and its fixed scenario price. Markets other than BTC and ETH stay at their reference marks and are still counted.</p>
+    </section>
+
+    <section id="compare">
+      <h2>Compare reductions</h2>
+      <p>The second screen lists <b>no action</b> first, then each evaluated reduction:</p>
+      <ul>
+        <li><b>Order:</b> the guarded order the reduction would send, with its protective limit.</li>
+        <li><b>Cut now:</b> how much notional exposure the reduction removes at today's prices.</li>
+        <li><b>Cost now:</b> slippage against the mark plus fees, from the book as it was read. Negative means the book paid more than the mark.</li>
+        <li><b>Buffer at scenario:</b> what the buffer would be at the scenario prices after the reduction, drawn as a bar around zero.</li>
+        <li><b>Goal:</b> whether that buffer meets the target. <b>Meets</b> or <b>Fails</b>.</li>
+      </ul>
+      <p>If doing nothing already meets the target, nothing is recommended. Otherwise the preferred candidate is the one that meets the target with the smallest notional cut, then the lowest cost. Some reductions make the scenario worse; reducing a short that hedges a long is the usual case. Those are flagged as harmful. A candidate can also be unavailable, for example when it rounds to zero on the lot grid or would leave a remainder below the minimum order. The reason is listed.</p>
+    </section>
+
+    <section id="result">
+      <h2>Read a recorded result</h2>
+      <p>The third screen shows what happened when a reduction was actually executed. You can choose one of three recorded runs:</p>
+      <ul>
+        <li><b>Fork, real 6-market account:</b> the full loop at block 33,472,615. ETH −50% was selected, 0.8165 ETH filled inside the limit, and the buffer recomputed from the fills matched the forecast.</li>
+        <li><b>Fork, rehearsal of the live plan:</b> the exact live executor run on a fork, from deploying the guard to the verified cleanup.</li>
+        <li><b>Live run 1:</b> the same plan on the live network. <span data-live-run data-met="It has run: goal met, cleanup verified.">It is approved and has not been run yet, so the screen says so instead of showing numbers.</span></li>
+      </ul>
+      <p>For a run, compare three numbers: the <b>forecast</b> made before sending, the <b>actual</b> buffer recomputed from what really filled at the same scenario prices, and the account's <b>current health</b> at today's marks. The list of ledger checks shows that the account changed only in the ways the transaction explains.</p>
+    </section>
+
+    <section id="cli">
+      <h2>Run it locally</h2>
+      <div class="code">
+        <div class="code-head"><span>Your terminal</span><button type="button" class="copy-btn"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div>
+<pre><code>npm ci
+npm run serve            <span class="c"># this site at http://127.0.0.1:8787</span>
+
+<span class="c"># Rebuild an account's health and compare it with the bank (exit 0 only if EXACT)</span>
+npm run mr -- reconcile --account 0xACCOUNT --out /tmp/mr
+
+<span class="c"># The fixed scenario and the candidates</span>
+npm run mr -- analyze --account 0xACCOUNT \
+  --shock BTC=-8 --shock ETH=-12 --target 0 --out /tmp/mr
+<span class="c">#   --price ETH=2000     an absolute price instead of a shock</span>
+<span class="c">#   --slippage-bps 50    the protective limit beyond the touch</span>
+<span class="c">#   --include-cancel     also evaluate cancelling resting orders</span>
+<span class="c">#   --block N            analyse a past block</span></code></pre>
+      </div>
+      <p><code>analyze</code> writes <code>snapshot.json</code>, <code>reconciliation.json</code>, <code>scenario.json</code>, <code>candidates.json</code> and a readable <code>analysis.txt</code> into the output directory. Every integer is a decimal string, so the files stay exact.</p>
+    </section>
+
+    <section id="execute">
+      <h2>Reduce on your own account</h2>
+      <p class="callout warn"><b>This part signs transactions on your account.</b> The site never does it. You run it yourself, testnet only, with your own wallet.</p>
+      <ol class="steps">
+        <li>Deploy your own <code>ReduceOnlyGuard(owner, MarginBank, [pools])</code> from <code>contracts/</code>. It is bound to your address and to the pools you list.</li>
+        <li>Grant it <code>placeOrderFor</code> on the pool you will reduce: <code>setOperatorApprovalForPool(pool, guard, [0x80054449], true)</code> on dreamDEX's OperatorPermissionsRegistry. This is the same grant dreamDEX's “Link a bot” writes.</li>
+        <li>Plan the action from your analysis. This runs the preflight and refresh, computes the action id, journals it as <code>NOT_SENT</code> and prints the unsigned transaction to the guard:
+          <div class="code"><div class="code-head"><span>Plan</span><button type="button" class="copy-btn"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div><pre><code>npm run mr -- plan --analysis /tmp/mr --guard 0xGUARD</code></pre></div></li>
+        <li>Right before signing, refresh. An account that changed invalidates the confirmation, and it must not be sent:
+          <div class="code"><div class="code-head"><span>Refresh</span><button type="button" class="copy-btn"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div><pre><code>npm run mr -- refresh --analysis /tmp/mr --action 0xACTION</code></pre></div></li>
+        <li>Sign and send the printed transaction with your own wallet, then bind and recompute:
+          <div class="code"><div class="code-head"><span>Recompute</span><button type="button" class="copy-btn"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div><pre><code>npm run mr -- recompute --analysis /tmp/mr --action 0xACTION --tx 0xHASH</code></pre></div></li>
+        <li>If a send is ever ambiguous, settle it from chain data. This never re-sends:
+          <div class="code"><div class="code-head"><span>Resolve</span><button type="button" class="copy-btn"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div><pre><code>npm run mr -- actions --resolve</code></pre></div></li>
+        <li>When you are done, revoke the grant with the same call and <code>false</code>.</li>
+      </ol>
+    </section>
+
+    <section id="limits">
+      <h2>What the numbers do not say</h2>
+      <ul>
+        <li>The scenario is a static what-if at stated prices. It does not predict prices, the path to them, liquidation, or fills of resting orders and stops along the way.</li>
+        <li>An expected fill comes from the book as it was read. It is not a guaranteed fill.</li>
+        <li>The preferred candidate is the best of a small evaluated set, not a global optimum.</li>
+        <li>Everything runs on the Somnia Hideki testnet. None of it is financial advice or a promise about real funds.</li>
+      </ul>
+    </section>
+
+    <section id="trouble">
+      <h2>When something looks wrong</h2>
+      <dl class="faq">
+        <dt>The result says BLOCKED.</dt>
+        <dd>The reason is listed. Common causes are a stale mark, an inexact reconciliation, a stop list the indexer has not caught up on, or a linked child account, which this version analyses but does not act on. If the reason is a stale mark, analysing again a little later may succeed.</dd>
+        <dt>NO_ACTION_NEEDED.</dt>
+        <dd>Doing nothing already meets your target under that scenario. Try a larger move or a higher target to see the candidates compete.</dd>
+        <dt>NO_FEASIBLE_CANDIDATE.</dt>
+        <dd>No single evaluated reduction reaches the target. The table still shows how close each one gets.</dd>
+        <dt>Why does the analysis take 20 seconds?</dt>
+        <dd>It reads every pool, every order and the stop list at one pinned block, then confirms that the block is still canonical. Speed is traded for a snapshot that cannot mix two blocks.</dd>
+      </dl>
+    </section>
+
+    <nav class="doc-next" aria-label="Next">
+      <a href="/technology">Previous<b>How it works</b></a>
+      <a class="next" href="/app">Next<b>Open the app</b></a>
+    </nav>
+  </main>
+</div>
+
+<!--site-foot-->
+</body>
+</html>

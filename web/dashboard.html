@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js","motion");setTimeout(function(){window.__mr||document.documentElement.classList.remove("motion")},2500)</script>
+<title>Dashboard · Margin Rescue</title>
+<meta name="description" content="Live BTC and ETH perps markets on Somnia Hideki, and the state of Margin Rescue's evidence: tests, fork scenarios, reconciliations and the live run.">
+<meta name="theme-color" content="#0c0a09">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/work.css">
+<script type="module" src="/assets/site.js"></script>
+<script type="module" src="/assets/dashboard.js"></script>
+</head>
+<body class="work">
+<a class="skip" href="#main">Skip to content</a>
+<!--site-head-->
+
+<main id="main" class="work-main">
+  <header class="work-head">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Live markets on Somnia Hideki and the state of every proof behind Margin Rescue.</p>
+    </div>
+    <div class="head-badges"><span class="badge info"><span class="ping" aria-hidden="true"></span>Live, read-only</span><span class="badge">Chain 50383</span></div>
+  </header>
+
+  <section class="panel" aria-labelledby="markets-title">
+    <div class="panel-head">
+      <h2 id="markets-title">Markets</h2>
+      <div class="panel-tools">
+        <span class="status" id="markets-status" role="status">Reading…</span>
+        <label class="switch"><input type="checkbox" id="markets-live" checked><span class="track" aria-hidden="true"></span>Refresh every 5 s</label>
+      </div>
+    </div>
+    <div class="refresh-line" id="refresh-line" aria-hidden="true"><i></i></div>
+    <div class="markets" id="markets">
+      <article class="market" data-symbol="BTC-PERP" aria-busy="true" aria-label="BTC-PERP"></article>
+      <article class="market" data-symbol="ETH-PERP" aria-busy="true" aria-label="ETH-PERP"></article>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="live-title">
+    <div class="panel-head">
+      <h2 id="live-title">Live validation</h2>
+      <span class="status" id="proof-status" role="status">Reading evidence…</span>
+    </div>
+    <div id="live-run" class="live-run" aria-busy="true"></div>
+  </section>
+
+  <div class="dash-grid">
+    <section class="panel" aria-labelledby="tests-title">
+      <div class="panel-head"><h2 id="tests-title">Tests</h2></div>
+      <div id="tests" aria-busy="true"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="recon-title">
+      <div class="panel-head"><h2 id="recon-title">Live reconciliations</h2></div>
+      <p class="panel-note">Account health rebuilt from raw chain state and compared with the bank's own getter at the same block. Read-only.</p>
+      <div class="table-wrap"><table id="recons" class="data">
+        <thead><tr><th scope="col">Account</th><th scope="col" class="n">Markets</th><th scope="col" class="n opt2">Resting orders</th><th scope="col" class="n opt2">Block</th><th scope="col">Verdict</th></tr></thead>
+        <tbody class="stagger"></tbody>
+      </table></div>
+      <p id="study" class="panel-foot"></p>
+    </section>
+  </div>
+
+  <section class="panel" aria-labelledby="fork-title">
+    <div class="panel-head">
+      <h2 id="fork-title">Fork scenarios</h2>
+    </div>
+    <p class="panel-note">Each scenario runs the live executor against a local fork of the real venue and checks the outcome it must produce.</p>
+    <div class="table-wrap"><table id="rehearsals" class="data">
+      <thead><tr><th scope="col">Scenario</th><th scope="col" class="n opt2">Fork block</th><th scope="col" class="opt2">Expected outcome</th><th scope="col">Result</th></tr></thead>
+      <tbody class="stagger"></tbody>
+    </table></div>
+    <div id="e2e" class="e2e"></div>
+  </section>
+
+  <p class="work-foot" id="build-info"></p>
+</main>
+
+<!--site-foot-->
+</body>
+</html>

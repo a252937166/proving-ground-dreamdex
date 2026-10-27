@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js","motion");setTimeout(function(){window.__mr||document.documentElement.classList.remove("motion")},2500)</script>
+<title>Technology · Margin Rescue</title>
+<meta name="description" content="How Margin Rescue rebuilds a dreamDEX cross-margin account, fixes a joint BTC/ETH scenario, compares reductions, executes one through a reduce-only guard and recomputes the scenario from real fills.">
+<meta name="theme-color" content="#0c0a09">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/site.js"></script>
+</head>
+<body class="doc">
+<div class="read-progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<!--site-head-->
+
+<div class="doc-layout">
+  <aside class="doc-side" aria-label="Technology contents">
+    <details open>
+      <summary>On this page<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+      <div class="side-group">
+        <p class="side-label">Technology</p>
+        <ul class="side-links" data-spy>
+          <li class="side-ink" aria-hidden="true"></li>
+          <li><a href="#pipeline">The pipeline</a></li>
+          <li><a href="#dreamdex">What comes from dreamDEX</a></li>
+          <li><a href="#snapshot">One snapshot, one block</a></li>
+          <li><a href="#accounting">The accounting</a></li>
+          <li><a href="#scenario">The fixed scenario</a></li>
+          <li><a href="#candidates">Candidates</a></li>
+          <li><a href="#guard">The reduce-only guard</a></li>
+          <li><a href="#execution">Execution and the run ledger</a></li>
+          <li><a href="#recompute">Binding and recomputation</a></li>
+          <li><a href="#exit-codes">Exit codes</a></li>
+          <li><a href="#network">Network, contracts, versions</a></li>
+          <li><a href="#evidence">Evidence</a></li>
+          <li><a href="#limits">Limitations</a></li>
+        </ul>
+      </div>
+      <div class="side-group">
+        <p class="side-label">Also read</p>
+        <ul class="side-links">
+          <li><a class="out" href="/guide">Guide<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a></li>
+          <li><a class="out" href="/dashboard">Dashboard<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a></li>
+          <li><a class="out" href="/evidence/README.md">Evidence index<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a></li>
+        </ul>
+      </div>
+    </details>
+  </aside>
+
+  <main id="main" class="doc-main">
+    <header class="doc-title">
+      <h1>How it works</h1>
+      <p class="doc-lede">Margin Rescue is a TypeScript client, a Solidity guard and a run ledger built around one question about a dreamDEX cross-margin account: if BTC and ETH move together, what is left of the maintenance buffer, and which concrete reduction brings it back to a target? This page describes each part and the evidence behind it. Everything runs against dreamDEX perps on the Somnia Hideki testnet, chain 50383.</p>
+      <ul class="doc-chips">
+        <li><a class="built-on" href="#dreamdex">built on <img src="/assets/brand/dreamdex-logo-offwhite.svg" alt="dreamDEX" width="68" height="14"></a></li>
+        <li><span class="ping" aria-hidden="true"></span>Somnia Hideki · chain 50383</li>
+        <li>markets SDK 0.32.1 · viem 2.57.7</li>
+        <li>Solidity 0.8.28 · Foundry 1.8.4</li>
+      </ul>
+    </header>
+
+    <section id="pipeline">
+      <h2>The pipeline</h2>
+      <p>Every step hands a pinned, hashed artifact to the next, so a result can always be traced back to the block it was computed from.</p>
+      <div class="route-head"><span class="muted">Each stage lights in turn as a packet travels the line.</span><button class="icon-btn" type="button" data-pause="pipeline-route" aria-pressed="false" aria-label="Pause the pipeline animation"><svg class="icon i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.5v11M13 4.5v11" fill="none" stroke="currentColor" stroke-width="2"/></svg><svg class="icon i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.5v11l9-5.5z" fill="currentColor"/></svg></button></div>
+      <ol class="route" id="pipeline-route">
+        <li><b>Snapshot</b><span>Reads the whole account and all 21 pools at one block, then rechecks the block hash.</span><code>snapshot.ts</code></li>
+        <li><b>Reconcile</b><span>Rebuilds health equity and margin requirements from raw state and compares them with the bank's own getter.</span><code>reconcile.ts</code></li>
+        <li><b>Scenario</b><span>Fixes absolute BTC and ETH prices; every other held market stays at its reference mark. The object is hashed.</span><code>scenario.ts</code></li>
+        <li><b>Candidates</b><span>Prices 25, 50, 75 and 100% reductions against the live book, then values what remains at the scenario prices.</span><code>candidates.ts</code></li>
+        <li><b>Confirm and refresh</b><span>Journals the chosen action before anything is sent and re-reads the account right before sending.</span><code>action.ts · journal.ts · refresh.ts</code></li>
+        <li><b>Guard</b><span>Executes the reduction only if the live position equals the confirmed one, and reverts if the position flips or grows.</span><code>ReduceOnlyGuard.sol</code></li>
+        <li><b>Bind and recompute</b><span>Credits a receipt only if it is the confirmed action, then values the real post-fill account at the original scenario prices.</span><code>receipt.ts · recompute.ts</code></li>
+        <li><b>Clean up</b><span>Closes what the run opened through the guard, revokes grants, withdraws and verifies the end state at one block.</span><code>cleanup.ts · txlog.ts</code></li>
+      </ol>
+    </section>
+
+    <section id="dreamdex">
+      <h2>What comes from dreamDEX</h2>
+      <p>Margin Rescue is built on dreamDEX's perps testnet and uses the venue's own contracts and tools as they are. Nothing of the venue is forked, wrapped or re-hosted; the only new contract is the owner's own guard.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <caption>dreamDEX components, and what Margin Rescue does with each</caption>
+          <thead><tr><th scope="col">Component</th><th scope="col">Used for</th><th scope="col">Reference</th></tr></thead>
+          <tbody>
+            <tr><td><b>Perps testnet</b> on Somnia Hideki</td><td>The venue every read and every order goes to. Any other chain is refused.</td><td>chain 50383 · <a href="https://app.testnet.dreamdex.io/docs/developers/perps-testnet">docs</a></td></tr>
+            <tr><td><b>MarginBank</b></td><td>Cross-margin USDso collateral and the account's health. Its own getters (<code>getAccountHealth</code> and the requirements) are what the independent rebuild has to match, to the raw unit.</td><td><code class="addr">0x4787…1394</code></td></tr>
+            <tr><td><b>PerpPoolFactory</b> and the perps pools</td><td>All 21 pools, read at the pinned block: positions, resting orders, books, marks and funding. Every candidate is priced on its pool's book.</td><td><code>getPerpPools</code></td></tr>
+            <tr><td><b><code>placeOrderFor</code></b> on a pool's order book</td><td>The one call the guard makes: an IOC order for the owner, cancelling the taker on a self-match.</td><td>selector <code>0x80054449</code></td></tr>
+            <tr><td><b>OperatorPermissionsRegistry</b></td><td>The owner's per-pool grant that admits the guard, the same grant dreamDEX's “Link a bot” writes; revoked again at cleanup.</td><td><code class="addr">0x6B2F…8D3a</code> · <a href="https://app.testnet.dreamdex.io/docs/trading/common/link-a-bot">Link a bot</a></td></tr>
+            <tr><td><b>Perp stop registry</b> and the markets indexer</td><td>TP/SL stops, listed from the indexer's GraphQL endpoint and then checked on chain at the pinned block.</td><td>refused if the indexer is behind the block</td></tr>
+            <tr><td><b><code>@somnia-chain/markets-sdk</code></b></td><td>The venue's TypeScript SDK: the chain definition, the deployment's addresses, and the contract errors and events every receipt is decoded with.</td><td>0.32.1</td></tr>
+            <tr><td><b>USDso</b></td><td>The collateral token. Balance and allowance are read; only the owner's live run deposits and withdraws.</td><td><code class="addr">0xed79…4F72</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>What is Margin Rescue's own: the TypeScript client (snapshot, reconciliation, scenario, candidates, executor, run ledger, this site) and <code>ReduceOnlyGuard.sol</code>, deployed by each owner for their own account.</p>
+    </section>
+
+    <section id="snapshot">
+      <h2>One snapshot, one block</h2>
+      <p>An analysis starts by sampling one block number and hash. Every read that follows is pinned to that block: the bank's collateral and health getters, every position in every one of the factory's 21 pools (the bank's active list is cross-checked against the full factory list), resting orders, the account mode, wallet balance and allowance, and the BTC and ETH order books. TP/SL stops are listed from the indexer, paged to the end, refused if the indexer has not yet processed the pinned block, and then checked on chain at that block. After the reads, the block hash is checked again to confirm the block is still canonical.</p>
+      <p>Anything missing or inconsistent becomes a named problem on the snapshot: a stale mark, a pool outside the bank's list, a failed read, an unlisted stop set. Any problem blocks a recommendation.</p>
+    </section>
+
+    <section id="accounting">
+      <h2>The accounting</h2>
+      <p>Health is rebuilt from raw integers with the deployment's own rounding. No floating point is used anywhere a decision is made.</p>
+      <div class="code formula">
+        <div class="code-head"><span>Health, per held market, in raw units</span><button type="button" class="copy-btn"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div>
+<pre><code>E_risk  = unlocked + Σ floor((mark − entry) × size / oneBase)
+                   − Σ ceil(size × (cumFunding − entryFundingIndex) / (1e18 × oneBase))
+E_total = E_risk + locked
+MM      = Σ ceil(floor(|size| × mark / oneBase) × mmBps / 10000)
+buffer  = E_risk − MM</code></pre>
+      </div>
+      <p><code>E_risk</code> is what the bank compares with its requirements. Collateral locked behind resting orders is not part of it, and cancelling an order only moves collateral from locked to unlocked. TP/SL stops prepay STT, which is not USDso collateral and is never counted.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <caption>How the rounding was established (live, read-only)</caption>
+          <thead><tr><th scope="col">Check</th><th scope="col">Block</th><th scope="col" class="n">Result</th></tr></thead>
+          <tbody>
+            <tr><td>Every holder of every pool rebuilt with floored PnL</td><td class="num">33,516,436</td><td class="n">7,700 / 7,700 exact</td></tr>
+            <tr><td>The same holders with the SDK's truncation</td><td class="num">33,516,436</td><td class="n">2,271 / 7,700 exact</td></tr>
+            <tr><td>Accounts with 3, 6, 9 and 21 markets (the last with 181 resting orders)</td><td class="num">33,646,741 – 33,647,348</td><td class="n">all EXACT</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Because every reconciled account matched the bank to the raw unit, the model is treated as deployment-exact and the numerical error bound is zero. Truncation fails for every account with a negative, inexact PnL leg, by at most one raw unit per such leg.</p>
+    </section>
+
+    <section id="scenario">
+      <h2>The fixed scenario</h2>
+      <p>A scenario is a canonical JSON object whose id is its SHA-256. It fixes the chain, MarginBank, account, reference block number, hash and time, and, for every held market, the pool, units, reference mark, <strong>absolute scenario price</strong>, configured risk rates and fees. It also records the funding assumption, the model version and the target buffer.</p>
+      <p>Only BTC and ETH can be shocked. Every other held market stays at its reference mark and stays in the calculation. A shock of −8% on a reference of 79,976.86 becomes the absolute price 73,578.71, and that price is kept: after an execution the account is valued at 73,578.71 again, not shocked another 8% from wherever the market went.</p>
+      <p>The shock is instantaneous and static: no price path, no stop or liquidation on the way, no funding accrual during the shock. A later snapshot with changed risk rates or a newly held market cannot be valued under the old scenario.</p>
+    </section>
+
+    <section id="candidates">
+      <h2>Candidates</h2>
+      <p>The candidate set is small and explicit: no action; reductions of 25, 50, 75 and 100% of each BTC or ETH position, aligned down to the lot and deduplicated; and, on request, cancelling all ordinary resting orders.</p>
+      <p>Each reduction is previewed now, against the order book read at the reference block, with a protective IOC limit 50 bps beyond the touch. Realized PnL is floored per fill, fees are charged per fill, and funding owed on the whole position is settled once. The remaining portfolio is then valued at the scenario prices.</p>
+      <p>A candidate is unavailable if it rounds to zero, falls below the minimum order, would leave a remainder below the minimum, would self-match a resting order of the same account, or finds nothing inside its limit. If doing nothing already meets the target, nothing is recommended. Among candidates that meet it, the smallest current notional reduction is preferred, then the lowest cost. That is a choice among the evaluated candidates, not a global optimum.</p>
+    </section>
+
+    <section id="guard">
+      <h2>The reduce-only guard</h2>
+      <p>The venue has no immediate reduce-only order: <code>placeOrder</code> and <code>placeOrderFor</code> take no such flag, the order type is a closed enum of four, and the official close helper sends a plain opposite-side IOC. So <code>ReduceOnlyGuard</code> acts as the account's own operator, with these properties:</p>
+      <ul>
+        <li>Deployed per owner, with the chain (50383), MarginBank and trusted pools fixed at construction.</li>
+        <li>Admitted by the owner's per-pool grant of <code>placeOrderFor</code> (selector <code>0x80054449</code>) in the OperatorPermissionsRegistry, the same grant dreamDEX's “Link a bot” writes.</li>
+        <li>Callable only by the owner. It places only IOC orders for the owner, cancelling the taker on a self-match.</li>
+        <li>Each action has an id that commits to the chain, guard, bank, owner, pool, the exact signed position the owner confirmed, side, quantity, limit, deadline, order type and a nonce.</li>
+        <li><b>Before</b> the venue call: the live position must equal the confirmed one exactly, the side must reduce it, and <code>0 &lt; quantity ≤ |position|</code>, on the lot and above the minimum. The id is reserved and a reentrancy lock held.</li>
+        <li><b>After</b> the venue call: the position must be on the same side or flat, no larger, and reduced by at most the quantity. Otherwise the whole transaction reverts, venue fills included.</li>
+        <li>It holds no tokens and has no deposit, withdraw, approve, cancel or arbitrary-call function.</li>
+      </ul>
+      <p class="callout">On a fork of the real venue, a test-only harness that skips the guard's preconditions makes the venue flip a position. The production postcondition then reverts everything, and the trace is kept as evidence.</p>
+    </section>
+
+    <section id="execution">
+      <h2>Execution and the run ledger</h2>
+      <p>An action record is written before anything is broadcast. It tracks three states separately: the transaction (<code>NOT_SENT</code>, <code>PENDING</code>, <code>UNKNOWN</code>, <code>REVERTED</code>, <code>CONFIRMED</code>, <code>NOT_INCLUDED</code>, <code>INVALIDATED</code>), the fill (<code>NO_FILL</code>, <code>PARTIAL_FILL</code>, <code>REQUESTED_FILL</code>) and the goal (<code>GOAL_MET</code>, <code>GOAL_NOT_MET</code>, <code>BASELINE_CHANGED</code>, <code>UNAVAILABLE</code>, <code>EVIDENCE_MISMATCH</code>).</p>
+      <p><b>Refresh.</b> Right before sending, the account is read again at one pinned block. The confirmation is invalidated, and never sent, if any position, collateral, order, stop, account mode, allowance or risk setting changed, if the fresh read does not reconcile exactly, if the candidates re-evaluated under the original scenario now select a different one, if the confirmed order would fill a different amount against the fresh book, or if less than 30 seconds remain to its deadline.</p>
+      <p><b>Unknown transactions.</b> Every transaction a run sends is persisted with its hash and nonce before the signed bytes leave the process; the bytes themselves are never written. A step without a receipt is resolved from chain data before anything else is sent. Only a canonical receipt settles it. A failed lookup is not “not found”, and a used nonce proves nothing until the transaction that consumed it is located with a different hash. Until then the step stays <code>UNKNOWN</code>, its worst-case fee stays reserved, and the run stops with exit 40 so it can be resumed.</p>
+      <p><b>Cleanup.</b> Cleanup is driven by chain state. Each remaining position is closed by a guarded full close, at most three attempts per leg; a leg the guard cannot close is reported and never closed with an unguarded order. Grants are revoked, collateral withdrawn and the allowance cleared, and the end state is verified at one block across all 21 pools. Every main-phase send must leave enough gas under the plan's cap for the cleanup the run could need right after it: at most 12 transactions at 13M gas each for the live plan.</p>
+    </section>
+
+    <section id="recompute">
+      <h2>Binding and recomputation</h2>
+      <p>Before a receipt is credited, it is bound to the saved confirmation: sender, destination, exact calldata, hash, nonce, value, chain, the guard's single <code>ReduceExecuted</code> event and the taker order's owner. A mismatch is <code>EVIDENCE_MISMATCH</code>. In tests, 19 synthetic tamperings and six alterations of a real fork receipt were all refused.</p>
+      <p>Then the ledger has to be explained by the transaction's own rows: the size moved by exactly the fills, realized PnL floored per fill, funding settled once on the whole position, fees on each fill's notional, unlocked collateral moved by realized − funding − fees, and nothing else in the account touched. Anything unexplained gives <code>BASELINE_CHANGED</code> rather than credit. Finally the real remaining portfolio is valued at the scenario's original absolute prices and shown beside the baseline, the forecast and the account's actual health.</p>
+    </section>
+
+    <section id="exit-codes">
+      <h2>Exit codes</h2>
+      <div class="table-wrap">
+        <table class="data">
+          <caption><code>npm run mr:live</code></caption>
+          <thead><tr><th scope="col" class="n">Code</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+            <tr><td class="n"><span class="badge met">0</span></td><td>The guarded reduction was bound, recomputed <code>GOAL_MET</code>, and cleanup was verified.</td></tr>
+            <tr><td class="n"><span class="badge">1</span></td><td>Refused before signing anything. Nothing was broadcast and no cleanup ran.</td></tr>
+            <tr><td class="n"><span class="badge wait">10</span></td><td>Cleanup verified, but no reduction was demonstrated: nothing needed, nothing feasible, the confirmation was invalidated, or the goal was not met.</td></tr>
+            <tr><td class="n"><span class="badge wait">20</span></td><td>A started run aborted (soft loss stop, a foreign transaction, an interruption) and cleanup was verified.</td></tr>
+            <tr><td class="n"><span class="badge call">30</span></td><td>Cleanup was not verified.</td></tr>
+            <tr><td class="n"><span class="badge call">40</span></td><td>A transaction is unresolved. Nothing else was sent; resume with the same plan and directory.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The read-only commands exit non-zero too: <code>reconcile</code> 3 unless <code>EXACT</code>, <code>analyze</code> 3 when blocked, <code>plan</code> and <code>refresh</code> 4 when the confirmation is refused or invalidated, and <code>recompute</code> 0 only for <code>GOAL_MET</code>.</p>
+    </section>
+
+    <section id="network">
+      <h2>Network, contracts, versions</h2>
+      <div class="table-wrap">
+        <table class="data kv">
+          <tbody>
+            <tr><th scope="row">Network</th><td>Somnia Hideki testnet, chain 50383. Any other chain is refused.</td></tr>
+            <tr><th scope="row">MarginBank</th><td><code class="addr">0x478769E1177C0773c43A593DCCc4Ad15F15F1394</code></td></tr>
+            <tr><th scope="row">BTC pool</th><td><code class="addr">0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0</code></td></tr>
+            <tr><th scope="row">ETH pool</th><td><code class="addr">0xD6Cb1DD58580B84D76068aC21594219ce03aeddf</code></td></tr>
+            <tr><th scope="row">Operator registry</th><td><code class="addr">0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a</code></td></tr>
+            <tr><th scope="row">USDso</th><td><code class="addr">0xed7993A74dAe1e6656B704A424DcD8711aAf4F72</code></td></tr>
+            <tr><th scope="row">Client</th><td><code>@somnia-chain/markets-sdk</code> 0.32.1, viem 2.57.7, TypeScript 5.9.3, Node 22</td></tr>
+            <tr><th scope="row">Contracts</th><td>Solidity 0.8.28 (optimizer 200 runs, cancun), Foundry 1.8.4, forge-std v1.17.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <h2>Evidence</h2>
+      <p>Each claim on this site is labelled by where it was checked. <b>Fixture</b> means synthetic data in unit tests. <b>Fork</b> means a local anvil fork of the real venue at a recorded block. <b>Live</b> means the Somnia Hideki network itself. <span data-live-run data-met="The live write, one guarded reduction on the project's own test account, has run: goal met, cleanup verified.">The live write, one guarded reduction on the project's own test account, is approved and has not run yet.</span> The <a href="/dashboard">dashboard</a> shows its status as it changes.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th scope="col">Claim</th><th scope="col">Where</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><td>Scenario arithmetic, locks, funding and rounding, including the plan's two worked fixtures</td><td>Fixture</td><td>178 / 178 unit tests</td></tr>
+            <tr><td>Guard behaviour against mocks</td><td>Fixture</td><td>9 / 9 Solidity tests</td></tr>
+            <tr><td>IOC limits, guard invariants, rollback after venue fills, per-fill ledger</td><td>Fork</td><td>38 / 38 Solidity fork tests</td></tr>
+            <tr><td>The full loop on a real 6-market account: analyse, guard, refresh, send, bind, recompute</td><td>Fork, block 33,472,615</td><td>ETH −50% filled 0.8165 ETH inside the limit; recomputed buffer equals the forecast; <code>GOAL_MET</code></td></tr>
+            <tr><td>The live executor: happy path, tampering, book change, partial fill, owner change, timeout, RPC outage, refused preflight, cleanup retries and failure, funding drift</td><td>Fork, blocks 33,472,615 and 33,609,475</td><td>11 / 11 scenarios as expected</td></tr>
+            <tr><td>Independent reconciliation and the bank's rounding</td><td>Live, read-only</td><td>EXACT for every account checked</td></tr>
+            <tr><td>One guarded reduction on the test account, with cleanup</td><td>Live write</td><td data-live-run data-met="Run 1: GOAL_MET, cleanup verified">Approved plan <code>6c255a58…</code>; not yet run</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="limits">
+      <h2>Limitations</h2>
+      <ul>
+        <li>The scenario is static. It says nothing about the path to the shocked prices, about fills of resting orders or stops on the way, or about liquidation. An expected fill is not a guaranteed fill.</li>
+        <li>Candidates are finite. The preferred candidate is the best among those evaluated, not a global optimum.</li>
+        <li>Faults on the fork were injected by the rehearsal. They show how the executor responds, not how often such events happen live.</li>
+        <li>Stops are listed from the indexer and checked on chain; the registry has no on-chain enumeration, so their completeness still rests on the indexer.</li>
+        <li>Fork gas figures follow Ethereum's schedule, not Somnia's. The live plan asks the live RPC for estimates.</li>
+        <li>Testnet only. Nothing here touches mainnet or real funds.</li>
+      </ul>
+    </section>
+
+    <nav class="doc-next" aria-label="Next">
+      <a href="/features">Previous<b>Features</b></a>
+      <a class="next" href="/guide">Next<b>Using Margin Rescue</b></a>
+    </nav>
+  </main>
+</div>
+
+<!--site-foot-->
+</body>
+</html>

@@ -3,217 +3,400 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Proving Ground prototype</title>
-<link rel="icon" href="data:,">
-<style>
-  :root {
-    --bg: #f6f5f1; --panel: #ffffff; --ink: #1b1d21; --muted: #646a73; --line: #e2e0d8;
-    --bid: #0f7b4f; --ask: #b4372f; --warn-bg: #fff4d6; --warn-ink: #6b4e00; --accent: #2c4bd1;
-    --pass: #0f7b4f; --fail: #b4372f; --exempt: #646a73; --band: rgba(44, 75, 209, 0.08);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #121417; --panel: #1b1e23; --ink: #e9eaec; --muted: #9aa1ab; --line: #2c3037;
-      --bid: #3ecf8e; --ask: #ff7a6e; --warn-bg: #3a3014; --warn-ink: #f3d68a; --accent: #8ea2ff;
-      --pass: #3ecf8e; --fail: #ff7a6e; --exempt: #9aa1ab; --band: rgba(142, 162, 255, 0.10);
-    }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  .num, code, td.n { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
-  header, main, footer { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
-  header { padding-top: 28px; }
-  h1 { margin: 0; font-size: 26px; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); margin-top: 2px; }
-  .notice { margin: 16px 0 20px; padding: 12px 14px; border-radius: 8px; background: var(--warn-bg); color: var(--warn-ink); }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
-  section { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
-  h2 { margin: 0 0 12px; font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-  .tag { font-size: 11px; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); text-transform: none; }
-  .mark { font-size: 34px; font-weight: 600; }
-  .touch { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
-  .touch > div { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
-  .label { color: var(--muted); font-size: 12px; }
-  .bid { color: var(--bid); } .ask { color: var(--ask); }
-  table { width: 100%; border-collapse: collapse; }
-  td { padding: 3px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
-  td:first-child { color: var(--muted); width: 44%; }
-  td.n { text-align: right; }
-  .ladder td { border: 0; padding: 1px 4px; }
-  .ladder td:first-child { width: auto; }
-  .ladder tr.in td { background: var(--band); }
-  .ladder .sep td { border-top: 1px dashed var(--line); color: var(--muted); text-align: center; font-size: 12px; }
-  form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  label { display: grid; gap: 3px; font-size: 13px; color: var(--muted); }
-  input, select, button { font: inherit; padding: 7px 9px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); min-width: 0; }
-  button { grid-column: 1 / -1; background: var(--accent); color: #fff; border: 0; cursor: pointer; font-weight: 600; }
-  .verdict { margin: 14px 0 8px; font-size: 20px; font-weight: 700; }
-  .verdict.REJECT { color: var(--fail); } .verdict.ADMIT { color: var(--pass); } .verdict.ADMIT_THEN_BREACH { color: var(--warn-ink); }
-  .checks td:first-child { width: 72px; font-weight: 600; }
-  .pass { color: var(--pass); } .fail { color: var(--fail); } .exempt { color: var(--exempt); }
-  .small { font-size: 12px; color: var(--muted); }
-  .err { color: var(--fail); }
-  footer { padding: 18px 16px 40px; color: var(--muted); font-size: 13px; }
-  footer table td:first-child { width: 160px; }
-  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-  a { color: var(--accent); }
-  .break { word-break: break-all; }
-</style>
+<script>document.documentElement.classList.add("js","motion");setTimeout(function(){window.__mr||document.documentElement.classList.remove("motion")},2500)</script>
+<title>Margin Rescue · built on dreamDEX · stress a cross-margin account before the market does</title>
+<meta name="description" content="Margin Rescue, built on dreamDEX's perps testnet, shocks BTC and ETH together on a cross-margin account, compares concrete reductions, executes one through a reduce-only guard and recomputes the scenario from the real fills.">
+<meta name="theme-color" content="#0c0a09">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/home.css">
+<script type="module" src="/assets/site.js"></script>
+<script type="module" src="/assets/home.js"></script>
 </head>
-<body>
-<header>
-  <h1>Proving Ground</h1>
-  <div class="sub">dreamDEX BTC-PERP integration prototype · Somnia Hideki (Tokyo) testnet · chain 50383</div>
-  <div class="notice">
-    <strong>Read-only prototype.</strong> Market data is read live from dreamDEX through
-    <code>@somnia-chain/markets-sdk</code>. The order pre-check is a <strong>local calculation</strong> of the
-    Proving Ground v2.2 rules. No Proving Ground contract is deployed, so nothing here is enforced on-chain.
-    No wallet, no signing, no orders.
-  </div>
-</header>
+<body class="home">
+<a class="skip" href="#main">Skip to content</a>
+<!--site-head-->
 
-<main class="grid">
-  <section>
-    <h2>Live market <span class="row"><span class="tag" id="age">loading…</span><label class="row small" style="display:flex"><input type="checkbox" id="auto" checked> auto</label></span></h2>
-    <div class="label">Mark price (on-chain, same block as the book)</div>
-    <div class="mark num" id="mark">—</div>
-    <div class="touch">
-      <div><div class="label">Best bid</div><div class="num bid" id="bid">—</div><div class="small num" id="bidq"></div></div>
-      <div><div class="label">Best ask</div><div class="num ask" id="ask">—</div><div class="small num" id="askq"></div></div>
+<div class="ticker" id="ticker" data-ticker role="region" aria-label="BTC and ETH perps on Somnia Hideki, read live">
+  <p class="ticker-tag"><span class="ping" aria-hidden="true"></span>Live · Hideki</p>
+  <div class="marquee" style="--dur: 48s">
+    <div class="marquee-track" data-ticker-track>
+      <span class="tick muted">Reading BTC-PERP and ETH-PERP from the testnet…</span>
     </div>
-    <table>
-      <tr><td>Spread</td><td class="n" id="spread">—</td></tr>
-      <tr><td>Mark vs mid</td><td class="n" id="mvm">—</td></tr>
-      <tr><td>±0.2% band (local)</td><td class="n" id="band">—</td></tr>
-      <tr><td>Touch reachable in band</td><td class="n" id="inband">—</td></tr>
-      <tr><td>Index (latest)</td><td class="n" id="index">—</td></tr>
-      <tr><td>Funding rate</td><td class="n" id="funding">—</td></tr>
-      <tr><td>Open interest</td><td class="n" id="oi">—</td></tr>
-    </table>
-    <h2 style="margin-top:16px">Book <span class="tag">shaded = reachable by an in-band IOC</span></h2>
-    <table class="ladder num" id="ladder"></table>
+  </div>
+  <button class="icon-btn" type="button" data-pause="ticker" aria-pressed="false" aria-label="Pause the ticker"><svg class="icon i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.5v11M13 4.5v11" fill="none" stroke="currentColor" stroke-width="2"/></svg><svg class="icon i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.5v11l9-5.5z" fill="currentColor"/></svg></button>
+</div>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-title" class="display" data-split>Know <em>the call</em><br class="br-wide"> before the market<br class="br-wide"> sends it.</h1>
+        <p class="subline">Cross-margin stress, priced rescues, guarded fills.</p>
+        <p class="lede">Margin Rescue shocks BTC and ETH together on a dreamDEX cross-margin account, compares concrete reductions, executes one through a reduce-only guard, and recomputes the same scenario from the real fills.</p>
+
+        <form class="prompt" action="/app" method="get" aria-label="Analyze an account">
+          <div class="prompt-row">
+            <label class="prompt-field">
+              <span class="sr-only">Account</span>
+              <svg class="icon chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <input name="account" placeholder="0x… any dreamDEX perps account" required pattern="^0x[0-9a-fA-F]{40}$" title="A 0x address of 40 hex characters" autocomplete="off" spellcheck="false">
+            </label>
+            <button class="btn" type="submit">Analyze<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+          </div>
+          <div class="prompt-params">
+            <label class="param"><span>BTC</span><input name="btc" value="-8" inputmode="decimal" aria-label="BTC move in percent"><span>%</span></label>
+            <label class="param"><span>ETH</span><input name="eth" value="-12" inputmode="decimal" aria-label="ETH move in percent"><span>%</span></label>
+            <label class="param"><span>Target</span><input name="target" value="0" inputmode="decimal" aria-label="Target buffer in USDso"><span>USDso</span></label>
+          </div>
+          <p class="prompt-hint">Read-only; nothing is signed. <a href="/app?account=0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745&amp;btc=-20&amp;eth=-25&amp;target=0">Try a real 6&#8209;market account</a></p>
+        </form>
+
+        <p class="hero-built"><a class="built-on" href="#built">built on <img src="/assets/brand/dreamdex-logo-offwhite.svg" alt="dreamDEX" width="73" height="15"></a><span>Perps testnet · Somnia Hideki · chain 50383</span></p>
+      </div>
+
+      <figure class="console" id="console" aria-labelledby="console-cap">
+        <figcaption id="console-cap" class="sr-only">A replay of the recorded fork run on the real 6-market account 0x2E36…B745. At block 33,472,616 the account reconciles exactly with a buffer of 527.10 USDso. Under BTC −8% and ETH −12% the buffer falls to (262.05): a margin call. Of the eight reductions evaluated, ETH −50% is the smallest that meets the target. The guard sold 0.8165 ETH in two fills inside the 2,305.06 limit, and the buffer recomputed from the fills is 6.48 USDso: goal met.</figcaption>
+        <div class="console-head">
+          <p class="console-title">Rescue lifecycle</p>
+          <p class="console-acct" aria-hidden="true">6 markets · cross margin</p>
+          <span class="pill" aria-hidden="true">Fork evidence</span>
+          <button class="icon-btn" type="button" data-pause="console" aria-pressed="false" aria-label="Pause the replay"><svg class="icon i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.5v11M13 4.5v11" fill="none" stroke="currentColor" stroke-width="2"/></svg><svg class="icon i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.5v11l9-5.5z" fill="currentColor"/></svg></button>
+        </div>
+        <div class="console-body" aria-hidden="true">
+          <ol class="stages" data-stages>
+            <li class="done"><b>Snapshot</b></li>
+            <li class="done"><b>Scenario</b></li>
+            <li class="done"><b>Candidates</b></li>
+            <li class="done"><b>Guard</b></li>
+            <li class="done"><b>Fills</b></li>
+            <li class="done"><b>Recompute</b></li>
+          </ol>
+          <p class="status-line"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span class="note"><span data-note>Recomputed from the fills, at the same scenario prices</span><span class="blink"></span></span></p>
+
+          <div class="legs">
+            <div class="leg leg-head"><span>Market</span><span class="r">Mark</span><span class="r">Move</span><span class="c">PnL less funding</span><span></span></div>
+            <div class="leg" data-leg="btc"><span class="sym">BTC</span><span class="r num" data-mark>73,578.71</span><span class="r move" data-move>−8%</span><span class="pbar"><i data-bar class="neg" style="--v:0.894"></i></span><span class="r num neg" data-pnl>(581.33)</span></div>
+            <div class="leg" data-leg="eth"><span class="sym">ETH</span><span class="r num" data-mark>2,038.66</span><span class="r move" data-move>−12%</span><span class="pbar"><i data-bar class="neg" style="--v:0.461"></i></span><span class="r num neg" data-pnl>(299.50)</span></div>
+            <div class="leg" data-leg="sol"><span class="sym">SOL</span><span class="r num" data-mark>100.82</span><span class="r move held" data-move>held</span><span class="pbar"><i data-bar class="neg" style="--v:0.199"></i></span><span class="r num neg" data-pnl>(129.20)</span></div>
+            <div class="leg" data-leg="xrp"><span class="sym">XRP</span><span class="r num" data-mark>1.2830</span><span class="r move held" data-move>held</span><span class="pbar"><i data-bar class="neg" style="--v:0.178"></i></span><span class="r num neg" data-pnl>(115.52)</span></div>
+            <div class="leg" data-leg="bnb"><span class="sym">BNB</span><span class="r num" data-mark>738.85</span><span class="r move held" data-move>held</span><span class="pbar"><i data-bar style="--v:0.011"></i></span><span class="r num" data-pnl>7.18</span></div>
+            <div class="leg" data-leg="sui"><span class="sym">SUI</span><span class="r num" data-mark>0.9083</span><span class="r move held" data-move>held</span><span class="pbar"><i data-bar class="neg" style="--v:0.263"></i></span><span class="r num neg" data-pnl>(171.07)</span></div>
+          </div>
+
+          <div class="meter-wrap">
+            <div class="meter-read">
+              <div><span>Health equity</span><b class="num" data-eq>436.73</b></div>
+              <div><span>Maintenance</span><b class="num" data-mm>430.25</b></div>
+              <div><span>Buffer</span><b class="num pos" data-buf>6.48</b></div>
+            </div>
+            <div class="meter" data-meter data-state="met" style="--eq:0.397;--mm:0.391"><i class="meter-fill"></i><i class="meter-mm"></i></div>
+            <div class="meter-scale"><span>0</span><span>1,100 USDso</span></div>
+          </div>
+
+          <div class="chips" data-chips>
+            <span class="chip fails">No action <b>(262.05)</b></span>
+            <span class="chip fails">BTC −25% <b>(145.39)</b></span>
+            <span class="chip fails">BTC −50% <b>(28.66)</b></span>
+            <span class="chip meets">BTC −75% <b>88.05</b></span>
+            <span class="chip meets">BTC −100% <b>204.76</b></span>
+            <span class="chip fails">ETH −25% <b>(127.78)</b></span>
+            <span class="chip meets preferred">ETH −50% <b>6.48</b></span>
+            <span class="chip meets">ETH −75% <b>140.70</b></span>
+            <span class="chip meets">ETH −100% <b>274.95</b></span>
+          </div>
+        </div>
+        <div class="console-foot" aria-hidden="true">
+          <span class="foot-block">Block <b class="num" data-block>33,472,619</b></span>
+          <span class="foot-acct">0x2E36…B745</span>
+          <span class="badge met big" data-badge><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Call met</span>
+        </div>
+      </figure>
+    </div>
   </section>
 
-  <section>
-    <h2>Order pre-check <span class="tag">local calculation</span></h2>
-    <form id="form">
-      <label>Side<select name="side"><option value="buy">Buy</option><option value="sell">Sell</option></select></label>
-      <label>Quantity (BTC)<input name="qty" value="0.01" inputmode="decimal"></label>
-      <label>IOC limit (USDso)<input name="price" placeholder="blank = in-band limit reaching the touch" inputmode="decimal"></label>
-      <label>Current position (BTC, signed)<input name="position" value="0" inputmode="decimal"></label>
-      <label>Current equity (USDso)<input name="equity" value="1000" inputmode="decimal"></label>
-      <label>Breach threshold<input value="950 (v2.2 fixed)" disabled></label>
-      <button type="submit">Check order</button>
-    </form>
-    <div id="result" class="small" style="margin-top:12px">Position and equity describe a hypothetical challenge account; the default is a fresh 1,000 USDso Blitz run.</div>
-    <h2 style="margin-top:18px">Market configuration</h2>
-    <table id="config"></table>
+  <section class="loop" aria-labelledby="loop-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="loop-title" class="title" data-reveal>How a rescue reads</h2>
+        <p class="subline" data-reveal style="--i:1">Four records, each checked against the next.</p>
+        <p class="section-lede" data-reveal style="--i:2">The figures are the fork run in the console above, unedited: a real 6-market account, forked from block 33,472,615 and read at 33,472,616.</p>
+      </div>
+
+      <div class="story" data-story>
+        <article class="step" data-step="0">
+          <p class="step-no num">01</p>
+          <h3>The scenario is fixed</h3>
+          <p>Absolute prices, hashed. After execution the account is valued at these same prices again, not shocked anew from wherever the market went.</p>
+        </article>
+        <div class="pane" data-pane="0">
+          <div class="window">
+            <div class="window-bar"><span class="wb-title">scenario.json</span><span class="wb-tabs" aria-hidden="true"><i class="on">Scenario</i><i>Candidates</i><i>Guard</i><i>Recompute</i></span></div>
+            <pre class="printout"><code><span class="ln" style="--i:0"><span class="k">scenario   </span>2d73979b848ff9b5…</span>
+<span class="ln" style="--i:1"><span class="k">reference  </span>block 33,472,616 · 0x10d2a7b4…</span>
+<span class="ln" style="--i:2"><span class="k">model      </span>mr-model/1 · static · funding frozen</span>
+<span class="ln" style="--i:3"><span class="k">BTC        </span>79,976.86 <span class="to">to</span> 73,578.71   <span class="neg">−8%</span></span>
+<span class="ln" style="--i:4"><span class="k">ETH        </span> 2,316.66 <span class="to">to</span>  2,038.66  <span class="neg">−12%</span></span>
+<span class="ln" style="--i:5"><span class="k">SOL XRP BNB SUI </span>held at reference</span>
+<span class="ln" style="--i:6"><span class="k">target     </span>buffer at least 0.00 USDso</span></code></pre>
+            <p class="pane-note">Hashed with SHA-256; the recompute values the account at these same prices.</p>
+          </div>
+        </div>
+
+        <article class="step" data-step="1">
+          <p class="step-no num">02</p>
+          <h3>Every reduction is priced on the book</h3>
+          <p>Each candidate is filled now against the order book read at the reference block, then the remainder is valued at the scenario prices. The smallest cut that meets the target is preferred.</p>
+        </article>
+        <div class="pane" data-pane="1">
+          <div class="window">
+            <div class="window-bar"><span class="wb-title">candidates.json</span><span class="wb-tabs" aria-hidden="true"><i>Scenario</i><i class="on">Candidates</i><i>Guard</i><i>Recompute</i></span></div>
+            <div class="table-wrap">
+              <table class="data bars" data-domain="300">
+                <caption class="sr-only">Candidates evaluated for the fork account. Buffer at the scenario prices in USDso; negatives in parentheses.</caption>
+                <thead><tr><th scope="col">Candidate</th><th scope="col" class="n opt">Cut now</th><th scope="col" class="n">Buffer at scenario</th><th scope="col">Goal</th></tr></thead>
+                <tbody class="stagger">
+                  <tr style="--i:0" data-v="-262.05"><td>No action</td><td class="n opt">0.00</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num neg">(262.05)</span></span></td><td class="goal fails"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2"/></svg>Fails</td></tr>
+                  <tr style="--i:1" data-v="-145.39"><td>BTC −25%</td><td class="n opt">1,110.08</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num neg">(145.39)</span></span></td><td class="goal fails"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2"/></svg>Fails</td></tr>
+                  <tr style="--i:2" data-v="-28.66"><td>BTC −50%</td><td class="n opt">2,220.96</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num neg">(28.66)</span></span></td><td class="goal fails"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2"/></svg>Fails</td></tr>
+                  <tr style="--i:3" data-v="88.05"><td>BTC −75%</td><td class="n opt">3,331.84</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num">88.05</span></span></td><td class="goal meets"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Meets</td></tr>
+                  <tr style="--i:4" data-v="204.76"><td>BTC −100%</td><td class="n opt">4,442.71</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num">204.76</span></span></td><td class="goal meets"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Meets</td></tr>
+                  <tr style="--i:5" data-v="-127.78"><td>ETH −25%</td><td class="n opt">945.66</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num neg">(127.78)</span></span></td><td class="goal fails"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2"/></svg>Fails</td></tr>
+                  <tr style="--i:6" data-v="6.48" class="chosen"><td><b>ETH −50%</b><span class="tag">Preferred</span></td><td class="n opt">1,891.55</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num"><b>6.48</b></span></span></td><td class="goal meets"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Meets</td></tr>
+                  <tr style="--i:7" data-v="140.70"><td>ETH −75%</td><td class="n opt">2,837.21</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num">140.70</span></span></td><td class="goal meets"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Meets</td></tr>
+                  <tr style="--i:8" data-v="274.95"><td>ETH −100%</td><td class="n opt">3,783.10</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num">274.95</span></span></td><td class="goal meets"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Meets</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="pane-note">ETH −50% removes 1,891.55 of notional; the cheapest BTC fix, −75%, would remove 3,331.84.</p>
+          </div>
+        </div>
+
+        <article class="step" data-step="2">
+          <p class="step-no num">03</p>
+          <h3>One guarded order</h3>
+          <p>The guard executes only if the live position still equals the one confirmed, and reverts the whole transaction if the position flips or grows.</p>
+        </article>
+        <div class="pane" data-pane="2">
+          <div class="window">
+            <div class="window-bar"><span class="wb-title">ReduceOnlyGuard</span><span class="wb-tabs" aria-hidden="true"><i>Scenario</i><i>Candidates</i><i class="on">Guard</i><i>Recompute</i></span></div>
+            <p class="ticket"><span class="side-sell">Sell</span> 0.8165 ETH <span class="dim">· IOC · limit</span> 2,305.06 <span class="dim">· deadline 120 s</span></p>
+            <ul class="checks stagger">
+              <li style="--i:0" class="tick-draw"><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Live position equals the confirmed 1.633 ETH long</span></li>
+              <li style="--i:1" class="tick-draw"><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Sell 0.8165, IOC, limit 2,305.06, deadline 120 s</span></li>
+              <li style="--i:2" class="tick-draw"><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>After the fills: same side, smaller, reduced by at most 0.8165</span></li>
+              <li style="--i:3" class="tick-draw no"><svg class="icon bad-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Replaying the same confirmation afterwards reverts <code>PositionMismatch(1.633, 0.8165)</code></span></li>
+            </ul>
+            <p class="pane-note">Fork: 38 / 38 Solidity tests against the real venue, with traces.</p>
+          </div>
+        </div>
+
+        <article class="step" data-step="3">
+          <p class="step-no num">04</p>
+          <h3>Recomputed from what filled</h3>
+          <p>The receipt is bound to the confirmation first: sender, guard, calldata, nonce, the guard's event and the taker's fills. Then 17 ledger checks explain every change to the account before anything is credited.</p>
+        </article>
+        <div class="pane" data-pane="3">
+          <div class="window">
+            <div class="window-bar"><span class="wb-title">recompute.json</span><span class="wb-tabs" aria-hidden="true"><i>Scenario</i><i>Candidates</i><i>Guard</i><i class="on">Recompute</i></span></div>
+            <div class="table-wrap">
+              <table class="data bars" data-domain="600">
+                <caption class="sr-only">Account figures before and after the reduction, at the scenario prices, in USDso; negatives in parentheses.</caption>
+                <thead><tr><th scope="col">At the scenario prices</th><th scope="col" class="n opt">Health equity</th><th scope="col" class="n opt">Maintenance</th><th scope="col" class="n">Buffer</th></tr></thead>
+                <tbody class="stagger">
+                  <tr style="--i:0" data-v="-262.05"><td>Before</td><td class="n opt">209.81</td><td class="n opt">471.87</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num neg">(262.05)</span></span></td></tr>
+                  <tr style="--i:1" data-v="6.48"><td>Forecast</td><td class="n opt">436.73</td><td class="n opt">430.25</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num">6.48</span></span></td></tr>
+                  <tr style="--i:2" data-v="6.48" class="chosen"><td><b>Actual, from the fills</b></td><td class="n opt">436.73</td><td class="n opt">430.25</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num"><b>6.48</b></span></span></td></tr>
+                  <tr style="--i:3" data-v="574.32"><td>Now, at current marks</td><td class="n opt">1,019.13</td><td class="n opt">444.81</td><td class="n"><span class="bv"><span class="dbar" aria-hidden="true"><i></i></span><span class="num">574.32</span></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="pane-note ok"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>17 of 17 ledger checks hold · no outside change · reconciles exactly · goal met</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="built" id="built" aria-labelledby="built-title">
+    <div class="wrap built-grid">
+      <div class="built-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="built-title" class="title" data-reveal>Built on dreamDEX.</h2>
+        <p class="subline" data-reveal style="--i:1">Not around it: every read and every order goes through the venue's own contracts and tools.</p>
+        <p data-reveal style="--i:2">dreamDEX is a fully onchain central limit order book on Somnia, open to apps built on top of it. Margin Rescue reads accounts through the venue's own bank, pools and SDK, and acts only through the operator grant dreamDEX already offers to bots. Nothing of the venue is forked, wrapped or re-hosted.</p>
+        <div class="built-logo" data-reveal style="--i:3"><img src="/assets/brand/dreamdex-logo-offwhite.svg" alt="dreamDEX" width="145" height="30"><span>Perps testnet on Somnia Hideki, chain 50383</span></div>
+        <a class="more" href="/technology#dreamdex">Every component, address and version<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+      </div>
+      <ol class="stack" style="--n:7" aria-label="What Margin Rescue is built from, from the top down">
+        <li class="layer ours" style="--i:0"><span class="who">Ours</span><b>Snapshot, scenario, candidates, run ledger</b><span>The TypeScript client and ReduceOnlyGuard.sol, the only parts that are Margin Rescue's.</span></li>
+        <li class="stack-join" style="--i:1" aria-hidden="true">built on <img src="/assets/brand/dreamdex-logo-offwhite.svg" alt="" width="63" height="13"></li>
+        <li class="layer" style="--i:2"><span class="who">SDK</span><b>@somnia-chain/markets-sdk 0.32.1</b><span>The venue's TypeScript SDK: the chain, the deployment's addresses, and the contract errors and events every receipt is decoded with.</span></li>
+        <li class="layer" style="--i:3"><span class="who">Permissions</span><b>OperatorPermissionsRegistry</b><span>The owner's per-pool grant of <code>placeOrderFor</code>, the same grant dreamDEX's “Link a bot” writes. It admits the guard, and is revoked afterwards.</span><code>0x6B2F…8D3a</code></li>
+        <li class="layer" style="--i:4"><span class="who">Order books</span><b>Perps pools · placeOrderFor</b><span>All 21 pools from the factory: positions, resting orders and books. Every candidate is priced on its book; the guard sends one IOC order.</span></li>
+        <li class="layer" style="--i:5"><span class="who">Collateral</span><b>MarginBank</b><span>Cross-margin USDso collateral. Its own health getters are what the independent rebuild has to match, to the raw unit.</span><code>0x4787…1394</code></li>
+        <li class="layer" style="--i:6"><span class="who">Stops</span><b>Stop registry · markets indexer</b><span>TP/SL stops, listed from the indexer and checked on chain at the pinned block.</span></li>
+        <li class="layer chain" style="--i:7"><span class="who">Chain</span><b>Somnia Hideki testnet · 50383</b><span>The chain under all of it. Any other chain is refused.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="cross" aria-labelledby="cross-title">
+    <div class="wrap cross-grid">
+      <div class="cross-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="cross-title" class="title" data-reveal>One account, every market</h2>
+        <p class="subline" data-reveal style="--i:1">1,203 of 7,677 accounts held two or more.</p>
+        <p data-reveal style="--i:2">On dreamDEX, every position in an account draws on the same USDso collateral. A move in BTC changes how much margin is left for ETH, SOL and the rest, and a short can be the leg that keeps a long alive.</p>
+        <p data-reveal style="--i:3">So the question is not which position is losing the most, but which concrete reduction restores the buffer for the whole account under the move you fear. In the fork example the instinctive fix, cutting the larger BTC leg, needs three quarters of it; halving ETH does the job with less exposure removed.</p>
+        <p data-reveal style="--i:4">Margin Rescue checks every leg, every resting order and every stop, and says when its answer cannot be trusted.</p>
+      </div>
+
+      <figure class="scan" aria-labelledby="scan-cap" data-reveal="wake">
+        <div class="scan-head">
+          <p>Accounts by markets held</p>
+          <span class="pill">Live, read-only · indexer scan 26 Oct 2026</span>
+        </div>
+        <div class="share" data-share role="img" aria-label="1,203 of 7,677 accounts with open positions (15.7%) held two or more markets; 6,474 held one.">
+          <i class="share-multi"></i><i class="share-single"></i>
+        </div>
+        <div class="share-key" aria-hidden="true"><span><i class="sw multi"></i>Two or more · <b class="num">1,203</b></span><span><i class="sw single"></i>One · <b class="num">6,474</b></span><span class="share-pct num">15.7%</span></div>
+        <div class="cols" data-cols aria-hidden="true"></div>
+        <details class="table-view">
+          <summary>Show as a table</summary>
+          <div class="table-wrap">
+            <table class="data" data-dist>
+              <caption>Accounts with open positions, by number of markets held</caption>
+              <thead><tr><th scope="col">Markets held</th><th scope="col" class="n">Accounts</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td class="n">6,474</td></tr>
+                <tr><td>2</td><td class="n">322</td></tr>
+                <tr><td>3</td><td class="n">329</td></tr>
+                <tr><td>4</td><td class="n">230</td></tr>
+                <tr><td>5</td><td class="n">193</td></tr>
+                <tr><td>6</td><td class="n">64</td></tr>
+                <tr><td>7</td><td class="n">25</td></tr>
+                <tr><td>8</td><td class="n">11</td></tr>
+                <tr><td>9</td><td class="n">8</td></tr>
+                <tr><td>10</td><td class="n">7</td></tr>
+                <tr><td>11</td><td class="n">1</td></tr>
+                <tr><td>12</td><td class="n">1</td></tr>
+                <tr><td>13</td><td class="n">2</td></tr>
+                <tr><td>14</td><td class="n">3</td></tr>
+                <tr><td>15</td><td class="n">1</td></tr>
+                <tr><td>16</td><td class="n">1</td></tr>
+                <tr><td>17</td><td class="n">1</td></tr>
+                <tr><td>18</td><td class="n">0</td></tr>
+                <tr><td>19</td><td class="n">1</td></tr>
+                <tr><td>20</td><td class="n">1</td></tr>
+                <tr><td>21</td><td class="n">2</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        <figcaption id="scan-cap">Accounts holding 2 to 21 markets. A paged scan of the Hideki markets indexer, 10,999 non-zero positions across 7,677 accounts; not an atomic on-chain snapshot, and accounts are not people.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="proof" id="proof" data-proof aria-labelledby="proof-title">
+    <div class="proof-pin">
+      <div class="wrap proof-head">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="proof-title" class="title" data-reveal>What is proven, and where</h2>
+        <p class="subline" data-reveal style="--i:1">Fixture, fork or live: every entry says which.</p>
+        <p class="section-lede" data-reveal style="--i:2">Fixture means synthetic data in unit tests. Fork means a local fork of the real venue at a recorded block. Live means Somnia Hideki itself.</p>
+      </div>
+      <div class="proof-viewport">
+        <ol class="proof-track" data-track>
+          <li class="proof-card"><p class="where">Fixture</p><p class="result num">178 / 178</p><h3>Scenario arithmetic, locks, funding, rounding, the plan's two worked fixtures</h3><span class="badge met"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></li>
+          <li class="proof-card"><p class="where">Fixture</p><p class="result num">9 / 9</p><h3>The guard against mocks</h3><span class="badge met"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></li>
+          <li class="proof-card"><p class="where">Fork</p><p class="result num">38 / 38</p><h3>IOC limits, guard invariants, rollback after venue fills, per-fill ledger</h3><span class="badge met"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></li>
+          <li class="proof-card"><p class="where">Fork</p><p class="result num">11 / 11</p><h3>The live executor under faults: tampering, book change, partial fill, owner change, timeout, RPC outage, refused preflight, cleanup retries and failure, funding drift</h3><span class="badge met"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></li>
+          <li class="proof-card"><p class="where">Fork</p><p class="result">Goal met</p><h3>The full loop on a real 6-market account</h3><span class="badge met"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></li>
+          <li class="proof-card"><p class="where">Live, read-only</p><p class="result">Exact ×4</p><h3>Independent reconciliation of real accounts with 3, 6, 9 and 21 markets</h3><span class="badge met"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></li>
+          <li class="proof-card"><p class="where">Live, read-only</p><p class="result num">7,700 / 7,700</p><h3>The bank's rounding, every holder of every pool</h3><span class="badge met"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></li>
+          <li class="proof-card pending" data-live-card><p class="where">Live write</p><p class="result" data-live-result>Plan 6c255a58…</p><h3>One guarded reduction on the project's test account, with verified cleanup</h3><span class="badge wait" data-live-badge><span class="ping" aria-hidden="true"></span>Pending</span></li>
+        </ol>
+      </div>
+      <div class="wrap proof-rail" aria-hidden="true">
+        <div class="proof-progress"><i></i></div>
+        <span class="proof-rail-label">Scroll to move through all 8 entries</span>
+      </div>
+      <div class="wrap proof-foot">
+        <p class="proof-actions"><a class="btn secondary" href="/dashboard">Open the dashboard</a><a href="/technology#evidence">How each entry was checked</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-sec" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <div class="faq-intro">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="faq-title" class="title" data-reveal>Questions</h2>
+        <p class="subline" data-reveal style="--i:1">Short answers. The guide has the long ones.</p>
+      </div>
+      <div class="faq-list" data-reveal="wake">
+        <details>
+          <summary>Does Margin Rescue hold a key or sign anything?<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+          <div class="faq-a"><p>No. The site and the app read public chain data only. A reduction is signed in your own terminal, with your own wallet, from a plan you review; the browser never sees a key.</p></div>
+        </details>
+        <details>
+          <summary>Is it part of dreamDEX?<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+          <div class="faq-a"><p>No. It is an independent tool built on dreamDEX's perps testnet: it uses the venue's contracts, SDK and operator grant as they are, and is not affiliated with or endorsed by dreamDEX or Somnia.</p></div>
+        </details>
+        <details>
+          <summary>Which network does it run on?<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+          <div class="faq-a"><p>dreamDEX perps on the Somnia Hideki testnet, chain 50383. Any other chain is refused, and nothing touches mainnet or real funds.</p></div>
+        </details>
+        <details>
+          <summary>What does an analysis read?<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+          <div class="faq-a"><p>The whole account at one pinned block: the bank's collateral and health, every position in all 21 pools, resting orders, the stop list and the BTC and ETH books. Then the block hash is checked again, so the snapshot cannot mix two blocks. That is why it takes 15 to 25 seconds.</p></div>
+        </details>
+        <details>
+          <summary>What if the answer cannot be trusted?<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+          <div class="faq-a"><p>Then there is no recommendation. A stale mark, an inexact reconciliation, a stop list the indexer has not caught up on, or a linked child account blocks it, and the reason is shown.</p></div>
+        </details>
+        <details>
+          <summary>Has it run on the live network?<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></summary>
+          <div class="faq-a"><p>The read-only parts have: four real accounts reconcile exactly, and 7,700 of 7,700 holders match the bank's rounding. <span data-live-faq>The live write, one guarded reduction on the project's own test account, is approved and has not run yet.</span> The <a href="/dashboard">dashboard</a> shows its status as it changes.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="final-title">
+    <div class="wrap">
+      <figure class="final-meter" data-final-meter>
+        <div class="fm-track" role="img" aria-label="The fork account at the scenario prices: health equity 209.81 against maintenance 471.87 before the rescue, 436.73 against 430.25 after it."><i class="fm-fill"></i><i class="fm-mm"></i></div>
+        <figcaption class="fm-read">
+          <span><i class="key eq"></i>Health equity <b class="num">209.81 <svg class="ar" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg> 436.73</b></span>
+          <span><i class="key mm"></i>Maintenance <b class="num">471.87 <svg class="ar" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg> 430.25</b></span>
+          <span>Buffer <b class="num"><span class="neg">(262.05)</span> <svg class="ar" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg> <span class="pos">6.48</span></b></span>
+          <span class="fm-src">Fork run, at the scenario prices, before the guarded sell and recomputed from its fills</span>
+        </figcaption>
+      </figure>
+      <div class="final-grid">
+        <div class="final-copy">
+          <h2 id="final-title" class="title big" data-reveal>One account. Every market. <em>One rescue.</em></h2>
+          <p class="lede" data-reveal style="--i:1">Paste any dreamDEX account, choose the move, and read what is left of its buffer, which reduction would restore it, and what a real execution looked like.</p>
+          <p class="final-actions" data-reveal style="--i:2"><a class="btn" href="/app">Open app<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a class="btn secondary" href="/guide">Read the guide</a></p>
+        </div>
+        <ol class="enclosures" data-reveal="wake" style="--i:1">
+          <li><a href="/features">Features<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><span>What each part of the loop does.</span></li>
+          <li><a href="/dashboard">Dashboard<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><span>Live BTC and ETH markets and every proof.</span></li>
+          <li><a href="/guide">Guide<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><span>The app, the command line, and your own account.</span></li>
+          <li><a href="/technology">Technology<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><span>Accounting, scenario, guard, and the dreamDEX components it uses.</span></li>
+        </ol>
+      </div>
+      <p class="fine">This is a static what-if at stated prices on the Somnia Hideki testnet. It does not predict prices, the path to them, liquidation, or fills of resting orders and stops along the way; an expected fill is not a guaranteed fill. The preferred reduction is the best of the candidates evaluated, not a global optimum. Nothing here is financial advice or concerns real funds.</p>
+    </div>
   </section>
 </main>
 
-<footer>
-  <table id="meta"></table>
-  <p>Raw data: <a href="/api/snapshot">/api/snapshot</a>. Planned contract errors are named for reference only; the contracts are not built or deployed.</p>
-</footer>
-
-<script>
-const $ = (id) => document.getElementById(id)
-const fmt = (raw, decimals, maxFrac = decimals) => {
-  if (raw === null || raw === undefined) return "—"
-  let v = BigInt(raw); const neg = v < 0n; if (neg) v = -v
-  const base = 10n ** BigInt(decimals)
-  const frac = (v % base).toString().padStart(decimals, "0").slice(0, maxFrac).replace(/0+$/, "")
-  const whole = (v / base).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-  return (neg ? "-" : "") + whole + (frac ? "." + frac : "")
-}
-const px = (r) => fmt(r, 18, 2)
-const usd = (r) => fmt(r, 18, 4)
-let snap = null, baseDec = 8
-const btc = (r) => fmt(r, baseDec) + " BTC"
-const iso = (s) => new Date(s * 1000).toISOString().replace(".000Z", "Z")
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]))
-
-function renderSnapshot(s) {
-  snap = s; baseDec = s.market.baseDecimals
-  const d = s.derived
-  $("mark").textContent = px(s.mark.price)
-  $("bid").textContent = d.bestBid ? px(d.bestBid.price) : "empty"
-  $("ask").textContent = d.bestAsk ? px(d.bestAsk.price) : "empty"
-  $("bidq").textContent = d.bestBid ? btc(d.bestBid.quantity) : ""
-  $("askq").textContent = d.bestAsk ? btc(d.bestAsk.quantity) : ""
-  $("spread").textContent = d.spread === null ? "—" : `${px(d.spread)} (${d.spreadBps} bps)`
-  $("mvm").textContent = d.markVsMidBps === null ? "—" : `${d.markVsMidBps} bps`
-  $("band").textContent = `${px(d.band.low)} – ${px(d.band.high)}`
-  $("inband").textContent = `bid ${d.bestBidWithinBand ? "yes" : "no"} · ask ${d.bestAskWithinBand ? "yes" : "no"}`
-  $("index").textContent = px(s.state.indexPrice)
-  $("funding").textContent = `${Number(BigInt(s.state.fundingRate) * 1000000n / 10n ** 18n) / 10000}% / ${s.state.fundingWindowSec / 3600}h`
-  $("oi").textContent = btc(s.state.openInterest)
-
-  const rows = []
-  const asks = s.book.asks.slice(0, 8).reverse(), bids = s.book.bids.slice(0, 8)
-  for (const l of asks) rows.push(`<tr class="${BigInt(l.price) <= BigInt(d.band.high) ? "in" : ""}"><td class="ask">${px(l.price)}</td><td class="n">${fmt(l.quantity, baseDec)}</td></tr>`)
-  rows.push(`<tr class="sep"><td colspan="2">mark ${px(s.mark.price)}</td></tr>`)
-  for (const l of bids) rows.push(`<tr class="${BigInt(l.price) >= BigInt(d.band.low) ? "in" : ""}"><td class="bid">${px(l.price)}</td><td class="n">${fmt(l.quantity, baseDec)}</td></tr>`)
-  $("ladder").innerHTML = rows.join("")
-
-  const m = s.market, r = m.risk
-  $("config").innerHTML = [
-    ["Market", m.symbol], ["Pool", `<code class="break">${m.poolAddress}</code>`], ["Tick size", `${px(m.tickSize)} USDso`],
-    ["Lot size", btc(m.lotSize)], ["Min quantity", btc(m.minQuantity)],
-    ["Margin (bps)", `IM ${r.initialMarginBps} · MM ${r.maintenanceMarginBps} · close-out ${r.closeOutMarginBps}`],
-    ["Max position", btc(r.maxPositionSize)], ["Fees (bps×1000)", `taker ${r.takerFeeBpsTimes1k} · maker ${r.makerFeeBpsTimes1k}`],
-    ["Indexer = on-chain params", m.onchainBookParamsMatchIndexer ? "yes" : "NO"],
-  ].map(([k, v]) => `<tr><td>${k}</td><td class="n">${v}</td></tr>`).join("")
-
-  $("meta").innerHTML = [
-    ["Block", `${s.block.number} · ${iso(s.block.timestamp)}`], ["Queried at", `${s.queriedAt} (${s.elapsedMs} ms)`],
-    ["Chain id", s.chainId], ["SDK", `${s.sdk.package} ${s.sdk.version}`],
-    ["RPC", `<span class="break">${esc(s.endpoints.rpcUrl)}</span>`], ["Indexer", `<span class="break">${esc(s.endpoints.indexerUrl)}</span>`],
-  ].map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join("")
-  $("age").textContent = `block ${s.block.number}`
-}
-
-async function refresh() {
-  try {
-    const res = await fetch("/api/snapshot")
-    const body = await res.json()
-    if (!res.ok) throw new Error(body.error)
-    renderSnapshot(body)
-    if (lastCheck) await check(lastCheck)
-  } catch (e) { $("age").textContent = "read failed"; console.error(e) }
-}
-
-let lastCheck = null
-async function check(params) {
-  lastCheck = params
-  const res = await fetch("/api/precheck?" + new URLSearchParams(params))
-  const body = await res.json()
-  if (!res.ok) { $("result").innerHTML = `<span class="err">${esc(body.error)}</span>`; return }
-  const r = body.result, e = r.estimate
-  const lev = e.postLeverageX1000 === null ? "n/a" : `${Number(e.postLeverageX1000) / 1000}x`
-  $("result").innerHTML = `
-    <div class="verdict ${r.verdict}">${r.verdict.replaceAll("_", " ")}</div>
-    <div>${esc(r.classification.replace("_", "-").toLowerCase())} · limit ${px(body.input.price)} (${esc(body.priceSource)}) · block ${body.block.number}</div>
-    ${r.verdict === "ADMIT_THEN_BREACH" ? "<div>The reducing order would commit, then the account would record EQUITY_FLOOR and start its exit.</div>" : ""}
-    <table class="checks" style="margin-top:8px">${r.checks.map((c) => `<tr><td class="${c.status}">${c.status.toUpperCase()}</td><td>${esc(c.rule)} <span class="small">[${c.source}]</span><br><span class="small">${esc(c.detail)}${c.status === "fail" && c.plannedError ? ` → planned revert <code>${esc(c.plannedError)}</code>` : ""}</span></td></tr>`).join("")}</table>
-    <table style="margin-top:8px">
-      <tr><td>Worst case</td><td class="n">full fill at the limit, mark unchanged</td></tr>
-      <tr><td>Equity after</td><td class="n">${usd(e.postEquity)} USDso</td></tr>
-      <tr><td>Position after</td><td class="n">${btc(e.newSize)}</td></tr>
-      <tr><td>Leverage after</td><td class="n">${lev}</td></tr>
-      <tr><td>Mark-to-market · fee</td><td class="n">${usd(e.markToMarket)} · ${usd(e.fee)}</td></tr>
-    </table>`
-}
-
-$("form").addEventListener("submit", (ev) => {
-  ev.preventDefault()
-  const p = Object.fromEntries(new FormData(ev.target))
-  if (!p.price) delete p.price
-  check(p).catch((e) => ($("result").innerHTML = `<span class="err">${esc(e.message)}</span>`))
-})
-setInterval(() => $("auto").checked && refresh(), 3000)
-refresh()
-</script>
+<!--site-foot-->
 </body>
 </html>

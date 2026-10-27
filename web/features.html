@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js","motion");setTimeout(function(){window.__mr||document.documentElement.classList.remove("motion")},2500)</script>
+<title>Features · Margin Rescue</title>
+<meta name="description" content="Joint BTC/ETH scenarios at fixed prices, an account rebuilt to the raw unit, reductions priced on dreamDEX's book, a reduce-only guard, recomputation from real fills, and a run ledger that stops when anything is unclear.">
+<meta name="theme-color" content="#0c0a09">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/home.css">
+<script type="module" src="/assets/site.js"></script>
+<script type="module" src="/assets/home.js"></script>
+</head>
+<body class="home">
+<a class="skip" href="#main">Skip to content</a>
+<!--site-head-->
+
+<main id="main">
+  <header class="f-head">
+    <div class="wrap">
+      <div class="mline" aria-hidden="true"><i></i></div>
+      <h1 class="display" data-split>Six things <em>a rescue</em> does.</h1>
+      <p class="subline">Each shown with the fork run's own figures, and where it was checked.</p>
+      <p class="lede">The account is a real 6-market account on dreamDEX's perps testnet, forked from block 33,472,615 and read at 33,472,616. The app runs the first three live and read-only for any address, and shows the last three from recorded runs.</p>
+    </div>
+  </header>
+
+  <nav class="subnav" aria-label="Features on this page">
+    <div class="wrap">
+      <div class="subnav-scroll">
+        <span class="subnav-ink" aria-hidden="true"></span>
+        <ol data-subnav>
+          <li><a href="#f-shock"><span class="num">01</span>Shock</a></li>
+          <li><a href="#f-rebuild"><span class="num">02</span>Rebuild</a></li>
+          <li><a href="#f-price"><span class="num">03</span>Price</a></li>
+          <li><a href="#f-guard"><span class="num">04</span>Guard</a></li>
+          <li><a href="#f-recompute"><span class="num">05</span>Recompute</a></li>
+          <li><a href="#f-stop"><span class="num">06</span>Stop safely</a></li>
+        </ol>
+      </div>
+    </div>
+  </nav>
+
+  <section class="feature" id="f-shock" aria-labelledby="f-shock-t">
+    <div class="wrap f-grid">
+      <div class="f-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="f-shock-t" class="title" data-reveal>Shock every market at once</h2>
+        <p class="subline" data-reveal style="--i:1">Fixed absolute prices, bound to one block.</p>
+        <p data-reveal style="--i:2">Set how far BTC and ETH move. The scenario fixes absolute prices for both and keeps every other held market at its reference mark, so no leg falls out of the arithmetic.</p>
+        <p data-reveal style="--i:3">It is a canonical object with a SHA-256 id, bound to one block. After an execution the account is valued at the same prices again.</p>
+        <ul class="chips-row" data-reveal style="--i:4"><li><b>Fixture</b> scenario and rounding tests</li><li><b>Fork</b> every run binds its scenario id</li></ul>
+      </div>
+      <figure class="demo" data-demo="shock" data-reveal="wake">
+        <div class="window">
+          <div class="window-bar"><span class="wb-title">scenario</span><span class="pill">Block 33,472,616</span></div>
+          <div class="demo-body">
+            <p class="sid">Id <b data-scramble>2d73979b848ff9b5…</b></p>
+            <div class="mv-row head"><span>Market</span><span class="r">Reference</span><span class="r">Scenario</span><span class="r">Move</span></div>
+            <div class="mv-row" data-mv data-ref="79,976.86" data-to="73,578.71" data-m="0.53"><span class="sym">BTC</span><span class="r">79,976.86</span><span class="r"><span class="scn">73,578.71</span><span class="mv-track"><i style="--m:0.53"></i></span></span><span class="r shock">−8%</span></div>
+            <div class="mv-row" data-mv data-ref="2,316.66" data-to="2,038.66" data-m="0.8"><span class="sym">ETH</span><span class="r">2,316.66</span><span class="r"><span class="scn">2,038.66</span><span class="mv-track"><i style="--m:0.8"></i></span></span><span class="r shock">−12%</span></div>
+            <div class="mv-row"><span class="sym">SOL</span><span class="r">100.82</span><span class="r">100.82</span><span class="r held">held</span></div>
+            <div class="mv-row"><span class="sym">XRP</span><span class="r">1.2830</span><span class="r">1.2830</span><span class="r held">held</span></div>
+            <div class="mv-row"><span class="sym">BNB</span><span class="r">738.85</span><span class="r">738.85</span><span class="r held">held</span></div>
+            <div class="mv-row"><span class="sym">SUI</span><span class="r">0.9083</span><span class="r">0.9083</span><span class="r held">held</span></div>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>Fork evidence · move bars drawn to a 15% scale</span><button class="replay" type="button"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.1M4.5 3.5v3h3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Replay</button></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="feature inset" id="f-rebuild" aria-labelledby="f-rebuild-t">
+    <div class="wrap f-grid">
+      <div class="f-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="f-rebuild-t" class="title" data-reveal>Rebuild the account to the raw unit</h2>
+        <p class="subline" data-reveal style="--i:1">From raw positions, marks and funding, with the bank's own rounding.</p>
+        <p data-reveal style="--i:2">Health equity and every margin requirement are rebuilt from raw state, then compared with dreamDEX's MarginBank getter at the same block.</p>
+        <p data-reveal style="--i:3">Any difference, a stale mark, a pool outside the bank's list or an unlisted stop blocks a recommendation instead of producing a confident wrong one.</p>
+        <ul class="chips-row" data-reveal style="--i:4"><li><b>Live, read-only</b> 4 real accounts exact</li><li><b>Live, read-only</b> 7,700 / 7,700 holders exact with floored PnL</li></ul>
+      </div>
+      <figure class="demo" data-demo="rebuild" data-reveal="wake">
+        <div class="window">
+          <div class="window-bar"><span class="wb-title">reconciliation · 0x2E36…B745</span><span class="pill">Block 33,472,616</span></div>
+          <div class="demo-body">
+            <table class="rb">
+              <caption class="sr-only">Account 0x2E36…B745 at block 33,472,616, in USDso: rebuilt figures against the bank's getter</caption>
+              <thead><tr><th scope="col">Figure</th><th scope="col">Rebuilt</th><th scope="col">Bank getter</th><th scope="col">Difference</th></tr></thead>
+              <tbody>
+                <tr><td>Health equity</td><td data-scramble>1,019.202559</td><td data-scramble>1,019.202559</td><td class="diff">0<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></td></tr>
+                <tr><td>Maintenance</td><td data-scramble>492.100573</td><td data-scramble>492.100573</td><td class="diff">0<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></td></tr>
+                <tr><td>Initial</td><td data-scramble>984.201146</td><td data-scramble>984.201146</td><td class="diff">0<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></td></tr>
+                <tr><td>Close-out</td><td data-scramble>246.050286</td><td data-scramble>246.050286</td><td class="diff">0<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></td></tr>
+              </tbody>
+            </table>
+            <div class="verdict-line"><span>Difference in raw units of 10<sup>−18</sup> USDso</span><span class="badge met" data-badge><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Exact</span></div>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>With the SDK's truncation instead of the bank's floor, health equity would be off by one raw unit.</span><button class="replay" type="button"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.1M4.5 3.5v3h3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Replay</button></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="feature" id="f-price" aria-labelledby="f-price-t">
+    <div class="wrap f-grid">
+      <div class="f-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="f-price-t" class="title" data-reveal>Price every reduction on the book</h2>
+        <p class="subline" data-reveal style="--i:1">Filled now, valued at the scenario, smallest cut preferred.</p>
+        <p data-reveal style="--i:2">Each candidate, 25 to 100% of each BTC or ETH position, is filled now against dreamDEX's order book with a protective limit 50 bps beyond the touch, paying fees per fill and settling funding the way the venue does. The rest of the account is then valued at the scenario prices.</p>
+        <p data-reveal style="--i:3">Among the candidates that meet the target, the smallest cut is preferred. Reductions that make the scenario worse are flagged, and ones that cannot be filled say why.</p>
+        <ul class="chips-row" data-reveal style="--i:4"><li><b>Fixture</b> candidate tests</li><li><b>Fork</b> the preview matched the real fills exactly</li></ul>
+      </div>
+      <figure class="demo" data-demo="price" data-reveal="wake">
+        <div class="window">
+          <div class="window-bar"><span class="wb-title">candidates · target 0.00 USDso</span><span class="pill">8 evaluated</span></div>
+          <div class="demo-body">
+            <p class="sid">Notional removed now, USDso, by the two cheapest fixes that meet the target</p>
+            <div class="cut">
+              <div class="cut-row win" data-c="0.568" style="--c:0.568"><span>ETH −50%</span><span class="bar"></span><span class="r num">1,891.55</span></div>
+              <div class="cut-row" data-c="1" style="--c:1"><span>BTC −75%</span><span class="bar"></span><span class="r num">3,331.84</span></div>
+            </div>
+            <p class="cut-delta"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>ETH −50% is preferred: 43% less exposure removed for the same goal</p>
+            <dl class="figs">
+              <div><dt>Requested</dt><dd>0.8165 ETH</dd></div>
+              <div><dt>Limit</dt><dd data-count>2,305.06</dd></div>
+              <div><dt>Expected fill</dt><dd>0.8165</dd></div>
+              <div><dt>Cost now</dt><dd data-count>0.07</dd></div>
+              <div><dt>Buffer at scenario</dt><dd data-count>6.48</dd></div>
+              <div><dt>Meet the target</dt><dd>5 of 8</dd></div>
+            </dl>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>Fork evidence · candidates.json</span><button class="replay" type="button"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.1M4.5 3.5v3h3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Replay</button></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="feature inset" id="f-guard" aria-labelledby="f-guard-t">
+    <div class="wrap f-grid">
+      <div class="f-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="f-guard-t" class="title" data-reveal>Reduce without flipping</h2>
+        <p class="subline" data-reveal style="--i:1">An owner-bound guard that reverts a flip or a growth.</p>
+        <p data-reveal style="--i:2">dreamDEX has no immediate reduce-only order. So the owner deploys a small guard, bound to their address, and grants it order placement on one pool through the OperatorPermissionsRegistry: the same grant dreamDEX's “Link a bot” writes.</p>
+        <p data-reveal style="--i:3">The guard executes only if the live position still equals the confirmed one, and reverts the whole transaction, venue fills included, if the position would flip or grow. It holds no tokens and cannot withdraw.</p>
+        <ul class="chips-row" data-reveal style="--i:4"><li><b>Fork</b> 38 / 38 Solidity tests against the real venue, with traces</li></ul>
+      </div>
+      <figure class="demo" id="guard-demo" data-demo="guard" data-reveal="wake">
+        <div class="window">
+          <div class="window-bar"><span class="wb-title">ReduceOnlyGuard · ETH pool</span><span class="pill">Fork</span></div>
+          <div class="demo-body">
+            <p class="flip-msg ok" data-flip-msg>Allowed: same side, smaller, reduced by at most 0.8165</p>
+            <div class="flip" data-flip data-state="idle" aria-hidden="true"><span class="flip-axis"></span><span class="flip-zero"></span><span class="flip-bar" data-flip-bar style="--s:0.5"></span><span class="flip-labels"><span>Short</span><span>Long</span></span></div>
+            <ul class="checks">
+              <li><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Only the owner can call it, on the chain, bank and pools fixed at deployment</span></li>
+              <li><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Before the order: live position equals the confirmed one, opposite side, quantity no more than the position, on the lot, before the deadline</span></li>
+              <li><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>After the fills: same side or flat, no larger, reduced by at most the quantity</span></li>
+              <li><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Each action id is used once; a reentrancy lock is held across the venue call</span></li>
+              <li><svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>A test harness that skips the preconditions makes the venue flip a position; the postcondition reverts all of it</span></li>
+            </ul>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>The reduction uses the fork run's sizes; the flip is the fork test's, drawn not to scale</span><button class="icon-btn" type="button" data-pause="guard-demo" aria-pressed="false" aria-label="Pause the guard demo"><svg class="icon i-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.5v11M13 4.5v11" fill="none" stroke="currentColor" stroke-width="2"/></svg><svg class="icon i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.5v11l9-5.5z" fill="currentColor"/></svg></button></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="feature" id="f-recompute" aria-labelledby="f-recompute-t">
+    <div class="wrap f-grid">
+      <div class="f-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="f-recompute-t" class="title" data-reveal>Recompute from what filled</h2>
+        <p class="subline" data-reveal style="--i:1">A receipt counts only once it is bound to the confirmation.</p>
+        <p data-reveal style="--i:2">A receipt is credited only after it is bound to the saved confirmation: sender, guard, calldata, nonce, the guard's event and the taker's fills, decoded with the venue's own event definitions. Then the account is read at the receipt's block and every change has to be explained by the transaction itself.</p>
+        <p data-reveal style="--i:3">The real remaining account is valued at the original scenario prices, beside the forecast and the account's actual health now.</p>
+        <ul class="chips-row" data-reveal style="--i:4"><li><b>Fixture</b> 19 tampered receipts refused</li><li><b>Fork</b> 6 alterations of a real receipt refused</li></ul>
+      </div>
+      <figure class="demo" data-demo="recompute" data-reveal="wake">
+        <div class="window">
+          <div class="window-bar"><span class="wb-title">recompute · tx 0x7ec9…02e8</span><span class="pill">Block 33,472,619</span></div>
+          <div class="demo-body">
+            <ul class="fills">
+              <li data-fill data-f="0.5286"><span>0.4316 ETH</span><span>at 2,316.64</span></li>
+              <li data-fill data-f="1"><span>0.3849 ETH</span><span>at 2,316.50</span></li>
+            </ul>
+            <div class="fill-bar" aria-hidden="true"><i style="--f:1"></i></div>
+            <p class="sid">Filled 0.8165 of 0.8165 ETH, inside the 2,305.06 limit</p>
+            <div class="bind" role="list" aria-label="Bound to the confirmation">
+              <span role="listitem" class="ok"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Sender</span>
+              <span role="listitem" class="ok"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Guard</span>
+              <span role="listitem" class="ok"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Calldata</span>
+              <span role="listitem" class="ok"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Nonce</span>
+              <span role="listitem" class="ok"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Guard event</span>
+              <span role="listitem" class="ok"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Taker fills</span>
+            </div>
+            <p class="sid">Buffer at the scenario prices, USDso</p>
+            <div class="agree"><span>Forecast</span><span class="bar" style="--a:1"></span><span class="r num">6.48</span></div>
+            <div class="agree"><span>Actual</span><span class="bar" style="--a:1"></span><span class="r num">6.48</span></div>
+            <div class="verdict-line"><span><b class="num" data-ledger>17</b> of 17 ledger checks hold</span><span class="badge met" data-badge><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Equal to the raw unit</span></div>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>Fork evidence · recompute.json</span><button class="replay" type="button"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.1M4.5 3.5v3h3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Replay</button></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="feature inset" id="f-stop" aria-labelledby="f-stop-t">
+    <div class="wrap f-grid">
+      <div class="f-copy">
+        <div class="mline" aria-hidden="true"><i></i></div>
+        <h2 id="f-stop-t" class="title" data-reveal>Stop safely when anything is unclear</h2>
+        <p class="subline" data-reveal style="--i:1">Journalled before sending; unknown stays unknown.</p>
+        <p data-reveal style="--i:2">Every transaction is journalled before it is sent. A changed account invalidates a confirmation before sending. A transaction whose outcome cannot be established stays unknown, and nothing else is sent until it is settled from chain data.</p>
+        <p data-reveal style="--i:3">Cleanup closes positions only through the guard, revokes every grant, withdraws, and is verified at one block across all 21 pools.</p>
+        <ul class="chips-row" data-reveal style="--i:4"><li><b>Fork</b> 11 / 11 executor scenarios, including an RPC outage and a refused preflight</li></ul>
+      </div>
+      <figure class="demo" data-demo="stop" data-reveal="wake">
+        <div class="window">
+          <div class="window-bar"><span class="wb-title">run ledger · the live plan, rehearsed</span><span class="pill">Fork 33,472,615</span></div>
+          <div class="demo-body">
+            <ol class="ledger-run">
+              <li class="on"><span>Deploy the guard, verify its code</span><span class="blk">33,472,621</span></li>
+              <li class="on"><span>Approve and deposit 60 USDso</span><span class="blk">33,472,622–23</span></li>
+              <li class="on"><span>Open BTC long and ETH short</span><span class="blk">33,472,624–25</span></li>
+              <li class="on"><span>Grant the guard on BTC</span><span class="blk">33,472,626</span></li>
+              <li class="on key"><span>Guarded reduction, goal met</span><span class="blk">33,472,627</span></li>
+              <li class="phase"><span>Cleanup</span></li>
+              <li class="on"><span>Close BTC and ETH through the guard</span><span class="blk">33,472,628–30</span></li>
+              <li class="on"><span>Revoke both grants, withdraw</span><span class="blk">33,472,631–33</span></li>
+            </ol>
+            <div class="verdict-line"><span>End state at block 33,472,633: no position, order, live stop, balance, allowance or grant left</span><span class="badge met" data-badge><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Verified</span></div>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>The same plan waits for its live run</span><button class="replay" type="button"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.1M4.5 3.5v3h3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Replay</button></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="close-title">
+    <div class="wrap">
+      <figure class="final-meter" data-final-meter>
+        <div class="fm-track" role="img" aria-label="The fork account at the scenario prices: health equity 209.81 against maintenance 471.87 before the rescue, 436.73 against 430.25 after it."><i class="fm-fill"></i><i class="fm-mm"></i></div>
+        <figcaption class="fm-read">
+          <span><i class="key eq"></i>Health equity <b class="num">209.81 <svg class="ar" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg> 436.73</b></span>
+          <span><i class="key mm"></i>Maintenance <b class="num">471.87 <svg class="ar" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg> 430.25</b></span>
+          <span>Buffer <b class="num"><span class="neg">(262.05)</span> <svg class="ar" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg> <span class="pos">6.48</span></b></span>
+          <span class="fm-src">Fork run, at the scenario prices, before the guarded sell and recomputed from its fills</span>
+        </figcaption>
+      </figure>
+      <div class="final-grid">
+        <div class="final-copy">
+          <h2 id="close-title" class="title big" data-reveal>See it on <em>your own</em> account.</h2>
+          <p class="lede" data-reveal style="--i:1">The app runs the first three live and read-only for any address, and shows the last three from recorded runs.</p>
+          <p class="final-actions" data-reveal style="--i:2"><a class="btn" href="/app">Open app<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><a class="btn secondary" href="/technology">How it works</a></p>
+        </div>
+        <ol class="enclosures" data-reveal="wake" style="--i:1">
+          <li><a href="/technology#dreamdex">dreamDEX components<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><span>Every contract, address and version it is built on.</span></li>
+          <li><a href="/guide">Guide<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><span>The app, the command line, and your own account.</span></li>
+          <li><a href="/dashboard">Dashboard<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a><span>Live BTC and ETH markets and every proof.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--site-foot-->
+</body>
+</html>

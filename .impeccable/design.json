@@ -1,0 +1,745 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-27T08:55:15+00:00",
+  "title": "Design System: Margin Rescue",
+  "extensions": {
+    "colorMeta": {
+      "graphite-ground": {
+        "role": "neutral",
+        "displayName": "Graphite Ground",
+        "canonical": "#0c0a09",
+        "cssVar": "--bg",
+        "tonalRamp": [
+          "#0d0b0a",
+          "#272423",
+          "#444140",
+          "#63605f",
+          "#848280",
+          "#a7a4a3",
+          "#cbc8c7",
+          "#f1eeec"
+        ]
+      },
+      "graphite-surface": {
+        "role": "neutral",
+        "displayName": "Graphite Surface",
+        "canonical": "#151210",
+        "cssVar": "--surface",
+        "tonalRamp": [
+          "#0d0a09",
+          "#282422",
+          "#45413f",
+          "#64605e",
+          "#85817f",
+          "#a8a4a1",
+          "#ccc8c5",
+          "#f2edea"
+        ]
+      },
+      "graphite-raised": {
+        "role": "neutral",
+        "displayName": "Graphite Raised",
+        "canonical": "#1e1a17",
+        "cssVar": "--raised",
+        "tonalRamp": [
+          "#0e0a08",
+          "#282421",
+          "#46413e",
+          "#65605c",
+          "#86817d",
+          "#a9a4a0",
+          "#cdc8c4",
+          "#f3ede9"
+        ]
+      },
+      "graphite-elevated": {
+        "role": "neutral",
+        "displayName": "Graphite Elevated",
+        "canonical": "#2a2420",
+        "cssVar": "--elevated",
+        "tonalRamp": [
+          "#0f0a07",
+          "#2a2420",
+          "#47403c",
+          "#67605b",
+          "#88817c",
+          "#aba39e",
+          "#cfc7c2",
+          "#f5ede7"
+        ]
+      },
+      "graphite-well": {
+        "role": "neutral",
+        "displayName": "Graphite Well",
+        "canonical": "#100d0c",
+        "cssVar": "--well",
+        "tonalRamp": [
+          "#0d0a09",
+          "#282423",
+          "#454140",
+          "#64605f",
+          "#858180",
+          "#a8a4a2",
+          "#ccc8c6",
+          "#f2edec"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#221d1a",
+        "cssVar": "--line",
+        "tonalRamp": [
+          "#0f0a08",
+          "#292421",
+          "#46413d",
+          "#66605c",
+          "#87817d",
+          "#aaa3a0",
+          "#cec8c3",
+          "#f4ede9"
+        ]
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "#332c27",
+        "cssVar": "--line-2",
+        "tonalRamp": [
+          "#100a06",
+          "#2a241f",
+          "#48403b",
+          "#675f5a",
+          "#89807b",
+          "#aca39d",
+          "#d0c7c1",
+          "#f6ece6"
+        ]
+      },
+      "hairline-bright": {
+        "role": "neutral",
+        "displayName": "Hairline Bright",
+        "canonical": "#4a413a",
+        "cssVar": "--line-3",
+        "tonalRamp": [
+          "#100905",
+          "#2b231d",
+          "#494039",
+          "#695f58",
+          "#8a8078",
+          "#ada39b",
+          "#d2c7be",
+          "#f7ece3"
+        ]
+      },
+      "warm-ink": {
+        "role": "neutral",
+        "displayName": "Warm Ink",
+        "canonical": "#f6f1ec",
+        "cssVar": "--ink",
+        "tonalRamp": [
+          "#0e0b08",
+          "#282421",
+          "#45413d",
+          "#65605c",
+          "#86817d",
+          "#a9a49f",
+          "#cdc8c3",
+          "#f2ede8"
+        ]
+      },
+      "warm-text": {
+        "role": "neutral",
+        "displayName": "Warm Text",
+        "canonical": "#d9d1ca",
+        "cssVar": "--text",
+        "tonalRamp": [
+          "#0f0a06",
+          "#2a241f",
+          "#47413b",
+          "#67605a",
+          "#88817a",
+          "#aba39d",
+          "#cfc8c1",
+          "#f5ede6"
+        ]
+      },
+      "warm-text-muted": {
+        "role": "neutral",
+        "displayName": "Warm Text Muted",
+        "canonical": "#b0a69d",
+        "cssVar": "--text-2",
+        "tonalRamp": [
+          "#100a05",
+          "#2b231c",
+          "#494039",
+          "#685f57",
+          "#8a8078",
+          "#ada39a",
+          "#d1c7be",
+          "#f7ece3"
+        ]
+      },
+      "warm-text-faint": {
+        "role": "neutral",
+        "displayName": "Warm Text Faint",
+        "canonical": "#8f857c",
+        "cssVar": "--text-3",
+        "tonalRamp": [
+          "#100a04",
+          "#2b231c",
+          "#494038",
+          "#695f57",
+          "#8a8077",
+          "#ada39a",
+          "#d2c7bd",
+          "#f7ece2"
+        ]
+      },
+      "rescue-orange": {
+        "role": "primary",
+        "displayName": "Rescue Orange",
+        "canonical": "#ff6a1f",
+        "cssVar": "--rescue",
+        "tonalRamp": [
+          "#1a0400",
+          "#421401",
+          "#702801",
+          "#a23c03",
+          "#d65205",
+          "#fe783c",
+          "#feb599",
+          "#ffe9e1"
+        ]
+      },
+      "rescue-orange-lit": {
+        "role": "primary",
+        "displayName": "Rescue Orange Lit",
+        "canonical": "#ff8240",
+        "cssVar": "--rescue-lit",
+        "tonalRamp": [
+          "#190500",
+          "#401701",
+          "#6d2b01",
+          "#9d4103",
+          "#d05904",
+          "#f97d3a",
+          "#ffb693",
+          "#feeae1"
+        ]
+      },
+      "rescue-orange-ink": {
+        "role": "primary",
+        "displayName": "Rescue Orange Ink",
+        "canonical": "#ff9a63",
+        "cssVar": "--rescue-ink",
+        "tonalRamp": [
+          "#190500",
+          "#401700",
+          "#6b2d00",
+          "#9a4403",
+          "#c4642b",
+          "#eb8750",
+          "#feb691",
+          "#feeae0"
+        ]
+      },
+      "on-rescue": {
+        "role": "primary",
+        "displayName": "On Rescue",
+        "canonical": "#160b04",
+        "cssVar": "--on-rescue",
+        "tonalRamp": [
+          "#130803",
+          "#2f2219",
+          "#4d3f35",
+          "#6d5e53",
+          "#8e7f74",
+          "#b2a296",
+          "#d6c6ba",
+          "#fcebde"
+        ]
+      },
+      "rescue-wash": {
+        "role": "primary",
+        "displayName": "Rescue Wash",
+        "canonical": "rgb(255 106 31 / 0.12)",
+        "cssVar": "--rescue-wash",
+        "tonalRamp": [
+          "#1a0400",
+          "#421401",
+          "#702801",
+          "#a23c03",
+          "#d65205",
+          "#fe783c",
+          "#feb599",
+          "#ffe9e1"
+        ]
+      },
+      "met-mint": {
+        "role": "secondary",
+        "displayName": "Met Mint",
+        "canonical": "#00fa89",
+        "cssVar": "--up",
+        "tonalRamp": [
+          "#001004",
+          "#002e14",
+          "#035028",
+          "#03753d",
+          "#019c53",
+          "#0ac56b",
+          "#07ef83",
+          "#c6ffd6"
+        ]
+      },
+      "met-mint-ink": {
+        "role": "secondary",
+        "displayName": "Met Mint Ink",
+        "canonical": "#3ee69c",
+        "cssVar": "--up-ink",
+        "tonalRamp": [
+          "#000f06",
+          "#012e1a",
+          "#024f31",
+          "#057449",
+          "#089a64",
+          "#0dc37f",
+          "#44eaa0",
+          "#c4ffdc"
+        ]
+      },
+      "call-cherry": {
+        "role": "secondary",
+        "displayName": "Call Cherry",
+        "canonical": "#dc0b4a",
+        "cssVar": "--down",
+        "tonalRamp": [
+          "#1e0004",
+          "#4c0113",
+          "#7f0126",
+          "#b6013b",
+          "#e92554",
+          "#ff6f81",
+          "#ffb1b6",
+          "#ffe8e9"
+        ]
+      },
+      "call-cherry-ink": {
+        "role": "secondary",
+        "displayName": "Call Cherry Ink",
+        "canonical": "#f0708f",
+        "cssVar": "--down-ink",
+        "tonalRamp": [
+          "#1e0007",
+          "#4b001c",
+          "#7d0034",
+          "#a62c52",
+          "#ce5172",
+          "#f67594",
+          "#ffb0bf",
+          "#ffe8eb"
+        ]
+      },
+      "pending-amber": {
+        "role": "secondary",
+        "displayName": "Pending Amber",
+        "canonical": "#f5b400",
+        "cssVar": "--wait",
+        "tonalRamp": [
+          "#110a00",
+          "#322200",
+          "#563d02",
+          "#7d5b03",
+          "#a77a02",
+          "#d39a00",
+          "#febd1f",
+          "#ffecca"
+        ]
+      },
+      "pending-amber-ink": {
+        "role": "secondary",
+        "displayName": "Pending Amber Ink",
+        "canonical": "#ffc94a",
+        "cssVar": "--wait-ink",
+        "tonalRamp": [
+          "#110a00",
+          "#312301",
+          "#553e00",
+          "#7b5c05",
+          "#a47b05",
+          "#cf9c03",
+          "#f6c03f",
+          "#feedc8"
+        ]
+      },
+      "dreamdex-periwinkle": {
+        "role": "tertiary",
+        "displayName": "dreamDEX Periwinkle",
+        "canonical": "#6e6eed",
+        "cssVar": "--dd",
+        "tonalRamp": [
+          "#080030",
+          "#1f006f",
+          "#3624a0",
+          "#514bc7",
+          "#6f6fee",
+          "#9399ff",
+          "#bdc4ff",
+          "#ebedfe"
+        ]
+      },
+      "dreamdex-periwinkle-ink": {
+        "role": "tertiary",
+        "displayName": "dreamDEX Periwinkle Ink",
+        "canonical": "#a8a8f4",
+        "cssVar": "--dd-ink",
+        "tonalRamp": [
+          "#0b002e",
+          "#211756",
+          "#3c3779",
+          "#5a579c",
+          "#7a79c1",
+          "#9c9ce7",
+          "#c1c3ff",
+          "#ecedff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Persuade hero H1 only (Overview and Features); its highlighted phrase is orange over a fill bar with a dashed tick."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles on Persuade pages; the close uses a larger step up to 58px."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Read-page H2s and walkthrough step titles."
+      },
+      "panel-title": {
+        "displayName": "Panel title",
+        "purpose": "Operate panel and order-entry headings."
+      },
+      "subline": {
+        "displayName": "Subline",
+        "purpose": "The muted one-line mono summary directly under a headline."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "General copy, 15px Geist."
+      },
+      "body-reading": {
+        "displayName": "Reading body",
+        "purpose": "Technology and Guide column, max 68ch."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Hashes, marks, PnL, commands; always tabular."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "11-12px tracked uppercase labels: footer titles, sidebar groups, ticker tag, provenance labels."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Martian Mono action labels in sentence case."
+      }
+    },
+    "shadows": [
+      {
+        "name": "showpiece-drop",
+        "value": "inset 0 0 0 1px var(--line-2), 0 40px 80px -36px rgb(0 0 0 / 0.9)",
+        "purpose": "Lifecycle console and distribution figure; the only lifted surfaces."
+      },
+      {
+        "name": "window-drop",
+        "value": "inset 0 0 0 1px var(--line-2), 0 32px 64px -32px rgb(0 0 0 / 0.9)",
+        "purpose": "Walkthrough windows."
+      },
+      {
+        "name": "overlay",
+        "value": "0 0 0 1px var(--line-2), 0 24px 48px -16px rgb(0 0 0 / 0.8)",
+        "purpose": "Mobile menu."
+      },
+      {
+        "name": "tooltip",
+        "value": "0 0 0 1px var(--line-2), 0 14px 28px -10px rgb(0 0 0 / 0.75)",
+        "purpose": "Chart tooltip."
+      },
+      {
+        "name": "framed-header-scrolled",
+        "value": "inset 0 0 0 1px var(--line-2), 0 12px 32px -16px rgb(0 0 0 / 0.7)",
+        "purpose": "Operate and Read header bar once scrolled."
+      },
+      {
+        "name": "hairline-ring",
+        "value": "inset 0 0 0 1px var(--line)",
+        "purpose": "Default container edge (panels, chips, cards); --line-2 for stronger, --line-3 on hover."
+      },
+      {
+        "name": "focus-glow",
+        "value": "inset 0 0 0 1px var(--rescue), 0 0 0 4px rgb(255 106 31 / 0.18)",
+        "purpose": "Hero input field on focus; app inputs use rescue-ink ring + 3px at 0.25."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default ease-out for reveals, meters, bars, ink indicators."
+      },
+      {
+        "name": "ease-io",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "Travel: the pipeline packet, the loading sweep, the guard shake."
+      },
+      {
+        "name": "word-rise",
+        "value": "1s ease, 70ms stagger, 120ms offset",
+        "purpose": "Hero H1 only; the close uses a scroll-triggered 0.9s variant with 60ms stagger."
+      },
+      {
+        "name": "title-rise",
+        "value": "translateY(8px) 0.6s ease",
+        "purpose": "Section titles."
+      },
+      {
+        "name": "reveal",
+        "value": "translateY(16px) 0.8s ease, 80ms stagger",
+        "purpose": "General content entering the viewport."
+      },
+      {
+        "name": "console-replay",
+        "value": "~16s loop, first start 1.5s after entrance, later loops reset behind a 0.45s fade",
+        "purpose": "Lifecycle console; the status-line caret (1.1s steps) is its only blink; pause button; reduced motion shows the final state."
+      },
+      {
+        "name": "meter-travel",
+        "value": "1.1s ease from armed values",
+        "purpose": "App margin meter fill and maintenance line."
+      },
+      {
+        "name": "bar-grow",
+        "value": "0.9s ease, 50-60ms stagger",
+        "purpose": "Diverging candidate and PnL bars."
+      },
+      {
+        "name": "depth-travel",
+        "value": "0.6s ease",
+        "purpose": "Dashboard ladder depth bars between reads."
+      },
+      {
+        "name": "tick-flash",
+        "value": "1.1-1.2s ease, mint or cherry; row flash 0.9s orange tint",
+        "purpose": "Mark price and ticker updates."
+      },
+      {
+        "name": "ticker-marquee",
+        "value": "linear, --dur 60s; 4x slower under reduced motion",
+        "purpose": "Live BTC/ETH ticker; pauses on hover, focus and its pause button."
+      },
+      {
+        "name": "pipeline-runner",
+        "value": "0.7s ease-in-out per stage, looping while visible",
+        "purpose": "Technology pipeline: a packet lights each stage in turn; pause button; off under reduced motion."
+      },
+      {
+        "name": "guard-demo",
+        "value": "about 11s loop while visible",
+        "purpose": "Features guard demo: an allowed reduction, then the fork test's flip reverted with a shake; pause button; static under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-s",
+        "value": "420px"
+      },
+      {
+        "name": "phone",
+        "value": "520px"
+      },
+      {
+        "name": "small",
+        "value": "560px"
+      },
+      {
+        "name": "compact",
+        "value": "760px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "920px"
+      },
+      {
+        "name": "read-collapse",
+        "value": "980px"
+      },
+      {
+        "name": "persuade-stack",
+        "value": "1080px"
+      },
+      {
+        "name": "operate-stack",
+        "value": "1100px"
+      },
+      {
+        "name": "lockup-hide",
+        "value": "1180px"
+      }
+    ],
+    "brand": {
+      "cobrandLogo": "web/assets/brand/dreamdex-logo-offwhite.svg",
+      "logoColor": "#F0F0F0",
+      "clearSpace": "0.3x mark height",
+      "sizes": {
+        "header": "20px",
+        "footer": "22px",
+        "heroBuiltOn": "15px",
+        "stackJoin": "13px",
+        "builtOnPanel": "30px"
+      },
+      "rule": "Unmodified official file, only in built on lockups; never recoloured, outlined, stretched or given effects."
+    },
+    "modes": {
+      "persuade": [
+        "web/index.html",
+        "web/features.html"
+      ],
+      "operate": [
+        "web/app.html",
+        "web/dashboard.html"
+      ],
+      "read": [
+        "web/technology.html",
+        "web/guide.html"
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Rescue-orange action in Martian Mono, sentence case, arrow nudges on hover.",
+      "html": "<button class=\"ds-btn\">Open app<svg viewBox=\"0 0 20 20\" width=\"17\" height=\"17\" aria-hidden=\"true\"><path d=\"M3 10h13M11 4.5 16.5 10 11 15.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></button>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-btn{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border:0;border-radius:8px;background:var(--rescue);color:var(--on-rescue);font-family:var(--display);font-size:14px;font-weight:600;line-height:1;cursor:pointer;transition:background-color .2s,transform .15s var(--ease)} .ds-btn:hover{background:var(--rescue-lit)} .ds-btn:active{transform:scale(.98)} .ds-btn svg{transition:transform .3s var(--ease)} .ds-btn:hover svg{transform:translateX(3px)} .ds-btn:focus-visible{outline:2px solid var(--rescue-ink);outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Raised graphite with a hairline ring; for every non-primary action.",
+      "html": "<button class=\"ds-btn-2\">Open the dashboard</button>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-btn-2{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:0;border-radius:8px;background:var(--raised);box-shadow:inset 0 0 0 1px var(--line-2);color:var(--ink);font-family:var(--display);font-size:14px;font-weight:600;cursor:pointer;transition:background-color .2s,transform .15s var(--ease)} .ds-btn-2:hover{background:var(--elevated)} .ds-btn-2:active{transform:scale(.98)} .ds-btn-2:focus-visible{outline:2px solid var(--rescue-ink);outline-offset:3px}"
+    },
+    {
+      "name": "State Badges",
+      "kind": "chip",
+      "refersTo": "badge-met",
+      "description": "Met, call, pending and info: tint, inset ring, ink-step text, always with an icon or ping.",
+      "html": "<div class=\"ds-row\"><span class=\"ds-badge met\"><svg viewBox=\"0 0 20 20\" width=\"14\" height=\"14\" aria-hidden=\"true\"><path d=\"M4 10.5 8 14.5 16 5.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg>Goal met</span><span class=\"ds-badge call\"><i class=\"ds-ping\"></i>Margin call</span><span class=\"ds-badge wait\">Pending</span><span class=\"ds-badge info\">Read-only</span></div>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-row{display:flex;gap:8px;flex-wrap:wrap;padding:16px;background:var(--bg)} .ds-badge{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:4px 10px;border-radius:999px;font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.02em} .ds-badge.met{color:var(--up-ink);background:rgb(0 250 137 / .08);box-shadow:inset 0 0 0 1px rgb(0 250 137 / .3)} .ds-badge.call{color:var(--down-ink);background:rgb(220 11 74 / .12);box-shadow:inset 0 0 0 1px rgb(220 11 74 / .42)} .ds-badge.wait{color:var(--wait-ink);background:rgb(245 180 0 / .09);box-shadow:inset 0 0 0 1px rgb(245 180 0 / .34)} .ds-badge.info{color:var(--rescue-ink);background:var(--rescue-wash);box-shadow:inset 0 0 0 1px rgb(255 106 31 / .36)} .ds-ping{width:7px;height:7px;border-radius:50%;background:currentColor}"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "input-box",
+      "description": "Well-coloured 44px box with a hairline ring; orange-ink ring and glow on focus, cherry on error.",
+      "html": "<label class=\"ds-field\"><span>BTC move</span><span class=\"ds-box\"><input value=\"-8\" inputmode=\"decimal\"><em>%</em></span></label>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-field{display:grid;gap:7px;width:200px;padding:16px;background:var(--surface);font-family:var(--sans)} .ds-field>span:first-child{color:var(--text-2);font-size:12.5px;font-weight:500} .ds-box{display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 12px;border-radius:8px;background:var(--well);box-shadow:inset 0 0 0 1px var(--line-2);transition:box-shadow .2s} .ds-box:focus-within{box-shadow:inset 0 0 0 1px var(--rescue-ink),0 0 0 3px rgb(255 106 31 / .25)} .ds-box input{flex:1;width:0;border:0;outline:0;background:transparent;color:var(--ink);font:15px var(--sans);font-variant-numeric:tabular-nums;caret-color:var(--rescue)} .ds-box em{color:var(--text-2);font-size:13px;font-style:normal}"
+    },
+    {
+      "name": "Header with built-on lockup",
+      "kind": "nav",
+      "refersTo": "nav-action",
+      "description": "Mark and name, divider, built on + the unmodified dreamDEX logo (shown here as text placeholder), sentence-case nav, orange Open app.",
+      "html": "<header class=\"ds-head\"><a class=\"ds-brand\" href=\"#\"><svg viewBox=\"0 0 32 32\" width=\"30\" height=\"30\" aria-hidden=\"true\"><rect width=\"32\" height=\"32\" rx=\"8\" fill=\"#151210\"/><rect x=\".5\" y=\".5\" width=\"31\" height=\"31\" rx=\"7.5\" fill=\"none\" stroke=\"#332c27\"/><rect x=\"6\" y=\"13\" width=\"20\" height=\"6\" rx=\"2\" fill=\"#2a2420\"/><rect x=\"6\" y=\"13\" width=\"14\" height=\"6\" rx=\"2\" fill=\"#ff6a1f\"/><path d=\"M17.5 8.5v15\" stroke=\"#f6f1ec\" stroke-width=\"1.6\" stroke-dasharray=\"2.2 1.8\"/></svg><span>Margin Rescue</span></a><span class=\"ds-sep\"></span><span class=\"ds-built\">built on <b>dreamDEX logo</b></span><nav><a href=\"#\" aria-current=\"page\">Features</a><a href=\"#\">Technology</a><a href=\"#\">Guide</a><a class=\"ds-action\" href=\"#\">Open app</a></nav></header>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-head{display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 16px;border-radius:12px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);font-family:var(--sans)} .ds-brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-family:var(--display);font-size:15.5px;font-weight:600;text-decoration:none} .ds-sep{width:1px;height:22px;background:var(--line-3)} .ds-built{color:var(--text-2);font-size:13px} .ds-built b{color:#f0f0f0;font-weight:500;margin:0 6px} .ds-head nav{display:flex;gap:2px;margin-left:auto} .ds-head nav a{position:relative;padding:9px 12px;border-radius:8px;color:var(--text-2);font-size:14.5px;font-weight:500;text-decoration:none} .ds-head nav a:hover{color:var(--ink);background:rgb(255 255 255 / .03)} .ds-head nav a[aria-current]{color:var(--ink)} .ds-head nav a[aria-current]::after{content:'';position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:2px;background:var(--rescue)} .ds-head nav a.ds-action{margin-left:10px;background:var(--rescue);color:var(--on-rescue);font-family:var(--display);font-size:13px;font-weight:600} .ds-head nav a.ds-action:hover{background:var(--rescue-lit)} .ds-head a:focus-visible{outline:2px solid var(--rescue-ink);outline-offset:3px}"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Operate panel: surface fill, inset hairline ring, Martian Mono title, figures in a 1px-gap grid.",
+      "html": "<section class=\"ds-panel\"><h2>Account at block 33,472,616</h2><dl class=\"ds-figs\"><div><dt>Health equity</dt><dd>1,019.13</dd></div><div><dt>Maintenance</dt><dd>444.81</dd></div><div><dt>Buffer</dt><dd>574.32</dd></div></dl></section>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-panel{padding:18px 20px 20px;border-radius:12px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);font-family:var(--sans)} .ds-panel h2{margin:0 0 14px;color:var(--ink);font-family:var(--display);font-size:14.5px;font-weight:650;font-stretch:87.5%} .ds-figs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:0;border-radius:10px;background:var(--line);overflow:hidden} .ds-figs div{padding:12px 14px;background:var(--raised)} .ds-figs dt{color:var(--text-3);font-size:12px} .ds-figs dd{margin:5px 0 0;color:var(--ink);font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Margin Meter",
+      "kind": "custom",
+      "refersTo": "margin-meter-track",
+      "description": "The signature: equity fill against the dashed maintenance line, cherry below, mint above.",
+      "html": "<div class=\"ds-mm\"><div class=\"ds-row call\"><span>Before</span><span class=\"ds-track\"><i style=\"--v:.42\"></i><b style=\"--m:.92\"></b></span><span class=\"v neg\">(262.05)</span></div><div class=\"ds-row met\"><span>From the fills</span><span class=\"ds-track\"><i style=\"--v:.85\"></i><b style=\"--m:.84\"></b></span><span class=\"v\">6.48</span></div></div>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-mm{display:grid;gap:10px;width:460px;padding:16px;background:var(--well);font-family:var(--sans)} .ds-row{display:grid;grid-template-columns:100px 1fr 72px;align-items:center;gap:12px;color:var(--text-2);font-size:12.5px} .ds-track{position:relative;height:12px;border-radius:4px;background:var(--raised);box-shadow:inset 0 0 0 1px var(--line-2)} .ds-track i{position:absolute;inset:0;border-radius:4px;transform-origin:left;transform:scaleX(var(--v));transition:transform 1.1s var(--ease)} .call .ds-track i{background:var(--down)} .met .ds-track i{background:var(--up)} .ds-track b{position:absolute;inset:-5px 0;transform:translateX(calc(var(--m) * 100%))} .ds-track b::before{content:'';position:absolute;left:-1px;top:0;bottom:0;border-left:2px dashed var(--ink)} .v{color:var(--ink);font-size:14px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums} .v.neg{color:var(--down-ink)} .ds-track:hover i{transform:scaleX(calc(var(--v) + .02))}"
+    },
+    {
+      "name": "App Tabs",
+      "kind": "nav",
+      "refersTo": "tab-step-selected",
+      "description": "Three numbered screens; the selected step tile is solid orange with an orange ink underline.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button role=\"tab\" aria-selected=\"false\"><i>1</i>Account and scenario</button><button role=\"tab\" aria-selected=\"false\"><i>2</i>Compare reductions</button><button role=\"tab\" aria-selected=\"true\"><i>3</i>Actual result</button></div>",
+      "css": ":host{--bg:#0c0a09;--surface:#151210;--raised:#1e1a17;--elevated:#2a2420;--well:#100d0c;--line:#221d1a;--line-2:#332c27;--line-3:#4a413a;--ink:#f6f1ec;--text:#d9d1ca;--text-2:#b0a69d;--text-3:#8f857c;--rescue:#ff6a1f;--rescue-lit:#ff8240;--rescue-ink:#ff9a63;--on-rescue:#160b04;--rescue-wash:rgb(255 106 31 / 0.12);--up:#00fa89;--up-ink:#3ee69c;--down:#dc0b4a;--down-ink:#f0708f;--wait:#f5b400;--wait-ink:#ffc94a;--display:'Martian Mono',ui-monospace,Menlo,monospace;--sans:'Geist',ui-sans-serif,system-ui,sans-serif;--code:'Geist Mono',ui-monospace,Menlo,monospace;--ease:cubic-bezier(0.16,1,0.3,1)} .ds-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line-2);background:var(--bg)} .ds-tabs button{position:relative;display:inline-flex;align-items:center;gap:9px;min-height:42px;padding:8px 14px;border:0;background:none;color:var(--text-2);font:500 14.5px var(--sans);cursor:pointer} .ds-tabs button:hover{color:var(--ink)} .ds-tabs i{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--raised);box-shadow:inset 0 0 0 1px var(--line-2);font:600 11px var(--display);font-style:normal} .ds-tabs [aria-selected=true]{color:var(--ink)} .ds-tabs [aria-selected=true] i{background:var(--rescue);box-shadow:none;color:var(--on-rescue)} .ds-tabs [aria-selected=true]::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--rescue)} .ds-tabs button:focus-visible{outline:2px solid var(--rescue-ink);outline-offset:-2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Margin Meter",
+    "overview": "Margin Rescue is a third-party tool that stands openly on dreamDEX. It lives in the venue's dark, computational family, but it is not a replica: the ground is warm graphite, not the venue's neutral black. The one loud colour is rescue orange, not dreamDEX periwinkle. The headlines are Martian Mono, narrowed to 87.5% width and set in sentence case. Every surface is organised around a single instrument, the margin meter: a fill measured against a dashed maintenance line. The meter is the mark in the header. It is the underline under the hero's highlighted phrase, the section opener, the console's health bar, the App's before-and-after rows and the closing meter, which shows the fork run's real before and after. When a screen needs a picture, it draws that line again.\n\nThe system has three modes, and they share one world. **Persuade** (Overview, Features) is spacious: 104px sections, a dot-grid and a faint orange glow behind the hero and the close, word-rise headlines and replayed evidence. **Operate** (App, Dashboard) is dense: 13–14px rows, tabular figures, hairline-ringed panels on a framed header bar and an order-entry panel on the right. **Read** (Technology, Guide) is calm: Geist at 16px in a column of about 68 characters, a sticky sidebar with an orange indicator, and code and tables in graphite wells. Everything moves toward a finished state that already exists in the HTML. Motion explains what happens to the money, and every motion has a reduced-motion path.\n\ndreamDEX appears only through its own unmodified logo, in \"built on\" lockups, and through periwinkle where dreamDEX components are named. The footer states that the project is independent.",
+    "keyCharacteristics": [
+      "Warm graphite ground with tonal surface steps and 1px inset hairline rings instead of borders.",
+      "Rescue orange for actions, the highlighted phrase, the mark and the current selection; mint, cherry and amber carry state.",
+      "Martian Mono at 87.5% width for headlines, titles, labels and buttons; Geist for reading; Geist Mono for figures, hashes and commands.",
+      "The margin meter (a fill against a dashed maintenance line) is the recurring motif at every scale.",
+      "Every figure carries its provenance (fixture, fork, live) as a label or badge."
+    ],
+    "rules": [
+      {
+        "name": "The Orange Means Act Rule",
+        "body": "Rescue orange is for things to press, the phrase that matters, the mark, and where you are now. It never reports a state: met, call and pending always use mint, cherry and amber.",
+        "section": "colors"
+      },
+      {
+        "name": "The Guest Colour Rule",
+        "body": "Periwinkle appears only where dreamDEX itself is named. Margin Rescue's own components never wear it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink-Step Rule",
+        "body": "Each accent comes in two steps: a fill step (for bars, swatches and buttons) and a lighter ink step for text on graphite. Coloured type always uses the ink step.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "Headlines, titles and buttons are in sentence case. Uppercase is reserved for 11–12px tracked labels, and lowercase-only voice is dreamDEX's, not ours.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every figure that can change or be compared uses tabular numerals, and negatives print in parentheses.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Rule",
+        "body": "Containers are drawn with inset 1px rings in hairline tones. A border is used only for a divider between rows or bands.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** draw any new risk or health visual as the margin meter: a fill against the 2px dashed warm-ink maintenance line, cherry below and mint above.",
+      "**Do** give every figure its provenance (fixture, fork or live) and its block, and print negatives in parentheses with tabular numerals.",
+      "**Do** set headlines and titles in Martian Mono at 87.5% width, in sentence case; set reading text in Geist and hashes or commands in Geist Mono.",
+      "**Do** draw containers with inset 1px hairline rings on tonal graphite steps.",
+      "**Do** place the dreamDEX logo only in \"built on\" lockups: unmodified, off-white on dark, with 0.3x clear space, at 20px in the header and 22px in the footer.",
+      "**Do** give every new self-running animation a reduced-motion path that shows the finished state, and a pause control if it loops."
+    ],
+    "donts": [
+      "**Don't** use rescue orange to report state; met, call and pending are mint, cherry and amber.",
+      "**Don't** use dreamDEX periwinkle on Margin Rescue's own components or anywhere dreamDEX is not named.",
+      "**Don't** recolour, outline, stretch or add effects to the dreamDEX logo, or use it outside a built-on lockup.",
+      "**Don't** replicate dreamDEX's own site: its typefaces, its pixel steps or its lowercase voice.",
+      "**Don't** set headlines in uppercase; uppercase is for 11–12px tracked labels only.",
+      "**Don't** add a third word-rise headline or a second blinking element; the hero and the close own word-rise, and the console caret owns the blink."
+    ]
+  }
+}

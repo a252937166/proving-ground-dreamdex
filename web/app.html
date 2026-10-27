@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js","motion");setTimeout(function(){window.__mr||document.documentElement.classList.remove("motion")},2500)</script>
+<title>App · Margin Rescue</title>
+<meta name="description" content="Read any dreamDEX cross-margin account under a joint BTC/ETH move, compare the evaluated reductions, and read a recorded guarded execution. Read-only.">
+<meta name="theme-color" content="#0c0a09">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/work.css">
+<script type="module" src="/assets/site.js"></script>
+<script type="module" src="/assets/app.js"></script>
+</head>
+<body class="work">
+<a class="skip" href="#main">Skip to content</a>
+<!--site-head-->
+
+<main id="main" class="work-main">
+  <header class="work-head">
+    <div>
+      <h1>Rescue an account</h1>
+      <p>Read a dreamDEX account under a joint BTC and ETH move, compare the reductions, and see what a real guarded execution looked like. Nothing here signs or sends.</p>
+    </div>
+    <div class="head-badges"><span class="badge info"><span class="ping" aria-hidden="true"></span>Read-only</span><span class="badge">Somnia Hideki · chain 50383</span></div>
+  </header>
+
+  <div class="screens" role="tablist" aria-label="Screens">
+    <button type="button" role="tab" id="tab-account" aria-controls="screen-account" aria-selected="true"><span class="step">1</span>Account and scenario</button>
+    <button type="button" role="tab" id="tab-compare" aria-controls="screen-compare" aria-selected="false" tabindex="-1"><span class="step">2</span>Compare reductions</button>
+    <button type="button" role="tab" id="tab-result" aria-controls="screen-result" aria-selected="false" tabindex="-1"><span class="step">3</span>Actual result</button>
+    <span class="tab-ink" aria-hidden="true"></span>
+  </div>
+
+  <section id="screen-account" class="screen" role="tabpanel" aria-labelledby="tab-account">
+    <div class="account-grid">
+      <form id="analyze" class="panel analyze" novalidate aria-labelledby="analyze-title">
+        <h2 id="analyze-title">Scenario</h2>
+        <label class="field account"><span>Account</span><span class="box"><input name="account" placeholder="0x… a dreamDEX perps account" autocomplete="off" spellcheck="false" aria-describedby="account-error"></span></label>
+        <div class="pair">
+          <label class="field"><span>BTC move</span><span class="box"><input name="btc" value="-8" inputmode="decimal"><span class="unit">%</span></span></label>
+          <label class="field"><span>ETH move</span><span class="box"><input name="eth" value="-12" inputmode="decimal"><span class="unit">%</span></span></label>
+        </div>
+        <div class="presets" role="group" aria-label="Move presets">
+          <span class="presets-label">Presets</span>
+          <button type="button" data-preset="-8,-12" aria-pressed="true">−8 / −12</button>
+          <button type="button" data-preset="-20,-25" aria-pressed="false">−20 / −25</button>
+          <button type="button" data-preset="-30,-40" aria-pressed="false">−30 / −40</button>
+        </div>
+        <label class="field"><span>Target buffer</span><span class="box"><input name="target" value="0" inputmode="decimal"><span class="unit">USDso</span></span></label>
+        <span class="field-error" id="account-error" role="alert"></span>
+        <button class="btn" type="submit" id="analyze-btn">Analyze</button>
+        <p class="ticket-note">Reads public chain data at one pinned block, usually in 15 to 25 seconds.</p>
+        <div class="examples">
+          <span>Examples</span>
+          <button type="button" class="link" data-example="0x2E3631D9c6497103BE981Fe3a48B11ba06fDB745" data-btc="-20" data-eth="-25" data-target="0">A real 6-market account at BTC −20%, ETH −25%</button>
+          <button type="button" class="link" data-example="0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12" data-btc="-8" data-eth="-12" data-target="0">The project's test account</button>
+        </div>
+      </form>
+      <div id="account-out" class="out" aria-live="polite">
+        <div class="empty panel">
+          <h2>Paste an account to begin</h2>
+          <p>The account is read at one pinned block across all 21 pools, its health is rebuilt independently and checked against the bank, and the move you set is applied at fixed prices.</p>
+          <div class="empty-art" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-compare" class="screen" role="tabpanel" aria-labelledby="tab-compare" hidden>
+    <div id="compare-out" class="out" aria-live="polite">
+      <div class="empty panel">
+        <h2>Nothing to compare yet</h2>
+        <p>Analyze an account on the first screen; its candidate reductions appear here.</p>
+        <p class="next"><button type="button" class="btn secondary" data-go="account">Go to account and scenario</button></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-result" class="screen" role="tabpanel" aria-labelledby="tab-result" hidden>
+    <fieldset class="panel runs" id="runs">
+      <legend>Recorded runs</legend>
+      <div class="run-options" id="run-options"></div>
+    </fieldset>
+    <div id="run-out" class="out" aria-live="polite"></div>
+  </section>
+</main>
+
+<!--site-foot-->
+</body>
+</html>

@@ -1,0 +1,112 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      ".impeccable/mocks/decision/*.html"
+    ],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-segment.html"
+        ],
+        "createdAt": "2026-10-27T02:19:58.552Z",
+        "reason": "model decision: the dim digits are the seven-segment world's unlit ghost cells (catalog swatch #1A1A1A), decorative; decision-round sketch only, never shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-27T02:30:08.852Z",
+        "reason": "model decision: decision-round sketch of the pick card's first viewport, never shipped; only its composition is judged"
+      },
+      {
+        "rule": "em-dash-overuse",
+        "value": "*",
+        "files": [
+          "web/guide.html"
+        ],
+        "createdAt": "2026-10-27T04:04:07.988Z",
+        "reason": "model decision: guide.html contains no em dashes; the count is CLI flags such as --account inside code blocks"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-checklist.html"
+        ],
+        "createdAt": "2026-10-27T04:18:23.170Z",
+        "reason": "model decision: decision-round sketch of an unchosen direction (quick-reference checklist), never shipped; only its composition was judged"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "din condensed",
+        "files": [
+          ".impeccable/mocks/decision/*.html"
+        ],
+        "createdAt": "2026-10-27T04:53:12.944Z",
+        "reason": "model decision: unchosen decision-round sketches (split-flap board, seven-segment totem), never shipped and gitignored; DIN Condensed only rendered their skeletons"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "createdAt": "2026-10-27T07:35:45.290Z",
+        "reason": "user-pinned dreamDEX family: Geist is the face of dreamDEX's own app and docs, kept as the ecosystem tie; Martian Mono carries Margin Rescue's own voice"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist mono",
+        "createdAt": "2026-10-27T07:35:45.326Z",
+        "reason": "user-pinned dreamDEX family: Geist Mono is dreamDEX's docs code face, used here for figures, hashes and commands"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "web/index.html"
+        ],
+        "createdAt": "2026-10-27T07:36:01.558Z",
+        "reason": "the only marquee here is the ticker of live testnet market data, refreshed every 10 s; pausable, slowed under reduced motion"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "web/app.html"
+        ],
+        "createdAt": "2026-10-27T07:36:01.587Z",
+        "reason": "the only loop here is the indeterminate progress bar shown while an analysis reads the chain (15-25 s)"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "web/dashboard.html"
+        ],
+        "createdAt": "2026-10-27T07:36:01.612Z",
+        "reason": "work.css's indeterminate progress bar for the app's analysis; the dashboard renders no marquee"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "web/features.html"
+        ],
+        "createdAt": "2026-10-27T07:36:17.868Z",
+        "reason": "home.css carries the Overview ticker; Features renders no marquee"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "web/index.html"
+        ],
+        "createdAt": "2026-10-27T07:36:17.905Z",
+        "reason": "reviewed: the only flagged children are chart and status marks (share-bar segments, phase squares), not cards"
+      }
+    ]
+  }
+}

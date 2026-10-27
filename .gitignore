@@ -9,3 +9,6 @@ coverage/
 dist/
 # Margin Rescue action journal (default location; evidence runs write their own)
 .margin-rescue/
+# Design workflow scratch: review screenshots and decision-round sketches
+.impeccable/review/
+.impeccable/mocks/

@@ -10,6 +10,21 @@ Two pieces of work against dreamDEX perps on the Somnia Hideki ("Tokyo") testnet
 > - Proving Ground: no Proving Ground contract exists; its rule pre-check is a local calculation and is **not enforced on-chain**.
 > - Neither part meets the MVP track's live-order requirement yet: **no order has been placed on the live network from this code.**
 
+## Website
+
+`npm run serve` starts a local, read-only site at http://127.0.0.1:8787. It binds to 127.0.0.1, holds no key and sends nothing.
+
+| Page | What it is |
+|---|---|
+| `/` | Overview: a console replaying the fork run on a real 6-market account, the loop step by step, the dreamDEX components it is built on, what is proven and where |
+| `/features` | The six parts of the loop, each with the fork run's own figures |
+| `/app` | The app, read-only: any public address at one block (account and scenario), the evaluated reductions, and recorded guarded executions (fork runs; live run 1 once it exists) |
+| `/dashboard` | Live BTC and ETH markets, and the state of every proof read from `evidence/margin-rescue/` |
+| `/technology`, `/guide` | How it works (including every dreamDEX component used), and how to use it from the app and the command line |
+| `/proving-ground` | The earlier Proving Ground prototype page, unchanged |
+
+Its read-only endpoints are `/api/markets`, `/api/proof`, `/api/analyze?account=0x…&btc=-8&eth=-12&target=0` (15–25 s: the whole account at one block), `/api/runs` and `/api/runs/:id`. The evidence folder is served as plain text under `/evidence/`. Fonts (Martian Mono, Geist, Geist Mono; SIL OFL) are served from `web/assets/fonts/`. The site shows dreamDEX's official logo, unmodified from its published brand assets (`web/assets/brand/SOURCES.txt`), in a "built on dreamDEX" lockup; Margin Rescue is independent and not affiliated with or endorsed by dreamDEX.
+
 ## Proving Ground prototype
 
 It reads live BTC-PERP data and checks orders against the challenge's v2.2 rules **locally**. In that planned challenge a contract-owned account would trade BTC-PERP under published rules; this repository does not implement the challenge.
@@ -52,7 +67,7 @@ npm run snapshot                       # live BTC-PERP snapshot, human-readable
 npm run snapshot -- --json             # the same as exact JSON (integers as decimal strings)
 npm run precheck -- --side buy --qty 0.01
 npm run precheck -- --side sell --qty 0.005 --position 0.06 --equity 1000
-npm run serve                          # then open http://127.0.0.1:8787
+npm run serve                          # then open http://127.0.0.1:8787/proving-ground
 ```
 
 `--save PREFIX` writes `PREFIX.txt` and `PREFIX.json` from the same network read. Pre-check options:
