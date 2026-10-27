@@ -6,13 +6,13 @@ Prepared: 2026-10-27. Dates and daily delivery time use America/New_York.
 
 Build an understandable public record while the product is being built. Every post should tell a trader one useful thing and, where possible, show the evidence. The submission requirement supplied by the user is 2 or 3 real posts about the MVP, each tagging @DreamDEXSomnia, with their published links in the README. Daily posting is our plan; it is not an additional official requirement.
 
-As checked on 2026-10-27, Margin Rescue has independent reconciliation, fixed-price scenarios, candidate comparisons, a reduce-only guard and actual-fill recomputation. The validated execution evidence is from local forks. The live-write evidence directory has no completed run. A new local website is being built in the working tree; do not describe it as publicly deployed or fully verified without checking it.
+As checked on 2026-10-27, Margin Rescue has independent reconciliation, fixed-price scenarios, candidate comparisons, a reduce-only guard and actual-fill recomputation. The validated execution evidence is from local forks. The live-write evidence directory has no completed run. The read-only website is publicly deployed on GitHub Pages at https://a252937166.github.io/proving-ground-dreamdex/; the public example account reconciled EXACT in a browser check at block 34,634,624 (13.3 s).
 
-No post has been published by this task. The user supplied the first publication URL on 2026-10-27: https://x.com/Mrooo03/status/2115008447959925191 (recorded in POST_LOG.md and the README; X page title confirms the introduction and @DreamDEXSomnia mention; media check pending). The user confirmed: provide the content; the user publishes it themselves. Do not post, schedule posts on X, or ask again about publishing on their behalf. The daily automation prepares the package only.
+The user has published two posts on 2026-10-27: https://x.com/Mrooo03/status/2115008447959925191 (product introduction, 05:11 EDT) and https://x.com/Mrooo03/status/2115107366480035978 (public web app, 11:44 EDT, quoting the first). Both were read back in full: text, @DreamDEXSomnia mention, link and attached image, each image matching its capture in `social/assets/`. Both are recorded in POST_LOG.md and the README. The user confirmed: provide the content; the user publishes it themselves. Do not post, schedule posts on X, or ask again about publishing on their behalf. The daily automation prepares the package only.
 
 Editorial correction (2026-10-27): lead with the current product, its intended users, one useful feature and its value. Every daily package needs a relevant actual product image and a real project/product link, with its public availability checked. Development and test results support the story; they are not the product introduction.
 
-Current public-link gap: https://github.com/a252937166/proving-ground-dreamdex is the real project repository, but its public main branch was checked at `3ff3f65`, the earlier prototype. Margin Rescue's reviewed local commit is `6894baf`, with further local website work. The current website has no verified public deployment. Synchronize the current code before using the repository as the destination for a Margin Rescue launch post. Never advertise a localhost URL as a publicly usable product.
+Public-link gap resolved (2026-10-27): https://github.com/a252937166/proving-ground-dreamdex now has public `main` at `5f84545`, including Margin Rescue and the static website deployment. The repository description and homepage point to the current product. Use https://a252937166.github.io/proving-ground-dreamdex/ as the public product entry point; recheck current availability before future posts. Never advertise a localhost URL as a publicly usable product.
 
 ## Daily topics
 
@@ -29,9 +29,9 @@ The working daily delivery time is 18:00 America/New_York, through November 1. E
 
 ## Ready-to-use drafts
 
-### 1. Today: product introduction, image and project link
+### 1. Published: product introduction, image and project link
 
-236 X-weighted characters (266 literal characters; the URL counts as 23). See [the dated draft](drafts/2026-10-27.md) for the screenshot and public-link checks. The draft remains pending publication and the repository update.
+236 X-weighted characters (266 literal characters; the URL counts as 23). See [the historical draft](drafts/2026-10-27.md) for the screenshot and checks made at preparation time. The user published this introduction as the first post; the repository and public website were subsequently updated at `5f84545`. The second published post's final wording and screenshot are in [the public web app package](drafts/2026-10-27-public-web-app.md).
 
 ```text
 Meet Margin Rescue for @DreamDEXSomnia perps traders.
