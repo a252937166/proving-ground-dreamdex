@@ -1,7 +1,7 @@
 Margin Rescue: recomputed from the actual execution
-  action              0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397
-  scenario            abf03e16392495014d86246b853ac75709db381527934242c233523ce9377b0b
-  transaction         0x277d9c79baca825e41213938cc28433ab7d181a5aeacecb3c60f15851580bb35  success  block 33472629  canonical yes
+  action              0x7c3c6ca682c31baf2fea92a0475ae0b28efe6c073868e2340db2abdec9918074
+  scenario            8f5f2e167a843ebab5e2bb5eda8c7c0346a1ab04f64f616df7c850408b321452
+  transaction         0xb49da9f2c1dda04264d7c6358ad734ffa1f9af54546cfb79ddf248090bbf6e8d  success  block 33472629  canonical yes
   fill                REQUESTED_FILL: 0.0291 of 0.0291 (expected 0.0291); unfilled 0
   fills               0.0291 @ 2,317.04; all inside the limit: yes
   ledger              realized -0.01164  funding settled 0  fees 0

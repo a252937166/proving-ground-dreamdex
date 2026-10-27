@@ -1,0 +1,75 @@
+{
+  "actionId": "0x084acfccec9b0f03843f32c17a69b5c1963eb8240a27538202a62e5a1057774b",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171"
+  },
+  "calldata": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e8480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf00a65dfd9de20de54f3f38e3c8bf2fce071a4f855e1690a049555c8708aee2d160ab",
+  "candidateId": "BTC-50",
+  "createdAt": "2026-10-27T20:04:38.732Z",
+  "fill": {
+    "requested": "62000",
+    "state": "NOT_APPLICABLE"
+  },
+  "forecast": {
+    "expectedFill": "62000",
+    "goal": "MEETS",
+    "scenarioBuffer": "46852456705977592125"
+  },
+  "goal": {
+    "state": "NOT_EVALUATED"
+  },
+  "history": [
+    {
+      "at": "2026-10-27T20:04:38.732Z",
+      "detail": "candidate BTC-50, scenario 8f5f2e167a843eba",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-27T20:04:54.578Z",
+      "detail": "re-analysis now selects ETH-75, not the confirmed BTC-50; the book inside the limit now fills 31000, not the forecast 62000; the confirmed request no longer meets the target under the scenario (FAILS, buffer 43666648019704009671)",
+      "event": "invalidated"
+    }
+  ],
+  "kind": "RESCUE",
+  "quote": {
+    "blockHash": "0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e",
+    "blockNumber": "33472625",
+    "validUntil": "1792999590"
+  },
+  "refreshes": [
+    {
+      "at": "2026-10-27T20:04:54.578Z",
+      "blockHash": "0x9e41c061555b23b3c7ea3b708c13b0eca0c693ff25fe8aa39dbf3c5af9100f95",
+      "blockNumber": "33472627",
+      "forecast": {
+        "expectedFill": "31000",
+        "goal": "FAILS",
+        "scenarioBuffer": "43666648019704009671"
+      },
+      "fundingDrift": "0",
+      "reasons": [
+        "re-analysis now selects ETH-75, not the confirmed BTC-50",
+        "the book inside the limit now fills 31000, not the forecast 62000",
+        "the confirmed request no longer meets the target under the scenario (FAILS, buffer 43666648019704009671)"
+      ],
+      "verdict": "INVALIDATED"
+    }
+  ],
+  "request": {
+    "deadline": "1792999590",
+    "expectedSignedSize": "125000",
+    "isBid": false,
+    "limitPrice": "79743900000000000000000",
+    "nonce": "0x5dfd9de20de54f3f38e3c8bf2fce071a4f855e1690a049555c8708aee2d160ab",
+    "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "quantity": "62000"
+  },
+  "scenarioId": "8f5f2e167a843ebab5e2bb5eda8c7c0346a1ab04f64f616df7c850408b321452",
+  "tx": {
+    "state": "INVALIDATED"
+  },
+  "version": "mr-action/1"
+}

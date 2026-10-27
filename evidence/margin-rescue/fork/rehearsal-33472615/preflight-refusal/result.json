@@ -9,9 +9,10 @@
   },
   "guard": null,
   "invalidated": [],
-  "reason": "preflight: the bank account is not empty; an allowance of 6000000000000000000 to the bank already exists",
+  "logComplete": true,
+  "reason": "preflight: the bank account is not empty; an allowance of 6000000000000000000 to the bank already exists; the account's nonce is 2 (pending 2), not the plan's 0: regenerate the plan",
   "rescue": null,
   "sentTransactions": 0,
   "status": "REFUSED",
-  "version": "mr-live-run/3"
+  "version": "mr-live-run/4"
 }

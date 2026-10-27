@@ -49,7 +49,7 @@
     ],
     "closes": [
       {
-        "actionId": "0x82fcce0a4951d382a3756c9b3aeb48c8bbba53b6531dc814a198227d7e7fb937",
+        "actionId": "0xe976b21969f9c79a3f939359dc4090ff34e835ecf9d4535a4a748d83d3ef501e",
         "attempt": 1,
         "bindingOk": true,
         "expected": "62000",
@@ -59,10 +59,10 @@
         "quantity": "62000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0x52c1fea8a12eb6e684abb4d07eb9b64c9adcd08077f70a0d915e4aa6fddf679c"
+        "tx": "0x9b75c81a576223dc5fb2c8678e7c46789aebb0b7de07a0f5f966f37b0ee6c4ab"
       },
       {
-        "actionId": "0xbaa3f875c9e27cff9caa096532d2b6c4db9e5f56d9e35c944fc62cbcd3be26b9",
+        "actionId": "0x335e3b459b4467ef18622635f21769b327a7825d5b31e8d33301970959db9434",
         "attempt": 1,
         "bindingOk": true,
         "expected": "-38700000000000000",
@@ -72,12 +72,12 @@
         "quantity": "38700000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0xc90cc6f6279aedd4b96afe45cddbdd74afd6dce566a3aea0b110d8e0f6403b99"
+        "tx": "0x5f986830c4485dbd036d8e9f8e5e44550989b35a92888443f2899615ead28112"
       }
     ],
     "final": {
       "block": "33609494",
-      "blockHash": "0x36fec9396b7bf2f01e2fc87f468576255851405a710879e487e7290a654b8b8d",
+      "blockHash": "0x9697adfe911db8ba1e51d2be952f228d853fc85c834a1d832e9f7c73b9a50839",
       "stt": "9966066955470853132",
       "usdso": "99937604436285451413"
     },
@@ -92,18 +92,19 @@
     "committed": "0",
     "spent": "33933044529146868"
   },
-  "guard": "0x26d918c21216cba35581c86978923c31abe5220d",
+  "guard": "0x26f31f86273d6b06f63acc39926845614a9ce4a4",
   "invalidated": [],
+  "logComplete": true,
   "reason": null,
   "rescue": {
-    "actionId": "0x6351db7259b062694cff6bc15b146589d9f106cce625297085d2466f116b8e95",
+    "actionId": "0x255172d36efe13d88616b1be70528c72bcd376cb8cbd8f409f5cd3109f3ff86a",
     "fill": "REQUESTED_FILL",
     "goal": "GOAL_MET",
     "goalReason": "scenario buffer 46973196765587391697 ≥ target 45000000000000000000",
-    "tx": "0x054276bb5c93f2a2e3d70b754b0365981e985726dc7192435e2b761bbf01b4a4",
+    "tx": "0x0ce01a0a430d7db1c28dbfb127e9acba82e9bc2729e2753ebe915878bd2333be",
     "txState": "CONFIRMED"
   },
   "sentTransactions": 13,
   "status": "COMPLETE",
-  "version": "mr-live-run/3"
+  "version": "mr-live-run/4"
 }

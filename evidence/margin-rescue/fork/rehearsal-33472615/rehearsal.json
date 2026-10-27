@@ -6,7 +6,7 @@
   "label": "fork",
   "outcomes": [
     {
-      "expected": "exit 0, COMPLETE, GOAL_MET, cleanup verified",
+      "expected": "exit 0, COMPLETE, GOAL_MET, cleanup verified, and the independent read-back holds",
       "failed": [],
       "pass": true,
       "scenario": "happy"
@@ -64,10 +64,16 @@
       "failed": [],
       "pass": true,
       "scenario": "cleanup-fail"
+    },
+    {
+      "expected": "exit 50 with a complete, settled ledger; no transaction beyond it",
+      "failed": [],
+      "pass": true,
+      "scenario": "result-unwritable"
     }
   ],
-  "owner": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
-  "planDigest": "51cb547625b3c54f64da62e2be5619f9e1f38b81d5d5c674db0586d99865f3f9",
-  "thirdParty": "0xc5856dfE3cc07d2A2f3A44F75bd52F1b1fdF782d",
+  "owner": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+  "planDigest": "59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf",
+  "thirdParty": "0xA750071030977A390056a7934150eF61bD219E0E",
   "warning": "Local anvil fork of Hideki with throwaway accounts funded on the fork. Nothing here was broadcast to the live network."
 }

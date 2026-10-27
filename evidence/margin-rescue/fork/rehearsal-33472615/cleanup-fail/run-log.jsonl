@@ -1,15 +1,15 @@
-{"at":"2026-10-26T14:03:50.139Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
-{"at":"2026-10-26T14:03:53.254Z","step":"guard verified","guard":"0x9f28a92015cd0cd542ea8bdd50973117fc6925ab","runtimeKeccak":"0x96a66a2b5d4afcfb4c80c7c683a7c6a7781f96251e651b09e1609a2c0bd54518"}
-{"at":"2026-10-26T14:04:01.944Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
-{"at":"2026-10-26T14:04:03.476Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
-{"at":"2026-10-26T14:04:07.886Z","step":"analysis","block":"33472625","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
-{"at":"2026-10-26T14:04:07.898Z","step":"confirmation journalled","actionId":"0x223fd866c7dee45bc052ca72299911f062d1c0ba3d0fa0dac84bdaf2d931523d","candidateId":"BTC-50","expectedSignedSize":"125000","quantity":"62000","limit":"79743900000000000000000","deadline":"1792999590"}
-{"at":"2026-10-26T14:04:14.992Z","step":"refresh","attempt":1,"verdict":"STILL_VALID","reasons":[],"fundingDrift":"0"}
-{"at":"2026-10-26T14:04:18.092Z","step":"reduce","actionId":"0x223fd866c7dee45bc052ca72299911f062d1c0ba3d0fa0dac84bdaf2d931523d","tx":"0x29f46f435d471ed3cfc3ce06413945e2b750f82280e782735c0594a4f26d58e1","state":"CONFIRMED"}
-{"at":"2026-10-26T14:04:23.545Z","step":"recompute","binding":true,"fill":"REQUESTED_FILL","goal":"GOAL_MET"}
-{"at":"2026-10-26T14:04:23.549Z","step":"soft loss check","where":"after the reduction","eTotal":"59878507586519155305"}
-{"at":"2026-10-26T14:04:27.613Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"WOULD_REVERT","reason":"ImmediateOrCancelNoFill()"}
-{"at":"2026-10-26T14:04:29.035Z","step":"cleanup close","symbol":"BTC","attempt":2,"state":"WOULD_REVERT","reason":"ImmediateOrCancelNoFill()"}
-{"at":"2026-10-26T14:04:40.505Z","step":"cleanup close","symbol":"BTC","attempt":3,"state":"WOULD_REVERT","reason":"ImmediateOrCancelNoFill()"}
-{"at":"2026-10-26T14:04:50.070Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"38800000000000000"}
-{"at":"2026-10-26T14:05:05.916Z","step":"result","status":"CLEANUP_INCOMPLETE","exitCode":30,"reason":"BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent; collateral left in the bank: 1 position(s) and 0 order(s) remain; no position in any of the factory's pools: 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0:63000; bank balance withdrawn: unlocked 59977004784000000000, locked 0"}
+{"at":"2026-10-27T20:10:11.179Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
+{"at":"2026-10-27T20:10:14.291Z","step":"guard verified","guard":"0x09c51620f3e469b8335f360fe2fe6ada92417fcf","runtimeKeccak":"0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374"}
+{"at":"2026-10-27T20:10:23.260Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
+{"at":"2026-10-27T20:10:24.824Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
+{"at":"2026-10-27T20:10:29.021Z","step":"analysis","block":"33472625","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
+{"at":"2026-10-27T20:10:29.034Z","step":"confirmation journalled","actionId":"0xe90b9aa71b2bede8579deee11eb50fa543bf13e18982333e36a2a7daa6adb050","candidateId":"BTC-50","expectedSignedSize":"125000","quantity":"62000","limit":"79743900000000000000000","deadline":"1792999590"}
+{"at":"2026-10-27T20:10:36.067Z","step":"refresh","attempt":1,"verdict":"STILL_VALID","reasons":[],"fundingDrift":"0"}
+{"at":"2026-10-27T20:10:39.274Z","step":"reduce","actionId":"0xe90b9aa71b2bede8579deee11eb50fa543bf13e18982333e36a2a7daa6adb050","tx":"0x5f12462db7b75ee70842c393c39a3b635fc6f00bb515569376e39f5d6150ff4b","state":"CONFIRMED"}
+{"at":"2026-10-27T20:10:43.314Z","step":"recompute","binding":true,"fill":"REQUESTED_FILL","goal":"GOAL_MET"}
+{"at":"2026-10-27T20:10:43.321Z","step":"soft loss check","where":"after the reduction","eTotal":"59878507586519155305"}
+{"at":"2026-10-27T20:10:47.304Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"WOULD_REVERT","reason":"ImmediateOrCancelNoFill()"}
+{"at":"2026-10-27T20:10:48.687Z","step":"cleanup close","symbol":"BTC","attempt":2,"state":"WOULD_REVERT","reason":"ImmediateOrCancelNoFill()"}
+{"at":"2026-10-27T20:10:50.140Z","step":"cleanup close","symbol":"BTC","attempt":3,"state":"WOULD_REVERT","reason":"ImmediateOrCancelNoFill()"}
+{"at":"2026-10-27T20:10:52.724Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"38800000000000000"}
+{"at":"2026-10-27T20:10:58.051Z","step":"result","status":"CLEANUP_INCOMPLETE","exitCode":30,"reason":"BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent; collateral left in the bank: 1 position(s) and 0 order(s) remain; no position in any of the factory's pools: 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0:63000; bank balance withdrawn: unlocked 59977004784000000000, locked 0"}

@@ -6,7 +6,7 @@
       "ok": true
     },
     {
-      "detail": "UNRESOLVED_TX step 7 reduce (0x8342eb67c5981f684bba1d4450f7922460457a6282f869a1c9bc6090f9c04161) is UNKNOWN; resolve it before sending anything else",
+      "detail": "UNRESOLVED_TX step 7 reduce (0x2816921974525e84b50069947079a9710286a4ce8bb937883f9e54214056f5d2) is UNKNOWN; resolve it before sending anything else",
       "name": "the run stopped with UNRESOLVED_TX (exit 40)",
       "ok": true
     },
@@ -16,7 +16,7 @@
       "ok": true
     },
     {
-      "detail": "committed 7626059421602904, maxCost 7626059421602904",
+      "detail": "committed 7626059418150132, maxCost 7626059418150132",
       "name": "its worst-case fee stays reserved and no fee is invented",
       "ok": true
     },
@@ -31,7 +31,7 @@
       "ok": true
     },
     {
-      "detail": "[\"cleanup-close-BTC-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "detail": "[\"cleanup-close-BTC-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -46,7 +46,7 @@
       "ok": true
     },
     {
-      "detail": "CONFIRMED fee 5597671956940800",
+      "detail": "CONFIRMED fee 5597671954406400",
       "name": "after recovery the same transaction settles CONFIRMED with its real fee",
       "ok": true
     },
@@ -62,8 +62,8 @@
       "exitCode": 40,
       "gas": {
         "cap": "2000000000000000000",
-        "committed": "7626059421602904",
-        "spent": "19317119479451752"
+        "committed": "7626059418150132",
+        "spent": "19317075157683869"
       },
       "probe": "receipt lookup failed (TimeoutError: The request took too long to respond.)",
       "status": "UNRESOLVED_TX"
@@ -74,14 +74,14 @@
       "gas": {
         "cap": "2000000000000000000",
         "committed": "0",
-        "spent": "34901164391885772"
+        "spent": "34901120065046051"
       },
       "rescue": {
-        "actionId": "0xe42fbf3017fc5c8010730a804df02c62ca7a65342db600b46ea62d1459e50a46",
+        "actionId": "0xac652d8826f3abae307612e99789ca199dc9c4d38331fffd3cee7db48209f2ef",
         "fill": "REQUESTED_FILL",
         "goal": "GOAL_MET",
         "goalReason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
-        "tx": "0x8342eb67c5981f684bba1d4450f7922460457a6282f869a1c9bc6090f9c04161",
+        "tx": "0x2816921974525e84b50069947079a9710286a4ce8bb937883f9e54214056f5d2",
         "txState": "CONFIRMED"
       },
       "status": "COMPLETE"

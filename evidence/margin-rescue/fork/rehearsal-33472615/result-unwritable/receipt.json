@@ -1,0 +1,139 @@
+{
+  "blockHash": "0x4aef24936ad4cf15ea2c24d46abdd82726491962b0683ec0dcd5e17bc79e121f",
+  "blockNumber": "33472627",
+  "canonical": true,
+  "filled": "62000",
+  "fills": [
+    {
+      "makerOrderId": "8116567392432210530516",
+      "price": "80144600000000000000000",
+      "quantity": "62000"
+    }
+  ],
+  "from": "0x009917fa34fd8107e3bbe0a3f574bcf8fd7fa171",
+  "gasUsed": "2534400",
+  "guard": {
+    "actionId": "0x1391fd610ef2a83de1b33053dfc79fe250f7755d49f657172c0a0d7cb4704219",
+    "limitPrice": "79743900000000000000000",
+    "orderId": "16011773855979898622194",
+    "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "quantity": "62000",
+    "sizeAfter": "63000",
+    "sizeBefore": "125000"
+  },
+  "guardEvents": 1,
+  "logs": [
+    {
+      "address": "0x478769e1177c0773c43a593dccc4ad15f15f1394",
+      "args": {
+        "account": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+        "avgEntryPrice": "80156656800000000000000",
+        "entryFundingIndex": "3802061680469651715606245441077127281250",
+        "newSize": "63000",
+        "perpPool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "realizedPnl": "-7475216000000000"
+      },
+      "logIndex": 0,
+      "name": "PositionUpdated"
+    },
+    {
+      "address": "0x478769e1177c0773c43a593dccc4ad15f15f1394",
+      "args": {
+        "account": "0x47537E3A3ea6e9391F3B26Ea45618db6828c8bfF",
+        "avgEntryPrice": "80106852005635645823708",
+        "entryFundingIndex": "3802061680469651715606245441077127281250",
+        "newSize": "-8613616000",
+        "perpPool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "realizedPnl": "-23403756505899590"
+      },
+      "logIndex": 1,
+      "name": "PositionUpdated"
+    },
+    {
+      "address": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+      "args": {
+        "openInterest": "32063559000"
+      },
+      "logIndex": 2,
+      "name": "OpenInterestUpdated"
+    },
+    {
+      "address": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+      "args": {
+        "fillPrice": "80144600000000000000000",
+        "makerOrderId": "8116567392432210530516",
+        "makerRemainingQuantity": "1188000",
+        "quantityFilled": "62000",
+        "takerOrderId": "16011773855979898622194",
+        "takerRemainingQuantity": "0"
+      },
+      "logIndex": 3,
+      "name": "OrderFilled"
+    },
+    {
+      "address": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+      "args": {
+        "orderId": "16011773855979898622194",
+        "placedOrder": {
+          "expireTimestampNs": "1792999590000000000",
+          "fullQuantity": "62000",
+          "isBid": false,
+          "orderId": "16011773855979898622194",
+          "owner": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+          "price": "79743900000000000000000",
+          "quantityRemaining": "0",
+          "userData": "3173363716690297369"
+        }
+      },
+      "logIndex": 4,
+      "name": "OrderPlaced"
+    },
+    {
+      "address": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
+      "args": {
+        "actionId": "0x1391fd610ef2a83de1b33053dfc79fe250f7755d49f657172c0a0d7cb4704219",
+        "limitPrice": "79743900000000000000000",
+        "orderId": "16011773855979898622194",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "62000",
+        "sizeAfter": "63000",
+        "sizeBefore": "125000"
+      },
+      "logIndex": 5,
+      "name": "ReduceExecuted"
+    }
+  ],
+  "owner": {
+    "fees": [],
+    "fundingSettled": [],
+    "locked": "0",
+    "other": [],
+    "otherPools": [],
+    "positionUpdates": [
+      {
+        "avgEntryPrice": "80156656800000000000000",
+        "entryFundingIndex": "3802061680469651715606245441077127281250",
+        "newSize": "63000",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "realizedPnl": "-7475216000000000"
+      }
+    ],
+    "unlocked": "0",
+    "walletMoves": []
+  },
+  "placedBy": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+  "priceBoundRespected": true,
+  "rested": false,
+  "status": "success",
+  "takerOrderId": "16011773855979898622194",
+  "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
+  "tx": {
+    "chainId": 50383,
+    "from": "0x009917fa34fd8107e3bbe0a3f574bcf8fd7fa171",
+    "input": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e8480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf00a65564c7969d7387150782d58e71530aeebb2d639de860d9030437bbd5b849a7d6",
+    "nonce": 6,
+    "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
+    "value": "0"
+  },
+  "txHash": "0x7a9177648f33ed0ffc76e5d6c393d791fc4668ff6b79dcece0622802824a2c2f"
+}

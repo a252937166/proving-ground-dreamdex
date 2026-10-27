@@ -49,7 +49,7 @@
     ],
     "closes": [
       {
-        "actionId": "0x9b9d14b6bcd5102d20ce6d3815d56403ef0305bf0b5d7c89f1e7b86c71da18d0",
+        "actionId": "0x1dbe0e41680b822fbc6053eb343bbd57be4ff5b387b6ed42688a95daadf96f48",
         "attempt": 1,
         "bindingOk": true,
         "expected": "125000",
@@ -59,10 +59,10 @@
         "quantity": "125000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0x57a869839725bf22d9acc00f621212ee2eb39b1fd4165f6de2fdd38cfe254e53"
+        "tx": "0x16be11807bd114e66413a91ac84b17723406c6d93bf98a8df82507ebcb592138"
       },
       {
-        "actionId": "0xa40e7f2f919d4ee7da3e83c4060ce707dd526dc6d00001c84eb206410e5ab340",
+        "actionId": "0xf03ea01fb0a9ab4cfaa2c6d200cc11b3031570fa0cb7d044f0be09b8ed34ee27",
         "attempt": 2,
         "bindingOk": true,
         "expected": "94000",
@@ -72,10 +72,10 @@
         "quantity": "94000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0xa537464f7279aafdca96f361ea1b37fe85fe89182ae38c00026a2350e7c8ac68"
+        "tx": "0x48117ebab617c010597e545adcee49a9ab216fd7e2b655eba4ed8b771bc4d69b"
       },
       {
-        "actionId": "0x95d9d4cfc3b50e4e00a9fe4b28b7b88aac5a20ad1001fe666059a9eb24e0844f",
+        "actionId": "0xacd448674c968404d6dabad1c670ee2f02bc832436ab178d9fd60cc6146b72e7",
         "attempt": 1,
         "bindingOk": true,
         "expected": "-9700000000000000",
@@ -85,13 +85,13 @@
         "quantity": "9700000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0x097180d88e33870bcb2c9e44f7d3b30ce607140183e39844c11c4495be490008"
+        "tx": "0x6f95a71c5641535adb497b2cce109a2573abc3d63263ceaeaadcb611c0f1c3bf"
       }
     ],
     "final": {
       "block": "33472635",
-      "blockHash": "0x22f7abc68363034d041094e7691ea3074ae50a8eaf70a48e508b7b404da7c6bd",
-      "stt": "9965619243337126957",
+      "blockHash": "0x5ae21db44fd9434bfb24e19f7ed59b74170f195dc075e20c0af8d9464ec44b6a",
+      "stt": "9965619308172259123",
       "usdso": "99177496000000000000"
     },
     "remaining": [],
@@ -103,12 +103,12 @@
   "gas": {
     "cap": "2000000000000000000",
     "committed": "0",
-    "spent": "34380756662873043"
+    "spent": "34380691827740877"
   },
-  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
   "invalidated": [
     {
-      "actionId": "0x065808b86513c3392eac0e9285ea44861411b2c644cfd725cd4c740e06227a3c",
+      "actionId": "0x084acfccec9b0f03843f32c17a69b5c1963eb8240a27538202a62e5a1057774b",
       "reasons": [
         "re-analysis now selects ETH-75, not the confirmed BTC-50",
         "the book inside the limit now fills 31000, not the forecast 62000",
@@ -116,16 +116,17 @@
       ]
     }
   ],
+  "logComplete": true,
   "reason": null,
   "rescue": {
-    "actionId": "0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397",
+    "actionId": "0x7c3c6ca682c31baf2fea92a0475ae0b28efe6c073868e2340db2abdec9918074",
     "fill": "REQUESTED_FILL",
     "goal": "GOAL_MET",
     "goalReason": "scenario buffer 45803515257933466315 ≥ target 45000000000000000000",
-    "tx": "0x277d9c79baca825e41213938cc28433ab7d181a5aeacecb3c60f15851580bb35",
+    "tx": "0xb49da9f2c1dda04264d7c6358ad734ffa1f9af54546cfb79ddf248090bbf6e8d",
     "txState": "CONFIRMED"
   },
   "sentTransactions": 14,
   "status": "COMPLETE",
-  "version": "mr-live-run/3"
+  "version": "mr-live-run/4"
 }

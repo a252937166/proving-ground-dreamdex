@@ -1,0 +1,93 @@
+{
+  "actionId": "0xe90b9aa71b2bede8579deee11eb50fa543bf13e18982333e36a2a7daa6adb050",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171"
+  },
+  "calldata": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e8480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf00a6ec9a630e2170812d9feaa73400e9c697cc0a3cb3498433a1484cf3b10842dc2c",
+  "candidateId": "BTC-50",
+  "createdAt": "2026-10-27T20:10:29.023Z",
+  "fill": {
+    "filled": "62000",
+    "requested": "62000",
+    "state": "REQUESTED_FILL"
+  },
+  "forecast": {
+    "expectedFill": "62000",
+    "goal": "MEETS",
+    "scenarioBuffer": "46852456705977592125"
+  },
+  "goal": {
+    "reason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
+    "state": "GOAL_MET"
+  },
+  "history": [
+    {
+      "at": "2026-10-27T20:10:29.024Z",
+      "detail": "candidate BTC-50, scenario 18ddf206da5314df",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-27T20:10:36.060Z",
+      "detail": "funding drift 0",
+      "event": "refreshed"
+    },
+    {
+      "at": "2026-10-27T20:10:36.176Z",
+      "event": "pending"
+    },
+    {
+      "at": "2026-10-27T20:10:39.269Z",
+      "detail": "success in block 33472627",
+      "event": "ledger: confirmed"
+    },
+    {
+      "at": "2026-10-27T20:10:43.279Z",
+      "event": "recomputed"
+    }
+  ],
+  "kind": "RESCUE",
+  "quote": {
+    "blockHash": "0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e",
+    "blockNumber": "33472625",
+    "validUntil": "1792999590"
+  },
+  "refreshes": [
+    {
+      "at": "2026-10-27T20:10:36.060Z",
+      "blockHash": "0x7b2894a3e95e80c3b4f6f0faa0257e37064fef7b2c6e9edaf03e26f7e7f102fa",
+      "blockNumber": "33472626",
+      "forecast": {
+        "expectedFill": "62000",
+        "goal": "MEETS",
+        "scenarioBuffer": "46852456705977592125"
+      },
+      "fundingDrift": "0",
+      "reasons": [],
+      "verdict": "STILL_VALID"
+    }
+  ],
+  "request": {
+    "deadline": "1792999590",
+    "expectedSignedSize": "125000",
+    "isBid": false,
+    "limitPrice": "79743900000000000000000",
+    "nonce": "0xec9a630e2170812d9feaa73400e9c697cc0a3cb3498433a1484cf3b10842dc2c",
+    "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "quantity": "62000"
+  },
+  "scenarioId": "18ddf206da5314df06efcc8059f544ea2f99c8cce1264edf0503d2e14e64e770",
+  "tx": {
+    "blockHash": "0x73c603ae9b30b4cfa05a63af03f711d60448d80328d1eb41743e97c364a00b6d",
+    "blockNumber": "33472627",
+    "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+    "hash": "0x5f12462db7b75ee70842c393c39a3b635fc6f00bb515569376e39f5d6150ff4b",
+    "nonce": 6,
+    "sentAfterBlock": "33472626",
+    "sentAt": "2026-10-27T20:10:36.176Z",
+    "state": "CONFIRMED"
+  },
+  "version": "mr-action/1"
+}

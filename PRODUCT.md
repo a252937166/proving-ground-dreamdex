@@ -73,10 +73,10 @@ On 2026-10-26, none of the public bounty projects checked covered this loop. Its
   - A real 6-market account analysis is in `evidence/margin-rescue/live-read-only/analysis-0x2E3631D9`.
 - **Fork:**
   - An end-to-end run at block 33472615 selected ETH-50. 0.8165 ETH filled inside the limit, the recomputed buffer equals the forecast, and the outcome is `GOAL_MET`.
-  - Ten rehearsal scenarios at block 33472615, plus funding drift at block 33609475.
+  - Eleven rehearsal scenarios at block 33472615 (the happy run also read back by the independent verifier), plus funding drift at block 33609475.
   - Forge fork tests pass 38/38, with traces.
-- **Fixture:** 178/178 unit tests, 9/9 Solidity mock tests, and a clean typecheck.
-- **Live write:** not run yet. Plan `a21e43c5…dc18a7` (regenerated 2026-10-27) is authorized and waits for the owner's run. It is shown as pending until it passes. Live transaction hashes, fills or results are never invented.
+- **Fixture:** 251/251 unit tests, 9/9 Solidity mock tests, and a clean typecheck.
+- **Live write:** not run yet (`BLOCKED_SIGNER`). Plan `7f090328…3d1175` (`mr-live-plan/4`, regenerated 2026-10-27, committed in `evidence/margin-rescue/live-read-only/`) is authorized and waits for the owner's signature. Every view shows the run's state from the run-state model: verified only after the independent read-back, against this plan. Live transaction hashes, fills or results are never invented.
 - **Market research:** an indexer scan on 2026-10-26 found 1,203 of 7,677 accounts (about 15.7%) holding two or more markets. The scan was paged, not atomic.
 - **Absent:** no testimonials, users, partners or press exist. None may be implied.
 

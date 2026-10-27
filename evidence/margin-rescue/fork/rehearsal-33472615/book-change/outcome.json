@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "[\"cleanup-close-BTC-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-close-BTC-2→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "detail": "[\"cleanup-close-BTC-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-close-BTC-2→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -21,17 +21,17 @@
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x065808b86513c3392eac0e9285ea44861411b2c644cfd725cd4c740e06227a3c\",\"reasons\":[\"re-analysis now selects ETH-75, not the confirmed BTC-50\",\"the book inside the limit now fills 31000, not the forecast 62000\",\"the confirmed request no longer meets the target under the scenario (FAILS, buffer 43666648019704009671)\"]}",
+      "detail": "{\"actionId\":\"0x084acfccec9b0f03843f32c17a69b5c1963eb8240a27538202a62e5a1057774b\",\"reasons\":[\"re-analysis now selects ETH-75, not the confirmed BTC-50\",\"the book inside the limit now fills 31000, not the forecast 62000\",\"the confirmed request no longer meets the target under the scenario (FAILS, buffer 43666648019704009671)\"]}",
       "name": "the first confirmation was invalidated by the refresh",
       "ok": true
     },
     {
-      "detail": "0x065808b86513c3392eac0e9285ea44861411b2c644cfd725cd4c740e06227a3c",
+      "detail": "0x084acfccec9b0f03843f32c17a69b5c1963eb8240a27538202a62e5a1057774b",
       "name": "the invalidated confirmation was never sent",
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397\",\"tx\":\"0x277d9c79baca825e41213938cc28433ab7d181a5aeacecb3c60f15851580bb35\",\"txState\":\"CONFIRMED\",\"fill\":\"REQUESTED_FILL\",\"goal\":\"GOAL_MET\",\"goalReason\":\"scenario buffer 45803515257933466315 ≥ target 45000000000000000000\"}",
+      "detail": "{\"actionId\":\"0x7c3c6ca682c31baf2fea92a0475ae0b28efe6c073868e2340db2abdec9918074\",\"tx\":\"0xb49da9f2c1dda04264d7c6358ad734ffa1f9af54546cfb79ddf248090bbf6e8d\",\"txState\":\"CONFIRMED\",\"fill\":\"REQUESTED_FILL\",\"goal\":\"GOAL_MET\",\"goalReason\":\"scenario buffer 45803515257933466315 ≥ target 45000000000000000000\"}",
       "name": "a new confirmation under the same scenario was sent and bound",
       "ok": true
     },
@@ -46,7 +46,7 @@
     "exitCode": 0,
     "invalidated": [
       {
-        "actionId": "0x065808b86513c3392eac0e9285ea44861411b2c644cfd725cd4c740e06227a3c",
+        "actionId": "0x084acfccec9b0f03843f32c17a69b5c1963eb8240a27538202a62e5a1057774b",
         "reasons": [
           "re-analysis now selects ETH-75, not the confirmed BTC-50",
           "the book inside the limit now fills 31000, not the forecast 62000",
@@ -55,14 +55,14 @@
       }
     ],
     "rescue": {
-      "actionId": "0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397",
+      "actionId": "0x7c3c6ca682c31baf2fea92a0475ae0b28efe6c073868e2340db2abdec9918074",
       "fill": "REQUESTED_FILL",
       "goal": "GOAL_MET",
       "goalReason": "scenario buffer 45803515257933466315 ≥ target 45000000000000000000",
-      "tx": "0x277d9c79baca825e41213938cc28433ab7d181a5aeacecb3c60f15851580bb35",
+      "tx": "0xb49da9f2c1dda04264d7c6358ad734ffa1f9af54546cfb79ddf248090bbf6e8d",
       "txState": "CONFIRMED"
     },
-    "seconds": 56,
+    "seconds": 62,
     "status": "COMPLETE",
     "thirdPartyTook": "372411000"
   },

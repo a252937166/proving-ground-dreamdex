@@ -30,8 +30,8 @@
       "total": "190000000000000000000"
     },
     "openingQuantities": {
-      "btc": "125000",
-      "eth": "39100000000000000"
+      "btc": "124000",
+      "eth": "38400000000000000"
     },
     "softLossStop": "SOFT stopping threshold, not a loss cap: E_total is checked after each opening order and after the reduction; once it is found below 45 USDso (a 15 USDso loss) the run stops and unwinds. Prices can move between checks and the unwind itself pays spread and slippage, so the realised loss can exceed 15 USDso; it cannot exceed the 60 USDso deposited",
     "softLossStopUsdso": "15000000000000000000"
@@ -41,11 +41,14 @@
       "ABORTED": 20,
       "CLEANUP_INCOMPLETE": 30,
       "COMPLETE": 0,
+      "FAILED_AFTER_START": 50,
       "NOT_DEMONSTRATED": 10,
       "REFUSED": 1,
+      "SIGNED_NOT_SENT": 2,
+      "STATE_UNKNOWN": 60,
       "UNRESOLVED_TX": 40
     },
-    "refusal": "a run that stops before its first signature (failed preflight, read failure, a step that would revert in simulation) exits 1 and runs no cleanup, so it never touches collateral, allowances or positions it did not create",
+    "refusal": "a run that stops before its first signature (failed preflight, read failure, a step that would revert in simulation) exits 1 and runs no cleanup, so it never touches collateral, allowances or positions it did not create; a run whose signed transactions never reached the node exits 2, also without cleanup",
     "timing": {
       "closeDeadlineSeconds": 120,
       "deadlineSeconds": 180,
@@ -54,6 +57,7 @@
       "receiptTimeoutMs": 120000,
       "resolveTimeoutMs": 300000
     },
+    "unexpectedErrors": "an error the executor does not handle is classified from the persisted run ledger and this process's own count of signatures and broadcasts: 1 only when nothing was signed, 2 when nothing was broadcast, 40 when any step is pending or unknown, 50 when transactions reached the network and none is unresolved, 60 when the ledger cannot be read. The classification is written to result.json and results.jsonl; nothing is started again automatically, and a fresh run is refused while an earlier run of the account is unresolved",
     "unknownTransactions": "every transaction is persisted (hash, nonce, intent) before broadcast and resolved before anything else is sent, never re-sent. Only a canonical receipt settles it; it counts as not included only when the node rejected it or the transaction that consumed its nonce was located and is a different one. A failed lookup or a bare nonce increase leaves it UNKNOWN, with its worst-case fee still reserved; the run then stops with exit 40 and is resumed with --resume"
   },
   "guard": {
@@ -83,11 +87,11 @@
   },
   "markets": [
     {
-      "bestAsk": "79685200000000000000000",
-      "bestBid": "79681400000000000000000",
+      "bestAsk": "80792100000000000000000",
+      "bestBid": "80777700000000000000000",
       "imBps": "500",
       "lot": "1000",
-      "mark": "79501632938242779000000",
+      "mark": "80587314538269047500000",
       "min": "13000",
       "mmBps": "250",
       "oneBase": "100000000",
@@ -97,11 +101,11 @@
       "tick": "100000000000000000"
     },
     {
-      "bestAsk": "2300350000000000000000",
-      "bestBid": "2299660000000000000000",
+      "bestAsk": "2343600000000000000000",
+      "bestBid": "2343260000000000000000",
       "imBps": "500",
       "lot": "100000000000000",
-      "mark": "2300058688466651000000",
+      "mark": "2343177699789822500000",
       "min": "4000000000000000",
       "mmBps": "250",
       "oneBase": "1000000000000000000",
@@ -124,9 +128,9 @@
     "maxGasPrice": "18000000000"
   },
   "readAt": {
-    "block": "33708113",
-    "hash": "0x5c35d5fb1cb3d1fee6e7a25c292e93037b37618807daaaf06e2b165efdd6f6cb",
-    "timestamp": "1793022970"
+    "block": "34756532",
+    "hash": "0x23f879b654d381598817c9d7786ec13096ac4ff71322a16dd2e61da86f227ca1",
+    "timestamp": "1793127853"
   },
   "scenario": {
     "shocksBps": {
@@ -139,7 +143,7 @@
   "steps": [
     {
       "call": "read-only preflight",
-      "detail": "read the whole account at one block across all 21 pools: no position, order, live stop, bank balance or allowance; STT ≥ the gas cap; USDso ≥ the deposit; fresh marks; tick/lot/minimum/fee/MM unchanged from this plan; the local guard build hashes equal guard.* below",
+      "detail": "read the whole account at one block across all 21 pools: no position, order, live stop, bank balance or allowance; the account nonce (latest and pending) equal to account.nonce below; STT ≥ the gas cap; USDso ≥ the deposit; fresh marks; tick/lot/minimum/fee/MM unchanged from this plan; the local guard build hashes equal guard.* below",
       "n": 0
     },
     {
@@ -162,14 +166,14 @@
       "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
     },
     {
-      "call": "BTC PerpPool.placeOrder(isBid=true, qty=125000, IOC, limit = best ask + 50 bps)",
-      "detail": "opens a BTC long of ~100 USDso notional (now: limit 80083600000000000000000); refused if BTC moved > 10% since this plan",
+      "call": "BTC PerpPool.placeOrder(isBid=true, qty=124000, IOC, limit = best ask + 50 bps)",
+      "detail": "opens a BTC long of ~100 USDso notional (now: limit 81196000000000000000000); refused if BTC moved > 10% since this plan",
       "n": 4,
       "to": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
     },
     {
-      "call": "ETH PerpPool.placeOrder(isBid=false, qty=39100000000000000, IOC, limit = best bid − 50 bps)",
-      "detail": "opens an ETH short of ~90 USDso notional (now: limit 2288170000000000000000)",
+      "call": "ETH PerpPool.placeOrder(isBid=false, qty=38400000000000000, IOC, limit = best bid − 50 bps)",
+      "detail": "opens an ETH short of ~90 USDso notional (now: limit 2331550000000000000000)",
       "n": 5,
       "to": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
     },
@@ -226,5 +230,5 @@
       "n": 15
     }
   ],
-  "version": "mr-live-plan/3"
+  "version": "mr-live-plan/4"
 }

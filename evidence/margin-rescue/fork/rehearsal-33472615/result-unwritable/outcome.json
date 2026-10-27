@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "detail": "50",
+      "name": "liveRun.ts exit code 50 (FAILED_AFTER_START), not 1",
+      "ok": true
+    },
+    {
+      "detail": "[\"deploy-guard:CONFIRMED\",\"approve:CONFIRMED\",\"deposit:CONFIRMED\",\"open-BTC-long:CONFIRMED\",\"open-ETH-short:CONFIRMED\",\"grant-BTC:CONFIRMED\",\"reduce:CONFIRMED\",\"cleanup-close-BTC-1:CONFIRMED\",\"cleanup-grant-ETH:CONFIRMED\",\"cleanup-close-ETH-1:CONFIRMED\",\"cleanup-revoke-BTC:CONFIRMED\",\"cleanup-revoke-ETH:CONFIRMED\",\"cleanup-withdraw:CONFIRMED\"]",
+      "name": "every transaction of the run is settled in its ledger",
+      "ok": true
+    },
+    {
+      "detail": "nonce 0 → 13, 13 steps",
+      "name": "nothing was sent besides the ledger's own steps",
+      "ok": true
+    },
+    {
+      "detail": "cleanup.json",
+      "name": "cleanup ran before the result write failed",
+      "ok": true
+    }
+  ],
+  "expected": "exit 50 with a complete, settled ledger; no transaction beyond it",
+  "observed": {
+    "exitCode": 50,
+    "nonce": [
+      0,
+      13
+    ],
+    "seconds": 64,
+    "steps": 13
+  },
+  "pass": true,
+  "scenario": "result-unwritable"
+}

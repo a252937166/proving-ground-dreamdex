@@ -1,3 +1,4 @@
+compdef:153: _comps: assignment to invalid subscript range
 
 > proving-ground-dreamdex@0.1.0 typecheck
 > tsc --noEmit

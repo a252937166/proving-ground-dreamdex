@@ -49,7 +49,7 @@
     ],
     "closes": [
       {
-        "actionId": "0xaedca960907c2be0cf62c5df22824c698d4a42e7c95d919c7619c08c761e05e5",
+        "actionId": "0x49e47f91a50b514d21cfd598733f8885c2afdc87d2f3641e0bf509eaf4dd6269",
         "attempt": 1,
         "bindingOk": true,
         "expected": "94000",
@@ -59,10 +59,10 @@
         "quantity": "94000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0x743233f66f3942217ece3e51d38ad2ade2b60162404e85f291aa1ab98cab953f"
+        "tx": "0x311cf863e77c34370aaa720d89db3c3d4bc350df25659ea53da9a3cc17befe88"
       },
       {
-        "actionId": "0x0d760e63fb2a5dd1123b9657f9360e5cfff8b0937b452e249d03b622b557fc8c",
+        "actionId": "0x76ca17f2e8cb133142874335db20a09fcd5f9b7cceea31ad455fdae7f26a998b",
         "attempt": 1,
         "bindingOk": true,
         "expected": "-38800000000000000",
@@ -72,13 +72,13 @@
         "quantity": "38800000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0x3a26dee9e1031044ebde5b92636f665c19b6874c68fd44b4d235731a6034b0cb"
+        "tx": "0x090c28278569f06505d2c38d43ef9c1a7669b8630c8e66ed5c9077560b89bfb1"
       }
     ],
     "final": {
       "block": "33472633",
-      "blockHash": "0x63315ba9efaaedafd05173ca4cb3b391332cf59bdbfe2aa20b8f1c86945a8f31",
-      "stt": "9965242672054019664",
+      "blockHash": "0x29541fe029bdd30c203419e59bce1004baa8ed813483763fc44e1de0e4668cab",
+      "stt": "9965242716383308389",
       "usdso": "99969409000000000000"
     },
     "remaining": [],
@@ -88,19 +88,19 @@
   "exitCode": 20,
   "foreignActivity": [
     {
-      "at": "2026-10-26T14:00:04.364Z",
+      "at": "2026-10-27T20:06:47.777Z",
       "detail": "account nonce is 7; this run expected 6: another transaction was sent from the account"
     }
   ],
   "gas": {
     "cap": "2000000000000000000",
     "committed": "0",
-    "spent": "29303535859735162"
+    "spent": "29303491532915694"
   },
-  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
   "invalidated": [
     {
-      "actionId": "0x7a101f1cfa115dee75c0cd63c35ba48c055f3958aa94c453a922972f77576858",
+      "actionId": "0x762103d5f44244900e5e0cfc1f1c3d330884393ba5433d9fbdb3384a7e2d7d2a",
       "reasons": [
         "BTC position changed from 125000 to 94000",
         "unlocked collateral changed from 60000000000000000000 to 59996262392000000000",
@@ -109,9 +109,10 @@
       ]
     }
   ],
+  "logComplete": true,
   "reason": "account nonce is 7; this run expected 6: another transaction was sent from the account",
   "rescue": {
-    "actionId": "0x8e4f96aa6c163bcb850747a057dae9185a24bf77e4674d7ee3e46d2eac9832e4",
+    "actionId": "0x17cd2d521c041ca3cc1a0d85403300d8b9d8412a2977c5a97e42bebb489c592d",
     "fill": "NOT_APPLICABLE",
     "goal": "NOT_EVALUATED",
     "goalReason": "",
@@ -120,5 +121,5 @@
   },
   "sentTransactions": 12,
   "status": "ABORTED",
-  "version": "mr-live-run/3"
+  "version": "mr-live-run/4"
 }

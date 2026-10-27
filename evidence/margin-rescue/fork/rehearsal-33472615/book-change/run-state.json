@@ -1,10 +1,10 @@
 {
   "abort": null,
-  "account": "0xd960976f3af59e7C112D918e0452F41fa89a3799",
-  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "account": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+  "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
   "invalidated": [
     {
-      "actionId": "0x065808b86513c3392eac0e9285ea44861411b2c644cfd725cd4c740e06227a3c",
+      "actionId": "0x084acfccec9b0f03843f32c17a69b5c1963eb8240a27538202a62e5a1057774b",
       "reasons": [
         "re-analysis now selects ETH-75, not the confirmed BTC-50",
         "the book inside the limit now fills 31000, not the forecast 62000",
@@ -13,7 +13,7 @@
     }
   ],
   "notDemonstrated": null,
-  "planDigest": "51cb547625b3c54f64da62e2be5619f9e1f38b81d5d5c674db0586d99865f3f9",
-  "rescueActionId": "0x432d419d7b15c64105e3db6b33166e1ae1609f312e0333e81a5c2243aee57397",
-  "version": "mr-live-run/3"
+  "planDigest": "59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf",
+  "rescueActionId": "0x7c3c6ca682c31baf2fea92a0475ae0b28efe6c073868e2340db2abdec9918074",
+  "version": "mr-live-run/4"
 }

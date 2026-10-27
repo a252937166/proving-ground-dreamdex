@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "[\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x9f28a92015cd0cd542ea8bdd50973117fc6925ab\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\"]",
+      "detail": "[\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -31,7 +31,7 @@
       "ok": true
     },
     {
-      "detail": "[{\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"symbol\":\"ETH\",\"attempt\":1,\"actionId\":\"0xfa6703e1f1dbdeb9dd823607a7576db5ffa6e83b973a6d0a3a76e6a0c9e8e1f0\",\"expected\":\"-38800000000000000\",\"quantity\":\"38800000000000000\",\"limit\":\"2328620000000000000000\",\"tx\":\"0xc3fb8dbeee1af8e7193fdb8c380f3721b81de5c91348267bd756d35dd31c773e\",\"state\":\"CONFIRMED\",\"filled\":\"38800000000000000\",\"bindingOk\":true}]",
+      "detail": "[{\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"symbol\":\"ETH\",\"attempt\":1,\"actionId\":\"0x34883cb4aa70d4209ec2af8903b16729b1ca812123fb82024ddda4119ba64731\",\"expected\":\"-38800000000000000\",\"quantity\":\"38800000000000000\",\"limit\":\"2328620000000000000000\",\"tx\":\"0xd84adff9dcdf34ca6bbde7a4f3df659f058861157f0a9898cf2a1fe8c2f31ad6\",\"state\":\"CONFIRMED\",\"filled\":\"38800000000000000\",\"bindingOk\":true}]",
       "name": "the other leg was still closed through the guard",
       "ok": true
     },
@@ -65,7 +65,7 @@
   "observed": {
     "closes": [
       {
-        "actionId": "0x053bc2c541069acb9d87d3351876cd08194e60e0c8440aa7787a7ba30885ed2a",
+        "actionId": "0x77bd12c27c6df94c1ad29673b9cd357f83f33a54d8e2d3b9e928e4e6f2a7c995",
         "attempt": 1,
         "bindingOk": null,
         "expected": "63000",
@@ -79,7 +79,7 @@
         "tx": null
       },
       {
-        "actionId": "0xa167b2329c08b4b01d95621b0a97fe9cddf4aaea43ff0338325f267a8c4a951b",
+        "actionId": "0xc3fe02ad3cff8cacb62373ff51e6f60c5b3c479522d734e201afc903d965d40b",
         "attempt": 2,
         "bindingOk": null,
         "expected": "63000",
@@ -93,7 +93,7 @@
         "tx": null
       },
       {
-        "actionId": "0xfff31177fe411576168c03e8b5552c9b764edc91f771e8fff7092236c585a9bc",
+        "actionId": "0xcc9b5888ca56c39e3eb719d6d19de19af9c17974eaddcda607ef9c5dbd11c7e4",
         "attempt": 3,
         "bindingOk": null,
         "expected": "63000",
@@ -107,7 +107,7 @@
         "tx": null
       },
       {
-        "actionId": "0xfa6703e1f1dbdeb9dd823607a7576db5ffa6e83b973a6d0a3a76e6a0c9e8e1f0",
+        "actionId": "0x34883cb4aa70d4209ec2af8903b16729b1ca812123fb82024ddda4119ba64731",
         "attempt": 1,
         "bindingOk": true,
         "expected": "-38800000000000000",
@@ -117,7 +117,7 @@
         "quantity": "38800000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0xc3fb8dbeee1af8e7193fdb8c380f3721b81de5c91348267bd756d35dd31c773e"
+        "tx": "0xd84adff9dcdf34ca6bbde7a4f3df659f058861157f0a9898cf2a1fe8c2f31ad6"
       }
     ],
     "exitCode": 30,
@@ -125,7 +125,7 @@
       "BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent",
       "collateral left in the bank: 1 position(s) and 0 order(s) remain"
     ],
-    "seconds": 79,
+    "seconds": 50,
     "status": "CLEANUP_INCOMPLETE"
   },
   "pass": true,

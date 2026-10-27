@@ -49,7 +49,7 @@
     ],
     "closes": [
       {
-        "actionId": "0xdd5647c9458bead22842e43adde9409b3bcd5b523865c79a74526ae831378d6b",
+        "actionId": "0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6",
         "attempt": 1,
         "bindingOk": true,
         "expected": "63000",
@@ -59,10 +59,10 @@
         "quantity": "63000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0xdc4b608d6f25fcfcbb651aee059215f12016484498ad102ab7d298f2f9cfdc9b"
+        "tx": "0xd3367b38e9638df2f7220d7629e32b50af11c445711db40d300118c243257075"
       },
       {
-        "actionId": "0xea5a880040ecc86a372ed6f181c7c4d18133f4fcdc08a0be4c83fa473e71e5c7",
+        "actionId": "0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1",
         "attempt": 1,
         "bindingOk": true,
         "expected": "-38800000000000000",
@@ -72,13 +72,13 @@
         "quantity": "38800000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0xe310cc8c78b7f61b101a2b98648690faee59d99dce0b225248cc2a8d6d758251"
+        "tx": "0x739a23939dfe183d01803fb690263524738786d76d6c9350013b4e62cebfc405"
       }
     ],
     "final": {
       "block": "33472633",
-      "blockHash": "0x3ee007e7494a06f93890a7d5c8624dd91a415e33a9e4debecea571060db17085",
-      "stt": "9965098835608114228",
+      "blockHash": "0x33b5f2c9bd8fa3876e260d9c36937fd0aa97518c512098611af6d71687b9c2c3",
+      "stt": "9965098879934953949",
       "usdso": "99969409000000000000"
     },
     "remaining": [],
@@ -90,20 +90,21 @@
   "gas": {
     "cap": "2000000000000000000",
     "committed": "0",
-    "spent": "34901164391885772"
+    "spent": "34901120065046051"
   },
-  "guard": "0x9f28a92015cd0cd542ea8bdd50973117fc6925ab",
+  "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
   "invalidated": [],
+  "logComplete": true,
   "reason": null,
   "rescue": {
-    "actionId": "0x98c49c09b676a37480be2fc3509ab86c970e882c266f102c2c402c09dccd87eb",
+    "actionId": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
     "fill": "REQUESTED_FILL",
     "goal": "GOAL_MET",
     "goalReason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
-    "tx": "0x932f85fd2f84f97888b6a7c6cb31b26232b49495bc44e1f7be86d72c1bb764c6",
+    "tx": "0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa",
     "txState": "CONFIRMED"
   },
   "sentTransactions": 13,
   "status": "COMPLETE",
-  "version": "mr-live-run/3"
+  "version": "mr-live-run/4"
 }
