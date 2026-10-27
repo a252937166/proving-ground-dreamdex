@@ -79,3 +79,33 @@ export function wireCopy(root = document) {
     }
   })
 }
+
+// How live run 1 is shown everywhere (the server's run-state model, runState.ts). Only
+// VERIFIED_COMPLETE, which requires a valid independent read-back bound to the run, is
+// shown as verified; a run that started is never shown as not run.
+const LIVE_SHORT = {
+  NOT_STARTED: "Not run yet",
+  INVALID_BUNDLE: "Evidence fails its check",
+  IN_PROGRESS: "Started · no result yet",
+  REFUSED: "Refused before signing",
+  SIGNED_NOT_SENT: "Signed, never sent",
+  UNRESOLVED_TX: "Unresolved transaction",
+  ABORTED: "Aborted",
+  NOT_DEMONSTRATED: "Not demonstrated",
+  CLEANUP_INCOMPLETE: "Cleanup incomplete",
+  FAILED_AFTER_START: "Failed after start",
+  STATE_UNKNOWN: "State unknown",
+  COMPLETE_UNVERIFIED: "Not independently verified",
+  VERIFIED_COMPLETE: "Verified",
+}
+export function liveStatus(view) {
+  const state = view?.state ?? "NOT_STARTED"
+  return {
+    state,
+    started: !!view?.started,
+    verified: state === "VERIFIED_COMPLETE",
+    tone: state === "VERIFIED_COMPLETE" ? "met" : state === "NOT_STARTED" || state === "IN_PROGRESS" ? "wait" : "call",
+    short: LIVE_SHORT[state] ?? state,
+    headline: view?.headline ?? "not started",
+  }
+}

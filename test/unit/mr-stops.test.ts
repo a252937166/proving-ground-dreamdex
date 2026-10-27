@@ -3,7 +3,7 @@
 import assert from "node:assert/strict"
 import { describe, it } from "node:test"
 import { getAddress, type Address } from "viem"
-import { pageAllStops } from "../../src/margin-rescue/common.js"
+import { pageAllStops, readAgain } from "../../src/margin-rescue/common.js"
 import { listStops, type At, type StopLister } from "../../src/margin-rescue/snapshot.js"
 
 const OWNER = getAddress("0x8579fd904c93ee96fb7767db0c85e92461a2abe7")
@@ -69,5 +69,20 @@ describe("stop discovery", () => {
     const lister: StopLister = async () => ({ rows: [], pages: 1, indexedThrough: null })
     const s = await listStops({ account: OWNER, listStops: lister }, [pool], at, block)
     assert.match(s.error!, /did not report its processed height/)
+  })
+
+  it("an indexer read that fails is made again from the start, at most three times, before the failure stands", async () => {
+    const waits: number[] = []
+    let calls = 0
+    const listed = await readAgain(async () => {
+      if (++calls < 3) throw new Error("indexer IndexedChains failed: fetch failed")
+      return "listed"
+    }, 3, async (ms) => void waits.push(ms))
+    assert.equal(listed, "listed")
+    assert.equal(calls, 3)
+    assert.deepEqual(waits, [1_000, 3_000])
+    calls = 0
+    await assert.rejects(readAgain(async () => (calls++, Promise.reject(new Error("fetch failed"))), 3, async () => {}), /fetch failed/)
+    assert.equal(calls, 3, "then the failure stands, and the snapshot reports its stops as not listed")
   })
 })

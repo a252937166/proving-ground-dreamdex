@@ -16,7 +16,7 @@ import { encodeFunctionData, getContractAddress, type Address, type Hex, type Pu
 import { join } from "node:path"
 import { appendFileSync, existsSync } from "node:fs"
 import { erc20Abi, marginBankAbi, marginBankWriteAbi, operatorRegistryAbi, ORDER_TYPE_IOC, PLACE_ORDER_FOR_SELECTOR, perpPoolAbi, SELF_MATCH_CANCEL_TAKER } from "./abi.js"
-import { actionIdOf, reduceCalldata, requestFromCandidate } from "./action.js"
+import { actionIdOf, reduceCalldata, requestFromCandidate, rescueNonce } from "./action.js"
 import { protectiveLimit } from "./book.js"
 import { analyzeCandidates, type CandidateAnalysis } from "./candidates.js"
 import { cleanupTxBound, guardedCleanup, isGranted, type CleanupReport, type Footprint } from "./cleanup.js"
@@ -25,6 +25,7 @@ import { guardDeployment, loadGuardArtifact, verifyDeployedGuard, type GuardDepl
 import { ActionJournal, mirrorStep, resolveAction, type ActionRecord } from "./journal.js"
 import { prettyJson, readJson, writeFileAtomic } from "./json.js"
 import type { LivePlan } from "./livePlan.js"
+import { liveWriteDir, realOf, within } from "./paths.js"
 import { reconcile } from "./reconcile.js"
 import { bankLogsForOwner, recompute, type RecomputeResult } from "./recompute.js"
 import { readActionReceipt } from "./receipt.js"
@@ -33,15 +34,30 @@ import { renderAnalysis, renderRecompute } from "./report.js"
 import { assertHideki } from "./rpc.js"
 import { buildScenario, type Scenario } from "./scenario.js"
 import { poolOf, readAccountSnapshot, sameAddress, type AccountSnapshot, type StopLister } from "./snapshot.js"
-import { GasBudgetError, StepRejectedError, StepRevertedError, StepWouldRevertError, TxLedger, TxSender, UnresolvedTransactionError, type Signer, type SenderTiming } from "./txlog.js"
+import { GasBudgetError, NOT_BROADCAST, StepRejectedError, StepRevertedError, StepWouldRevertError, TxLedger, TxSender, UnresolvedTransactionError, type RunTracker, type Signer, type SenderTiming } from "./txlog.js"
 
-export const RUN_VERSION = "mr-live-run/3"
+export const RUN_VERSION = "mr-live-run/4"
 
 // REFUSED: the run stopped before it signed anything (a failed preflight, say) and left
-// the account exactly as it found it; no cleanup runs for it.
-export type RunStatus = "COMPLETE" | "REFUSED" | "NOT_DEMONSTRATED" | "ABORTED" | "CLEANUP_INCOMPLETE" | "UNRESOLVED_TX"
+// the account exactly as it found it; no cleanup runs for it. SIGNED_NOT_SENT: it signed
+// a transaction but none of its transactions ever reached the node; no cleanup either.
+// FAILED_AFTER_START and STATE_UNKNOWN are given by the command (liveCli.ts) to a run
+// that ends in an unexpected error: after transactions reached the network with none
+// left unresolved, and when the run's state cannot be read back.
+export type RunStatus = "COMPLETE" | "REFUSED" | "SIGNED_NOT_SENT" | "NOT_DEMONSTRATED" | "ABORTED" | "CLEANUP_INCOMPLETE" | "UNRESOLVED_TX" | "FAILED_AFTER_START" | "STATE_UNKNOWN"
 // Exit codes of `npm run mr:live`. Only COMPLETE is 0.
-export const EXIT: Record<RunStatus, number> = { COMPLETE: 0, REFUSED: 1, NOT_DEMONSTRATED: 10, ABORTED: 20, CLEANUP_INCOMPLETE: 30, UNRESOLVED_TX: 40 }
+export const EXIT: Record<RunStatus, number> = { COMPLETE: 0, REFUSED: 1, SIGNED_NOT_SENT: 2, NOT_DEMONSTRATED: 10, ABORTED: 20, CLEANUP_INCOMPLETE: 30, UNRESOLVED_TX: 40, FAILED_AFTER_START: 50, STATE_UNKNOWN: 60 }
+
+// The run ended, but its result could not be written: the command reports the run's
+// state from the ledger instead of trusting a status nobody can read back.
+export class ResultNotPersistedError extends Error {
+  constructor(
+    readonly result: RunResult,
+    cause: unknown,
+  ) {
+    super(`the run ended ${result.status}, but result.json could not be written: ${(cause as Error)?.message?.split("\n")[0] ?? String(cause)}`)
+  }
+}
 
 // Gas reserved per cleanup transaction: the SDK's 10M per-order ceiling with the
 // sender's 30% headroom, since the gas LIMIT is what the wallet must be able to cover.
@@ -71,6 +87,7 @@ export interface RunOptions {
   resume?: boolean
   hooks?: Partial<Record<Checkpoint, (info: HookInfo) => Promise<void>>>
   log?: (entry: Record<string, unknown>) => void
+  tracker?: RunTracker // shared with the command, which classifies an unexpected error
 }
 
 // What a fork rehearsal's fault injector is told at each checkpoint.
@@ -95,6 +112,8 @@ export interface RunResult {
   // spent: fees of settled steps; committed: worst-case fees of steps still unresolved.
   gas: { cap: bigint; spent: bigint; committed: bigint }
   sentTransactions: number
+  // false when some log lines could not be written; the ledger and journal are the record.
+  logComplete: boolean
 }
 
 interface RunState {
@@ -115,9 +134,20 @@ export async function runLive(opts: RunOptions): Promise<RunResult> {
   const { plan, client, signer, out } = opts
   const timing = opts.timing ?? LIVE_TIMING
   const owner = signer.address
-  const log = (entry: Record<string, unknown>) => opts.log?.({ at: new Date().toISOString(), ...entry })
+  // Logging is best effort: a log line that cannot be written must not stop a run
+  // halfway. The ledger and the journal, which are persisted, are what the run relies on.
+  let logFailures = 0
+  const log = (entry: Record<string, unknown>) => {
+    try {
+      opts.log?.({ at: new Date().toISOString(), ...entry })
+    } catch {
+      logFailures++
+    }
+  }
   const hook = async (c: Checkpoint, extra: Omit<HookInfo, "owner" | "guard"> = {}) => opts.hooks?.[c]?.({ owner, guard: state.guard, ...extra })
 
+  // Published evidence is made only by `npm run mr:publish-run`, never written by a run.
+  if (within(realOf(liveWriteDir()), realOf(out))) throw new Error(`refusing to write a run into ${out}: runs are published with npm run mr:publish-run`)
   await assertHideki(client)
   if (!sameAddress(owner, plan.account.address)) throw new Error("the signing key is not the plan's account")
   const deployment = guardDeployment(loadGuardArtifact(), owner, MARGIN_BANK, [BTC_POOL, ETH_POOL])
@@ -153,6 +183,7 @@ export async function runLive(opts: RunOptions): Promise<RunResult> {
     maxGasPrice: plan.network.maxGasPrice,
     gasHeadroomPct: 30n,
     cleanupGasPerTx: CLEANUP_GAS_PER_TX,
+    tracker: opts.tracker,
   })
   // What a cleanup would have to undo if the run stopped now; each main-phase send
   // reserves for the footprint it can leave behind.
@@ -225,16 +256,20 @@ export async function runLive(opts: RunOptions): Promise<RunResult> {
   // Cleanup is only for a run that has sent something: the persisted ledger says so. A
   // run that stopped before its first signature (a refused preflight, a read failure, a
   // simulation that would revert) leaves the account exactly as it found it, including
-  // any collateral or allowance that made the preflight refuse.
-  if (status === null && ledger.data.steps.length === 0) {
-    status = "REFUSED"
+  // any collateral or allowance that made the preflight refuse; so does a run whose only
+  // signed transactions were never handed to the node.
+  const broadcastSteps = () => ledger.data.steps.filter((s) => !s.history.some((h) => h.event === NOT_BROADCAST))
+  if (status === null && broadcastSteps().length === 0) {
+    const signed = sender.tracker.signatures > 0 || ledger.data.steps.length > 0
+    status = signed ? "SIGNED_NOT_SENT" : "REFUSED"
     reason = state.abort ?? state.notDemonstrated ?? "nothing was sent"
-    log({ step: "refused", reason, note: "nothing was signed or broadcast; no cleanup" })
+    log({ step: signed ? "signed, not sent" : "refused", reason, note: signed ? "a transaction was signed but none reached the node; no cleanup" : "nothing was signed or broadcast; no cleanup" })
   }
 
   if (status === null) {
     try {
       cleanup = await guardedCleanup({
+        planDigest: opts.planDigest,
         client,
         sender,
         journal,
@@ -286,10 +321,19 @@ export async function runLive(opts: RunOptions): Promise<RunResult> {
     cleanup,
     foreignActivity: ledger.data.foreignActivity,
     gas: { cap: plan.bounds.gas.sttCap, spent: ledger.spent(), committed: ledger.committed() },
-    sentTransactions: ledger.data.steps.length,
+    sentTransactions: broadcastSteps().length,
+    logComplete: logFailures === 0,
   }
-  writeFileAtomic(join(out, "result.json"), prettyJson(result))
-  appendFileSync(join(out, "results.jsonl"), JSON.stringify({ at: new Date().toISOString(), resumed: !!opts.resume, ...result }, (_k, v) => (typeof v === "bigint" ? v.toString() : v)) + "\n")
+  try {
+    writeFileAtomic(join(out, "result.json"), prettyJson(result))
+  } catch (e) {
+    throw new ResultNotPersistedError(result, e)
+  }
+  try {
+    appendFileSync(join(out, "results.jsonl"), JSON.stringify({ at: new Date().toISOString(), resumed: !!opts.resume, ...result }, (_k, v) => (typeof v === "bigint" ? v.toString() : v)) + "\n")
+  } catch {
+    logFailures++
+  }
   log({ step: "result", status, exitCode: result.exitCode, reason })
   return result
 
@@ -304,6 +348,10 @@ export async function runLive(opts: RunOptions): Promise<RunResult> {
     if (pre0.wallet.allowanceToBank !== 0n) problems.push(`an allowance of ${pre0.wallet.allowanceToBank} to the bank already exists`)
     const stt = await client.getBalance({ address: owner, blockNumber: pre0.block.number })
     if (stt < plan.bounds.gas.sttCap) problems.push("STT is below the gas cap")
+    // A plan is for the account as it was read: any transaction since (an earlier run's
+    // included) changes the nonce, and a fresh run then needs a fresh plan.
+    const [latestNonce, pendingNonce] = await Promise.all([client.getTransactionCount({ address: owner, blockTag: "latest" }), client.getTransactionCount({ address: owner, blockTag: "pending" })])
+    if (latestNonce !== Number(plan.account.nonce) || pendingNonce !== latestNonce) problems.push(`the account's nonce is ${latestNonce} (pending ${pendingNonce}), not the plan's ${plan.account.nonce}: regenerate the plan`)
     for (const m of plan.markets) {
       const info = pre0.pools.find((p) => sameAddress(p.pool, m.pool))
       if (!info?.priceable) problems.push(`${m.symbol} has no fresh mark`)
@@ -466,7 +514,7 @@ export async function runLive(opts: RunOptions): Promise<RunResult> {
 
   function confirm(analysis: CandidateAnalysis, at: AccountSnapshot, scenario: Scenario): ActionRecord {
     const candidateId = analysis.selected!
-    const { request, candidate } = requestFromCandidate(analysis, candidateId, at, { deadlineSeconds: timing.deadlineSeconds, nowSeconds: at.block.timestamp })
+    const { request, candidate } = requestFromCandidate(analysis, candidateId, at, { deadlineSeconds: timing.deadlineSeconds, nowSeconds: at.block.timestamp, nonce: rescueNonce(opts.planDigest, scenario.id, at.block.hash) })
     const binding = { chainId: 50383, guard: state.guard!, marginBank: MARGIN_BANK, owner }
     const actionId = actionIdOf(binding, request)
     const record = journal.create({

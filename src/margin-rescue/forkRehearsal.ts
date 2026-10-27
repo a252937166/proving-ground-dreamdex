@@ -19,6 +19,13 @@
 //                  part, so cleanup needs all 12 reserved transactions
 //   cleanup-fail   every guarded BTC close is refused in simulation: never broadcast, no
 //                  unguarded fallback, exit 30
+//   result-unwritable  liveRun.ts as the live command runs it, but result.json cannot be
+//                  written at the end: exit 50 (FAILED_AFTER_START), every transaction
+//                  settled in the ledger, nothing sent after the run's own steps
+//
+// The live command writes only to a private folder (.margin-rescue/), so `happy` and
+// `result-unwritable` run it there and copy the folder into this rehearsal's evidence
+// afterwards; `happy` is then read back with the independent verifier (verify.ts).
 //
 // Each scenario starts from the same funded fork state (evm_snapshot / evm_revert). The
 // "third party" is a second throwaway account funded on the fork from the MarginBank's
@@ -30,7 +37,7 @@
 //   npm run mr:fork-rehearsal -- [--block N] [--out DIR] [--only happy,timeout]
 //   npm run mr:fork-rehearsal -- --block 33609475 --only funding-drift
 import { spawn } from "node:child_process"
-import { appendFileSync, mkdirSync, readFileSync } from "node:fs"
+import { appendFileSync, cpSync, existsSync, mkdirSync, readFileSync, rmSync, statSync } from "node:fs"
 import { join } from "node:path"
 import { parseArgs } from "node:util"
 import { encodeFunctionData, getContractAddress, parseAbi, TimeoutError, type Address, type Hex, type PublicClient } from "viem"
@@ -38,7 +45,9 @@ import { generatePrivateKey, privateKeyToAccount } from "viem/accounts"
 import { erc20Abi, marginBankAbi, marginBankWriteAbi, ORDER_TYPE_IOC, perpPoolAbi, SELF_MATCH_CANCEL_TAKER } from "./abi.js"
 import { alignDown, protectiveLimit } from "./book.js"
 import type { CandidateAnalysis } from "./candidates.js"
-import { BTC_POOL, ETH_POOL, MARGIN_BANK, OPERATOR_REGISTRY, readBigJson, stopLister, USDSO } from "./common.js"
+import { BTC_POOL, ETH_POOL, indexerWatermark, MARGIN_BANK, OPERATOR_REGISTRY, readAgain, readBigJson, stopLister, USDSO } from "./common.js"
+import { loadConfig } from "../config.js"
+import { renderVerification, verifyRun } from "./verify.js"
 import { MAX_CLOSE_ATTEMPTS } from "./cleanup.js"
 import { CLEANUP_GAS_PER_TX, CLEANUP_TX_WORST_CASE, runLive, type HookInfo, type RunResult, type Timing } from "./executor.js"
 import { anvilVersion, checksums, startAnvil, stopAnvil, waitReceipt } from "./forkTools.js"
@@ -48,12 +57,13 @@ import { buildLivePlan, DEFAULT_PLAN, readApprovedPlan, TEST_EOA } from "./liveP
 import { recompute } from "./recompute.js"
 import { requestOf, type ActionReceipt } from "./receipt.js"
 import { reduceCalldata } from "./action.js"
+import { localText } from "./paths.js"
 import { createHidekiClient, sampleBlock } from "./rpc.js"
 import type { Scenario } from "./scenario.js"
 import type { AccountSnapshot } from "./snapshot.js"
 import type { RunLedger, Signer } from "./txlog.js"
 
-const SCENARIOS = ["happy", "tamper", "book-change", "funding-drift", "partial-fill", "owner-change", "timeout", "rpc-outage", "preflight-refusal", "cleanup-retries", "cleanup-fail"] as const
+const SCENARIOS = ["happy", "tamper", "book-change", "funding-drift", "partial-fill", "owner-change", "timeout", "rpc-outage", "preflight-refusal", "cleanup-retries", "cleanup-fail", "result-unwritable"] as const
 type ScenarioName = (typeof SCENARIOS)[number]
 
 // A cold fork can take minutes for a transaction that touches many order-book slots.
@@ -132,6 +142,23 @@ async function main() {
       return qty
     }
 
+    // The live command (liveRun.ts) in a private folder, as the owner runs it, then copied
+    // into this rehearsal's evidence. `prepare` may alter the private folder first.
+    const liveCommand = async (dir: string, prepare?: (priv: string) => void): Promise<number> => {
+      const priv = join(".margin-rescue", "fork-rehearsal", `${block}-${process.pid}-${Date.now()}`)
+      mkdirSync(priv, { recursive: true })
+      prepare?.(priv)
+      const code = await new Promise<number>((resolve) => {
+        const child = spawn(process.execPath, ["--import", "tsx", "src/margin-rescue/liveRun.ts", "--plan", planPath, "--approve", digest, "--rpc", rpc, "--out", priv], { stdio: ["ignore", "inherit", "inherit"], env: { ...process.env, MR_SIGNER_KEY: key } })
+        child.on("exit", (c) => resolve(c ?? 1))
+      })
+      // The directory planted in place of result.json is not evidence.
+      const resultPath = join(priv, "result.json")
+      if (existsSync(resultPath) && statSync(resultPath).isDirectory()) rmSync(resultPath, { recursive: true })
+      cpSync(priv, dir, { recursive: true })
+      return code
+    }
+
     const runIn = (dir: string, hooks: Parameters<typeof runLive>[0]["hooks"] = {}, timing: Timing = FORK_TIMING, resume = false, use: { client?: PublicClient; signer?: Signer } = {}): Promise<RunResult> =>
       runLive({ plan: approved, planDigest: digest, client: use.client ?? client, signer: use.signer ?? privateKeyToAccount(key), out: dir, listStops: stopLister(), timing, resume, hooks, log: (e) => appendFileSync(join(dir, "run-log.jsonl"), JSON.stringify(e, (_k, v) => (typeof v === "bigint" ? v.toString() : v)) + "\n") })
 
@@ -145,7 +172,14 @@ async function main() {
       mkdirSync(dir, { recursive: true })
       console.log(`\n== ${name}`)
       const started = Date.now()
-      const outcome = await scenario(name, dir)
+      let outcome: Outcome
+      try {
+        outcome = await scenario(name, dir)
+      } catch (e) {
+        // A scenario that cannot reach its checks is a failed scenario, not the end of the rehearsal.
+        const error = localText(String((e as Error)?.message ?? e).split("\n")[0])
+        outcome = { scenario: name, expected: "the scenario runs to its checks", observed: { error }, checks: [{ name: "the scenario ran to its checks", ok: false, detail: error }], pass: false }
+      }
       outcome.observed.seconds = Math.round((Date.now() - started) / 1000)
       outcomes.push(outcome)
       writeFileAtomic(join(dir, "outcome.json"), prettyJson(outcome))
@@ -170,10 +204,7 @@ async function main() {
       }
 
       if (name === "happy") {
-        const code = await new Promise<number>((resolve) => {
-          const child = spawn(process.execPath, ["--import", "tsx", "src/margin-rescue/liveRun.ts", "--plan", planPath, "--approve", digest, "--rpc", rpc, "--out", dir], { stdio: ["ignore", "inherit", "inherit"], env: { ...process.env, MR_SIGNER_KEY: key } })
-          child.on("exit", (c) => resolve(c ?? 1))
-        })
+        const code = await liveCommand(dir)
         const r = readBigJson<RunResult>(join(dir, "result.json"))
         commonChecks(r, dir)
         check("liveRun.ts exit code 0", code === 0, String(code))
@@ -181,7 +212,26 @@ async function main() {
         check("guarded reduction GOAL_MET", r.rescue?.goal === "GOAL_MET", r.rescue)
         check("receipt bound to the confirmation", readBigJson<{ binding: { ok: boolean } }>(join(dir, "recompute.json")).binding.ok, "recompute.json binding")
         check("cleanup verified", r.cleanup?.verified === true, r.cleanup?.checks.filter((c) => !c.ok))
-        return done("exit 0, COMPLETE, GOAL_MET, cleanup verified", { exitCode: code, status: r.status, rescue: r.rescue, gas: r.gas })
+        const cfg = loadConfig()
+        const report = await verifyRun({ dir, plan: planPath, client, indexer: { watermark: () => readAgain(() => indexerWatermark(cfg.indexerUrl)), listStops: stopLister(cfg.indexerUrl) }, rpc, approvedDigest: digest })
+        writeFileAtomic(join(dir, "verification.json"), prettyJson(report))
+        writeFileAtomic(join(dir, "verification.txt"), renderVerification(report))
+        check("independent read-back (verify.ts): every check holds", report.verdict.allChecksHold, report.checks.filter((c) => !c.ok))
+        check("independent read-back reaches GOAL_MET from the chain", report.verdict.goal === "GOAL_MET", report.verdict.goal)
+        return done("exit 0, COMPLETE, GOAL_MET, cleanup verified, and the independent read-back holds", { exitCode: code, status: r.status, rescue: r.rescue, gas: r.gas, readBack: `${report.checks.filter((c) => c.ok).length}/${report.checks.length}` })
+      }
+
+      if (name === "result-unwritable") {
+        const startNonce = await client.getTransactionCount({ address: owner })
+        const code = await liveCommand(dir, (priv) => mkdirSync(join(priv, "result.json"), { recursive: true }))
+        const ledger = ledgerOf(dir)
+        const settled = ledger.steps.every((x) => x.state === "CONFIRMED" || x.state === "REVERTED")
+        const nonceAfter = await client.getTransactionCount({ address: owner })
+        check("liveRun.ts exit code 50 (FAILED_AFTER_START), not 1", code === 50, String(code))
+        check("every transaction of the run is settled in its ledger", ledger.steps.length > 0 && settled, ledger.steps.map((x) => `${x.id}:${x.state}`))
+        check("nothing was sent besides the ledger's own steps", nonceAfter === startNonce + ledger.steps.length, `nonce ${startNonce} → ${nonceAfter}, ${ledger.steps.length} steps`)
+        check("cleanup ran before the result write failed", readJson<{ verified: boolean }>(join(dir, "cleanup.json")).verified, "cleanup.json")
+        return done("exit 50 with a complete, settled ledger; no transaction beyond it", { exitCode: code, steps: ledger.steps.length, nonce: [startNonce, nonceAfter] })
       }
 
       if (name === "tamper") {
@@ -503,6 +553,6 @@ function big(_k: string, v: unknown) {
 }
 
 main().catch((err) => {
-  console.error(`error: ${err instanceof Error ? err.stack ?? err.message : String(err)}`)
+  console.error(`error: ${localText(err instanceof Error ? err.stack ?? err.message : String(err))}`)
   process.exit(1)
 })

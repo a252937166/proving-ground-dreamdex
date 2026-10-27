@@ -1,7 +1,7 @@
 // The dashboard: live BTC and ETH markets every 5 s, and the state of every proof read
 // from the evidence folder. Depth bars travel from the last read to this one, the mark
 // flashes the way it moved, and the funding countdown ticks between reads.
-import { copyable, esc, getJson, href, qty, short, usd } from "./data.js"
+import { copyable, esc, getJson, href, liveStatus, qty, short, usd } from "./data.js"
 import { countUp, reduced } from "./motion.js"
 
 const $ = (s, r = document) => r.querySelector(s)
@@ -180,20 +180,27 @@ const SCENARIO_NAMES = {
 function renderLive(p) {
   const plan = p.liveWrite.plan
   const run = p.liveWrite.run
-  if (run?.state === "FINISHED") {
-    const met = run.status === "COMPLETE" && run.rescue?.goal === "GOAL_MET"
+  const s = liveStatus(run)
+  if (s.started) {
+    const x = run.execution
+    const rows = [
+      ["Execution", x.status ? `${esc(x.status)} · exit ${x.exitCode} · ${x.sentTransactions} transaction(s) sent${x.unresolved ? ` · ${x.unresolved} unresolved` : ""}` : `${x.sentTransactions} transaction(s) sent · no result recorded`],
+      ["Rescue goal", run.rescue.verifiedGoal ? `${esc(run.rescue.verifiedGoal)}, read back from the chain` : run.rescue.executorGoal ? `${esc(run.rescue.executorGoal)} by the executor's own account only` : "not evaluated"],
+      ["Cleanup", run.cleanup.independentlyVerified !== null ? (run.cleanup.independentlyVerified ? "verified, read back from the chain" : "NOT verified on read-back") : run.cleanup.executorVerified !== null ? (run.cleanup.executorVerified ? "verified by the executor only" : "not verified") : "not reached"],
+      ["Independent verification", `${esc(run.verification.state.toLowerCase())}${run.verification.problems.length ? `: ${esc(run.verification.problems.join("; "))}` : ""}`],
+    ]
+    const rb = run.readBack
     return `<div>
-        <h3>Live run 1 finished: ${esc(run.status)} (exit ${run.exitCode})</h3>
-        <p class="panel-note">${met ? "The guarded reduction was bound, recomputed from its fills and met the goal, and cleanup was verified." : esc(run.reason ?? "See the run's evidence for what happened.")}</p>
-        ${run.rescue?.tx ? `<p class="panel-note">Reduction ${copyable(run.rescue.tx)} · ${esc(run.rescue.txState)} · ${esc(run.rescue.fill)}</p>` : ""}
-        ${run.verification ? `<p class="panel-note">Read back from the chain at block ${blockNo(run.verification.endBlock.number)}: ${run.verification.verdict.allChecksHold ? `all ${run.verification.checks.length} checks hold` : `${run.verification.checks.filter((c) => !c.ok).length} of ${run.verification.checks.length} checks fail`} · gas ${usd(run.verification.reconciliation.stt.spent, 4)} STT · trading result ${usd(run.verification.reconciliation.usdso.result, 4, { paren: true })} USDso</p>` : ""}
-        <p class="next"><a class="btn secondary small" href="${href("app?run=live-1#result")}">Read the whole run</a></p>
+        <h3>Live run 1: ${esc(s.headline)}</h3>
+        ${run.state === "INVALID_BUNDLE" ? `<p class="panel-note">${esc(run.bundle.problems.slice(0, 3).join("; "))}</p>` : `<dl class="facts">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>`}
+        ${run.rescue.tx ? `<p class="panel-note">Reduction ${copyable(run.rescue.tx)}${run.rescue.fill ? ` · ${esc(run.rescue.fill)}` : ""}</p>` : ""}
+        ${rb ? `<p class="panel-note">Read back from the chain at block ${blockNo(rb.endBlock.number)}: all ${rb.checks.length} checks hold · gas ${usd(rb.reconciliation.stt.spent, 4)} STT · trading result ${usd(rb.reconciliation.usdso.result, 4, { paren: true })} USDso</p>` : ""}
+        <p class="next"><a class="btn secondary small" href="${href(`app?run=${encodeURIComponent(run.id ?? "live-1")}#result`)}">Read the whole run</a></p>
       </div>
-      <span class="badge ${met ? "met" : "call"} big pop">${met ? `${ICON.ok}Goal met` : esc(run.status.replaceAll("_", " ").toLowerCase())}</span>`
+      <span class="badge ${s.tone} big pop">${s.verified ? `${ICON.ok}Verified` : esc(s.short)}</span>`
   }
-  const started = run?.state === "IN_PROGRESS"
   return `<div>
-      <h3>${started ? "Live run 1 has started and has not written its result yet" : "One guarded reduction on the live network, approved and not yet run"}</h3>
+      <h3>One guarded reduction on the live network, authorized and not yet run</h3>
       ${
         plan
           ? `<dl class="facts">

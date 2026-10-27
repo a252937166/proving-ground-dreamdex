@@ -1,7 +1,7 @@
 // Overview and Features: the live ticker, the rescue lifecycle console that replays the fork
 // run, the walkthrough, the distribution chart, the proof track, and the feature demos. Every
 // figure animated here is already printed in the page; motion only travels toward it.
-import { esc, getJson, qty, usd } from "./data.js"
+import { esc, getJson, liveStatus, qty, usd } from "./data.js"
 import { countUp, onVisible, reduced, rollTo, scramble, sleep, splitWords, tooltip, tween, whileVisible } from "./motion.js"
 
 const $ = (s, r = document) => r.querySelector(s)
@@ -474,22 +474,17 @@ async function startLiveStatus() {
   } catch {
     return
   }
-  const run = p.liveWrite?.run
-  if (run?.state === "IN_PROGRESS") {
-    if (faq) faq.textContent = "The live write, one guarded reduction on the project's own test account, has started and has not written its result yet."
-    return
-  }
-  if (run?.state !== "FINISHED") return
-  const met = run.status === "COMPLETE" && run.rescue?.goal === "GOAL_MET"
-  const status = esc(run.status.replaceAll("_", " ").toLowerCase())
+  const s = liveStatus(p.liveWrite?.run)
+  if (!s.started) return // the page's own text already says it has not run
+  const exit = p.liveWrite.run.execution?.exitCode
   if (card) {
-    card.classList.toggle("pending", !met)
-    $("[data-live-result]", card).textContent = met ? "Goal met" : `Exit ${run.exitCode}`
+    card.classList.toggle("pending", !s.verified)
+    $("[data-live-result]", card).textContent = s.verified ? "Goal met" : exit !== null && exit !== undefined ? `Exit ${exit}` : "Started"
     const badge = $("[data-live-badge]", card)
-    badge.className = `badge ${met ? "met" : "call"}`
-    badge.innerHTML = met ? `${ICON.ok}Verified` : status
+    badge.className = `badge ${s.tone}`
+    badge.innerHTML = s.verified ? `${ICON.ok}Verified` : esc(s.short)
   }
-  if (faq) faq.textContent = met ? "The live write, one guarded reduction on the project's own test account, has run: goal met, cleanup verified." : `The live write ran and ended ${status} (exit ${run.exitCode}); its evidence explains why.`
+  if (faq) faq.textContent = `The live write, one guarded reduction on the project's own test account: ${s.headline}.`
 }
 
 // ---- features: the section index and the demos ----

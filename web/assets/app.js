@@ -2,7 +2,7 @@
 // evaluated reductions, and a recorded guarded execution. Everything comes from the site's
 // read-only endpoints (the local server, or the visitor's browser on the static site);
 // nothing here signs or sends.
-import { copyable, esc, getJson, href, pct, qty, short, usd } from "./data.js"
+import { copyable, esc, getJson, href, liveStatus, pct, qty, short, usd } from "./data.js"
 import { countUp, reduced } from "./motion.js"
 
 const $ = (s, r = document) => r.querySelector(s)
@@ -429,13 +429,13 @@ async function loadRuns() {
     return
   }
   const wanted = new URLSearchParams(location.search).get("run")
-  const initial = runs.find((r) => r.id === wanted) ?? runs.find((r) => r.present && r.kind === "live") ?? runs.find((r) => r.id === "fork-e2e") ?? runs[0]
+  const initial = runs.find((r) => r.id === wanted) ?? [...runs].reverse().find((r) => r.present && r.kind === "live") ?? runs.find((r) => r.id === "fork-e2e") ?? runs[0]
   box.innerHTML = runs
     .map(
       (r, i) => `<label class="run-option" style="--i:${i}">
         <input type="radio" name="run" value="${esc(r.id)}" ${r.id === initial.id ? "checked" : ""}>
         <span class="run-label">${esc(r.label)}</span>
-        <span class="run-state ${r.present ? "ok-ink" : "wait-ink"}">${r.kind === "live" ? (r.present ? "Run on the live testnet" : "Not run yet") : "Recorded on a fork"}</span>
+        <span class="run-state ${r.kind === "live" ? `${liveStatus(r).tone === "met" ? "ok" : liveStatus(r).tone === "wait" ? "wait" : "bad"}-ink` : "ok-ink"}">${r.kind === "live" ? (r.present ? `Live testnet · ${esc(liveStatus(r).short)}` : "Not run yet") : "Recorded on a fork"}</span>
       </label>`,
     )
     .join("")
@@ -454,7 +454,7 @@ async function showRun(id) {
   try {
     const run = await getJson(`/api/runs/${encodeURIComponent(id)}`)
     if (shownRun !== id) return
-    out.innerHTML = run.present ? renderRun(run) : renderPending(run)
+    out.innerHTML = !run.present ? renderPending(run) : run.partial ? renderPartialRun(run) : renderRun(run)
     animateIn(out)
   } catch (err) {
     out.innerHTML = `<div class="panel problem" role="alert"><h2>The run could not be read</h2><p>${esc(err.message)}</p></div>`
@@ -494,7 +494,9 @@ function renderRun(run) {
   const sym = x.candidateId.split("-")[0].toUpperCase()
   const d = run.scenario.markets.find((m) => m.symbol.toUpperCase() === sym)?.baseDecimals ?? 18
   const met = rc.goal.state === "GOAL_MET"
-  const badge = met ? `<span class="badge met big pop">${ICON.ok}Goal met</span>` : `<span class="badge call big pop">${esc(rc.goal.state.replaceAll("_", " ").toLowerCase())}</span>`
+  // A fork run is labelled by its own recomputation; the live run by its verified state only.
+  const ls = run.kind === "live" ? liveStatus(run.live) : null
+  const badge = ls ? `<span class="badge ${ls.tone} big pop">${ls.verified ? `${ICON.ok}Verified` : esc(ls.short)}</span>` : met ? `<span class="badge met big pop">${ICON.ok}Goal met</span>` : `<span class="badge call big pop">${esc(rc.goal.state.replaceAll("_", " ").toLowerCase())}</span>`
   const fills = x.fill.fills.map((f, i) => `<tr style="--i:${i}"><td class="n">${qty(f.quantity, d)}</td><td class="n">${price(f.price)}</td></tr>`).join("")
   const row = (name, v, cls = "", i = 0) => `<tr class="${cls}" style="--i:${i}"><td class="text">${name}</td><td class="n">${money(v.eRisk)}</td><td class="n opt2">${money(v.mm)}</td><td class="n">${money(v.buffer)}</td></tr>`
   const checks = x.ledgerChecks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)}</span></li>`).join("")
@@ -552,9 +554,49 @@ function renderRun(run) {
     <ul class="check-list">${checks}</ul>
   </div>
   ${run.steps.length ? renderSteps(run) : ""}
-  ${run.cleanup ? `<div class="panel"><div class="panel-head"><h2>Cleanup</h2><p class="status">${run.cleanup.verified ? "Verified" : "NOT verified"}</p></div><ul class="check-list">${run.cleanup.checks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)} <span class="muted">${esc(c.detail)}</span></span></li>`).join("")}</ul></div>` : ""}
-  ${run.verification ? renderVerification(run.verification) : ""}
+  ${run.cleanup ? `<div class="panel"><div class="panel-head"><h2>Cleanup</h2><p class="status">${run.cleanup.verified ? "Verified by the executor" : "NOT verified by the executor"}</p></div><ul class="check-list">${run.cleanup.checks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)} <span class="muted">${esc(c.detail)}</span></span></li>`).join("")}</ul></div>` : ""}
+  ${run.kind === "live" ? renderLiveState(run.live, run.label) : ""}
   <p class="work-foot">Raw evidence: ${(run.files ?? ["recompute.txt", "analysis.txt"]).map((f) => `<a href="${esc(evidence)}/${esc(f)}">${esc(f)}</a>`).join(" · ")}</p>`
+}
+
+// The live run's four statuses, kept apart, and the independent read-back when it is valid
+// for this run; otherwise why it is not.
+function renderLiveState(view, label = "Live run") {
+  const s = liveStatus(view)
+  const x = view.execution
+  const rows = [
+    ["Execution", x.status ? `${esc(x.status)} · exit ${x.exitCode} · ${x.sentTransactions} transaction(s) sent${x.unresolved ? ` · ${x.unresolved} unresolved` : ""}` : `${x.sentTransactions} transaction(s) sent · no result recorded`],
+    ["Rescue goal", view.rescue.verifiedGoal ? `${esc(view.rescue.verifiedGoal)}, read back from the chain` : view.rescue.executorGoal ? `${esc(view.rescue.executorGoal)} by the executor's own account only` : "not evaluated"],
+    ["Cleanup", view.cleanup.independentlyVerified !== null ? (view.cleanup.independentlyVerified ? "verified, read back from the chain" : "NOT verified on read-back") : view.cleanup.executorVerified !== null ? (view.cleanup.executorVerified ? "verified by the executor only" : "not verified") : "not reached"],
+    ["Independent verification", `${esc(view.verification.state.toLowerCase())}${view.verification.problems.length ? `: ${esc(view.verification.problems.join("; "))}` : ""}`],
+  ]
+  return `<div class="panel">
+    <div class="panel-head"><h2>Status</h2><span class="badge ${s.tone}">${s.verified ? `${ICON.ok}Verified` : esc(s.short)}</span></div>
+    <p class="outcome">${esc(label.split(" · ")[0])}: ${esc(s.headline)}.</p>
+    <dl class="facts">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+  </div>
+  ${view.readBack ? renderVerification(view.readBack) : ""}`
+}
+
+// A live run that started but has no recomputation: what it sent and how it ended.
+function renderPartialRun(run) {
+  const evidence = href(`evidence/${run.evidence.replace("evidence/margin-rescue/", "")}`)
+  return `
+  ${renderLiveState(run.live, run.label)}
+  ${run.state === "INVALID_BUNDLE" || run.live?.state === "INVALID_BUNDLE" ? "" : `<div class="panel">
+    <div class="panel-head"><h2>${esc(run.label)}</h2></div>
+    <dl class="facts run">
+      ${run.account ? `<div><dt>Account</dt><dd>${copyable(run.account, short(run.account, 8, 6))}</dd></div>` : ""}
+      <div><dt>Where</dt><dd>the live Somnia Hideki testnet, chain 50383</dd></div>
+      ${run.reason ? `<div><dt>Reason</dt><dd>${esc(run.reason)}</dd></div>` : ""}
+      ${run.guard ? `<div><dt>Guard</dt><dd>${copyable(run.guard.address, short(run.guard.address, 8, 6))} · ${run.guard.verified ? "deployed code verified" : "not verified"}</dd></div>` : ""}
+      ${run.gas ? `<div><dt>Gas</dt><dd>${usd(run.gas.spent, 4)} STT spent${BigInt(run.gas.committed ?? 0) > 0n ? ` · ${usd(run.gas.committed, 4)} STT reserved for unresolved transactions` : ""}</dd></div>` : ""}
+    </dl>
+    <p class="model-note">No recomputation was recorded for this run, so no buffer, fill or goal is shown.</p>
+  </div>
+  ${run.steps?.length ? renderSteps(run) : ""}
+  ${run.cleanup ? `<div class="panel"><div class="panel-head"><h2>Cleanup</h2><p class="status">${run.cleanup.verified ? "Verified by the executor" : "NOT verified by the executor"}</p></div><ul class="check-list">${run.cleanup.checks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)} <span class="muted">${esc(c.detail)}</span></span></li>`).join("")}</ul></div>` : ""}
+  ${run.files?.length ? `<p class="work-foot">Raw evidence: ${run.files.map((f) => `<a href="${esc(evidence)}/${esc(f)}">${esc(f)}</a>`).join(" · ")}</p>` : ""}`}`
 }
 
 // tools/verify-live-run.ts: every receipt and the end state read again from the chain,
@@ -564,7 +606,9 @@ function renderVerification(v) {
   const u = v.reconciliation.usdso
   const groups = [
     ["transactions", "Transactions"],
+    ["confirmations", "Each guarded action against its confirmation"],
     ["guard", "Guard"],
+    ["scenario", "The scenario, read again at its reference block"],
     ["rescue", "Fixed-scenario recomputation"],
     ["cleanup", `End state at block ${blockNo(v.endBlock.number)}`],
     ["reconciliation", "Gas and collateral"],

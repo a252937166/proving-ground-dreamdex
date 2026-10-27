@@ -57,6 +57,20 @@ export function newNonce(): Hex {
   return toHex(randomBytes(32))
 }
 
+// The nonces of a live run's guarded reductions are derived, not random, so the chain itself
+// says what each one was: the rescue's commits to the plan, the scenario and the block its
+// confirmation was quoted at; a cleanup close's to the plan, the pool, the attempt and the
+// block it was read at. The two domains differ, so a cleanup close can never carry a rescue's
+// nonce (verify.ts recomputes the rescue's). The guard accepts only its owner's calls and
+// refuses a used action id, so a predictable nonce gives nothing away.
+export function rescueNonce(planDigest: string, scenarioId: string, quoteBlockHash: Hex): Hex {
+  return keccak256(encodeAbiParameters(parseAbiParameters("string, bytes32, bytes32, bytes32"), ["margin-rescue/rescue", `0x${planDigest}`, `0x${scenarioId}`, quoteBlockHash]))
+}
+
+export function cleanupNonce(planDigest: string, pool: Address, attempt: number, blockHash: Hex): Hex {
+  return keccak256(encodeAbiParameters(parseAbiParameters("string, bytes32, address, uint256, bytes32"), ["margin-rescue/cleanup", `0x${planDigest}`, pool, BigInt(attempt), blockHash]))
+}
+
 // The request a selected candidate becomes. The expected signed size is the position
 // the analysis saw; the guard refuses it if the position has moved since.
 export function requestFromCandidate(

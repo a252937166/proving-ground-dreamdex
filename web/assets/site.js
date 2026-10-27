@@ -1,7 +1,7 @@
 // Shared behaviour on every page: the header and its menu, copy buttons, pause controls for
 // anything that moves on its own, reveals, and on the reading pages the sidebar that follows
 // the section being read, the pipeline line and the step rails.
-import { getJson, wireCopy } from "./data.js"
+import { getJson, liveStatus, wireCopy } from "./data.js"
 import { reduced, reveal, sleep, whileVisible } from "./motion.js"
 
 wireCopy(document)
@@ -132,16 +132,16 @@ if (side) {
   }
 }
 
-// Text that depends on the live run reads the evidence folder; it is replaced only once the
-// run has finished, and with what the run actually recorded.
+// Text that depends on the live run reads the evidence folder (the server's run-state
+// model): once the run has started it says what was recorded, and the "met" wording only
+// for a run that was independently verified.
 const liveTexts = [...document.querySelectorAll("[data-live-run]")]
 if (liveTexts.length) {
   getJson("/api/proof")
     .then((p) => {
-      const run = p.liveWrite?.run
-      if (run?.state !== "FINISHED") return
-      const met = run.status === "COMPLETE" && run.rescue?.goal === "GOAL_MET"
-      for (const el of liveTexts) el.textContent = met ? el.dataset.met : `Live run 1 finished ${run.status.replaceAll("_", " ").toLowerCase()} (exit ${run.exitCode}); its evidence explains why.`
+      const s = liveStatus(p.liveWrite?.run)
+      if (!s.started) return
+      for (const el of liveTexts) el.textContent = s.verified ? el.dataset.met : `Live run 1: ${s.headline}.`
     })
     .catch(() => {})
 }

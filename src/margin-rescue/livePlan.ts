@@ -104,7 +104,7 @@ export async function buildLivePlan(client: PublicClient, guardArtifactPath: URL
 
   const notionalTotal = params.btcNotionalUsd + params.ethNotionalUsd
   const steps = [
-    { n: 0, call: "read-only preflight", detail: "read the whole account at one block across all 21 pools: no position, order, live stop, bank balance or allowance; STT ≥ the gas cap; USDso ≥ the deposit; fresh marks; tick/lot/minimum/fee/MM unchanged from this plan; the local guard build hashes equal guard.* below" },
+    { n: 0, call: "read-only preflight", detail: "read the whole account at one block across all 21 pools: no position, order, live stop, bank balance or allowance; the account nonce (latest and pending) equal to account.nonce below; STT ≥ the gas cap; USDso ≥ the deposit; fresh marks; tick/lot/minimum/fee/MM unchanged from this plan; the local guard build hashes equal guard.* below" },
     { n: 1, call: `deploy ReduceOnlyGuard(owner=${owner}, bank=${MARGIN_BANK}, pools=[BTC, ETH])`, detail: `expected at ${guardAddress} if the account nonce is still ${nonce}; estimated gas ${deployGas}. The code at the new address must hash to guard.expectedRuntimeKeccak and OWNER/MARGIN_BANK/trustedPool must read back before any grant` },
     { n: 2, call: `USDso.approve(${MARGIN_BANK}, ${params.depositUsd})`, to: USDSO, data: approveData, detail: "exact allowance, not unlimited; read back" },
     { n: 3, call: `MarginBank.deposit(${params.depositUsd})`, to: MARGIN_BANK, data: encodeFunctionData({ abi: marginBankWriteAbi, functionName: "deposit", args: [params.depositUsd] }), detail: "afterwards the allowance is 0, so no later order can pull from the wallet" },
@@ -122,7 +122,7 @@ export async function buildLivePlan(client: PublicClient, guardArtifactPath: URL
     { n: 15, call: "verify (read-only)", detail: "one block: no position in any of the 21 pools, no order, no live stop, bank balance 0, allowance 0, no grant to the guard on any pool or globally, no unresolved transaction" },
   ]
   return {
-    version: "mr-live-plan/3",
+    version: "mr-live-plan/4",
     status: "PROPOSAL — not authorised; nothing in this file has been signed or sent",
     readAt: { block: block.number, hash: block.hash, timestamp: block.timestamp },
     account: { address: owner, stt, usdso, allowanceToBank: allowance, nonce, bank: state },
@@ -161,7 +161,8 @@ export async function buildLivePlan(client: PublicClient, guardArtifactPath: URL
     execution: {
       timing: LIVE_TIMING,
       unknownTransactions: "every transaction is persisted (hash, nonce, intent) before broadcast and resolved before anything else is sent, never re-sent. Only a canonical receipt settles it; it counts as not included only when the node rejected it or the transaction that consumed its nonce was located and is a different one. A failed lookup or a bare nonce increase leaves it UNKNOWN, with its worst-case fee still reserved; the run then stops with exit 40 and is resumed with --resume",
-      refusal: "a run that stops before its first signature (failed preflight, read failure, a step that would revert in simulation) exits 1 and runs no cleanup, so it never touches collateral, allowances or positions it did not create",
+      refusal: "a run that stops before its first signature (failed preflight, read failure, a step that would revert in simulation) exits 1 and runs no cleanup, so it never touches collateral, allowances or positions it did not create; a run whose signed transactions never reached the node exits 2, also without cleanup",
+      unexpectedErrors: "an error the executor does not handle is classified from the persisted run ledger and this process's own count of signatures and broadcasts: 1 only when nothing was signed, 2 when nothing was broadcast, 40 when any step is pending or unknown, 50 when transactions reached the network and none is unresolved, 60 when the ledger cannot be read. The classification is written to result.json and results.jsonl; nothing is started again automatically, and a fresh run is refused while an earlier run of the account is unresolved",
       exitCodes: EXIT,
     },
     steps,
@@ -201,7 +202,7 @@ export function readApprovedPlan(path: string, approvedDigest: string): { plan: 
   const digest = sha256Hex(bytes)
   if (digest !== approvedDigest.toLowerCase()) throw new Error(`plan digest ${digest} is not the approved digest; refusing`)
   const plan = JSON.parse(bytes.toString("utf8"), (_k, v) => (typeof v === "string" && /^-?\d+$/.test(v) ? BigInt(v) : v)) as LivePlan
-  if (plan.version !== "mr-live-plan/3") throw new Error(`plan version ${plan.version} is not executable by this build`)
+  if (plan.version !== "mr-live-plan/4") throw new Error(`plan version ${plan.version} is not executable by this build; regenerate it with npm run mr -- live-plan`)
   if (plan.network.chainId !== 50383) throw new Error("the plan is not for chain 50383")
   return { plan, digest }
 }

@@ -36,14 +36,32 @@ export function stopLister(indexerUrl?: string): StopLister {
   const cfg = loadConfig()
   const url = indexerUrl ?? cfg.indexerUrl
   const markets = createMarkets({ ...cfg, indexerUrl: url })
-  return async (account) => {
-    const indexedThrough = await indexerWatermark(url)
-    const listed = await pageAllStops((offset, limit) =>
-      markets.client.listPerpStopOrders({ account, status: ["PENDING", "TRIGGERED", "TRIGGER_FAILED", "CANCELLED"], limit, offset }).then((rows) =>
-        rows.map((s) => ({ registry: s.registry, orderIdRaw: s.orderIdRaw, status: s.status })),
-      ),
-    )
-    return { ...listed, indexedThrough }
+  return (account) =>
+    readAgain(async () => {
+      const indexedThrough = await indexerWatermark(url)
+      const listed = await pageAllStops((offset, limit) =>
+        markets.client.listPerpStopOrders({ account, status: ["PENDING", "TRIGGERED", "TRIGGER_FAILED", "CANCELLED"], limit, offset }).then((rows) =>
+          rows.map((s) => ({ registry: s.registry, orderIdRaw: s.orderIdRaw, status: s.status })),
+        ),
+      )
+      return { ...listed, indexedThrough }
+    })
+}
+
+// The indexer is a remote service whose requests fail now and then ("fetch failed"). A read
+// of it that fails is made again from the start, up to INDEXER_ATTEMPTS times (1 s, then
+// 3 s apart), before the failure stands. The read changes nothing and is taken whole each
+// time, so reading again only lowers the odds that a passing outage blocks a run.
+export const INDEXER_ATTEMPTS = 3
+
+export async function readAgain<T>(read: () => Promise<T>, attempts = INDEXER_ATTEMPTS, sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))): Promise<T> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await read()
+    } catch (e) {
+      if (attempt >= attempts) throw e
+      await sleep(1_000 * 3 ** (attempt - 1))
+    }
   }
 }
 

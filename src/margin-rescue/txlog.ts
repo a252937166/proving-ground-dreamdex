@@ -9,7 +9,8 @@
 // nothing. While any step is PENDING or UNKNOWN nothing else is sent and its worst-case
 // fee stays reserved: the sender resolves it first, from its own hash and nonce, and
 // never sends it again. If it cannot be resolved in the bounded wait the run stops
-// (UnresolvedTransactionError) and can be resumed later.
+// (UnresolvedTransactionError) and can be resumed later. A step the ledger cannot record
+// is never broadcast (SignedNotSentError): its bytes are dropped with it.
 //
 // Gas: each send must fit the plan's STT cap after the fees already paid, and while the
 // run is still opening exposure it must also leave a reserve for every cleanup step the
@@ -84,14 +85,26 @@ export interface SenderTiming {
   pollMs: number
 }
 
+// What this process has done, for the command's exit code when a run ends in an
+// unexpected error: signatures produced, and broadcasts attempted (counted before the
+// bytes are handed to the node, so an attempt that failed in transit still counts).
+export interface RunTracker {
+  signatures: number
+  broadcasts: number
+}
+
 export interface SenderOptions extends SenderTiming {
   chainId: number
   gasCap: bigint
   maxGasPrice: bigint
   gasHeadroomPct: bigint // gas limit = estimate × (100 + headroom) / 100
   cleanupGasPerTx: bigint // gas reserved for each cleanup transaction a main step may require
+  tracker?: RunTracker
   sleep?: (ms: number) => Promise<void>
 }
+
+// The history event of a step that was signed and persisted but never handed to the node.
+export const NOT_BROADCAST = "not broadcast"
 
 export class UnresolvedTransactionError extends Error {
   constructor(readonly step: TxStep) {
@@ -118,6 +131,17 @@ export class StepWouldRevertError extends Error {
 export class StepRejectedError extends Error {
   constructor(readonly step: TxStep) {
     super(`step ${step.n} ${step.id} was rejected by the node: ${step.history.at(-1)?.detail ?? ""}`)
+  }
+}
+// A transaction was signed but its bytes never reached the node: either the ledger
+// could not record it (it is dropped from the ledger and the bytes are discarded) or a
+// pre-broadcast step failed (it is recorded as NOT_INCLUDED, "not broadcast").
+export class SignedNotSentError extends Error {
+  constructor(
+    readonly id: string,
+    readonly reason: string,
+  ) {
+    super(`${id} was signed but not broadcast (${reason}); nothing reached the network`)
   }
 }
 
@@ -184,6 +208,7 @@ export interface SendSpec {
 
 export class TxSender {
   private readonly sleep: (ms: number) => Promise<void>
+  readonly tracker: RunTracker
 
   constructor(
     readonly ledger: TxLedger,
@@ -192,6 +217,7 @@ export class TxSender {
     readonly opts: SenderOptions,
   ) {
     this.sleep = opts.sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms)))
+    this.tracker = opts.tracker ?? { signatures: 0, broadcasts: 0 }
   }
 
   // Send one step and wait until it is settled. Throws UnresolvedTransactionError if it
@@ -239,6 +265,7 @@ export class TxSender {
     }
 
     const serialized = await this.signer.signTransaction({ chainId: opts.chainId, type: "legacy", to: spec.to ?? undefined, data: spec.data, gas, gasPrice, nonce: latest, value: 0n })
+    this.tracker.signatures++
     const step: TxStep = {
       n: ledger.data.steps.length + 1,
       id: spec.id,
@@ -261,15 +288,39 @@ export class TxSender {
       history: [{ at: new Date().toISOString(), event: "signed and persisted; broadcasting" }],
     }
     ledger.data.steps.push(step)
-    ledger.save()
-    spec.beforeBroadcast?.(step)
+    try {
+      ledger.save()
+    } catch (e) {
+      // Not on disk, so it must never reach the node: drop the step and the bytes.
+      ledger.data.steps.pop()
+      throw new SignedNotSentError(spec.id, `the run ledger could not be written: ${shortMessage(e)}`)
+    }
+    try {
+      spec.beforeBroadcast?.(step)
+    } catch (e) {
+      const reason = `${NOT_BROADCAST}: ${shortMessage(e)}`
+      try {
+        ledger.mark(step, NOT_BROADCAST, (s) => (s.state = "NOT_INCLUDED"), reason)
+      } catch {
+        // The ledger keeps the step PENDING: it is then resolved like any unknown step.
+      }
+      throw new SignedNotSentError(spec.id, reason)
+    }
 
+    this.tracker.broadcasts++
+    let refused: unknown = null
     try {
       await client.request({ method: "eth_sendRawTransaction", params: [serialized] })
-      ledger.mark(step, "accepted by the node")
     } catch (e) {
-      const message = shortMessage(e)
-      if (ambiguous(e) || /already known|known transaction|nonce too low/i.test(message)) {
+      refused = e
+    }
+    // Recording the answer is kept apart from the broadcast: if the ledger cannot record
+    // it, the error propagates and the step stays PENDING on disk, to be resolved from
+    // the chain, never mistaken for a failed broadcast.
+    if (refused === null) ledger.mark(step, "accepted by the node")
+    else {
+      const message = shortMessage(refused)
+      if (ambiguous(refused) || /already known|known transaction|nonce too low/i.test(message)) {
         ledger.mark(step, "broadcast outcome unknown", (s) => (s.state = "UNKNOWN"), message)
       } else {
         // A JSON-RPC error answer: the node refused the transaction, so it is not in

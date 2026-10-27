@@ -5,14 +5,24 @@ import { createHash } from "node:crypto"
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { slimCandidate } from "./analyze.js"
+import { isBundleName } from "./publication.js"
+import { liveRunView } from "./runState.js"
 import type { CandidateAnalysis } from "./candidates.js"
 import type { Scenario } from "./scenario.js"
 
 const ROOT = new URL("../../", import.meta.url).pathname
 const EVIDENCE = join(ROOT, "evidence/margin-rescue")
-// The plan live run 1 executed, published with its evidence; before the run, the
-// working copy's plan file (not committed).
-const PLAN = [join(EVIDENCE, "live-write/run-1/live-plan.json"), join(ROOT, "live-plan.json")]
+// Published live bundles, oldest first (run-1, run-2, …); the latest is "the live run".
+function liveBundles(evidence = EVIDENCE): string[] {
+  const dir = join(evidence, "live-write")
+  if (!existsSync(dir)) return []
+  // Bundles are named run-<number> (paths.ts publishedBundleDir); any other folder there is
+  // refused by the build and not shown as a run.
+  return readdirSync(dir)
+    .filter(isBundleName)
+    .sort((a, b) => Number(a.slice(4)) - Number(b.slice(4)))
+}
+const liveDir = (evidence = EVIDENCE) => join(evidence, "live-write", liveBundles(evidence).at(-1) ?? "run-1")
 
 const readJson = <T = any>(path: string): T => JSON.parse(readFileSync(path, "utf8"))
 const readText = (path: string): string | null => (existsSync(path) ? readFileSync(path, "utf8") : null)
@@ -44,11 +54,22 @@ function gitHead(): { commit: string | null; branch: string | null } {
   }
 }
 
-export function planSummary() {
-  const path = PLAN.find((p) => existsSync(p))
+// The plan live run 1 executed, from its published bundle once that passes its check;
+// before the run, the authorized plan in evidence/margin-rescue/live-read-only/, or the
+// working copy's plan file.
+export function planSummary(liveRun = liveDir()) {
+  const published = liveRunView(liveRun).bundle.ok ? join(liveRun, "live-plan.json") : null
+  const path = [published, join(EVIDENCE, "live-read-only", "live-plan.json"), join(ROOT, "live-plan.json")].find((p) => p && existsSync(p))
   if (!path) return null
   const raw = readFileSync(path)
-  const p = JSON.parse(raw.toString("utf8"))
+  let p: any
+  try {
+    p = JSON.parse(raw.toString("utf8"))
+  } catch {
+    return null
+  }
+  // A plan without the fields shown is not shown, rather than taking the feed down.
+  if (!p?.bounds?.gas || !p.account?.address || !p.readAt) return null
   return {
     sha256: createHash("sha256").update(raw).digest("hex"),
     version: p.version,
@@ -112,48 +133,83 @@ export function proofSummary() {
       reconciliations,
       roundingStudy: { block: study.block.number, compared: study.compared, floorExact: study.equityFloorExact, truncExact: study.equityTruncExact, pools: study.pools, mismatches: study.mismatches.length },
     },
-    liveWrite: { plan: planSummary(), run: runSummary(join(EVIDENCE, "live-write/run-1")) },
+    liveWrite: { plan: planSummary(), run: { ...liveRunFeed(liveDir()), id: `live-${liveDir().split("run-").at(-1)}` } },
   }
 }
 
-function runSummary(dir: string) {
-  if (!existsSync(join(dir, "result.json"))) return existsSync(dir) ? { state: "IN_PROGRESS" as const } : null
-  const r = readJson(join(dir, "result.json"))
-  return { state: "FINISHED" as const, status: r.status, exitCode: r.exitCode, reason: r.reason, rescue: r.rescue, sentTransactions: r.sentTransactions, verification: verificationSummary(dir) }
+// The live run as every view shows it (runState.ts), with the read-back's figures only
+// when that read-back is valid for this run.
+function liveRunFeed(dir: string) {
+  const view = liveRunView(dir)
+  return { ...view, readBack: view.verification.state === "VALID" ? verificationSummary(dir) : null }
 }
 
 // tools/verify-live-run.ts: the run read back from the chain, independently of the executor.
 function verificationSummary(dir: string) {
-  if (!existsSync(join(dir, "verification.json"))) return null
   const v = readJson(join(dir, "verification.json"))
   return {
     verdict: v.verdict,
     verifiedAt: v.verifiedAt,
     endBlock: v.endBlock,
     reconciliation: v.reconciliation,
-    rescue: v.rescue.tx ? { tx: v.rescue.tx, block: v.rescue.block, filled: v.rescue.filled, goal: v.rescue.goal, before: v.rescue.before.buffer, after: v.rescue.after.buffer, prices: v.rescue.scenario.prices } : null,
+    rescue: v.rescue.tx ? { tx: v.rescue.tx, block: v.rescue.block, filled: v.rescue.filled, goal: v.rescue.goal, before: v.rescue.before.buffer, after: v.rescue.after.buffer } : null,
     checks: v.checks.map((c: { group: string; name: string; ok: boolean; detail: string }) => ({ group: c.group, name: c.name, ok: c.ok, detail: c.detail })),
   }
 }
 
 // ---- recorded runs (the app's third screen) ----
 
-const RUNS = [
-  { id: "live-1", kind: "live", dir: "live-write/run-1", label: "Live run 1 · Somnia Hideki" },
+const FORK_RUNS = [
   { id: "fork-e2e", kind: "fork", dir: "fork/e2e-33472615", label: "Fork · real 6-market account" },
   { id: "fork-plan", kind: "fork", dir: "fork/rehearsal-33472615/happy", label: "Fork · rehearsal of the live plan" },
 ] as const
 
-export function listRuns() {
-  return RUNS.map((r) => ({ id: r.id, kind: r.kind, label: r.label, present: existsSync(join(EVIDENCE, r.dir, "recompute.json")) }))
+// Every published live bundle (live-1 for run-1, …), or a placeholder for run 1 before any.
+function runsOf(evidence: string) {
+  const names = liveBundles(evidence)
+  const live = (names.length ? names : ["run-1"]).map((name) => ({ id: `live-${name.slice(4)}`, kind: "live" as const, dir: `live-write/${name}`, label: `Live ${name.replace("-", " ")} · Somnia Hideki` }))
+  return [...live, ...FORK_RUNS]
 }
 
-export function readRun(id: string) {
-  const run = RUNS.find((r) => r.id === id)
+export function listRuns(evidence = EVIDENCE) {
+  return runsOf(evidence).map((r) => {
+    if (r.kind !== "live") return { id: r.id, kind: r.kind, label: r.label, present: existsSync(join(evidence, r.dir, "recompute.json")), state: null }
+    const view = liveRunView(join(evidence, r.dir))
+    return { id: r.id, kind: r.kind, label: r.label, present: view.started, state: view.state, headline: view.headline }
+  })
+}
+
+export function readRun(id: string, evidence = EVIDENCE) {
+  const run = runsOf(evidence).find((r) => r.id === id)
   if (!run) return null
-  const dir = join(EVIDENCE, run.dir)
+  const dir = join(evidence, run.dir)
   const base = { id: run.id, kind: run.kind, label: run.label, evidence: `evidence/margin-rescue/${run.dir}` }
-  if (!existsSync(join(dir, "recompute.json"))) return { ...base, present: false, progress: runSummary(dir), plan: run.kind === "live" ? planSummary() : null }
+  const live = run.kind === "live" ? liveRunFeed(dir) : null
+  if (live && !live.started) return { ...base, present: false, live, plan: planSummary(dir) }
+  if (live && live.state === "INVALID_BUNDLE") return { ...base, present: true, partial: true, live }
+  if (!existsSync(join(dir, "recompute.json"))) {
+    if (!live) return { ...base, present: false, live: null, plan: null }
+    // Started but never recomputed (stopped before or at the reduction, an unresolved
+    // transaction, a refusal): what it did, never "not run".
+    const result = existsSync(join(dir, "result.json")) ? readJson(join(dir, "result.json")) : null
+    const ledger = existsSync(join(dir, "run-ledger.json")) ? readJson(join(dir, "run-ledger.json")) : null
+    const guard = existsSync(join(dir, "guard.json")) ? readJson(join(dir, "guard.json")) : null
+    return {
+      ...base,
+      present: true,
+      partial: true,
+      live,
+      status: result?.status ?? null,
+      exitCode: result?.exitCode ?? null,
+      reason: result?.reason ?? null,
+      account: ledger?.account ?? null,
+      guard: guard ? { address: guard.guard, verified: guard.verified, deployTx: guard.deployTx } : null,
+      steps: ledger?.steps.map((s: any) => ({ id: s.id, phase: s.phase, state: s.state, hash: s.hash ?? null, block: s.receipt?.blockNumber ?? null, fee: s.receipt?.fee ?? null })) ?? [],
+      cleanup: result?.cleanup ? { verified: result.cleanup.checks.every((c: any) => c.ok), checks: result.cleanup.checks, final: result.cleanup.final ?? null } : null,
+      gas: result?.gas ?? null,
+      files: readdirSync(dir).filter((f) => /\.(txt|md)$/.test(f)).sort(),
+    }
+  }
 
   const scenario = readJson<Scenario>(join(dir, "scenario.json"))
   const analysis = readJson<CandidateAnalysis>(join(dir, "candidates.json"))
@@ -179,7 +235,7 @@ export function readRun(id: string) {
     steps: ledger?.steps.map((s: any) => ({ id: s.id, phase: s.phase, state: s.state, hash: s.hash ?? null, block: s.receipt?.blockNumber ?? null, fee: s.receipt?.fee ?? null })) ?? [],
     cleanup: result?.cleanup ? { verified: result.cleanup.checks.every((c: any) => c.ok), checks: result.cleanup.checks, final: result.cleanup.final ?? null } : null,
     gas: result?.gas ?? null,
-    verification: verificationSummary(dir),
+    live,
     files: readdirSync(dir).filter((f) => /\.(txt|md)$/.test(f)).sort(),
   }
 }

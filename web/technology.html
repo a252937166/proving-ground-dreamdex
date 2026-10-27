@@ -185,13 +185,17 @@ buffer  = E_risk − MM</code></pre>
           <tbody>
             <tr><td class="n"><span class="badge met">0</span></td><td>The guarded reduction was bound, recomputed <code>GOAL_MET</code>, and cleanup was verified.</td></tr>
             <tr><td class="n"><span class="badge">1</span></td><td>Refused before signing anything. Nothing was broadcast and no cleanup ran.</td></tr>
+            <tr><td class="n"><span class="badge">2</span></td><td>A transaction was signed but none reached the node. The account was not touched and no cleanup ran.</td></tr>
             <tr><td class="n"><span class="badge wait">10</span></td><td>Cleanup verified, but no reduction was demonstrated: nothing needed, nothing feasible, the confirmation was invalidated, or the goal was not met.</td></tr>
             <tr><td class="n"><span class="badge wait">20</span></td><td>A started run aborted (soft loss stop, a foreign transaction, an interruption) and cleanup was verified.</td></tr>
             <tr><td class="n"><span class="badge call">30</span></td><td>Cleanup was not verified.</td></tr>
             <tr><td class="n"><span class="badge call">40</span></td><td>A transaction is unresolved. Nothing else was sent; resume with the same plan and directory.</td></tr>
+            <tr><td class="n"><span class="badge call">50</span></td><td>An unexpected error after transactions reached the network, none of them unresolved. Inspect the run, then resume it.</td></tr>
+            <tr><td class="n"><span class="badge call">60</span></td><td>The run's own ledger cannot be read back. Inspect the account on chain before anything else.</td></tr>
           </tbody>
         </table>
       </div>
+      <p>An unexpected error is classified from the run ledger persisted before each broadcast and the process's own count of signatures and broadcasts, never assumed to be a refusal. After 40, 50 or 60 no fresh run of the account starts until that run is finished. A resume that stops before signing anything writes nothing and exits with the run's own state; one that reaches a new result it cannot write exits with that result, never 0.</p>
       <p>The read-only commands exit non-zero too: <code>reconcile</code> 3 unless <code>EXACT</code>, <code>analyze</code> 3 when blocked, <code>plan</code> and <code>refresh</code> 4 when the confirmation is refused or invalidated, and <code>recompute</code> 0 only for <code>GOAL_MET</code>.</p>
     </section>
 
@@ -220,13 +224,14 @@ buffer  = E_risk − MM</code></pre>
         <table class="data">
           <thead><tr><th scope="col">Claim</th><th scope="col">Where</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><td>Scenario arithmetic, locks, funding and rounding, including the plan's two worked fixtures</td><td>Fixture</td><td>178 / 178 unit tests</td></tr>
+            <tr><td>Scenario arithmetic, locks, funding and rounding (the plan's two worked fixtures included), the transaction ledger, exit codes after injected faults, the publication boundary and the run-state model</td><td>Fixture</td><td>251 / 251 unit tests</td></tr>
+            <tr><td>The independent read-back of a run, on a real-venue fork run replayed from its recorded chain answers</td><td>Fork, block 34,671,145, replayed</td><td>93 / 93 checks hold; every tampered copy in the tests fails</td></tr>
             <tr><td>Guard behaviour against mocks</td><td>Fixture</td><td>9 / 9 Solidity tests</td></tr>
             <tr><td>IOC limits, guard invariants, rollback after venue fills, per-fill ledger</td><td>Fork</td><td>38 / 38 Solidity fork tests</td></tr>
             <tr><td>The full loop on a real 6-market account: analyse, guard, refresh, send, bind, recompute</td><td>Fork, block 33,472,615</td><td>ETH −50% filled 0.8165 ETH inside the limit; recomputed buffer equals the forecast; <code>GOAL_MET</code></td></tr>
             <tr><td>The live executor: happy path, tampering, book change, partial fill, owner change, timeout, RPC outage, refused preflight, cleanup retries and failure, funding drift</td><td>Fork, blocks 33,472,615 and 33,609,475</td><td>11 / 11 scenarios as expected</td></tr>
             <tr><td>Independent reconciliation and the bank's rounding</td><td>Live, read-only</td><td>EXACT for every account checked</td></tr>
-            <tr><td>One guarded reduction on the test account, with cleanup</td><td>Live write</td><td data-live-run data-met="Run 1: GOAL_MET, cleanup verified">Approved plan <code>a21e43c5…</code>; not yet run</td></tr>
+            <tr><td>One guarded reduction on the test account, with cleanup</td><td>Live write</td><td data-live-run data-met="Run 1: GOAL_MET, cleanup verified">Authorized plan <code>7f090328…</code>; waiting for the owner to sign</td></tr>
           </tbody>
         </table>
       </div>

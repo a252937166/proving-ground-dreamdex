@@ -3,13 +3,20 @@
 // written now, and the live endpoints bundled to run in the visitor's browser
 // (src/browser.ts, loaded by web/assets/static-api.js).
 //
+// The build refuses evidence it cannot vouch for: live-write/ may hold only its README and
+// bundles that pass validateBundle (src/margin-rescue/publication.ts: every file hashed
+// against the bundle's manifest, nothing extra, the run's files consistent, every file
+// scanned again), no evidence file may be a symbolic link, and every other evidence file
+// is scanned for signed transactions, mnemonics, local paths and URLs with credentials.
+//
 //   SITE_BASE=/proving-ground-dreamdex/ npm run build:site     # writes dist/site/
 import { build, type Plugin } from "esbuild"
 import { createHash } from "node:crypto"
-import { cpSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs"
-import { dirname, extname, join, relative } from "node:path"
+import { cpSync, mkdirSync, rmSync, writeFileSync } from "node:fs"
+import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import { sdkVersion } from "../src/config.js"
+import { evidenceToPublish } from "../src/margin-rescue/publication.js"
 import { listRuns, proofSummary, readRun } from "../src/margin-rescue/site.js"
 import { EVIDENCE, EVIDENCE_TYPES, PAGES, WEB, renderPage } from "../src/pages.js"
 import { toJson } from "../src/snapshot.js"
@@ -22,13 +29,6 @@ if (!/^\/([\w.-]+\/)*$/.test(BASE)) throw new Error(`SITE_BASE must start and en
 function write(path: string, body: string) {
   mkdirSync(dirname(join(OUT, path)), { recursive: true })
   writeFileSync(join(OUT, path), body)
-}
-
-function files(dir: string): string[] {
-  return readdirSync(dir).flatMap((name) => {
-    const path = join(dir, name)
-    return statSync(path).isDirectory() ? files(path) : [path]
-  })
 }
 
 function replaceOnce(html: string, from: string, to: string, file: string): string {
@@ -50,13 +50,11 @@ for (const [route, file] of Object.entries(PAGES)) {
 
 cpSync(join(WEB, "assets"), join(OUT, "assets"), { recursive: true })
 
-// The evidence folder, as the local server serves it.
-let evidenceFiles = 0
-for (const path of files(EVIDENCE)) {
-  if (!EVIDENCE_TYPES.has(extname(path))) continue
-  cpSync(path, join(OUT, "evidence", relative(EVIDENCE, path)))
-  evidenceFiles++
-}
+// The evidence folder, as the local server serves it, once it has passed its checks.
+const { files: evidence, problems } = evidenceToPublish(EVIDENCE, EVIDENCE_TYPES)
+if (problems.length) throw new Error(`evidence/margin-rescue cannot be published:\n  ${problems.join("\n  ")}`)
+for (const path of evidence) cpSync(path, join(OUT, "evidence", relative(EVIDENCE, path)))
+const evidenceFiles = evidence.length
 
 // The evidence endpoints, answered now from the evidence folder.
 write("api/proof.json", toJson(proofSummary()))
@@ -81,7 +79,7 @@ export function createHash(algorithm) {
     },
   }
 }`,
-  "node:fs": unavailable("node:fs", ["readFileSync", "writeFileSync", "existsSync", "mkdirSync", "renameSync", "openSync", "fsyncSync", "closeSync", "readdirSync", "statSync", "appendFileSync"]),
+  "node:fs": unavailable("node:fs", ["readFileSync", "writeFileSync", "existsSync", "mkdirSync", "renameSync", "rmSync", "openSync", "fsyncSync", "closeSync", "readdirSync", "statSync", "appendFileSync"]),
   "node:path": unavailable("node:path", ["join", "dirname", "resolve", "relative", "basename", "extname", "normalize"]),
 }
 const nodeShims: Plugin = {

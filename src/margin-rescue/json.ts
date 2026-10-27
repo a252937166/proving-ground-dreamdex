@@ -1,7 +1,7 @@
 // Canonical JSON for evidence and scenario ids: bigints as decimal strings, object
 // keys sorted, no whitespace. Two runs over the same data hash identically.
 import { createHash } from "node:crypto"
-import { mkdirSync, readFileSync, renameSync, writeFileSync, openSync, fsyncSync, closeSync } from "node:fs"
+import { mkdirSync, readFileSync, renameSync, rmSync, writeFileSync, openSync, fsyncSync, closeSync } from "node:fs"
 import { dirname } from "node:path"
 
 export function toPlain(value: unknown): unknown {
@@ -34,14 +34,24 @@ export function sha256Hex(text: string | Buffer): string {
 export function writeFileAtomic(path: string, content: string): void {
   mkdirSync(dirname(path), { recursive: true })
   const tmp = `${path}.${process.pid}.tmp`
-  writeFileSync(tmp, content)
-  const fd = openSync(tmp, "r")
   try {
-    fsyncSync(fd)
-  } finally {
-    closeSync(fd)
+    writeFileSync(tmp, content)
+    const fd = openSync(tmp, "r")
+    try {
+      fsyncSync(fd)
+    } finally {
+      closeSync(fd)
+    }
+    renameSync(tmp, path)
+  } catch (e) {
+    // A write that failed leaves no half-done copy beside the file it meant to replace.
+    try {
+      rmSync(tmp, { force: true })
+    } catch {
+      // the original error matters more
+    }
+    throw e
   }
-  renameSync(tmp, path)
 }
 
 export function readJson<T>(path: string): T {

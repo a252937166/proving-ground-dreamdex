@@ -15,8 +15,12 @@ import type { LivePlan } from "../../src/margin-rescue/livePlan.js"
 const built = existsSync(GUARD_ARTIFACT)
 const OWNER = getAddress("0x66c626c59eddf06a7dca0401cf20fa2ce7033a12")
 
-describe("guard build binding", { skip: built ? false : "contracts/out is missing; run forge build in contracts/" }, () => {
-  it("writes OWNER and MARGIN_BANK into exactly the compiler's immutable offsets", () => {
+// Skipped per test, not per suite, so a missing build shows in the summary's skipped count
+// instead of the suite vanishing from it.
+const skip = built ? false : "contracts/out is missing; run forge build in contracts/"
+
+describe("guard build binding", () => {
+  it("writes OWNER and MARGIN_BANK into exactly the compiler's immutable offsets", { skip }, () => {
     const a = loadGuardArtifact()
     const runtime = expectedRuntime(a, OWNER, MARGIN_BANK)
     const word = (x: string) => x.slice(2).toLowerCase().padStart(64, "0")
@@ -31,7 +35,7 @@ describe("guard build binding", { skip: built ? false : "contracts/out is missin
     for (let i = 0; i < raw.length / 2; i++) if (!offsets.has(i)) assert.equal(runtime.slice(2 + i * 2, 4 + i * 2), raw.slice(i * 2, i * 2 + 2), `byte ${i} changed`)
   })
 
-  it("hashes the creation code and the exact deployment data for one owner", () => {
+  it("hashes the creation code and the exact deployment data for one owner", { skip }, () => {
     const a = loadGuardArtifact()
     const d = guardDeployment(a, OWNER, MARGIN_BANK, [BTC_POOL, ETH_POOL])
     const args = encodeAbiParameters(parseAbiParameters("address, address, address[]"), [OWNER, MARGIN_BANK, [BTC_POOL, ETH_POOL]])
@@ -51,12 +55,12 @@ describe("guard build binding", { skip: built ? false : "contracts/out is missin
   }
   const run = (plan: LivePlan) => runLive({ plan, planDigest: "d".repeat(64), client: chainOnly, signer, out: mkdtempSync(join(tmpdir(), "mr-run-")), listStops: async () => ({ rows: [], pages: 1, indexedThrough: null }) })
 
-  it("refuses to start when the local build differs from the approved plan", async () => {
+  it("refuses to start when the local build differs from the approved plan", { skip }, async () => {
     await assert.rejects(run(planFor(signer.address, { expectedRuntimeKeccak: `0x${"00".repeat(32)}` })), /does not match the approved plan \(expectedRuntimeKeccak/)
     await assert.rejects(run(planFor(signer.address, { deployDataKeccak: `0x${"11".repeat(32)}` })), /deployDataKeccak/)
   })
 
-  it("refuses a key that is not the plan's account", async () => {
+  it("refuses a key that is not the plan's account", { skip }, async () => {
     await assert.rejects(run(planFor(OWNER)), /not the plan's account/)
   })
 })

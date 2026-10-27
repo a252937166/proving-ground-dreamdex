@@ -12,7 +12,7 @@
 // calling the cleanup verified.
 import { encodeFunctionData, type Address, type Hex, type PublicClient } from "viem"
 import { erc20Abi, marginBankAbi, marginBankWriteAbi, operatorRegistryAbi, perpPoolAbi, PLACE_ORDER_FOR_SELECTOR } from "./abi.js"
-import { actionIdOf, newNonce, reduceCalldata, type ReduceRequest } from "./action.js"
+import { actionIdOf, cleanupNonce, reduceCalldata, type ReduceRequest } from "./action.js"
 import { protectiveLimit, simulateIoc } from "./book.js"
 import { MARGIN_BANK, OPERATOR_REGISTRY, USDSO } from "./common.js"
 import { verifyDeployedGuard, type GuardDeployment } from "./guardArtifact.js"
@@ -62,6 +62,7 @@ export interface CleanupReport {
 }
 
 export interface CleanupContext {
+  planDigest: string // with the pool, attempt and block, it derives each close's nonce (action.ts cleanupNonce)
   client: PublicClient
   sender: TxSender
   journal: ActionJournal
@@ -174,7 +175,7 @@ async function closePosition(ctx: CleanupContext, report: CleanupReport, pool: A
       return
     }
     await ctx.beforeClose?.(pool, attempt)
-    const request: ReduceRequest = { pool, expectedSignedSize: position.size, isBid, quantity: size, limitPrice: limit, deadline: s.block.timestamp + BigInt(ctx.closeDeadlineSeconds), nonce: newNonce() }
+    const request: ReduceRequest = { pool, expectedSignedSize: position.size, isBid, quantity: size, limitPrice: limit, deadline: s.block.timestamp + BigInt(ctx.closeDeadlineSeconds), nonce: cleanupNonce(ctx.planDigest, pool, attempt, s.block.hash) }
     const binding = { chainId: 50383, guard, marginBank: MARGIN_BANK, owner }
     const actionId = actionIdOf(binding, request)
     const calldata = reduceCalldata(request)

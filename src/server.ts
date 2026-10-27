@@ -1,11 +1,12 @@
 // Local site: the Margin Rescue pages, live BTC/ETH market data, the evidence summary, the
 // recorded runs and a read-only account analysis, plus the earlier Proving Ground page.
 // Binds to 127.0.0.1 only. Read-only: no key, no signing, no transactions.
-import { existsSync, readFileSync, statSync } from "node:fs"
-import { createServer, type ServerResponse } from "node:http"
-import { extname, join, normalize, sep } from "node:path"
+import { existsSync, lstatSync, readFileSync, statSync } from "node:fs"
+import { createServer, type IncomingMessage, type ServerResponse } from "node:http"
+import { extname, join, normalize, relative, sep } from "node:path"
 import { loadConfig } from "./config.js"
 import { createLiveApi } from "./live-api.js"
+import { isBundleName, validateBundle } from "./margin-rescue/publication.js"
 import { listRuns, proofSummary, readRun } from "./margin-rescue/site.js"
 import { EVIDENCE, EVIDENCE_TYPES, PAGES, WEB, renderPage } from "./pages.js"
 import { toJson } from "./snapshot.js"
@@ -33,7 +34,15 @@ function send(res: ServerResponse, status: number, body: string | Buffer, type =
 
 const message = (err: unknown) => (err instanceof Error ? err.message : String(err))
 
-const server = createServer(async (req, res) => {
+// Any error while answering is a 500 for that request, never a crash of the server.
+const server = createServer((req, res) => {
+  handle(req, res).catch((err) => {
+    if (!res.headersSent) send(res, 500, toJson({ error: `could not answer: ${message(err)}` }))
+    else res.end()
+  })
+})
+
+async function handle(req: IncomingMessage, res: ServerResponse) {
   const url = new URL(req.url ?? "/", `http://${HOST}`)
   if (req.method !== "GET") return send(res, 405, toJson({ error: "GET only" }))
 
@@ -48,9 +57,13 @@ const server = createServer(async (req, res) => {
   }
 
   // The evidence folder, read-only and as plain text, so every figure on the site can be checked.
+  // A live bundle is served only while it passes the same check as the static build.
   if (url.pathname.startsWith("/evidence/")) {
     const path = normalize(join(EVIDENCE, decodeURIComponent(url.pathname.slice("/evidence/".length))))
-    if (!path.startsWith(EVIDENCE + sep) || !existsSync(path) || !statSync(path).isFile() || !EVIDENCE_TYPES.has(extname(path))) return send(res, 404, "not found", "text/plain")
+    if (!path.startsWith(EVIDENCE + sep) || !existsSync(path) || lstatSync(path).isSymbolicLink() || !statSync(path).isFile() || !EVIDENCE_TYPES.has(extname(path))) return send(res, 404, "not found", "text/plain")
+    // Compared without case: on a case-insensitive disk /evidence/Live-Write/ is the same folder.
+    const [area, bundle] = relative(EVIDENCE, path).split(sep)
+    if (area.toLowerCase() === "live-write" && bundle.toLowerCase() !== "readme.md" && (!isBundleName(bundle) || !validateBundle(join(EVIDENCE, area, bundle)).ok)) return send(res, 403, "this live bundle fails its publication check", "text/plain")
     return send(res, 200, readFileSync(path), extname(path) === ".json" ? "application/json" : "text/plain")
   }
 
@@ -72,7 +85,7 @@ const server = createServer(async (req, res) => {
   if (answer) return send(res, answer.status, answer.body)
 
   send(res, 404, toJson({ error: "not found" }))
-})
+}
 
 server.listen(PORT, HOST, () => {
   console.log(`Margin Rescue site: http://${HOST}:${PORT}  (read-only; Ctrl+C to stop)`)
