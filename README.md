@@ -22,7 +22,9 @@ The daily topics, ready-to-post drafts and evidence checks are in [social/X_POST
 
 ## Website
 
-`npm run serve` starts a local, read-only site at http://127.0.0.1:8787. It binds to 127.0.0.1, holds no key and sends nothing.
+**Public site: https://a252937166.github.io/proving-ground-dreamdex/** (GitHub Pages, rebuilt from `main` on every push by [`.github/workflows/pages.yml`](.github/workflows/pages.yml)). It has no server: market data and account analyses are read from the public Hideki RPC and indexer by your browser, and the proof pages show the evidence in this repository as of the deployed commit. It holds no key and sends nothing.
+
+`npm run serve` starts the same site locally at http://127.0.0.1:8787, where a local server makes those reads instead. It binds to 127.0.0.1, holds no key and sends nothing. `SITE_BASE=/proving-ground-dreamdex/ npm run build:site` writes the static build to `dist/site/`.
 
 | Page | What it is |
 |---|---|

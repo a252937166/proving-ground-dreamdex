@@ -1,7 +1,7 @@
 // The dashboard: live BTC and ETH markets every 5 s, and the state of every proof read
 // from the evidence folder. Depth bars travel from the last read to this one, the mark
 // flashes the way it moved, and the funding countdown ticks between reads.
-import { copyable, esc, getJson, qty, short, usd } from "./data.js"
+import { copyable, esc, getJson, href, qty, short, usd } from "./data.js"
 import { countUp, reduced } from "./motion.js"
 
 const $ = (s, r = document) => r.querySelector(s)
@@ -186,7 +186,7 @@ function renderLive(p) {
         <h3>Live run 1 finished: ${esc(run.status)} (exit ${run.exitCode})</h3>
         <p class="panel-note">${met ? "The guarded reduction was bound, recomputed from its fills and met the goal, and cleanup was verified." : esc(run.reason ?? "See the run's evidence for what happened.")}</p>
         ${run.rescue?.tx ? `<p class="panel-note">Reduction ${copyable(run.rescue.tx)} · ${esc(run.rescue.txState)} · ${esc(run.rescue.fill)}</p>` : ""}
-        <p class="next"><a class="btn secondary small" href="/app?run=live-1#result">Read the whole run</a></p>
+        <p class="next"><a class="btn secondary small" href="${href("app?run=live-1#result")}">Read the whole run</a></p>
       </div>
       <span class="badge ${met ? "met" : "call"} big pop">${met ? `${ICON.ok}Goal met` : esc(run.status.replaceAll("_", " ").toLowerCase())}</span>`
   }
@@ -201,7 +201,7 @@ function renderLive(p) {
         <div><dt>Test account</dt><dd>${copyable(plan.account, short(plan.account, 8, 6))}</dd></div>
         <div><dt>Bounds</dt><dd>deposit ${usd(plan.depositUsdso)} USDso · soft stop ${usd(plan.softStopUsdso)} USDso · gas cap ${usd(plan.gasCapStt)} STT (worst case ${usd(plan.worstCaseStt)})</dd></div>
       </dl>`
-          : `<p class="panel-note">No approved plan file is present.</p>`
+          : `<p class="panel-note">The approved plan file is not in this copy of the repository, so its hash and bounds are not shown here.</p>`
       }
       <p class="model-note">Its evidence will appear in <code>evidence/margin-rescue/live-write/run-1</code>. Until then, nothing on this site claims a live write.</p>
     </div>
@@ -237,7 +237,7 @@ async function loadProof() {
       .map((o, i) => `<tr style="--i:${i}"><td class="text">${esc(SCENARIO_NAMES[o.scenario] ?? o.scenario)}<span class="expected-inline">${esc(o.expected)}</span></td><td class="n opt2">${blockNo(o.forkBlock)}</td><td class="expected opt2">${esc(o.expected)}</td><td class="result-pass">${o.pass ? `<span class="badge met">${ICON.ok}as expected</span>` : `<span class="badge call">${ICON.bad}failed</span>`}</td></tr>`)
       .join("")
     const e = p.fork.e2e
-    $("#e2e").innerHTML = `<p><b>Full loop on a real 6-market account</b> (${copyable(e.account, short(e.account, 8, 6))}, fork block ${blockNo(e.forkBlock)}): ${esc(e.selected)} filled ${qty(e.filled, 18)} ETH; buffer at the scenario from ${usd(e.baselineBuffer, 2, { paren: true })} to ${usd(e.actualBuffer, 2, { paren: true })} USDso, recomputed from the fills; ${esc(e.goal.replaceAll("_", " ").toLowerCase())}. Transaction ${copyable(e.tx)}. <a href="/app?run=fork-e2e#result">Read the run</a></p>`
+    $("#e2e").innerHTML = `<p><b>Full loop on a real 6-market account</b> (${copyable(e.account, short(e.account, 8, 6))}, fork block ${blockNo(e.forkBlock)}): ${esc(e.selected)} filled ${qty(e.filled, 18)} ETH; buffer at the scenario from ${usd(e.baselineBuffer, 2, { paren: true })} to ${usd(e.actualBuffer, 2, { paren: true })} USDso, recomputed from the fills; ${esc(e.goal.replaceAll("_", " ").toLowerCase())}. Transaction ${copyable(e.tx)}. <a href="${href("app?run=fork-e2e#result")}">Read the run</a></p>`
     $("#recons tbody").innerHTML = p.liveReadOnly.reconciliations
       .map((r, i) => `<tr style="--i:${i}"><td>${copyable(r.account, short(r.account, 8, 6))}</td><td class="n">${r.markets}</td><td class="n opt2">${r.orders}</td><td class="n opt2">${blockNo(r.block)}</td><td class="result-pass">${r.verdict === "EXACT" ? `<span class="badge met">${ICON.ok}EXACT</span>` : `<span class="badge call">${ICON.bad}${esc(r.verdict)}</span>`}</td></tr>`)
       .join("")

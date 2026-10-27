@@ -1,7 +1,8 @@
 // The app's three screens: an account read at one block under a fixed joint move, the
-// evaluated reductions, and a recorded guarded execution. Everything comes from the local
-// server's read-only endpoints; nothing here signs or sends.
-import { copyable, esc, getJson, pct, qty, short, usd } from "./data.js"
+// evaluated reductions, and a recorded guarded execution. Everything comes from the site's
+// read-only endpoints (the local server, or the visitor's browser on the static site);
+// nothing here signs or sends.
+import { copyable, esc, getJson, href, pct, qty, short, usd } from "./data.js"
 import { countUp, reduced } from "./motion.js"
 
 const $ = (s, r = document) => r.querySelector(s)
@@ -400,7 +401,7 @@ function renderCompare(r) {
   </div>
   <div class="panel execute">
     <div class="panel-head"><h2>Executing a reduction</h2></div>
-    <p class="outcome">The app never signs. On an account you own, the same analysis and a guarded order run from your own terminal, on the testnet, with your own wallet. The <a href="/guide#execute">guide</a> walks through deploying the guard and granting it first.</p>
+    <p class="outcome">The app never signs. On an account you own, the same analysis and a guarded order run from your own terminal, on the testnet, with your own wallet. The <a href="${href("guide#execute")}">guide</a> walks through deploying the guard and granting it first.</p>
     <div class="code">
       <div class="code-head"><span>Your terminal</span><button type="button" class="copy-btn">${ICON.copy}<span>Copy</span></button></div>
 <pre><code>npm run mr -- analyze --account ${esc(r.account)} \\
@@ -497,7 +498,7 @@ function renderRun(run) {
   const fills = x.fill.fills.map((f, i) => `<tr style="--i:${i}"><td class="n">${qty(f.quantity, d)}</td><td class="n">${price(f.price)}</td></tr>`).join("")
   const row = (name, v, cls = "", i = 0) => `<tr class="${cls}" style="--i:${i}"><td class="text">${name}</td><td class="n">${money(v.eRisk)}</td><td class="n opt2">${money(v.mm)}</td><td class="n">${money(v.buffer)}</td></tr>`
   const checks = x.ledgerChecks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)}</span></li>`).join("")
-  const evidence = `/evidence/${run.evidence.replace("evidence/margin-rescue/", "")}`
+  const evidence = href(`evidence/${run.evidence.replace("evidence/margin-rescue/", "")}`)
   const meter = meterHTML([
     { label: "Before", e: rc.baseline.eRisk, mm: rc.baseline.mm, buffer: rc.baseline.buffer, tone: BigInt(rc.baseline.buffer) < BigInt(run.scenario.targetBuffer) ? "call" : "" },
     { label: "From the fills", e: rc.actual.eRisk, mm: rc.actual.mm, buffer: rc.actual.buffer, tone: met ? "met" : "call", from: { e: rc.baseline.eRisk, mm: rc.baseline.mm } },

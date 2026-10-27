@@ -3,9 +3,9 @@
    of its periwinkle, Martian Mono headlines in sentence case, Geist for reading. dreamDEX's
    own colour appears only where dreamDEX itself is named. */
 
-@font-face { font-family: "Martian Mono"; src: url("/assets/fonts/martian-mono-latin.woff2") format("woff2"); font-weight: 100 800; font-stretch: 75% 112.5%; font-display: swap; }
-@font-face { font-family: "Geist"; src: url("/assets/fonts/geist-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Martian Mono"; src: url("fonts/martian-mono-latin.woff2") format("woff2"); font-weight: 100 800; font-stretch: 75% 112.5%; font-display: swap; }
+@font-face { font-family: "Geist"; src: url("fonts/geist-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("fonts/geist-mono-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 
 :root {
   color-scheme: dark;

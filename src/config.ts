@@ -46,7 +46,11 @@ export function createMarkets(cfg: NetworkConfig): SomniaMarkets {
   return new SomniaMarkets({ chain, indexerUrl: cfg.indexerUrl, addresses: SOMNIA_HIDEKI_TESTNET_ADDRESSES })
 }
 
+// The static site's browser bundle has no file system; tools/build-site.ts defines this.
+declare const __MARKETS_SDK_VERSION__: string | undefined
+
 export function sdkVersion(): string {
+  if (typeof __MARKETS_SDK_VERSION__ === "string") return __MARKETS_SDK_VERSION__
   const url = new URL("../node_modules/@somnia-chain/markets-sdk/package.json", import.meta.url)
   return JSON.parse(readFileSync(url, "utf8")).version
 }

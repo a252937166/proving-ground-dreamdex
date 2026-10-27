@@ -43,6 +43,11 @@ export function ago(seconds) {
 
 export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c])
 
+// A link to one of the site's own pages or files. The site sits at "/" locally; the
+// static build (GitHub Pages) serves it under a path, set on <html data-base>.
+const BASE = document.documentElement.dataset.base || "/"
+export const href = (path) => BASE + path.replace(/^\//, "")
+
 export async function getJson(url, { signal } = {}) {
   const res = await fetch(url, { signal, headers: { accept: "application/json" } })
   let body

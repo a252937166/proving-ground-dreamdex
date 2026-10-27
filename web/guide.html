@@ -61,7 +61,7 @@
       <h2>Before you start</h2>
       <ul>
         <li>You need the public address of a dreamDEX perps account on the Somnia Hideki testnet (chain 50383). The account must hold positions for there to be anything to rescue.</li>
-        <li>The app needs nothing installed. It is served by the project's local server, which reads public chain data and never signs anything.</li>
+        <li>The app needs nothing installed and never signs anything. On the public site your browser reads the public chain data itself; run locally, the project's server makes the same reads.</li>
         <li>For the command line you need Node 20.12 or later and npm. Foundry is needed only for the contract tests and the fork rehearsals.</li>
       </ul>
     </section>
@@ -118,7 +118,9 @@
       <h2>Run it locally</h2>
       <div class="code">
         <div class="code-head"><span>Your terminal</span><button type="button" class="copy-btn"><svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Copy</span></button></div>
-<pre><code>npm ci
+<pre><code>git clone https://github.com/a252937166/proving-ground-dreamdex.git
+cd proving-ground-dreamdex
+npm ci
 npm run serve            <span class="c"># this site at http://127.0.0.1:8787</span>
 
 <span class="c"># Rebuild an account's health and compare it with the bank (exit 0 only if EXACT)</span>
