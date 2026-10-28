@@ -97,7 +97,7 @@ export function renderRun(run) {
     </div>
   </div>
   <div class="panel">
-    <div class="panel-head"><h2>Ledger checks</h2><p class="status"><span class="num" data-count>${x.ledgerChecks.filter((c) => c.ok).length}</span> of ${x.ledgerChecks.length} hold</p></div>
+    <div class="panel-head"><h2>Ledger checks</h2><p class="status"><span class="num">${x.ledgerChecks.filter((c) => c.ok).length}</span> of ${x.ledgerChecks.length} hold</p></div>
     <ul class="check-list">${checks}</ul>
   </div>
   ${run.steps.length ? renderSteps(run) : ""}
@@ -179,7 +179,7 @@ function renderVerification(v) {
     })
     .join("")
   return `<div class="panel">
-    <div class="panel-head"><h2>Read back from the chain</h2><p class="status"><span class="num" data-count>${held}</span> of ${v.checks.length} hold</p></div>
+    <div class="panel-head"><h2>Read back from the chain</h2><p class="status"><span class="num">${held}</span> of ${v.checks.length} hold</p></div>
     <p class="outcome">A separate script read every transaction, its receipt and the account again from the public Hideki RPC, at one block for the end state, and recomputed the scenario from the chain at the scenario's fixed prices.</p>
     <dl class="facts">
       <div><dt>Gas</dt><dd>${usd(s.spent, 6)} STT spent = ${usd(s.receiptFees, 6)} STT in receipt fees · cap ${usd(s.cap, 0)} STT</dd></div>
