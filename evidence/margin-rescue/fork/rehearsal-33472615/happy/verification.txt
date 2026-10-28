@@ -1,25 +1,25 @@
 Margin Rescue: independent verification of a live run (read-only)
-  account        0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171
-  plan SHA-256   59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf
-  end block      33472633 0x33b5f2c9bd8fa3876e260d9c36937fd0aa97518c512098611af6d71687b9c2c3
+  account        0x2939472eE7253E6F26c927F160511948C4a9b33D
+  plan SHA-256   e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033
+  end block      33472633 0x5f47ea93b95540960b4b881c000c6599934ab709f89cd9b78f0f37c38358b27e
   run            blocks 33472621–33472633 (state before: block 33472620)
   read from      a private endpoint (address withheld)
-  guard          0x09c51620f3e469b8335f360fe2fe6ada92417fcf, runtime 0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374
+  guard          0x593f79b5511494ff66ef4218232aceed2b422a01, runtime 0x7b3099b567ca2dfcbd168d30208f2ec6a7c491a5967803ccbecc5d7b2a2853da
 
   n   step                         block       status   fee STT     transaction
-  1   deploy-guard                 33472621    success  0.004052    0xf73c277023c3e161f68576bfd619061a559ea7106e4f2b8700965a2385069d87
-  2   approve                      33472622    success  0.000179    0x784ab190fcb7a31e896ccd27a1629ea173cc81f3b8fa406962aced6ced9e1c67
-  3   deposit                      33472623    success  0.000340    0xbbdbca2107f17267236b7210beb93e9e6b30f98ca87b5f6e83dcec44d4ab9c05
-  4   open-BTC-long                33472624    success  0.007791    0xc9de3546a6531555081408fee512d11b3a73deb2681b96061c9edc47145c8d96
-  5   open-ETH-short               33472625    success  0.006820    0x409ad87031325daddd153837e2d125a0a6b4523b5ff482b912f11dba08495f48
-  6   grant-BTC                    33472626    success  0.000133    0x61c32ad0e3d5829edb8710115fb5026e7f91a1e3321553f15778f4bfd967bad1
-  7   reduce                       33472627    success  0.005597    0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa
-  8   cleanup-close-BTC-1          33472628    success  0.005221    0xd3367b38e9638df2f7220d7629e32b50af11c445711db40d300118c243257075
-  9   cleanup-grant-ETH            33472629    success  0.000107    0x7503505408aeea27b4605be80f3f8cb87c9446700df39b10554e49834cad4bf4
-  10  cleanup-close-ETH-1          33472630    success  0.004448    0x739a23939dfe183d01803fb690263524738786d76d6c9350013b4e62cebfc405
-  11  cleanup-revoke-BTC           33472631    success  0.000054    0x78701fc23b5088cf03dba2e4d0472a675f1e6e37800efa35a73770b39f66cde3
-  12  cleanup-revoke-ETH           33472632    success  0.000051    0xdbe65d6b689ca21aa0b6dd63fd43dfd01985d73a59e9cfb1a5643b0c11cf2a7e
-  13  cleanup-withdraw             33472633    success  0.000102    0xb84d889d04b1857f8455637b2b5e6202ba0eacca622b9a8137a742c440442f7a
+  1   deploy-guard                 33472621    success  0.004052    0x08dcd7cd8c0ec5e4bccc17facbb3655a1f64e23054320d1e408d5f642650decb
+  2   approve                      33472622    success  0.000179    0x08c15d25715e468ab1702dac39e9e438a91568b502560c050a757ae243eaff78
+  3   deposit                      33472623    success  0.000340    0x3ec5c53d3bbb8625b0e0bb65e3b2e90ed8420a206d56393c940a3b9f49915535
+  4   open-BTC-long                33472624    success  0.007791    0x245c17aede66cd3236255a0071bd72f8c828ab0e67088f29d4a9bb5cebe988bd
+  5   open-ETH-short               33472625    success  0.006820    0x7c089fd72d2e8257a693c351db3a3928d66ce04cb06a702181539a7498f00999
+  6   grant-BTC                    33472626    success  0.000133    0x3cf4361f4ce8a19c124cccc62e977029e85f086b673c3b147df954484f07afa3
+  7   reduce                       33472627    success  0.005597    0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08
+  8   cleanup-close-BTC-1          33472628    success  0.005221    0xcd1531c6f9dd0c493f4b60293997b7b3f4cf56fa8db36d86c3f531a12e418bb2
+  9   cleanup-grant-ETH            33472629    success  0.000107    0x938ec23c4a383bfd5cdf7700741b5ae2625b6f8f04c03b6daa05fc836c09759c
+  10  cleanup-close-ETH-1          33472630    success  0.004448    0x381e43db9c5ce967510c9d1636071eaee38609d2a8aac1b7fc9e1af0a644b0a5
+  11  cleanup-revoke-BTC           33472631    success  0.000054    0xc2892451bb6a5a6365c863fa76b6853a295e20b8630f50eced8a9ac950df664f
+  12  cleanup-revoke-ETH           33472632    success  0.000051    0xe860d5ade8670dfc92dc8307bb97ff4db5263d377d63bf31a78cc7306d0d430a
+  13  cleanup-withdraw             33472633    success  0.000102    0xb01ddd34df584f8bfbb74fa77376a18194c685308d78726c9c8d5075ff9f4a68
 
   fills of the account's own IOC orders
     open-BTC-long              buy               19000 @ 80144.70 (limit 80545.40)
@@ -29,7 +29,7 @@ Margin Rescue: independent verification of a live run (read-only)
     cleanup-close-BTC-1        sell              63000 @ 80144.60 (limit 79743.90)
     cleanup-close-ETH-1        buy   38800000000000000 @ 2317.04 (limit 2328.62)
 
-  rescue         0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa (block 33472627): filled 62000 of 62000
+  rescue         0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08 (block 33472627): filled 62000 of 62000
     BTC: mark 79976.86 at block 33472625, shock -1000 bps → fixed price 71979.17
     ETH: mark 2316.65 at block 33472625, shock 500 bps → fixed price 2432.49
     buffer at the fixed prices: 40.6742 at block 33472626 → 46.8524 at block 33472627; target 45.0000

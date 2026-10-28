@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "[\"cleanup-grant-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-BTC-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-close-BTC-2→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-close-BTC-3→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-close-ETH-2→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-close-ETH-3→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"cleanup-clear-allowance→0xed7993A74dAe1e6656B704A424DcD8711aAf4F72\"]",
+      "detail": "[\"cleanup-grant-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-BTC-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-close-BTC-2→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-close-BTC-3→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-close-ETH-2→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-close-ETH-3→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"cleanup-clear-allowance→0xed7993A74dAe1e6656B704A424DcD8711aAf4F72\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -16,7 +16,7 @@
       "ok": true
     },
     {
-      "detail": "open-ETH-short 0x4b15c5fa1fb4ed8ad5e226445c96bf5e9486a8a91ab4eff6b692a3ad01291562",
+      "detail": "open-ETH-short 0x994873d443e117515726426f976ebe4230a618a03e4576016d345c1702513d52",
       "name": "the run was interrupted after opening both legs, and the owner's approval was recorded as foreign",
       "ok": true
     },
@@ -36,7 +36,7 @@
       "ok": true
     },
     {
-      "detail": "{\"reserve\":\"402261513108000000\",\"fees\":\"13130464716253526\"}",
+      "detail": "{\"reserve\":\"402261513264000000\",\"fees\":\"13130448898320294\"}",
       "name": "each cleanup gas limit fits the per-transaction reserve, and their fees fit the reserve",
       "ok": true
     },
@@ -93,7 +93,7 @@
       "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf attempt 2: third party took 8486200000000000000, left 8600000000000000 inside the limit"
     ],
     "reserved": 12,
-    "seconds": 70,
+    "seconds": 244,
     "status": "ABORTED",
     "used": 12
   },

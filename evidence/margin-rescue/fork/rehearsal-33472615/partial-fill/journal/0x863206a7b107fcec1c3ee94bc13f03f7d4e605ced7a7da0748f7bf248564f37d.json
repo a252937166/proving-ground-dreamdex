@@ -1,0 +1,73 @@
+{
+  "actionId": "0x863206a7b107fcec1c3ee94bc13f03f7d4e605ced7a7da0748f7bf248564f37d",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0x593f79b5511494ff66ef4218232aceed2b422a01",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x2939472eE7253E6F26c927F160511948C4a9b33D"
+  },
+  "calldata": "0xdd0c33d7000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddfffffffffffffffffffffffffffffffffffffffffffffffffff76279b06b7000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000089d864f949000000000000000000000000000000000000000000000000007e3c182071461e0000000000000000000000000000000000000000000000000000000000006adf006afae716799a38c895196ad4b01df5e9946966008c44be916f735ed925be28f90d",
+  "candidateId": "CLOSE-ETH",
+  "createdAt": "2026-10-28T03:40:09.945Z",
+  "fill": {
+    "filled": "38800000000000000",
+    "requested": "38800000000000000",
+    "state": "REQUESTED_FILL"
+  },
+  "forecast": {
+    "expectedFill": "38800000000000000",
+    "goal": "CLOSE",
+    "scenarioBuffer": "0"
+  },
+  "goal": {
+    "reason": "cleanup close; no scenario goal",
+    "state": "NOT_EVALUATED"
+  },
+  "history": [
+    {
+      "at": "2026-10-28T03:40:09.948Z",
+      "detail": "candidate CLOSE-ETH, scenario cleanup",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-28T03:40:10.016Z",
+      "event": "pending"
+    },
+    {
+      "at": "2026-10-28T03:40:11.500Z",
+      "detail": "success in block 33472631",
+      "event": "ledger: confirmed"
+    },
+    {
+      "at": "2026-10-28T03:40:11.523Z",
+      "event": "closed"
+    }
+  ],
+  "kind": "CLEANUP",
+  "quote": {
+    "blockHash": "0x0b64be1ed718961a8f4c807555ff352e4e44850246b7ab5482c32a11305403fb",
+    "blockNumber": "33472629",
+    "validUntil": "1792999530"
+  },
+  "request": {
+    "deadline": "1792999530",
+    "expectedSignedSize": "-38800000000000000",
+    "isBid": true,
+    "limitPrice": "2328620000000000000000",
+    "nonce": "0xfae716799a38c895196ad4b01df5e9946966008c44be916f735ed925be28f90d",
+    "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+    "quantity": "38800000000000000"
+  },
+  "scenarioId": "cleanup",
+  "tx": {
+    "blockHash": "0xb8f969cd368f1618edc91d96992228425cf8ea6250dc88763dd2b7743f23539a",
+    "blockNumber": "33472631",
+    "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
+    "hash": "0xcccb6bdeebcd9a147a8883aef113ff830d0713d204f59cf7e02f216db51edd74",
+    "nonce": 9,
+    "sentAfterBlock": "33472629",
+    "sentAt": "2026-10-28T03:40:10.016Z",
+    "state": "CONFIRMED"
+  },
+  "version": "mr-action/1"
+}

@@ -48,7 +48,7 @@
   ],
   "closes": [
     {
-      "actionId": "0x1dbe0e41680b822fbc6053eb343bbd57be4ff5b387b6ed42688a95daadf96f48",
+      "actionId": "0xe6574700ede24e33201c53851cb6969580a46697d29a58a1658a5cc112316827",
       "attempt": 1,
       "bindingOk": true,
       "expected": "125000",
@@ -58,10 +58,10 @@
       "quantity": "125000",
       "state": "CONFIRMED",
       "symbol": "BTC",
-      "tx": "0x16be11807bd114e66413a91ac84b17723406c6d93bf98a8df82507ebcb592138"
+      "tx": "0x1ad26739c530087eb7612862778bb59168383ac26400f14783b6eafeca49fa10"
     },
     {
-      "actionId": "0xf03ea01fb0a9ab4cfaa2c6d200cc11b3031570fa0cb7d044f0be09b8ed34ee27",
+      "actionId": "0x3e711c65a0ea017d3b0f10a2b57a6f240e7e7e7056fb416533b92c50c06c6326",
       "attempt": 2,
       "bindingOk": true,
       "expected": "94000",
@@ -71,10 +71,10 @@
       "quantity": "94000",
       "state": "CONFIRMED",
       "symbol": "BTC",
-      "tx": "0x48117ebab617c010597e545adcee49a9ab216fd7e2b655eba4ed8b771bc4d69b"
+      "tx": "0x570615f5545705a08464167f00c4be03d6daeabd9e02eab22b1b4da5638f590b"
     },
     {
-      "actionId": "0xacd448674c968404d6dabad1c670ee2f02bc832436ab178d9fd60cc6146b72e7",
+      "actionId": "0x39ed693c6cbda3fa50ecaad04f4b263c4215f137cd29de5af0624a53e017ab2d",
       "attempt": 1,
       "bindingOk": true,
       "expected": "-9700000000000000",
@@ -84,13 +84,13 @@
       "quantity": "9700000000000000",
       "state": "CONFIRMED",
       "symbol": "ETH",
-      "tx": "0x6f95a71c5641535adb497b2cce109a2573abc3d63263ceaeaadcb611c0f1c3bf"
+      "tx": "0x1cf92b04420510837e16530682e2e8dd40b584f58246b9de875535171c0ccdd1"
     }
   ],
   "final": {
     "block": "33472635",
-    "blockHash": "0x5ae21db44fd9434bfb24e19f7ed59b74170f195dc075e20c0af8d9464ec44b6a",
-    "stt": "9965619308172259123",
+    "blockHash": "0x792703681faecf54dac032884dbf5c86637a4bc84ff3496728100fc130f8386d",
+    "stt": "9965619243337126957",
     "usdso": "99177496000000000000"
   },
   "remaining": [],

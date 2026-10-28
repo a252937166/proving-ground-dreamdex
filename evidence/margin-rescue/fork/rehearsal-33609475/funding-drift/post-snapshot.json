@@ -1,5 +1,5 @@
 {
-  "account": "0x1924fA743e433BEebd69870a12207DFC4eEA3c8e",
+  "account": "0x91006e313C6c73Dc428bBe0Ce20A92c25dd11EC7",
   "accountMode": {
     "creditFloor": "0",
     "fundingPayer": "0x0000000000000000000000000000000000000000",
@@ -16,7 +16,7 @@
     "tryEquityOk": true
   },
   "block": {
-    "hash": "0xe6f3e27b8f5ac69f5ae0c89b4b1abbb4356cf1c4aecec951470b70c09ccc29b6",
+    "hash": "0x5517dec79b59e204b83e129584da4169705611832ebc311182b6b93e244bf12e",
     "number": "33609488",
     "timestamp": "1793013103"
   },
@@ -433,8 +433,8 @@
     }
   ],
   "canonical": {
-    "checkedAt": "2026-10-27T20:03:47.121Z",
-    "observedHash": "0xe6f3e27b8f5ac69f5ae0c89b4b1abbb4356cf1c4aecec951470b70c09ccc29b6",
+    "checkedAt": "2026-10-28T03:49:41.406Z",
+    "observedHash": "0x5517dec79b59e204b83e129584da4169705611832ebc311182b6b93e244bf12e",
     "ok": true
   },
   "capacities": [
@@ -581,10 +581,10 @@
     }
   ],
   "problems": [],
-  "readStartedAt": "2026-10-27T20:03:43.062Z",
+  "readStartedAt": "2026-10-28T03:49:36.579Z",
   "stops": {
     "error": null,
-    "indexedThrough": "34792305",
+    "indexedThrough": "35062243",
     "pages": 1,
     "rows": [],
     "source": "indexer-listed, chain-checked"

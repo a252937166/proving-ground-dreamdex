@@ -1,0 +1,76 @@
+{
+  "actionId": "0x6fa2a402e30b8843a33c2f221e76148f4b08bf54004038ad42d2cc7b948cd297",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0x593f79b5511494ff66ef4218232aceed2b422a01",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x2939472eE7253E6F26c927F160511948C4a9b33D"
+  },
+  "calldata": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c00000000000000000000000000000000000000000000000000000000000016f30000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000059d80000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf00a65554356538e10dbe075c49b8aa4364c92aa369f508a2861c916ae55f57634a16",
+  "candidateId": "BTC-25",
+  "createdAt": "2026-10-28T03:40:48.252Z",
+  "fill": {
+    "requested": "23000",
+    "state": "NOT_APPLICABLE"
+  },
+  "forecast": {
+    "expectedFill": "23000",
+    "goal": "MEETS",
+    "scenarioBuffer": "46055264528874732137"
+  },
+  "goal": {
+    "state": "NOT_EVALUATED"
+  },
+  "history": [
+    {
+      "at": "2026-10-28T03:40:48.255Z",
+      "detail": "candidate BTC-25, scenario f35b0c9928529af5",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-28T03:40:49.272Z",
+      "detail": "funding drift 0",
+      "event": "refreshed"
+    },
+    {
+      "at": "2026-10-28T03:40:49.352Z",
+      "detail": "account nonce is 7; this run expected 6: another transaction was sent from the account",
+      "event": "not sent"
+    }
+  ],
+  "kind": "RESCUE",
+  "quote": {
+    "blockHash": "0x5ffd82f1d5149e6f22a533e17c5a2f30f860b7d7a35b19418f3d4cafc205e329",
+    "blockNumber": "33472627",
+    "validUntil": "1792999590"
+  },
+  "refreshes": [
+    {
+      "at": "2026-10-28T03:40:49.271Z",
+      "blockHash": "0x5ffd82f1d5149e6f22a533e17c5a2f30f860b7d7a35b19418f3d4cafc205e329",
+      "blockNumber": "33472627",
+      "forecast": {
+        "expectedFill": "23000",
+        "goal": "MEETS",
+        "scenarioBuffer": "46055264528874732137"
+      },
+      "fundingDrift": "0",
+      "reasons": [],
+      "verdict": "STILL_VALID"
+    }
+  ],
+  "request": {
+    "deadline": "1792999590",
+    "expectedSignedSize": "94000",
+    "isBid": false,
+    "limitPrice": "79743900000000000000000",
+    "nonce": "0x5554356538e10dbe075c49b8aa4364c92aa369f508a2861c916ae55f57634a16",
+    "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "quantity": "23000"
+  },
+  "scenarioId": "f35b0c9928529af5fc06dcdf82b6ae471358232bbf7045d1db1d7af8f02bf233",
+  "tx": {
+    "state": "INVALIDATED"
+  },
+  "version": "mr-action/1"
+}

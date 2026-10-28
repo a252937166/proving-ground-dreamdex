@@ -1,0 +1,56 @@
+{
+  "actionId": "0xfc2b6e9c583b24a6f62ab037e7e2bfd7ba1042daf0b3b6726960c46b7f4c8f88",
+  "binding": {
+    "chainId": 50383,
+    "guard": "0x593f79b5511494ff66ef4218232aceed2b422a01",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x2939472eE7253E6F26c927F160511948C4a9b33D"
+  },
+  "calldata": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000000f6180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f6180000000000000000000000000000000000000000000010a52f82b8dc6c140000000000000000000000000000000000000000000000000000000000006adf006a15259eb494397f8d00689c620ef3b625102fac2ae71b3a336abf6f3f1925bed8",
+  "candidateId": "CLOSE-BTC",
+  "createdAt": "2026-10-28T03:47:47.185Z",
+  "fill": {
+    "requested": "63000",
+    "state": "NOT_APPLICABLE"
+  },
+  "forecast": {
+    "expectedFill": "63000",
+    "goal": "CLOSE",
+    "scenarioBuffer": "0"
+  },
+  "goal": {
+    "state": "NOT_EVALUATED"
+  },
+  "history": [
+    {
+      "at": "2026-10-28T03:47:47.191Z",
+      "detail": "candidate CLOSE-BTC, scenario cleanup",
+      "event": "created"
+    },
+    {
+      "at": "2026-10-28T03:47:47.207Z",
+      "detail": "cleanup-close-BTC-3 would revert now (ImmediateOrCancelNoFill()); nothing was sent",
+      "event": "not sent"
+    }
+  ],
+  "kind": "CLEANUP",
+  "quote": {
+    "blockHash": "0xaa0cc3e3b283073a5fba88127ad0513fe011930906ac69570885272e0c0d7d54",
+    "blockNumber": "33472629",
+    "validUntil": "1792999530"
+  },
+  "request": {
+    "deadline": "1792999530",
+    "expectedSignedSize": "63000",
+    "isBid": false,
+    "limitPrice": "78605000000000000000000",
+    "nonce": "0x15259eb494397f8d00689c620ef3b625102fac2ae71b3a336abf6f3f1925bed8",
+    "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+    "quantity": "63000"
+  },
+  "scenarioId": "cleanup",
+  "tx": {
+    "state": "INVALIDATED"
+  },
+  "version": "mr-action/1"
+}

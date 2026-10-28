@@ -12,11 +12,12 @@ only, refreshes the account, sends one guarded reduction, binds its receipt and 
 same scenario, then unwinds every leg through the guard, revokes, withdraws, clears the allowance
 and verifies the end state. Gas is capped at 2 STT; 15 USDso is a soft stop, not a loss cap.
 Earlier plans (`6c255a58…d233699`, `a21e43c5…dc18a7`) were never run and are superseded.
-Before handing the run over it was checked again read-only (`../live-read-only/plan-recheck.txt`):
-the account untouched at block 34,778,147 (nonce 0, no position, order, stop or collateral, no
-guard deployed), the local guard build equal to the plan's hashes, and the plan regenerated with
-the final code at block 34,778,454 identical except for market data (+0.03%), the read block and
-one ETH lot, so this plan and its SHA-256 remain the ones to run.
+Before handing the run over it was checked again read-only after the fifth round's fixes
+(`../live-read-only/plan-recheck.txt`): the account untouched at block 35,044,107 (nonce 0, no
+position, order, stop or collateral, no guard deployed), the local guard build equal to the plan's
+hashes, and the plan regenerated with the final code at block 35,044,503 identical except for
+market data (BTC +0.33%, ETH +0.52%), the read block and the opening lots that follow from the
+price, so this plan and its SHA-256 remain the ones to run.
 
 The one blocker is signing: the test account's key is held only in the owner's terminal. The run
 writes its journals to a private, git-ignored folder (`.margin-rescue/live/run-1`). They reach

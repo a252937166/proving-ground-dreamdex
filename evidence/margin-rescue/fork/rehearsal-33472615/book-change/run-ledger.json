@@ -1,55 +1,50 @@
 {
-  "account": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+  "account": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
   "chainId": 50383,
-  "createdAt": "2026-10-27T20:04:24.249Z",
+  "createdAt": "2026-10-28T03:35:13.218Z",
   "foreignActivity": [],
   "gasCap": "2000000000000000000",
-  "planDigest": "59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf",
+  "planDigest": "e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033",
   "startNonce": 0,
   "steps": [
     {
       "cleanupTxReserved": 1,
-      "dataKeccak": "0xbcfb7d3288b546798cd11fcfb37ce1b5807e7f29d9095dfbbec45946eb0a6d62",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
-      "gas": "1426503",
-      "gasPrice": "3692813703",
-      "hash": "0xf73c277023c3e161f68576bfd619061a559ea7106e4f2b8700965a2385069d87",
+      "dataKeccak": "0xd2413ad50083f910edb9140f9a5d862d1c5d28485997acf5b6f390d6816a79e8",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
+      "gas": "1426518",
+      "gasPrice": "3692813705",
+      "hash": "0x08dcd7cd8c0ec5e4bccc17facbb3655a1f64e23054320d1e408d5f642650decb",
       "history": [
         {
-          "at": "2026-10-27T20:04:25.629Z",
+          "at": "2026-10-28T03:35:15.158Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:04:25.636Z",
+          "at": "2026-10-28T03:35:15.165Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:04:26.066Z",
-          "detail": "mined in block 33472621; its receipt is not served yet",
-          "event": "outcome not established"
-        },
-        {
-          "at": "2026-10-27T20:04:27.085Z",
+          "at": "2026-10-28T03:35:15.176Z",
           "event": "confirmed"
         }
       ],
       "id": "deploy-guard",
       "lastProbe": "success in block 33472621",
-      "maxCost": "5267809825770609",
+      "maxCost": "5267865220829190",
       "n": 1,
       "nonce": 0,
       "phase": "main",
       "purpose": "deploy ReduceOnlyGuard(owner, bank, [BTC, ETH])",
       "receipt": {
-        "blockHash": "0x558920ebd598fdab257deb6205150d6789fd1dca25158c07c09819050edb0528",
+        "blockHash": "0x78905e609f3b86b729b1168b553b3445b9b1b28acd8bab47088661a439bb3fb0",
         "blockNumber": "33472621",
-        "contractAddress": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
-        "effectiveGasPrice": "3692813703",
-        "fee": "4052161404438930",
-        "gasUsed": "1097310",
+        "contractAddress": "0x593f79b5511494ff66ef4218232aceed2b422a01",
+        "effectiveGasPrice": "3692813705",
+        "fee": "4052205720398010",
+        "gasUsed": "1097322",
         "status": "success"
       },
-      "reserveAtSend": "48006578139000000",
+      "reserveAtSend": "48006578165000000",
       "selector": "0x60c06040",
       "sentAfterBlock": "33472620",
       "state": "CONFIRMED",
@@ -58,137 +53,132 @@
     {
       "cleanupTxReserved": 1,
       "dataKeccak": "0xae56201c4162af6f0e7b5c0df9e045fe1806acf685254f102e2a833e62147786",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "69911",
-      "gasPrice": "3356261238",
-      "hash": "0x784ab190fcb7a31e896ccd27a1629ea173cc81f3b8fa406962aced6ced9e1c67",
+      "gasPrice": "3356261240",
+      "hash": "0x08c15d25715e468ab1702dac39e9e438a91568b502560c050a757ae243eaff78",
       "history": [
         {
-          "at": "2026-10-27T20:04:27.171Z",
+          "at": "2026-10-28T03:35:15.223Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:04:27.176Z",
+          "at": "2026-10-28T03:35:15.231Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:04:27.607Z",
-          "detail": "mined in block 33472622; its receipt is not served yet",
-          "event": "outcome not established"
-        },
-        {
-          "at": "2026-10-27T20:04:28.625Z",
+          "at": "2026-10-28T03:35:15.241Z",
           "event": "confirmed"
         }
       ],
       "id": "approve",
       "lastProbe": "success in block 33472622",
-      "maxCost": "234639579409818",
+      "maxCost": "234639579549640",
       "n": 2,
       "nonce": 1,
       "phase": "main",
       "purpose": "exact allowance of 60000000000000000000 to the bank",
       "receipt": {
-        "blockHash": "0x5c048bbb7c27288b81dc0ed47adfa567d5da8d725d27141f8eac8a38d3a572c7",
+        "blockHash": "0x3e7da7828224de336b9f6e80e898f988859082f3ee6a1bb77b57ac5e5d57af07",
         "blockNumber": "33472622",
         "contractAddress": null,
-        "effectiveGasPrice": "3356261238",
-        "fee": "179308256640150",
+        "effectiveGasPrice": "3356261240",
+        "fee": "179308256747000",
         "gasUsed": "53425",
         "status": "success"
       },
-      "reserveAtSend": "43631396094000000",
+      "reserveAtSend": "43631396120000000",
       "selector": "0x095ea7b3",
-      "sentAfterBlock": "33472621",
+      "sentAfterBlock": "33472620",
       "state": "CONFIRMED",
       "to": "0xed7993A74dAe1e6656B704A424DcD8711aAf4F72"
     },
     {
       "cleanupTxReserved": 2,
       "dataKeccak": "0xb7fec564cf58dd9f8ecc4e0459103f24345a620bb748b3edcb655820fb1f7eeb",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "153198",
-      "gasPrice": "3061730682",
-      "hash": "0xbbdbca2107f17267236b7210beb93e9e6b30f98ca87b5f6e83dcec44d4ab9c05",
+      "gasPrice": "3061730684",
+      "hash": "0x3ec5c53d3bbb8625b0e0bb65e3b2e90ed8420a206d56393c940a3b9f49915535",
       "history": [
         {
-          "at": "2026-10-27T20:04:28.669Z",
+          "at": "2026-10-28T03:35:15.264Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:04:28.681Z",
+          "at": "2026-10-28T03:35:15.270Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:04:28.691Z",
+          "at": "2026-10-28T03:35:15.279Z",
           "event": "confirmed"
         }
       ],
       "id": "deposit",
       "lastProbe": "success in block 33472623",
-      "maxCost": "469051017021036",
+      "maxCost": "469051017327432",
       "n": 3,
       "nonce": 2,
       "phase": "main",
       "purpose": "deposit 60000000000000000000",
       "receipt": {
-        "blockHash": "0x02a761cd62b7965606cac138904f7c58cd20956b73ed8a8b2c7eaa4b2b55eb1a",
+        "blockHash": "0x9f5e1721743a271e3a8181eb28e215f259864547f07c272a103b93563706fe84",
         "blockNumber": "33472623",
         "contractAddress": null,
-        "effectiveGasPrice": "3061730682",
-        "fee": "340127661463380",
+        "effectiveGasPrice": "3061730684",
+        "fee": "340127661685560",
         "gasUsed": "111090",
         "status": "success"
       },
-      "reserveAtSend": "79604997732000000",
+      "reserveAtSend": "79604997784000000",
       "selector": "0xb6b55f25",
-      "sentAfterBlock": "33472622",
+      "sentAfterBlock": "33472620",
       "state": "CONFIRMED",
       "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
     },
     {
       "cleanupTxReserved": 7,
       "dataKeccak": "0x0522c5b03072456b645f86743b311b3bf4ee1b05890a0e2f99307109045db1ba",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "3927106",
-      "gasPrice": "2804018165",
-      "hash": "0xc9de3546a6531555081408fee512d11b3a73deb2681b96061c9edc47145c8d96",
+      "gasPrice": "2804018166",
+      "hash": "0x245c17aede66cd3236255a0071bd72f8c828ab0e67088f29d4a9bb5cebe988bd",
       "history": [
         {
-          "at": "2026-10-27T20:04:31.399Z",
+          "at": "2026-10-28T03:35:16.783Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:04:31.407Z",
+          "at": "2026-10-28T03:35:16.789Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:04:31.835Z",
+          "at": "2026-10-28T03:35:19.675Z",
           "detail": "mined in block 33472624; its receipt is not served yet",
           "event": "outcome not established"
         },
         {
-          "at": "2026-10-27T20:04:32.858Z",
+          "at": "2026-10-28T03:35:20.693Z",
           "event": "confirmed"
         }
       ],
       "id": "open-BTC-long",
       "lastProbe": "success in block 33472624",
-      "maxCost": "11011676559880490",
+      "maxCost": "11011676563807596",
       "n": 4,
       "nonce": 3,
       "phase": "main",
       "purpose": "open BTC long 125000 with IOC limit 80545400000000000000000",
       "receipt": {
-        "blockHash": "0xb2a18718fd65be7a1eff66bbe062e1e0256fa983d3f4271eef88116790f8bb22",
+        "blockHash": "0x977d8c476e9b22fea3905aa7dd18822b516a92b49d834bb3cf130f341e3ceaaa",
         "blockNumber": "33472624",
         "contractAddress": null,
-        "effectiveGasPrice": "2804018165",
-        "fee": "7791595375539625",
+        "effectiveGasPrice": "2804018166",
+        "fee": "7791595378318350",
         "gasUsed": "2778725",
         "status": "success"
       },
-      "reserveAtSend": "255165653015000000",
+      "reserveAtSend": "255165653106000000",
       "selector": "0x4e978373",
       "sentAfterBlock": "33472623",
       "state": "CONFIRMED",
@@ -197,46 +187,46 @@
     {
       "cleanupTxReserved": 12,
       "dataKeccak": "0xc78b6305a1140b7723285b2e946a1dc0c4ffaff0b508cc0841260bce6f5a8a2e",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "3643914",
-      "gasPrice": "2578599443",
-      "hash": "0x409ad87031325daddd153837e2d125a0a6b4523b5ff482b912f11dba08495f48",
+      "gasPrice": "2578599444",
+      "hash": "0x7c089fd72d2e8257a693c351db3a3928d66ce04cb06a702181539a7498f00999",
       "history": [
         {
-          "at": "2026-10-27T20:04:32.967Z",
+          "at": "2026-10-28T03:35:20.816Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:04:32.973Z",
+          "at": "2026-10-28T03:35:20.823Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:04:33.399Z",
+          "at": "2026-10-28T03:35:21.427Z",
           "detail": "mined in block 33472625; its receipt is not served yet",
           "event": "outcome not established"
         },
         {
-          "at": "2026-10-27T20:04:34.414Z",
+          "at": "2026-10-28T03:35:22.462Z",
           "event": "confirmed"
         }
       ],
       "id": "open-ETH-short",
       "lastProbe": "success in block 33472625",
-      "maxCost": "9396194610739902",
+      "maxCost": "9396194614383816",
       "n": 5,
       "nonce": 4,
       "phase": "main",
       "purpose": "open ETH short 38800000000000000 with IOC limit 2305060000000000000000",
       "receipt": {
-        "blockHash": "0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e",
+        "blockHash": "0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867",
         "blockNumber": "33472625",
         "contractAddress": null,
-        "effectiveGasPrice": "2578599443",
-        "fee": "6820622443485984",
+        "effectiveGasPrice": "2578599444",
+        "fee": "6820622446131072",
         "gasUsed": "2645088",
         "status": "success"
       },
-      "reserveAtSend": "402261513108000000",
+      "reserveAtSend": "402261513264000000",
       "selector": "0x4e978373",
       "sentAfterBlock": "33472624",
       "state": "CONFIRMED",
@@ -244,47 +234,47 @@
     },
     {
       "cleanupTxReserved": 11,
-      "dataKeccak": "0x3d9807b9399a2de6b73cf0750de9e1e7c2d1f4005658dcc00fe6ee2ecd462fa5",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "dataKeccak": "0xcd629c971c3596e7956cb3cafb4420b341b823ed01b090a7a0cd8209683a4b2e",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "73294",
-      "gasPrice": "2381344105",
-      "hash": "0x61c32ad0e3d5829edb8710115fb5026e7f91a1e3321553f15778f4bfd967bad1",
+      "gasPrice": "2381344106",
+      "hash": "0x3cf4361f4ce8a19c124cccc62e977029e85f086b673c3b147df954484f07afa3",
       "history": [
         {
-          "at": "2026-10-27T20:04:38.770Z",
+          "at": "2026-10-28T03:35:29.130Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:04:38.782Z",
+          "at": "2026-10-28T03:35:29.137Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:04:40.966Z",
+          "at": "2026-10-28T03:35:31.995Z",
           "detail": "mined in block 33472626; its receipt is not served yet",
           "event": "outcome not established"
         },
         {
-          "at": "2026-10-27T20:04:41.983Z",
+          "at": "2026-10-28T03:35:33.020Z",
           "event": "confirmed"
         }
       ],
       "id": "grant-BTC",
       "lastProbe": "success in block 33472626",
-      "maxCost": "174538234831870",
+      "maxCost": "174538234905164",
       "n": 6,
       "nonce": 5,
       "phase": "main",
       "purpose": "grant the guard placeOrderFor on 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 only",
       "receipt": {
-        "blockHash": "0x7b2894a3e95e80c3b4f6f0faa0257e37064fef7b2c6e9edaf03e26f7e7f102fa",
+        "blockHash": "0x7e06379aa125aabdd542ee91c1c18474bf3190c9466dcdcafe40e52797cba1a9",
         "blockNumber": "33472626",
         "contractAddress": null,
-        "effectiveGasPrice": "2381344105",
-        "fee": "133260016115800",
+        "effectiveGasPrice": "2381344106",
+        "fee": "133260016171760",
         "gasUsed": "55960",
         "status": "success"
       },
-      "reserveAtSend": "340532207015000000",
+      "reserveAtSend": "340532207158000000",
       "selector": "0x7bbc67e6",
       "sentAfterBlock": "33472625",
       "state": "CONFIRMED",
@@ -292,141 +282,136 @@
     },
     {
       "cleanupTxReserved": 10,
-      "dataKeccak": "0x400f85a9419da60e0f656ad74c3522e29a0d902349d44fc919a13d782ae1e1f0",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "dataKeccak": "0x78428dc20f94a875980c8f5728489ccd24700809a2ec12dd3898e49130cb42e0",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "73294",
-      "gasPrice": "2057856596",
-      "hash": "0x34c164e0a622ec37a0d25f3e06dd5cec99f2173f69264037347c8023f37a12e5",
+      "gasPrice": "2057856597",
+      "hash": "0xb1a1bb369ff23ad5b82059a87d13b8ddbc9703f0384b6357bf2dcfa36dd57a2a",
       "history": [
         {
-          "at": "2026-10-27T20:04:54.608Z",
+          "at": "2026-10-28T03:38:54.386Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:04:54.614Z",
+          "at": "2026-10-28T03:38:54.402Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:04:56.604Z",
-          "detail": "mined in block 33472628; its receipt is not served yet",
-          "event": "outcome not established"
-        },
-        {
-          "at": "2026-10-27T20:04:57.622Z",
+          "at": "2026-10-28T03:38:54.413Z",
           "event": "confirmed"
         }
       ],
       "id": "grant-ETH-2",
       "lastProbe": "success in block 33472628",
-      "maxCost": "150828541347224",
+      "maxCost": "150828541420518",
       "n": 7,
       "nonce": 6,
       "phase": "main",
       "purpose": "grant the guard placeOrderFor on 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf only",
       "receipt": {
-        "blockHash": "0xb84b0196f38bf77609335fea869a050187dc2330e9d0d6f5b64da535ddd23689",
+        "blockHash": "0x9c9284265e40903804844937f28f9c5fd0f1976d75bc26661dee75301e65b728",
         "blockNumber": "33472628",
         "contractAddress": null,
-        "effectiveGasPrice": "2057856596",
-        "fee": "115157655112160",
+        "effectiveGasPrice": "2057856597",
+        "fee": "115157655168120",
         "gasUsed": "55960",
         "status": "success"
       },
-      "reserveAtSend": "267521357480000000",
+      "reserveAtSend": "267521357610000000",
       "selector": "0x7bbc67e6",
       "sentAfterBlock": "33472627",
       "state": "CONFIRMED",
       "to": "0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a"
     },
     {
-      "actionId": "0x7c3c6ca682c31baf2fea92a0475ae0b28efe6c073868e2340db2abdec9918074",
+      "actionId": "0xefff0c907012329a525d56377a6175767ee46431241b07abd7c5b4782ca0220b",
       "cleanupTxReserved": 10,
-      "dataKeccak": "0xa621acf2ca39c7fde10532aea0eb496d33fb656b2b69b29b5c4917eef7902b35",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "dataKeccak": "0xcff81d31344b5c2c33e5949374ba39df859453cb72d37cde5ce0cc95321356e9",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "3408821",
-      "gasPrice": "1925625509",
-      "hash": "0xb49da9f2c1dda04264d7c6358ad734ffa1f9af54546cfb79ddf248090bbf6e8d",
+      "gasPrice": "1925625510",
+      "hash": "0x3837ec609f355803964872d1dc98c77697d47423d6204c9e5d470c1722d53b99",
       "history": [
         {
-          "at": "2026-10-27T20:05:01.809Z",
+          "at": "2026-10-28T03:38:55.426Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:05:01.820Z",
+          "at": "2026-10-28T03:38:55.438Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:05:03.806Z",
+          "at": "2026-10-28T03:38:57.450Z",
           "detail": "mined in block 33472629; its receipt is not served yet",
           "event": "outcome not established"
         },
         {
-          "at": "2026-10-27T20:05:04.823Z",
+          "at": "2026-10-28T03:38:58.466Z",
           "event": "confirmed"
         }
       ],
       "id": "reduce",
       "lastProbe": "success in block 33472629",
-      "maxCost": "6564112673214889",
+      "maxCost": "6564112676623710",
       "n": 8,
       "nonce": 7,
       "phase": "main",
-      "purpose": "guarded reduction ETH-75 (0x7c3c6ca682c31baf2fea92a0475ae0b28efe6c073868e2340db2abdec9918074)",
+      "purpose": "guarded reduction ETH-75 (0xefff0c907012329a525d56377a6175767ee46431241b07abd7c5b4782ca0220b)",
       "receipt": {
-        "blockHash": "0x854b561f36caf3a7016cce31b133328b57cc80aba0c80d24328cd0027f0af869",
+        "blockHash": "0xd2cf77b11e67d48d9874a1cfb41c3639d97a3349590abe94daa2e8ec331d69cf",
         "blockNumber": "33472629",
         "contractAddress": null,
-        "effectiveGasPrice": "1925625509",
-        "fee": "4817487534655002",
+        "effectiveGasPrice": "1925625510",
+        "fee": "4817487537156780",
         "gasUsed": "2501778",
         "status": "success"
       },
-      "reserveAtSend": "250331316170000000",
+      "reserveAtSend": "250331316300000000",
       "selector": "0xdd0c33d7",
       "sentAfterBlock": "33472628",
       "state": "CONFIRMED",
-      "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf"
+      "to": "0x593f79b5511494ff66ef4218232aceed2b422a01"
     },
     {
-      "actionId": "0x1dbe0e41680b822fbc6053eb343bbd57be4ff5b387b6ed42688a95daadf96f48",
+      "actionId": "0xe6574700ede24e33201c53851cb6969580a46697d29a58a1658a5cc112316827",
       "cleanupTxReserved": 0,
-      "dataKeccak": "0xe4dc356a78e7434d425939078fcb5c031839df77b950eed9a0fa3392e27e2476",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "dataKeccak": "0xd46cf8c3c0c24fd4ad91a9d3dd05d05574193ceff9c06132510fbb4030abc0c9",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "3286116",
-      "gasPrice": "1809960916",
-      "hash": "0x16be11807bd114e66413a91ac84b17723406c6d93bf98a8df82507ebcb592138",
+      "gasPrice": "1809960917",
+      "hash": "0x1ad26739c530087eb7612862778bb59168383ac26400f14783b6eafeca49fa10",
       "history": [
         {
-          "at": "2026-10-27T20:05:10.897Z",
+          "at": "2026-10-28T03:39:08.279Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:05:10.910Z",
+          "at": "2026-10-28T03:39:08.293Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:05:13.135Z",
+          "at": "2026-10-28T03:39:08.744Z",
           "detail": "mined in block 33472630; its receipt is not served yet",
           "event": "outcome not established"
         },
         {
-          "at": "2026-10-27T20:05:14.157Z",
+          "at": "2026-10-28T03:39:09.762Z",
           "event": "confirmed"
         }
       ],
       "id": "cleanup-close-BTC-1",
       "lastProbe": "success in block 33472630",
-      "maxCost": "5947741525442256",
+      "maxCost": "5947741528728372",
       "n": 9,
       "nonce": 8,
       "phase": "cleanup",
       "purpose": "guarded full close of BTC (125000)",
       "receipt": {
-        "blockHash": "0x2df919863f369567df4454b14cb524264ab6d5d69ee653eb5794c6d58177141b",
+        "blockHash": "0xfa9cb2f5ef99ec8e3ad99028ae7ac4c1b4e2adf8d07b2e88c8ec3212b28a10b3",
         "blockNumber": "33472630",
         "contractAddress": null,
-        "effectiveGasPrice": "1809960916",
-        "fee": "4228392682779964",
+        "effectiveGasPrice": "1809960917",
+        "fee": "4228392685116143",
         "gasUsed": "2336179",
         "status": "success"
       },
@@ -434,97 +419,92 @@
       "selector": "0xdd0c33d7",
       "sentAfterBlock": "33472629",
       "state": "CONFIRMED",
-      "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf"
+      "to": "0x593f79b5511494ff66ef4218232aceed2b422a01"
     },
     {
-      "actionId": "0xf03ea01fb0a9ab4cfaa2c6d200cc11b3031570fa0cb7d044f0be09b8ed34ee27",
+      "actionId": "0x3e711c65a0ea017d3b0f10a2b57a6f240e7e7e7056fb416533b92c50c06c6326",
       "cleanupTxReserved": 0,
-      "dataKeccak": "0x8dc12b349901b58b6dc1f1cb7242f43cca913bc23a7bddfe34268263a54b21d7",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
-      "gas": "1450099",
-      "gasPrice": "1708747339",
-      "hash": "0x48117ebab617c010597e545adcee49a9ab216fd7e2b655eba4ed8b771bc4d69b",
+      "dataKeccak": "0x2dc18ca053be252049007f1461d13b96f4797cf1e4ca7ddb742279e832a962d6",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
+      "gas": "1450114",
+      "gasPrice": "1708747340",
+      "hash": "0x570615f5545705a08464167f00c4be03d6daeabd9e02eab22b1b4da5638f590b",
       "history": [
         {
-          "at": "2026-10-27T20:05:15.202Z",
+          "at": "2026-10-28T03:39:17.759Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:05:15.213Z",
+          "at": "2026-10-28T03:39:17.773Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:05:15.647Z",
-          "detail": "mined in block 33472631; its receipt is not served yet",
-          "event": "outcome not established"
-        },
-        {
-          "at": "2026-10-27T20:05:16.667Z",
+          "at": "2026-10-28T03:39:17.784Z",
           "event": "confirmed"
         }
       ],
       "id": "cleanup-close-BTC-2",
       "lastProbe": "success in block 33472631",
-      "maxCost": "2477852807536561",
+      "maxCost": "2477878440196760",
       "n": 10,
       "nonce": 9,
       "phase": "cleanup",
       "purpose": "guarded full close of BTC (94000)",
       "receipt": {
-        "blockHash": "0xfd2cfdd587a5a2f4d90ab73a3e6b2f59d2be9e0d5e4505d296659fbadd372d39",
+        "blockHash": "0x3d470a57f55f648d9c3e56e1026f149f679c819c1947702a84b392f37410dcdc",
         "blockNumber": "33472631",
         "contractAddress": null,
-        "effectiveGasPrice": "1708747339",
-        "fee": "1734118819489472",
-        "gasUsed": "1014848",
+        "effectiveGasPrice": "1708747340",
+        "fee": "1734139325472400",
+        "gasUsed": "1014860",
         "status": "success"
       },
       "reserveAtSend": "0",
       "selector": "0xdd0c33d7",
       "sentAfterBlock": "33472630",
       "state": "CONFIRMED",
-      "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf"
+      "to": "0x593f79b5511494ff66ef4218232aceed2b422a01"
     },
     {
-      "actionId": "0xacd448674c968404d6dabad1c670ee2f02bc832436ab178d9fd60cc6146b72e7",
+      "actionId": "0x39ed693c6cbda3fa50ecaad04f4b263c4215f137cd29de5af0624a53e017ab2d",
       "cleanupTxReserved": 0,
-      "dataKeccak": "0xf55bda0f7d0d4faafbc7c64c53bf80e4d5ceb0e40ba204671d4fd77b75cf0abb",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "dataKeccak": "0x7552c04cb7c055d013b578a3db8c963bb74aed456b8602b649973be76d795e1b",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "3385296",
-      "gasPrice": "1620165910",
-      "hash": "0x6f95a71c5641535adb497b2cce109a2573abc3d63263ceaeaadcb611c0f1c3bf",
+      "gasPrice": "1620165911",
+      "hash": "0x1cf92b04420510837e16530682e2e8dd40b584f58246b9de875535171c0ccdd1",
       "history": [
         {
-          "at": "2026-10-27T20:05:18.643Z",
+          "at": "2026-10-28T03:39:24.184Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:05:18.652Z",
+          "at": "2026-10-28T03:39:24.197Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:05:19.070Z",
+          "at": "2026-10-28T03:39:26.354Z",
           "detail": "mined in block 33472632; its receipt is not served yet",
           "event": "outcome not established"
         },
         {
-          "at": "2026-10-27T20:05:20.087Z",
+          "at": "2026-10-28T03:39:27.370Z",
           "event": "confirmed"
         }
       ],
       "id": "cleanup-close-ETH-1",
       "lastProbe": "success in block 33472632",
-      "maxCost": "5484741174459360",
+      "maxCost": "5484741177844656",
       "n": 11,
       "nonce": 10,
       "phase": "cleanup",
       "purpose": "guarded full close of ETH (-9700000000000000)",
       "receipt": {
-        "blockHash": "0x5f697e2bd4f48a6ee6879fdddf714ba7252214d41ec1a3e268f2d684cd58b242",
+        "blockHash": "0x238c87f7390aebfcf996707b9719344e133e2186b7d5ff42812cdf9f39237c4c",
         "blockNumber": "33472632",
         "contractAddress": null,
-        "effectiveGasPrice": "1620165910",
-        "fee": "3978134313257170",
+        "effectiveGasPrice": "1620165911",
+        "fee": "3978134315712557",
         "gasUsed": "2455387",
         "status": "success"
       },
@@ -532,42 +512,47 @@
       "selector": "0xdd0c33d7",
       "sentAfterBlock": "33472631",
       "state": "CONFIRMED",
-      "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf"
+      "to": "0x593f79b5511494ff66ef4218232aceed2b422a01"
     },
     {
       "cleanupTxReserved": 0,
-      "dataKeccak": "0x545a3d0d4065038f360bced9f5d04985ac0547dd2ac76a0d7b6c1d882bea8356",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "dataKeccak": "0x28e680d7de6369ce9baaf9f30483edd0f944c099cdd3ccfef8342a717d631665",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "48057",
-      "gasPrice": "1542670551",
-      "hash": "0x807c3a3b9c5d5acec1fa08c33bd21d942a141b813ae1682a785466502507d06b",
+      "gasPrice": "1542670552",
+      "hash": "0xe07bf39af312f9c92140447a4b92f44fc22a0f99b0b5247347092082bfce7173",
       "history": [
         {
-          "at": "2026-10-27T20:05:22.267Z",
+          "at": "2026-10-28T03:39:29.487Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:05:22.282Z",
+          "at": "2026-10-28T03:39:29.495Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:05:22.292Z",
+          "at": "2026-10-28T03:39:29.998Z",
+          "detail": "mined in block 33472633; its receipt is not served yet",
+          "event": "outcome not established"
+        },
+        {
+          "at": "2026-10-28T03:39:31.014Z",
           "event": "confirmed"
         }
       ],
       "id": "cleanup-revoke-BTC",
       "lastProbe": "success in block 33472633",
-      "maxCost": "74136118669407",
+      "maxCost": "74136118717464",
       "n": 12,
       "nonce": 11,
       "phase": "cleanup",
       "purpose": "revoke the guard's placeOrderFor grant",
       "receipt": {
-        "blockHash": "0x3fa84e1485381702cbd5710455711bdf65585d3c5893dc78277e99676c739735",
+        "blockHash": "0x092cc1ec4b360c046a3b2957a2ad77b3112a407cfd17f7e8159866e75a06dbd8",
         "blockNumber": "33472633",
         "contractAddress": null,
-        "effectiveGasPrice": "1542670551",
-        "fee": "49444133830101",
+        "effectiveGasPrice": "1542670552",
+        "fee": "49444133862152",
         "gasUsed": "32051",
         "status": "success"
       },
@@ -579,27 +564,22 @@
     },
     {
       "cleanupTxReserved": 0,
-      "dataKeccak": "0x3b29ed0deac9168931ebb4add483c26057f093723b7014f55dece3525654c14c",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "dataKeccak": "0x706f634d12140ffc4ec2da4bd117e40e4ef87dc175eb4e37aaabc5ecaf407739",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "48057",
       "gasPrice": "1474837023",
-      "hash": "0x9e1f9f7c2a1f99e6fd53418957d001988a837490b556667bb8fdd27561e9570f",
+      "hash": "0x85db651a302c78c365bc5050d62115a27022c234dab4e7a467a3ab1ab66690a0",
       "history": [
         {
-          "at": "2026-10-27T20:05:22.308Z",
+          "at": "2026-10-28T03:39:31.050Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:05:22.315Z",
+          "at": "2026-10-28T03:39:31.060Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:05:22.738Z",
-          "detail": "mined in block 33472634; its receipt is not served yet",
-          "event": "outcome not established"
-        },
-        {
-          "at": "2026-10-27T20:05:23.751Z",
+          "at": "2026-10-28T03:39:31.077Z",
           "event": "confirmed"
         }
       ],
@@ -611,7 +591,7 @@
       "phase": "cleanup",
       "purpose": "revoke the guard's placeOrderFor grant",
       "receipt": {
-        "blockHash": "0xfe5bdfa7f2a612590a9676c629cac4dc824d7b9bf892594a7333222647d5c070",
+        "blockHash": "0x50d97b20e3b6bfffade9498975f2a942f8b714dbe7081c92ad41c4daf4a41609",
         "blockNumber": "33472634",
         "contractAddress": null,
         "effectiveGasPrice": "1474837023",
@@ -621,28 +601,33 @@
       },
       "reserveAtSend": "0",
       "selector": "0x7bbc67e6",
-      "sentAfterBlock": "33472632",
+      "sentAfterBlock": "33472633",
       "state": "CONFIRMED",
       "to": "0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a"
     },
     {
       "cleanupTxReserved": 0,
       "dataKeccak": "0x61593032c953ab98a205ebf5543eb761a5cb5d8d84d4307142a4074443cb2364",
-      "from": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "from": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "gas": "93336",
       "gasPrice": "1415482649",
-      "hash": "0xa917e294643af117f9416742796af28b0a105d87f4a77fe5458a7a02fbb6a07d",
+      "hash": "0x4d46853bdf444f7903f91373e664c79619bc35a9165a42b151bff9aa69efbeb7",
       "history": [
         {
-          "at": "2026-10-27T20:05:24.708Z",
+          "at": "2026-10-28T03:39:32.147Z",
           "event": "signed and persisted; broadcasting"
         },
         {
-          "at": "2026-10-27T20:05:24.723Z",
+          "at": "2026-10-28T03:39:32.154Z",
           "event": "accepted by the node"
         },
         {
-          "at": "2026-10-27T20:05:24.737Z",
+          "at": "2026-10-28T03:39:32.632Z",
+          "detail": "mined in block 33472635; its receipt is not served yet",
+          "event": "outcome not established"
+        },
+        {
+          "at": "2026-10-28T03:39:33.650Z",
           "event": "confirmed"
         }
       ],
@@ -654,7 +639,7 @@
       "phase": "cleanup",
       "purpose": "withdraw the whole unlocked balance to the wallet",
       "receipt": {
-        "blockHash": "0x5ae21db44fd9434bfb24e19f7ed59b74170f195dc075e20c0af8d9464ec44b6a",
+        "blockHash": "0x792703681faecf54dac032884dbf5c86637a4bc84ff3496728100fc130f8386d",
         "blockNumber": "33472635",
         "contractAddress": null,
         "effectiveGasPrice": "1415482649",

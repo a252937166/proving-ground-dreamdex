@@ -49,7 +49,7 @@
     ],
     "closes": [
       {
-        "actionId": "0x4521b6626abfaf7e531a5d1b189050d976ba9865d9f9dab53b3f3ad811bb8f25",
+        "actionId": "0xb4c641e3bbd39cad4e5a16c1ec3efd2168096ce5fc4e7e40d8a7a1a94519738e",
         "attempt": 1,
         "bindingOk": true,
         "expected": "125000",
@@ -59,10 +59,10 @@
         "quantity": "125000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0x66658926131e75915baec90d24df7873ea1da9ddad7386e2db66fa585edc8a86"
+        "tx": "0x81d0a93399b9cee72a2680992ee4fb9f82392087d041c23d2c2d96ffb968ff8d"
       },
       {
-        "actionId": "0x104263527c9b4c98cb2de753b72f6443e00bfff3607c3f6ffa106cfb55963dbd",
+        "actionId": "0x2b04fc152eead3d2c1ded9297d26e0b82a8debeef332ce64e0428780cfcc1afb",
         "attempt": 2,
         "bindingOk": true,
         "expected": "84000",
@@ -72,10 +72,10 @@
         "quantity": "84000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0xe79a1c3458133e93360ee4adba618f54a35d35568e8bcba3d8175265922b419e"
+        "tx": "0x6f192b7b7e91851989f56dcba9c4ab52149c01854bd1408739999b2345c674ef"
       },
       {
-        "actionId": "0x2104b698c437c83989daaa0df31f8eea0b2c5c60fc3b43e334def85ba5a58103",
+        "actionId": "0x672278db6b5a5ff9f80600b507e17345f35cd9a049fe7055401045e354be54c1",
         "attempt": 3,
         "bindingOk": true,
         "expected": "56000",
@@ -85,10 +85,10 @@
         "quantity": "56000",
         "state": "CONFIRMED",
         "symbol": "BTC",
-        "tx": "0x818e3269089394d2cb2593a765a8426c3f8e4b09498a66cb4b8b60c2425bffbc"
+        "tx": "0x52e55efca0d833c9f4bd5eeb893cbf3417199a076e69b7b348d5e0c459105ecd"
       },
       {
-        "actionId": "0x4b0003c296bd163bbf18ecb4ce2f29def38525c7578ce66a82e82affaa9b7823",
+        "actionId": "0x19d41504364d8ef8cc0c02b42c1075b2e9a547dc8f6fdb941b383a87d2f2c3fc",
         "attempt": 1,
         "bindingOk": true,
         "expected": "-38800000000000000",
@@ -98,10 +98,10 @@
         "quantity": "38800000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0x83b73069f68e6b77dfd0fc9f852ee8b0fb87ca89ce74e0a1103486a3beee6129"
+        "tx": "0xafaa766a6100fcc927d84f578f60f4fbec40f6673b04afd3338f93ef563dacec"
       },
       {
-        "actionId": "0xd8907c440506c4ce33543b4e93a440fabf692577457ca5522d36ee1bc3677a60",
+        "actionId": "0xde892016e52da6d3a76209b0e468d9bfd1039f39759d4cce92ab071bc19b9723",
         "attempt": 2,
         "bindingOk": true,
         "expected": "-25900000000000000",
@@ -111,10 +111,10 @@
         "quantity": "25900000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0x55e53e1dbdb602877eb5a4e9ca05f705b7b3e75cc15c1dbe488da650f52cd1fb"
+        "tx": "0x396bc935ae3c3c3e2bba54783c40f43956c9214a036472dfe3bcf8a29190c37f"
       },
       {
-        "actionId": "0x97ff82933139f2a9a8c13d8cbe02b9cc9610c9a19268bd283b82051654c303af",
+        "actionId": "0x0e3c13a9fa848c8e8b459bac957ce358bbf3b32124d8be249719f832b131a026",
         "attempt": 3,
         "bindingOk": true,
         "expected": "-17300000000000000",
@@ -124,13 +124,13 @@
         "quantity": "17300000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0xc490c8b28480c6d8129050dc54f430877c8f8f971081f0748e6af8b6e222ee1c"
+        "tx": "0x1989e01bf049b7b0f34f84095b3681f81a9b21b4155d0e7b1d6c735307060078"
       }
     ],
     "final": {
       "block": "33472642",
-      "blockHash": "0xffc3627e83929589635a9e38a6efa191e57c6d0e7fe6f3e7cfce180fa363d375",
-      "stt": "9967558525409498040",
+      "blockHash": "0x4cf434807255a10a13fbee3b07e52882bf38b4ecc57fac16a7ae7d2645f4bdc7",
+      "stt": "9967558496905665936",
       "usdso": "97675242000000000000"
     },
     "remaining": [],
@@ -140,16 +140,16 @@
   "exitCode": 20,
   "foreignActivity": [
     {
-      "at": "2026-10-27T20:09:11.025Z",
+      "at": "2026-10-28T03:43:07.812Z",
       "detail": "account nonce is 6; this run expected 5: another transaction was sent from the account"
     }
   ],
   "gas": {
     "cap": "2000000000000000000",
     "committed": "0",
-    "spent": "32314279857821595"
+    "spent": "32314308361600286"
   },
-  "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
+  "guard": "0x593f79b5511494ff66ef4218232aceed2b422a01",
   "invalidated": [],
   "logComplete": true,
   "reason": "rehearsal: run interrupted after opening both legs",

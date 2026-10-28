@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "UNRESOLVED_TX step 7 reduce (0x175be783920ee18be587bc896e19ce8f904888e46e43dce5343274144bb7d6d4) is UNKNOWN; resolve it before sending anything else",
+      "detail": "UNRESOLVED_TX step 7 reduce (0x9038111eb63839f894d27f51f1d2fc02aa0dadbf5bceb80c5e3b6edbb7d5e84e) is UNKNOWN; resolve it before sending anything else",
       "name": "the run stopped with UNRESOLVED_TX (exit 40)",
       "ok": true
     },
@@ -16,12 +16,12 @@
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x6fff51a9284138e39f102e6a52812f85df657ade9be98d403e57c39da7864a3a\",\"tx\":\"0x175be783920ee18be587bc896e19ce8f904888e46e43dce5343274144bb7d6d4\",\"txState\":\"UNKNOWN\",\"fill\":\"NOT_APPLICABLE\",\"goal\":\"NOT_EVALUATED\",\"goalReason\":\"\"}",
+      "detail": "{\"actionId\":\"0x2bd137d0ea8e4a04814455166f1657b05a8d64963c2c90069a52ad481aa4c3f3\",\"tx\":\"0x9038111eb63839f894d27f51f1d2fc02aa0dadbf5bceb80c5e3b6edbb7d5e84e\",\"txState\":\"UNKNOWN\",\"fill\":\"NOT_APPLICABLE\",\"goal\":\"NOT_EVALUATED\",\"goalReason\":\"\"}",
       "name": "the journal holds the action as unresolved, not failed",
       "ok": true
     },
     {
-      "detail": "[\"cleanup-close-BTC-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "detail": "[\"cleanup-close-BTC-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -36,12 +36,12 @@
       "ok": true
     },
     {
-      "detail": "0x175be783920ee18be587bc896e19ce8f904888e46e43dce5343274144bb7d6d4",
+      "detail": "0x9038111eb63839f894d27f51f1d2fc02aa0dadbf5bceb80c5e3b6edbb7d5e84e",
       "name": "resume settled the same transaction (CONFIRMED, same hash, sent once)",
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x6fff51a9284138e39f102e6a52812f85df657ade9be98d403e57c39da7864a3a\",\"tx\":\"0x175be783920ee18be587bc896e19ce8f904888e46e43dce5343274144bb7d6d4\",\"txState\":\"CONFIRMED\",\"fill\":\"REQUESTED_FILL\",\"goal\":\"GOAL_MET\",\"goalReason\":\"scenario buffer 46852456705977592125 ≥ target 45000000000000000000\"}",
+      "detail": "{\"actionId\":\"0x2bd137d0ea8e4a04814455166f1657b05a8d64963c2c90069a52ad481aa4c3f3\",\"tx\":\"0x9038111eb63839f894d27f51f1d2fc02aa0dadbf5bceb80c5e3b6edbb7d5e84e\",\"txState\":\"CONFIRMED\",\"fill\":\"REQUESTED_FILL\",\"goal\":\"GOAL_MET\",\"goalReason\":\"scenario buffer 46852456705977592125 ≥ target 45000000000000000000\"}",
       "name": "resume recomputed the reduction: GOAL_MET",
       "ok": true
     },
@@ -61,16 +61,16 @@
     "resumed": {
       "exitCode": 0,
       "rescue": {
-        "actionId": "0x6fff51a9284138e39f102e6a52812f85df657ade9be98d403e57c39da7864a3a",
+        "actionId": "0x2bd137d0ea8e4a04814455166f1657b05a8d64963c2c90069a52ad481aa4c3f3",
         "fill": "REQUESTED_FILL",
         "goal": "GOAL_MET",
         "goalReason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
-        "tx": "0x175be783920ee18be587bc896e19ce8f904888e46e43dce5343274144bb7d6d4",
+        "tx": "0x9038111eb63839f894d27f51f1d2fc02aa0dadbf5bceb80c5e3b6edbb7d5e84e",
         "txState": "CONFIRMED"
       },
       "status": "COMPLETE"
     },
-    "seconds": 59
+    "seconds": 53
   },
   "pass": true,
   "scenario": "timeout"

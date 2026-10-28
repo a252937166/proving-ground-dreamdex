@@ -1,42 +1,42 @@
 {
-  "account": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
-  "approvedDigest": "59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf",
+  "account": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
+  "approvedDigest": "e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033",
   "binding": {
-    "account": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+    "account": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
     "chainId": 50383,
     "files": {
-      "candidates.json": "b5e045ec017731c8f7701ee02d2555551035817e1985b6f6c940cafc3056388a",
-      "cleanup.json": "2b4da44617c9860183e1bf61b6258efb3fe50eb36fa8a040b449350eb233f574",
-      "guard.json": "64c57250613546fde4c11056a5c3810baca0a91cd125ddbe2ca1cf5d8753e22a",
-      "journal/0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b.json": "35036dafe2a29b0e3a3b1ce92134a5e12e4be57de60cb84e5bdb62040a633877",
-      "journal/0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6.json": "21b68e898f9c619bafa03c8d4ac2fd4f116150181e1e2908a90eaca3b42660ac",
-      "journal/0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1.json": "9fc3f0cf066d71d6ba2fc90908d030fe79dbdf7c2f62460369c1f6a40de5f233",
-      "post-snapshot.json": "4b0c556c95878e1f68879d1ee4675b92c00c019633e1433bb17c22145e4cc4bf",
-      "preflight-snapshot.json": "fca90fcf05095e4277d153861101f2e56e622ff89b5857315b0f679bbf18a2e1",
-      "receipt.json": "382762d89fc0c8351509b43da7a982ab45b1f42851d703c6b16b5fe1ce3890c2",
-      "recompute.json": "855f4f940d70964931d0a311c677182b10a3c6965f102bf183659a3baffcf67d",
-      "refresh-analysis.json": "42d3b0bdd98c7430b8f199ecd17f6182aeb7d45a714e2bcb3b6b7967e83d2c80",
-      "result.json": "2d32dc356465446ccabcd2fd52d763124a3c0e903f42a47b014161d175e3cbf9",
-      "run-ledger.json": "e26e0b2a7aaa77beac18ac1541200bc22bdd1b7f26ca3257b26c96eec0896746",
-      "run-state.json": "ef47ac7fd4ebb16c28163f125e4f9a650cd9a11a598aff3e3781a3a8f61e5ef9",
-      "scenario.json": "93f043ec6ada0700e47c0cf9c55b6b1681b4cbe2ac52da8a9284171bd93a5a03"
+      "candidates.json": "1840b96b97fd946c0cfd752ca14a8d65f0b87c6a301e9e3f12b95db93b0bd86b",
+      "cleanup.json": "3c8cc525d4edf03b26d37671ace1407e121790043e8d4c6ab1e15ecf36598eb5",
+      "guard.json": "5dce98d2665d2e096560a52f2fa45b7b6e60f4d5dc6ba4ea22d3db8ae656d2f3",
+      "journal/0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61.json": "94ff7032b8499a58ccc9ca558d25e6efa9f8fc5d6a7250bcbb6b8ed98c29fcd9",
+      "journal/0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863.json": "ff6903943a77f2956ee93fff8cdf78eae28beb51a3e1bc9d7037df04d754b07f",
+      "journal/0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1.json": "9cfedbddcea9a9e861dd17b870d00b083b912d21b2fbd1298aa75c5358a14db2",
+      "post-snapshot.json": "c74a07b900462ab100f87ad80001c8fbc0452bf6f38eee6debd0058e372d6e62",
+      "preflight-snapshot.json": "681623b763e379a542c61f85b0b782ce2cf7deb52d7bcebf00400eea6010a0de",
+      "receipt.json": "b96aa6a300e15d45ccd9c31f7758e6da334c87247d1b425e6743b0dc9b54f297",
+      "recompute.json": "6eeb616dda5e43b918432b3ad1a01c0f3f5c7e04236b0eb2347c3ad84764e6ea",
+      "refresh-analysis.json": "56b07fec778f69f4ea5a53098a7142e513ad1ac68cc4ffa65a245525dffa445f",
+      "result.json": "39ef3d66b327c8db7db1fb23d5f5c8243b1343b28bb655a336d3e8d41c322d5b",
+      "run-ledger.json": "a4362d2caee10833905c362443a72b31c46e15dbdf1414c8a70edcab431b46e2",
+      "run-state.json": "f48ee25cad1a1696824e8cb90489c626538726d0c902cdcc808e1c7b2219a506",
+      "scenario.json": "743d3c6da9aa6246df5b470f1ce3017bc0c7db9e0e3d280725fad9c97e82daa8"
     },
-    "planDigest": "59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf",
-    "scenarioId": "087e32bcc161abf0337d99f9604bdbe44180694bb16b836842420eef9853dbd9",
+    "planDigest": "e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033",
+    "scenarioId": "1d4f8b012b9393024e8beb7c47f9f5670db0c688416361a899f855ebd83c6394",
     "transactions": [
-      "0xf73c277023c3e161f68576bfd619061a559ea7106e4f2b8700965a2385069d87",
-      "0x784ab190fcb7a31e896ccd27a1629ea173cc81f3b8fa406962aced6ced9e1c67",
-      "0xbbdbca2107f17267236b7210beb93e9e6b30f98ca87b5f6e83dcec44d4ab9c05",
-      "0xc9de3546a6531555081408fee512d11b3a73deb2681b96061c9edc47145c8d96",
-      "0x409ad87031325daddd153837e2d125a0a6b4523b5ff482b912f11dba08495f48",
-      "0x61c32ad0e3d5829edb8710115fb5026e7f91a1e3321553f15778f4bfd967bad1",
-      "0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa",
-      "0xd3367b38e9638df2f7220d7629e32b50af11c445711db40d300118c243257075",
-      "0x7503505408aeea27b4605be80f3f8cb87c9446700df39b10554e49834cad4bf4",
-      "0x739a23939dfe183d01803fb690263524738786d76d6c9350013b4e62cebfc405",
-      "0x78701fc23b5088cf03dba2e4d0472a675f1e6e37800efa35a73770b39f66cde3",
-      "0xdbe65d6b689ca21aa0b6dd63fd43dfd01985d73a59e9cfb1a5643b0c11cf2a7e",
-      "0xb84d889d04b1857f8455637b2b5e6202ba0eacca622b9a8137a742c440442f7a"
+      "0x08dcd7cd8c0ec5e4bccc17facbb3655a1f64e23054320d1e408d5f642650decb",
+      "0x08c15d25715e468ab1702dac39e9e438a91568b502560c050a757ae243eaff78",
+      "0x3ec5c53d3bbb8625b0e0bb65e3b2e90ed8420a206d56393c940a3b9f49915535",
+      "0x245c17aede66cd3236255a0071bd72f8c828ab0e67088f29d4a9bb5cebe988bd",
+      "0x7c089fd72d2e8257a693c351db3a3928d66ce04cb06a702181539a7498f00999",
+      "0x3cf4361f4ce8a19c124cccc62e977029e85f086b673c3b147df954484f07afa3",
+      "0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08",
+      "0xcd1531c6f9dd0c493f4b60293997b7b3f4cf56fa8db36d86c3f531a12e418bb2",
+      "0x938ec23c4a383bfd5cdf7700741b5ae2625b6f8f04c03b6daa05fc836c09759c",
+      "0x381e43db9c5ce967510c9d1636071eaee38609d2a8aac1b7fc9e1af0a644b0a5",
+      "0xc2892451bb6a5a6365c863fa76b6853a295e20b8630f50eced8a9ac950df664f",
+      "0xe860d5ade8670dfc92dc8307bb97ff4db5263d377d63bf31a78cc7306d0d430a",
+      "0xb01ddd34df584f8bfbb74fa77376a18194c685308d78726c9c8d5075ff9f4a68"
     ]
   },
   "chainId": 50383,
@@ -48,19 +48,19 @@
       "ok": true
     },
     {
-      "detail": "{\"planFile\":\"59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf\",\"ledger\":\"59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf\",\"state\":\"59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf\"}",
+      "detail": "{\"planFile\":\"e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033\",\"ledger\":\"e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033\",\"state\":\"e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033\"}",
       "group": "run",
       "name": "the plan file is the one the run was started under",
       "ok": true
     },
     {
-      "detail": "{\"plan\":\"59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf\",\"approved\":\"59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf\"}",
+      "detail": "{\"plan\":\"e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033\",\"approved\":\"e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033\"}",
       "group": "run",
       "name": "the plan is the one approved before the run",
       "ok": true
     },
     {
-      "detail": "{\"plan\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\",\"ledger\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\",\"pools\":[\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\"]}",
+      "detail": "{\"plan\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\",\"ledger\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\",\"pools\":[\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\"]}",
       "group": "run",
       "name": "chain, account and approved pools as the plan states",
       "ok": true
@@ -78,7 +78,7 @@
       "ok": true
     },
     {
-      "detail": "0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa",
+      "detail": "0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08",
       "group": "transactions",
       "name": "at most one guarded reduction in the main phase",
       "ok": true
@@ -108,13 +108,13 @@
       "ok": true
     },
     {
-      "detail": "{\"owner\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\",\"bank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"chainId\":\"50383\",\"typehash\":\"0x3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d6249227\",\"orderType\":2}",
+      "detail": "{\"owner\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\",\"bank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"chainId\":\"50383\",\"typehash\":\"0x3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d6249227\",\"orderType\":2}",
       "group": "confirmations",
       "name": "the deployed guard's action-id domain is the one recomputed here",
       "ok": true
     },
     {
-      "detail": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
+      "detail": "0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1",
       "group": "confirmations",
       "name": "reduce: a journalled confirmation exists",
       "ok": true
@@ -132,49 +132,49 @@
       "ok": true
     },
     {
-      "detail": "{\"chainId\":50383,\"guard\":\"0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\"}",
+      "detail": "{\"chainId\":50383,\"guard\":\"0x593f79b5511494ff66ef4218232aceed2b422a01\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\"}",
       "group": "confirmations",
       "name": "reduce: the saved domain is this chain, guard, bank and owner",
       "ok": true
     },
     {
-      "detail": "{\"recomputed\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\",\"saved\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\"}",
+      "detail": "{\"recomputed\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\",\"saved\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\"}",
       "group": "confirmations",
       "name": "reduce: the action id recomputed from the saved request is the saved one",
       "ok": true
     },
     {
-      "detail": "{\"guard\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\",\"saved\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\"}",
+      "detail": "{\"guard\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\",\"saved\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\"}",
       "group": "confirmations",
       "name": "reduce: the guard's own actionIdOf(executed request) is the saved action id",
       "ok": true
     },
     {
-      "detail": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
+      "detail": "0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1",
       "group": "confirmations",
       "name": "reduce: the ledger names the same action",
       "ok": true
     },
     {
-      "detail": "{\"blockHash\":\"0x19c2a44c15c5db442a3a86469cbb1ca9f3be702874a102703bc7f99e217c61dd\",\"blockNumber\":\"33472627\",\"from\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\",\"hash\":\"0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa\",\"nonce\":6,\"sentAfterBlock\":\"33472626\",\"sentAt\":\"2026-10-27T20:03:40.554Z\",\"state\":\"CONFIRMED\"}",
+      "detail": "{\"blockHash\":\"0x9a71b3604899d4381cafafc5d412e215f731b9ee3a0d2d37c2e8aea807e77874\",\"blockNumber\":\"33472627\",\"from\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\",\"hash\":\"0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08\",\"nonce\":6,\"sentAfterBlock\":\"33472626\",\"sentAt\":\"2026-10-28T03:33:45.974Z\",\"state\":\"CONFIRMED\"}",
       "group": "confirmations",
       "name": "reduce: the journal records this transaction",
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622194\",\"sizeBefore\":\"125000\",\"sizeAfter\":\"63000\",\"quantity\":\"62000\",\"limitPrice\":\"79743900000000000000000\"}",
+      "detail": "{\"actionId\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622194\",\"sizeBefore\":\"125000\",\"sizeAfter\":\"63000\",\"quantity\":\"62000\",\"limitPrice\":\"79743900000000000000000\"}",
       "group": "confirmations",
       "name": "reduce: the guard's event is this action and request",
       "ok": true
     },
     {
-      "detail": "{\"orderId\":\"16011773855979898622194\",\"pool\":\"0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0\",\"isBid\":false,\"userData\":\"14889560628331106715\"}",
+      "detail": "{\"orderId\":\"16011773855979898622194\",\"pool\":\"0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0\",\"isBid\":false,\"userData\":\"17017664345384515297\"}",
       "group": "confirmations",
       "name": "reduce: the venue order is the owner's, on the requested side, tagged with the action id",
       "ok": true
     },
     {
-      "detail": "{\"filled\":\"62000\",\"guardEvent\":{\"actionId\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622194\",\"sizeBefore\":\"125000\",\"sizeAfter\":\"63000\",\"quantity\":\"62000\",\"limitPrice\":\"79743900000000000000000\"},\"positionAfter\":\"63000\"}",
+      "detail": "{\"filled\":\"62000\",\"guardEvent\":{\"actionId\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622194\",\"sizeBefore\":\"125000\",\"sizeAfter\":\"63000\",\"quantity\":\"62000\",\"limitPrice\":\"79743900000000000000000\"},\"positionAfter\":\"63000\"}",
       "group": "confirmations",
       "name": "reduce: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum",
       "ok": true
@@ -186,7 +186,7 @@
       "ok": true
     },
     {
-      "detail": "0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6",
+      "detail": "0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: a journalled confirmation exists",
       "ok": true
@@ -204,49 +204,49 @@
       "ok": true
     },
     {
-      "detail": "{\"chainId\":50383,\"guard\":\"0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\"}",
+      "detail": "{\"chainId\":50383,\"guard\":\"0x593f79b5511494ff66ef4218232aceed2b422a01\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\"}",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the saved domain is this chain, guard, bank and owner",
       "ok": true
     },
     {
-      "detail": "{\"recomputed\":\"0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6\",\"saved\":\"0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6\"}",
+      "detail": "{\"recomputed\":\"0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863\",\"saved\":\"0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863\"}",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the action id recomputed from the saved request is the saved one",
       "ok": true
     },
     {
-      "detail": "{\"guard\":\"0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6\",\"saved\":\"0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6\"}",
+      "detail": "{\"guard\":\"0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863\",\"saved\":\"0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863\"}",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the guard's own actionIdOf(executed request) is the saved action id",
       "ok": true
     },
     {
-      "detail": "0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6",
+      "detail": "0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the ledger names the same action",
       "ok": true
     },
     {
-      "detail": "{\"blockHash\":\"0x6b613ddcfe92d57b79e149438b600e72b773bdd07d0db46a6cf0fb326e530cd4\",\"blockNumber\":\"33472628\",\"from\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\",\"hash\":\"0xd3367b38e9638df2f7220d7629e32b50af11c445711db40d300118c243257075\",\"nonce\":7,\"sentAfterBlock\":\"33472627\",\"sentAt\":\"2026-10-27T20:03:45.859Z\",\"state\":\"CONFIRMED\"}",
+      "detail": "{\"blockHash\":\"0x46388ab635375a028ae1535c9ec9c82d57b755e1af212946b1b2960f00245a67\",\"blockNumber\":\"33472628\",\"from\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\",\"hash\":\"0xcd1531c6f9dd0c493f4b60293997b7b3f4cf56fa8db36d86c3f531a12e418bb2\",\"nonce\":7,\"sentAfterBlock\":\"33472627\",\"sentAt\":\"2026-10-28T03:33:56.516Z\",\"state\":\"CONFIRMED\"}",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the journal records this transaction",
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622195\",\"sizeBefore\":\"63000\",\"sizeAfter\":\"0\",\"quantity\":\"63000\",\"limitPrice\":\"79743900000000000000000\"}",
+      "detail": "{\"actionId\":\"0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622195\",\"sizeBefore\":\"63000\",\"sizeAfter\":\"0\",\"quantity\":\"63000\",\"limitPrice\":\"79743900000000000000000\"}",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the guard's event is this action and request",
       "ok": true
     },
     {
-      "detail": "{\"orderId\":\"16011773855979898622195\",\"pool\":\"0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0\",\"isBid\":false,\"userData\":\"9554415858188100006\"}",
+      "detail": "{\"orderId\":\"16011773855979898622195\",\"pool\":\"0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0\",\"isBid\":false,\"userData\":\"480821821655685219\"}",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the venue order is the owner's, on the requested side, tagged with the action id",
       "ok": true
     },
     {
-      "detail": "{\"filled\":\"63000\",\"guardEvent\":{\"actionId\":\"0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622195\",\"sizeBefore\":\"63000\",\"sizeAfter\":\"0\",\"quantity\":\"63000\",\"limitPrice\":\"79743900000000000000000\"},\"positionAfter\":\"0\"}",
+      "detail": "{\"filled\":\"63000\",\"guardEvent\":{\"actionId\":\"0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622195\",\"sizeBefore\":\"63000\",\"sizeAfter\":\"0\",\"quantity\":\"63000\",\"limitPrice\":\"79743900000000000000000\"},\"positionAfter\":\"0\"}",
       "group": "confirmations",
       "name": "cleanup-close-BTC-1: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum",
       "ok": true
@@ -258,7 +258,7 @@
       "ok": true
     },
     {
-      "detail": "0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1",
+      "detail": "0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: a journalled confirmation exists",
       "ok": true
@@ -276,49 +276,49 @@
       "ok": true
     },
     {
-      "detail": "{\"chainId\":50383,\"guard\":\"0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\"}",
+      "detail": "{\"chainId\":50383,\"guard\":\"0x593f79b5511494ff66ef4218232aceed2b422a01\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\"}",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the saved domain is this chain, guard, bank and owner",
       "ok": true
     },
     {
-      "detail": "{\"recomputed\":\"0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1\",\"saved\":\"0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1\"}",
+      "detail": "{\"recomputed\":\"0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61\",\"saved\":\"0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61\"}",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the action id recomputed from the saved request is the saved one",
       "ok": true
     },
     {
-      "detail": "{\"guard\":\"0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1\",\"saved\":\"0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1\"}",
+      "detail": "{\"guard\":\"0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61\",\"saved\":\"0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61\"}",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the guard's own actionIdOf(executed request) is the saved action id",
       "ok": true
     },
     {
-      "detail": "0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1",
+      "detail": "0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the ledger names the same action",
       "ok": true
     },
     {
-      "detail": "{\"blockHash\":\"0xd82031617914e800075b7802f071c06bb19fcf93a6c65199127d24df61ed5c73\",\"blockNumber\":\"33472630\",\"from\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\",\"hash\":\"0x739a23939dfe183d01803fb690263524738786d76d6c9350013b4e62cebfc405\",\"nonce\":9,\"sentAfterBlock\":\"33472629\",\"sentAt\":\"2026-10-27T20:03:51.139Z\",\"state\":\"CONFIRMED\"}",
+      "detail": "{\"blockHash\":\"0x077d74c384faf33893b03d62e242d7db7395bf52df65bbbe699b318794c02e57\",\"blockNumber\":\"33472630\",\"from\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\",\"hash\":\"0x381e43db9c5ce967510c9d1636071eaee38609d2a8aac1b7fc9e1af0a644b0a5\",\"nonce\":9,\"sentAfterBlock\":\"33472629\",\"sentAt\":\"2026-10-28T03:34:22.232Z\",\"state\":\"CONFIRMED\"}",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the journal records this transaction",
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1\",\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"orderId\":\"18815678955183752289096\",\"sizeBefore\":\"-38800000000000000\",\"sizeAfter\":\"0\",\"quantity\":\"38800000000000000\",\"limitPrice\":\"2328620000000000000000\"}",
+      "detail": "{\"actionId\":\"0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61\",\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"orderId\":\"18815678955183752289096\",\"sizeBefore\":\"-38800000000000000\",\"sizeAfter\":\"0\",\"quantity\":\"38800000000000000\",\"limitPrice\":\"2328620000000000000000\"}",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the guard's event is this action and request",
       "ok": true
     },
     {
-      "detail": "{\"orderId\":\"18815678955183752289096\",\"pool\":\"0xd6cb1dd58580b84d76068ac21594219ce03aeddf\",\"isBid\":true,\"userData\":\"5665828242255270097\"}",
+      "detail": "{\"orderId\":\"18815678955183752289096\",\"pool\":\"0xd6cb1dd58580b84d76068ac21594219ce03aeddf\",\"isBid\":true,\"userData\":\"625951909454847841\"}",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the venue order is the owner's, on the requested side, tagged with the action id",
       "ok": true
     },
     {
-      "detail": "{\"filled\":\"38800000000000000\",\"guardEvent\":{\"actionId\":\"0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1\",\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"orderId\":\"18815678955183752289096\",\"sizeBefore\":\"-38800000000000000\",\"sizeAfter\":\"0\",\"quantity\":\"38800000000000000\",\"limitPrice\":\"2328620000000000000000\"},\"positionAfter\":\"0\"}",
+      "detail": "{\"filled\":\"38800000000000000\",\"guardEvent\":{\"actionId\":\"0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61\",\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"orderId\":\"18815678955183752289096\",\"sizeBefore\":\"-38800000000000000\",\"sizeAfter\":\"0\",\"quantity\":\"38800000000000000\",\"limitPrice\":\"2328620000000000000000\"},\"positionAfter\":\"0\"}",
       "group": "confirmations",
       "name": "cleanup-close-ETH-1: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum",
       "ok": true
@@ -336,25 +336,25 @@
       "ok": true
     },
     {
-      "detail": "0xf73c277023c3e161f68576bfd619061a559ea7106e4f2b8700965a2385069d87",
+      "detail": "0x08dcd7cd8c0ec5e4bccc17facbb3655a1f64e23054320d1e408d5f642650decb",
       "group": "guard",
       "name": "deployed by this run from the approved build",
       "ok": true
     },
     {
-      "detail": "{\"runtime\":\"0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374\",\"approved\":\"0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374\"}",
+      "detail": "{\"runtime\":\"0x7b3099b567ca2dfcbd168d30208f2ec6a7c491a5967803ccbecc5d7b2a2853da\",\"approved\":\"0x7b3099b567ca2dfcbd168d30208f2ec6a7c491a5967803ccbecc5d7b2a2853da\"}",
       "group": "guard",
       "name": "code on chain is the approved runtime",
       "ok": true
     },
     {
-      "detail": "{\"owner\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\",\"bank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"trusted\":[true,true]}",
+      "detail": "{\"owner\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\",\"bank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"trusted\":[true,true]}",
       "group": "guard",
       "name": "OWNER, MARGIN_BANK and trusted pools as approved",
       "ok": true
     },
     {
-      "detail": "33472633 0x33b5f2c9bd8fa3876e260d9c36937fd0aa97518c512098611af6d71687b9c2c3",
+      "detail": "33472633 0x5f47ea93b95540960b4b881c000c6599934ab709f89cd9b78f0f37c38358b27e",
       "group": "cleanup",
       "name": "end block still canonical after the reads",
       "ok": true
@@ -372,7 +372,7 @@
       "ok": true
     },
     {
-      "detail": "0 listed by the indexer (processed through 34792666), 0 live at block 33472633",
+      "detail": "0 listed by the indexer (processed through 35053551), 0 live at block 33472633",
       "group": "cleanup",
       "name": "no live TP/SL stop",
       "ok": true
@@ -390,7 +390,7 @@
       "ok": true
     },
     {
-      "detail": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 → 0x09c51620F3e469B8335F360fe2fe6Ada92417fCF: revoked; 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf → 0x09c51620F3e469B8335F360fe2fe6Ada92417fCF: revoked",
+      "detail": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 → 0x593f79B5511494fF66ef4218232aCEeD2b422A01: revoked; 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf → 0x593f79B5511494fF66ef4218232aCEeD2b422A01: revoked",
       "group": "cleanup",
       "name": "every grant the run made is revoked",
       "ok": true
@@ -408,13 +408,13 @@
       "ok": true
     },
     {
-      "detail": "{\"before\":\"10000000000000000000\",\"after\":\"9965098879934953949\",\"spent\":\"34901120065046051\",\"fees\":\"34901120065046051\"}",
+      "detail": "{\"before\":\"10000000000000000000\",\"after\":\"9965098835608114228\",\"spent\":\"34901164391885772\",\"fees\":\"34901164391885772\"}",
       "group": "reconciliation",
       "name": "STT spent = Σ receipt fees",
       "ok": true
     },
     {
-      "detail": "{\"fees\":\"34901120065046051\",\"cap\":\"2000000000000000000\"}",
+      "detail": "{\"fees\":\"34901164391885772\",\"cap\":\"2000000000000000000\"}",
       "group": "reconciliation",
       "name": "STT spent within the plan's 2 STT cap",
       "ok": true
@@ -456,31 +456,31 @@
       "ok": true
     },
     {
-      "detail": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
+      "detail": "0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1",
       "group": "rescue",
       "name": "the rescue's confirmation is in the journal",
       "ok": true
     },
     {
-      "detail": "{\"first\":\"0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa\",\"rescue\":\"0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa\",\"kind\":\"RESCUE\",\"step\":\"main/reduce\"}",
+      "detail": "{\"first\":\"0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08\",\"rescue\":\"0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08\",\"kind\":\"RESCUE\",\"step\":\"main/reduce\"}",
       "group": "rescue",
       "name": "the rescue is the run's first guarded reduction, journalled as the rescue and sent as the main-phase reduction",
       "ok": true
     },
     {
-      "detail": "087e32bcc161abf0337d99f9604bdbe44180694bb16b836842420eef9853dbd9",
+      "detail": "1d4f8b012b9393024e8beb7c47f9f5670db0c688416361a899f855ebd83c6394",
       "group": "scenario",
       "name": "the scenario file's id is the hash of its body",
       "ok": true
     },
     {
-      "detail": "087e32bcc161abf0337d99f9604bdbe44180694bb16b836842420eef9853dbd9",
+      "detail": "1d4f8b012b9393024e8beb7c47f9f5670db0c688416361a899f855ebd83c6394",
       "group": "scenario",
       "name": "the confirmation was made under this scenario",
       "ok": true
     },
     {
-      "detail": "{\"chainId\":50383,\"account\":\"0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171\"}",
+      "detail": "{\"chainId\":50383,\"account\":\"0x2939472eE7253E6F26c927F160511948C4a9b33D\"}",
       "group": "scenario",
       "name": "the scenario is for this chain and account",
       "ok": true
@@ -510,7 +510,7 @@
       "ok": true
     },
     {
-      "detail": "{\"reference\":\"33472625\",\"hash\":\"0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e\",\"canonical\":\"0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e\"}",
+      "detail": "{\"reference\":\"33472625\",\"hash\":\"0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867\",\"canonical\":\"0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867\"}",
       "group": "scenario",
       "name": "the reference block is canonical",
       "ok": true
@@ -552,7 +552,7 @@
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622194\",\"sizeBefore\":\"125000\",\"sizeAfter\":\"63000\",\"quantity\":\"62000\",\"limitPrice\":\"79743900000000000000000\"}",
+      "detail": "{\"actionId\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"16011773855979898622194\",\"sizeBefore\":\"125000\",\"sizeAfter\":\"63000\",\"quantity\":\"62000\",\"limitPrice\":\"79743900000000000000000\"}",
       "group": "rescue",
       "name": "the reduction succeeded through the guard under the confirmed action id",
       "ok": true
@@ -564,7 +564,7 @@
       "ok": true
     },
     {
-      "detail": "{\"nonce\":\"0x69ec9035e0cdbf732c16335f5b04d22e760b94f6d3b91dbb3cb6089a9434f087\",\"expected\":\"0x69ec9035e0cdbf732c16335f5b04d22e760b94f6d3b91dbb3cb6089a9434f087\",\"quote\":{\"blockHash\":\"0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e\",\"blockNumber\":\"33472625\",\"validUntil\":\"1792999590\"}}",
+      "detail": "{\"nonce\":\"0xca10de443781222155e853f9672af752a92469a742ee55e2bf637f7fe5e35db8\",\"expected\":\"0xca10de443781222155e853f9672af752a92469a742ee55e2bf637f7fe5e35db8\",\"quote\":{\"blockHash\":\"0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867\",\"blockNumber\":\"33472625\",\"validUntil\":\"1792999590\"}}",
       "group": "rescue",
       "name": "the reduction carries the rescue nonce of this plan, scenario and quote block (cleanup closes are derived in another domain)",
       "ok": true
@@ -601,12 +601,12 @@
     }
   ],
   "confirmations": {
-    "0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
-    "0x739a23939dfe183d01803fb690263524738786d76d6c9350013b4e62cebfc405": "0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1",
-    "0xd3367b38e9638df2f7220d7629e32b50af11c445711db40d300118c243257075": "0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6"
+    "0x381e43db9c5ce967510c9d1636071eaee38609d2a8aac1b7fc9e1af0a644b0a5": "0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61",
+    "0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08": "0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1",
+    "0xcd1531c6f9dd0c493f4b60293997b7b3f4cf56fa8db36d86c3f531a12e418bb2": "0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863"
   },
   "endBlock": {
-    "hash": "0x33b5f2c9bd8fa3876e260d9c36937fd0aa97518c512098611af6d71687b9c2c3",
+    "hash": "0x5f47ea93b95540960b4b881c000c6599934ab709f89cd9b78f0f37c38358b27e",
     "number": "33472633",
     "timestamp": "1792999410"
   },
@@ -623,13 +623,13 @@
     "globalGrant": false,
     "grants": [
       {
-        "operator": "0x09c51620F3e469B8335F360fe2fe6Ada92417fCF",
+        "operator": "0x593f79B5511494fF66ef4218232aCEeD2b422A01",
         "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
         "selector": "0x80054449",
         "stillGranted": false
       },
       {
-        "operator": "0x09c51620F3e469B8335F360fe2fe6Ada92417fCF",
+        "operator": "0x593f79B5511494fF66ef4218232aCEeD2b422A01",
         "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
         "selector": "0x80054449",
         "stillGranted": false
@@ -639,19 +639,19 @@
     "positions": [],
     "resting": [],
     "stops": {
-      "indexedThrough": "34792666",
+      "indexedThrough": "35053551",
       "listed": 0,
       "live": 0
     }
   },
   "guard": {
-    "address": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
-    "approvedRuntimeKeccak": "0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374",
+    "address": "0x593f79b5511494ff66ef4218232aceed2b422a01",
+    "approvedRuntimeKeccak": "0x7b3099b567ca2dfcbd168d30208f2ec6a7c491a5967803ccbecc5d7b2a2853da",
     "deployBlock": "33472621",
-    "deployTx": "0xf73c277023c3e161f68576bfd619061a559ea7106e4f2b8700965a2385069d87",
+    "deployTx": "0x08dcd7cd8c0ec5e4bccc17facbb3655a1f64e23054320d1e408d5f642650decb",
     "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
-    "owner": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
-    "runtimeKeccak": "0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374",
+    "owner": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
+    "runtimeKeccak": "0x7b3099b567ca2dfcbd168d30208f2ec6a7c491a5967803ccbecc5d7b2a2853da",
     "trustedPools": [
       "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
       "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
@@ -662,14 +662,14 @@
     "before": 0,
     "mined": 13
   },
-  "planDigest": "59e6eff38aac7c2f2ac53dd0bf00d2801608a6569f58864dbb7e27315c04c6cf",
+  "planDigest": "e4c39de3399fb63e8e462f47d2e8b4e012c876601b538aaf00a282b7ba716033",
   "reconciliation": {
     "stt": {
-      "after": "9965098879934953949",
+      "after": "9965098835608114228",
       "before": "10000000000000000000",
       "cap": "2000000000000000000",
-      "receiptFees": "34901120065046051",
-      "spent": "34901120065046051"
+      "receiptFees": "34901164391885772",
+      "spent": "34901164391885772"
     },
     "usdso": {
       "after": "99969409000000000000",
@@ -684,7 +684,7 @@
     }
   },
   "rescue": {
-    "actionId": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
+    "actionId": "0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1",
     "after": {
       "block": "33472627",
       "buffer": "46852456705977592125",
@@ -772,12 +772,12 @@
       "expectedSignedSize": "125000",
       "isBid": false,
       "limitPrice": "79743900000000000000000",
-      "nonce": "0x69ec9035e0cdbf732c16335f5b04d22e760b94f6d3b91dbb3cb6089a9434f087",
+      "nonce": "0xca10de443781222155e853f9672af752a92469a742ee55e2bf637f7fe5e35db8",
       "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
       "quantity": "62000"
     },
     "scenario": {
-      "id": "087e32bcc161abf0337d99f9604bdbe44180694bb16b836842420eef9853dbd9",
+      "id": "1d4f8b012b9393024e8beb7c47f9f5670db0c688416361a899f855ebd83c6394",
       "markets": [
         {
           "decimals": 8,
@@ -802,29 +802,29 @@
       ],
       "perLegBound": "0",
       "reference": {
-        "blockHash": "0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e",
+        "blockHash": "0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867",
         "blockNumber": "33472625",
         "blockTimestamp": "1792999410"
       },
       "target": "45000000000000000000"
     },
-    "tx": "0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa"
+    "tx": "0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08"
   },
   "rpc": "a private endpoint (address withheld)",
   "transactions": [
     {
       "bank": [],
       "block": "33472621",
-      "blockHash": "0x558920ebd598fdab257deb6205150d6789fd1dca25158c07c09819050edb0528",
+      "blockHash": "0x78905e609f3b86b729b1168b553b3445b9b1b28acd8bab47088661a439bb3fb0",
       "call": "deploy ReduceOnlyGuard",
-      "effectiveGasPrice": "3692813703",
-      "fee": "4052161404438930",
+      "effectiveGasPrice": "3692813705",
+      "fee": "4052205720398010",
       "fills": [],
-      "gasUsed": "1097310",
+      "gasUsed": "1097322",
       "guardEvent": null,
-      "hash": "0xf73c277023c3e161f68576bfd619061a559ea7106e4f2b8700965a2385069d87",
+      "hash": "0x08dcd7cd8c0ec5e4bccc17facbb3655a1f64e23054320d1e408d5f642650decb",
       "id": "deploy-guard",
-      "input": "0x60c06040526001600255348015610014575f5ffd5b506040516114d13803806114d18339810160408190526100339161026d565b61c4cf461461005c57604051635ea03eed60e11b81524660048201526024015b60405180910390fd5b6001600160a01b038316158061007957506001600160a01b038216155b156100975760405163d92e233d60e01b815260040160405180910390fd5b6001600160a01b03808416608052821660a0525f5b8151811015610235575f8282815181106100c8576100c861035a565b602002602001015190505f816001600160a01b031663ad8f1eab6040518163ffffffff1660e01b8152600401602060405180830381865afa15801561010f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610133919061036e565b9050846001600160a01b0316816001600160a01b03161461017a57604051634cddd29f60e01b81526001600160a01b03808416600483015282166024820152604401610053565b60405163e0f05edd60e01b81526001600160a01b03838116600483015286169063e0f05edd90602401602060405180830381865afa1580156101be573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906101e2919061038e565b61020a57604051633d1dbb9960e01b81526001600160a01b0383166004820152602401610053565b506001600160a01b03165f908152602081905260409020805460ff19166001908117909155016100ac565b505050506103ad565b80516001600160a01b0381168114610254575f5ffd5b919050565b634e487b7160e01b5f52604160045260245ffd5b5f5f5f6060848603121561027f575f5ffd5b6102888461023e565b92506102966020850161023e565b60408501519092506001600160401b038111156102b1575f5ffd5b8401601f810186136102c1575f5ffd5b80516001600160401b038111156102da576102da610259565b604051600582901b90603f8201601f191681016001600160401b038111828210171561030857610308610259565b604052918252602081840181019290810189841115610325575f5ffd5b6020850194505b8385101561034b5761033d8561023e565b81526020948501940161032c565b50809450505050509250925092565b634e487b7160e01b5f52603260045260245ffd5b5f6020828403121561037e575f5ffd5b6103878261023e565b9392505050565b5f6020828403121561039e575f5ffd5b81518015158114610387575f5ffd5b60805160a0516110c661040b5f395f818160af0152818161025a015281816104ee0152818161078f015261094601525f818160f30152818161027b015281816103ab0152818161051501528181610659015261096d01526110c65ff3fe608060405234801561000f575f5ffd5b50600436106100a6575f3560e01c80636f0e530f1161006e5780636f0e530f146101815780637ea82cd6146101a157806385e1f4d0146101c8578063871a532f146101d1578063b07c411f146101d9578063dd0c33d7146101fb575f5ffd5b8063083dae66146100aa578063117803e3146100ee578063174628d1146101155780632045ac21146101475780632bdea29014610160575b5f5ffd5b6100d17f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100d17f000000000000000000000000000000000000000000000000000000000000000081565b610137610123366004610d53565b5f6020819052908152604090205460ff1681565b60405190151581526020016100e5565b61014e5f81565b60405160ff90911681526020016100e5565b61017361016e366004610d75565b610234565b6040519081526020016100e5565b610189610321565b6040516001600160401b0390911681526020016100e5565b6101737f3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d624922781565b61017361c4cf81565b61014e600281565b6101376101e7366004610d8e565b60016020525f908152604090205460ff1681565b61020e610209366004610d75565b610339565b604080519384526001600160801b039092166020840152600f0b908201526060016100e5565b5f7f3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d624922746307f00000000000000000000000000000000000000000000000000000000000000007f00000000000000000000000000000000000000000000000000000000000000006102a76020880188610d53565b6102b76040890160208a01610db3565b6102c760608a0160408b01610ddb565b60608a013560808b01356102e160c08d0160a08e01610e0a565b60028d60c001356040516020016103049d9c9b9a99989796959493929190610e25565b604051602081830303815290604052805190602001209050919050565b610336633b9aca006001600160401b03610ede565b81565b5f5f5f60025460011461035f5760405163558a1e0360e11b815260040160405180910390fd5b600280555f61036d8561064c565b5f8281526001602081815260408320805460ff19169092179091559296509092509061039b90870187610d53565b6001600160a01b031663800544497f00000000000000000000000000000000000000000000000000000000000000006103da60608a0160408b01610ddb565b8860808b013560608c01356103f560c08e0160a08f01610e0a565b61040390633b9aca00610f0b565b6040516001600160e01b031960e089901b1681526001600160a01b03909616600487015293151560248601526001600160401b039283166044860152606485019190915260848401521660a4820152600260c48201525f60e4820181905261010482018190526101248201526101440160408051808303815f875af115801561048e573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104b29190610f4f565b94509050806104e45760405163081d8e4360e41b81526001600160801b03851660048201526024015b60405180910390fd5b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b33dc1907f000000000000000000000000000000000000000000000000000000000000000061054160208a018a610d53565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604401608060405180830381865afa15801561058a573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906105ae9190610f82565b5192506105c082846060890135610c54565b6105cd6020870187610d53565b604080516001600160801b0387168152600f85810b602083015286900b81830152606089810135908201526080808a01359082015290516001600160a01b03929092169187917f3ed59d5deef1f64ee4ec7bc4027452be4a89737edbc395eab98a0a5b904fb955919081900360a00190a3505060016002559193909250565b5f80336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146106995760405163245aecd360e01b81523360048201526024016104db565b61c4cf46146106bd57604051635ea03eed60e11b81524660048201526024016104db565b5f806106cc6020860186610d53565b6001600160a01b0316815260208101919091526040015f205460ff1661071e576106f96020840184610d53565b604051633d1dbb9960e01b81526001600160a01b0390911660048201526024016104db565b5f61072c6020850185610d53565b6001600160a01b031663ad8f1eab6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610767573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061078b9190611007565b90507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316816001600160a01b031614610800576107d36020850185610d53565b604051634cddd29f60e01b81526001600160a01b03918216600482015290821660248201526044016104db565b61081060c0850160a08601610e0a565b6001600160401b031642111561085b5761083060c0850160a08601610e0a565b60405163794534db60e01b81526001600160401b0390911660048201524260248201526044016104db565b610870633b9aca006001600160401b03610ede565b6001600160401b031661088960c0860160a08701610e0a565b6001600160401b031611156108cd576108a860c0850160a08601610e0a565b60405163bc4bfd3b60e01b81526001600160401b0390911660048201526024016104db565b6108d684610234565b5f8181526001602052604090205490935060ff161561090a5760405162c73f5960e71b8152600481018490526024016104db565b61091a6040850160208601610db3565b600f0b5f0361093c57604051632afc3c0d60e21b815260040160405180910390fd5b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b33dc1907f00000000000000000000000000000000000000000000000000000000000000006109996020880188610d53565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604401608060405180830381865afa1580156109e2573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610a069190610f82565b519150610a196040850160208601610db3565b600f0b82600f0b14610a5d57610a356040850160208601610db3565b604051632eb3a3ed60e01b8152600f91820b60048201529083900b60248201526044016104db565b5f600f83900b12610a746060860160408701610ddb565b151514610a9457604051634a6923df60e11b815260040160405180910390fd5b5f610a9e83610d15565b905084606001355f03610ac45760405163f4f5b73360e01b815260040160405180910390fd5b8085606001351115610af65760405163b81571ed60e01b815260608601356004820152602481018290526044016104db565b5f610b046020870187610d53565b6001600160a01b0316630765910c6040518163ffffffff1660e01b8152600401606060405180830381865afa158015610b3f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610b639190611022565b905080604001515f1480610b8857506040810151610b85906060880135611086565b15155b15610bb95760408082015190516384e27e9b60e01b81526060880135600482015260248101919091526044016104db565b806020015186606001351015610bf557602081015160405163eaa68ceb60e01b81526060880135600482015260248101919091526044016104db565b60808601351580610c0557508051155b80610c1e57508051610c1b906080880135611086565b15155b15610c4c578051604051632896ab8b60e01b81526080880135600482015260248101919091526044016104db565b505050915091565b5f5f84600f0b13610c7d575f83600f0b13158015610c78575083600f0b83600f0b12155b610c96565b5f83600f0b12158015610c96575083600f0b83600f0b13155b905080610cc4576040516313454b5f60e31b8152600f85810b600483015284900b60248201526044016104db565b5f610cce84610d15565b610cd786610d15565b610ce19190611099565b905082811115610d0e576040516304dbfeab60e01b815260048101829052602481018490526044016104db565b5050505050565b5f5f82600f0b12610d295781600f0b610d36565b81600f0b610d36906110ac565b92915050565b6001600160a01b0381168114610d50575f5ffd5b50565b5f60208284031215610d63575f5ffd5b8135610d6e81610d3c565b9392505050565b5f60e0828403128015610d86575f5ffd5b509092915050565b5f60208284031215610d9e575f5ffd5b5035919050565b80600f0b8114610d50575f5ffd5b5f60208284031215610dc3575f5ffd5b8135610d6e81610da5565b8015158114610d50575f5ffd5b5f60208284031215610deb575f5ffd5b8135610d6e81610dce565b6001600160401b0381168114610d50575f5ffd5b5f60208284031215610e1a575f5ffd5b8135610d6e81610df6565b8d8152602081018d90526001600160a01b038c811660408301528b811660608301528a81166080830152891660a08201526101a08101610e6a60c083018a600f0b9052565b87151560e08301528661010083015285610120830152610e966101408301866001600160401b03169052565b60ff9390931661016082015261018001529b9a5050505050505050505050565b634e487b7160e01b5f52601260045260245ffd5b634e487b7160e01b5f52601160045260245ffd5b5f6001600160401b03831680610ef657610ef6610eb6565b806001600160401b0384160491505092915050565b6001600160401b038181168382160290811690818114610f2d57610f2d610eca565b5092915050565b80516001600160801b0381168114610f4a575f5ffd5b919050565b5f5f60408385031215610f60575f5ffd5b8251610f6b81610dce565b9150610f7960208401610f34565b90509250929050565b5f6080828403128015610f93575f5ffd5b50604051608081016001600160401b0381118282101715610fc257634e487b7160e01b5f52604160045260245ffd5b6040528251610fd081610da5565b8152610fde60208401610f34565b6020820152604083015160408201526060830151610ffb81610df6565b60608201529392505050565b5f60208284031215611017575f5ffd5b8151610d6e81610d3c565b5f6060828403128015611033575f5ffd5b50604051606081016001600160401b038111828210171561106257634e487b7160e01b5f52604160045260245ffd5b60409081528351825260208085015190830152928301519281019290925250919050565b5f8261109457611094610eb6565b500690565b81810381811115610d3657610d36610eca565b5f600160ff1b82016110c0576110c0610eca565b505f039056000000000000000000000000009917fa34fd8107e3bbe0a3f574bcf8fd7fa171000000000000000000000000478769e1177c0773c43a593dccc4ad15f15f1394000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000020000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf",
+      "input": "0x60c06040526001600255348015610014575f5ffd5b506040516114d13803806114d18339810160408190526100339161026d565b61c4cf461461005c57604051635ea03eed60e11b81524660048201526024015b60405180910390fd5b6001600160a01b038316158061007957506001600160a01b038216155b156100975760405163d92e233d60e01b815260040160405180910390fd5b6001600160a01b03808416608052821660a0525f5b8151811015610235575f8282815181106100c8576100c861035a565b602002602001015190505f816001600160a01b031663ad8f1eab6040518163ffffffff1660e01b8152600401602060405180830381865afa15801561010f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610133919061036e565b9050846001600160a01b0316816001600160a01b03161461017a57604051634cddd29f60e01b81526001600160a01b03808416600483015282166024820152604401610053565b60405163e0f05edd60e01b81526001600160a01b03838116600483015286169063e0f05edd90602401602060405180830381865afa1580156101be573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906101e2919061038e565b61020a57604051633d1dbb9960e01b81526001600160a01b0383166004820152602401610053565b506001600160a01b03165f908152602081905260409020805460ff19166001908117909155016100ac565b505050506103ad565b80516001600160a01b0381168114610254575f5ffd5b919050565b634e487b7160e01b5f52604160045260245ffd5b5f5f5f6060848603121561027f575f5ffd5b6102888461023e565b92506102966020850161023e565b60408501519092506001600160401b038111156102b1575f5ffd5b8401601f810186136102c1575f5ffd5b80516001600160401b038111156102da576102da610259565b604051600582901b90603f8201601f191681016001600160401b038111828210171561030857610308610259565b604052918252602081840181019290810189841115610325575f5ffd5b6020850194505b8385101561034b5761033d8561023e565b81526020948501940161032c565b50809450505050509250925092565b634e487b7160e01b5f52603260045260245ffd5b5f6020828403121561037e575f5ffd5b6103878261023e565b9392505050565b5f6020828403121561039e575f5ffd5b81518015158114610387575f5ffd5b60805160a0516110c661040b5f395f818160af0152818161025a015281816104ee0152818161078f015261094601525f818160f30152818161027b015281816103ab0152818161051501528181610659015261096d01526110c65ff3fe608060405234801561000f575f5ffd5b50600436106100a6575f3560e01c80636f0e530f1161006e5780636f0e530f146101815780637ea82cd6146101a157806385e1f4d0146101c8578063871a532f146101d1578063b07c411f146101d9578063dd0c33d7146101fb575f5ffd5b8063083dae66146100aa578063117803e3146100ee578063174628d1146101155780632045ac21146101475780632bdea29014610160575b5f5ffd5b6100d17f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100d17f000000000000000000000000000000000000000000000000000000000000000081565b610137610123366004610d53565b5f6020819052908152604090205460ff1681565b60405190151581526020016100e5565b61014e5f81565b60405160ff90911681526020016100e5565b61017361016e366004610d75565b610234565b6040519081526020016100e5565b610189610321565b6040516001600160401b0390911681526020016100e5565b6101737f3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d624922781565b61017361c4cf81565b61014e600281565b6101376101e7366004610d8e565b60016020525f908152604090205460ff1681565b61020e610209366004610d75565b610339565b604080519384526001600160801b039092166020840152600f0b908201526060016100e5565b5f7f3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d624922746307f00000000000000000000000000000000000000000000000000000000000000007f00000000000000000000000000000000000000000000000000000000000000006102a76020880188610d53565b6102b76040890160208a01610db3565b6102c760608a0160408b01610ddb565b60608a013560808b01356102e160c08d0160a08e01610e0a565b60028d60c001356040516020016103049d9c9b9a99989796959493929190610e25565b604051602081830303815290604052805190602001209050919050565b610336633b9aca006001600160401b03610ede565b81565b5f5f5f60025460011461035f5760405163558a1e0360e11b815260040160405180910390fd5b600280555f61036d8561064c565b5f8281526001602081815260408320805460ff19169092179091559296509092509061039b90870187610d53565b6001600160a01b031663800544497f00000000000000000000000000000000000000000000000000000000000000006103da60608a0160408b01610ddb565b8860808b013560608c01356103f560c08e0160a08f01610e0a565b61040390633b9aca00610f0b565b6040516001600160e01b031960e089901b1681526001600160a01b03909616600487015293151560248601526001600160401b039283166044860152606485019190915260848401521660a4820152600260c48201525f60e4820181905261010482018190526101248201526101440160408051808303815f875af115801561048e573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104b29190610f4f565b94509050806104e45760405163081d8e4360e41b81526001600160801b03851660048201526024015b60405180910390fd5b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b33dc1907f000000000000000000000000000000000000000000000000000000000000000061054160208a018a610d53565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604401608060405180830381865afa15801561058a573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906105ae9190610f82565b5192506105c082846060890135610c54565b6105cd6020870187610d53565b604080516001600160801b0387168152600f85810b602083015286900b81830152606089810135908201526080808a01359082015290516001600160a01b03929092169187917f3ed59d5deef1f64ee4ec7bc4027452be4a89737edbc395eab98a0a5b904fb955919081900360a00190a3505060016002559193909250565b5f80336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146106995760405163245aecd360e01b81523360048201526024016104db565b61c4cf46146106bd57604051635ea03eed60e11b81524660048201526024016104db565b5f806106cc6020860186610d53565b6001600160a01b0316815260208101919091526040015f205460ff1661071e576106f96020840184610d53565b604051633d1dbb9960e01b81526001600160a01b0390911660048201526024016104db565b5f61072c6020850185610d53565b6001600160a01b031663ad8f1eab6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610767573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061078b9190611007565b90507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316816001600160a01b031614610800576107d36020850185610d53565b604051634cddd29f60e01b81526001600160a01b03918216600482015290821660248201526044016104db565b61081060c0850160a08601610e0a565b6001600160401b031642111561085b5761083060c0850160a08601610e0a565b60405163794534db60e01b81526001600160401b0390911660048201524260248201526044016104db565b610870633b9aca006001600160401b03610ede565b6001600160401b031661088960c0860160a08701610e0a565b6001600160401b031611156108cd576108a860c0850160a08601610e0a565b60405163bc4bfd3b60e01b81526001600160401b0390911660048201526024016104db565b6108d684610234565b5f8181526001602052604090205490935060ff161561090a5760405162c73f5960e71b8152600481018490526024016104db565b61091a6040850160208601610db3565b600f0b5f0361093c57604051632afc3c0d60e21b815260040160405180910390fd5b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b33dc1907f00000000000000000000000000000000000000000000000000000000000000006109996020880188610d53565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604401608060405180830381865afa1580156109e2573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610a069190610f82565b519150610a196040850160208601610db3565b600f0b82600f0b14610a5d57610a356040850160208601610db3565b604051632eb3a3ed60e01b8152600f91820b60048201529083900b60248201526044016104db565b5f600f83900b12610a746060860160408701610ddb565b151514610a9457604051634a6923df60e11b815260040160405180910390fd5b5f610a9e83610d15565b905084606001355f03610ac45760405163f4f5b73360e01b815260040160405180910390fd5b8085606001351115610af65760405163b81571ed60e01b815260608601356004820152602481018290526044016104db565b5f610b046020870187610d53565b6001600160a01b0316630765910c6040518163ffffffff1660e01b8152600401606060405180830381865afa158015610b3f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610b639190611022565b905080604001515f1480610b8857506040810151610b85906060880135611086565b15155b15610bb95760408082015190516384e27e9b60e01b81526060880135600482015260248101919091526044016104db565b806020015186606001351015610bf557602081015160405163eaa68ceb60e01b81526060880135600482015260248101919091526044016104db565b60808601351580610c0557508051155b80610c1e57508051610c1b906080880135611086565b15155b15610c4c578051604051632896ab8b60e01b81526080880135600482015260248101919091526044016104db565b505050915091565b5f5f84600f0b13610c7d575f83600f0b13158015610c78575083600f0b83600f0b12155b610c96565b5f83600f0b12158015610c96575083600f0b83600f0b13155b905080610cc4576040516313454b5f60e31b8152600f85810b600483015284900b60248201526044016104db565b5f610cce84610d15565b610cd786610d15565b610ce19190611099565b905082811115610d0e576040516304dbfeab60e01b815260048101829052602481018490526044016104db565b5050505050565b5f5f82600f0b12610d295781600f0b610d36565b81600f0b610d36906110ac565b92915050565b6001600160a01b0381168114610d50575f5ffd5b50565b5f60208284031215610d63575f5ffd5b8135610d6e81610d3c565b9392505050565b5f60e0828403128015610d86575f5ffd5b509092915050565b5f60208284031215610d9e575f5ffd5b5035919050565b80600f0b8114610d50575f5ffd5b5f60208284031215610dc3575f5ffd5b8135610d6e81610da5565b8015158114610d50575f5ffd5b5f60208284031215610deb575f5ffd5b8135610d6e81610dce565b6001600160401b0381168114610d50575f5ffd5b5f60208284031215610e1a575f5ffd5b8135610d6e81610df6565b8d8152602081018d90526001600160a01b038c811660408301528b811660608301528a81166080830152891660a08201526101a08101610e6a60c083018a600f0b9052565b87151560e08301528661010083015285610120830152610e966101408301866001600160401b03169052565b60ff9390931661016082015261018001529b9a5050505050505050505050565b634e487b7160e01b5f52601260045260245ffd5b634e487b7160e01b5f52601160045260245ffd5b5f6001600160401b03831680610ef657610ef6610eb6565b806001600160401b0384160491505092915050565b6001600160401b038181168382160290811690818114610f2d57610f2d610eca565b5092915050565b80516001600160801b0381168114610f4a575f5ffd5b919050565b5f5f60408385031215610f60575f5ffd5b8251610f6b81610dce565b9150610f7960208401610f34565b90509250929050565b5f6080828403128015610f93575f5ffd5b50604051608081016001600160401b0381118282101715610fc257634e487b7160e01b5f52604160045260245ffd5b6040528251610fd081610da5565b8152610fde60208401610f34565b6020820152604083015160408201526060830151610ffb81610df6565b60608201529392505050565b5f60208284031215611017575f5ffd5b8151610d6e81610d3c565b5f6060828403128015611033575f5ffd5b50604051606081016001600160401b038111828210171561106257634e487b7160e01b5f52604160045260245ffd5b60409081528351825260208085015190830152928301519281019290925250919050565b5f8261109457611094610eb6565b500690565b81810381811115610d3657610d36610eca565b5f600160ff1b82016110c0576110c0610eca565b505f0390560000000000000000000000002939472ee7253e6f26c927f160511948c4a9b33d000000000000000000000000478769e1177c0773c43a593dccc4ad15f15f1394000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000020000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf",
       "ledgerState": "CONFIRMED",
       "n": 1,
       "nonce": 0,
@@ -838,14 +838,14 @@
     {
       "bank": [],
       "block": "33472622",
-      "blockHash": "0x5c048bbb7c27288b81dc0ed47adfa567d5da8d725d27141f8eac8a38d3a572c7",
+      "blockHash": "0x3e7da7828224de336b9f6e80e898f988859082f3ee6a1bb77b57ac5e5d57af07",
       "call": "USDso.approve(0x478769E1177C0773c43A593DCCc4Ad15F15F1394, 60000000000000000000)",
-      "effectiveGasPrice": "3356261238",
-      "fee": "179308256640150",
+      "effectiveGasPrice": "3356261240",
+      "fee": "179308256747000",
       "fills": [],
       "gasUsed": "53425",
       "guardEvent": null,
-      "hash": "0x784ab190fcb7a31e896ccd27a1629ea173cc81f3b8fa406962aced6ced9e1c67",
+      "hash": "0x08c15d25715e468ab1702dac39e9e438a91568b502560c050a757ae243eaff78",
       "id": "approve",
       "input": "0x095ea7b3000000000000000000000000478769e1177c0773c43a593dccc4ad15f15f139400000000000000000000000000000000000000000000000340aad21b3b700000",
       "ledgerState": "CONFIRMED",
@@ -867,14 +867,14 @@
         }
       ],
       "block": "33472623",
-      "blockHash": "0x02a761cd62b7965606cac138904f7c58cd20956b73ed8a8b2c7eaa4b2b55eb1a",
+      "blockHash": "0x9f5e1721743a271e3a8181eb28e215f259864547f07c272a103b93563706fe84",
       "call": "MarginBank.deposit(60000000000000000000)",
-      "effectiveGasPrice": "3061730682",
-      "fee": "340127661463380",
+      "effectiveGasPrice": "3061730684",
+      "fee": "340127661685560",
       "fills": [],
       "gasUsed": "111090",
       "guardEvent": null,
-      "hash": "0xbbdbca2107f17267236b7210beb93e9e6b30f98ca87b5f6e83dcec44d4ab9c05",
+      "hash": "0x3ec5c53d3bbb8625b0e0bb65e3b2e90ed8420a206d56393c940a3b9f49915535",
       "id": "deposit",
       "input": "0xb6b55f2500000000000000000000000000000000000000000000000340aad21b3b700000",
       "ledgerState": "CONFIRMED",
@@ -918,10 +918,10 @@
         }
       ],
       "block": "33472624",
-      "blockHash": "0xb2a18718fd65be7a1eff66bbe062e1e0256fa983d3f4271eef88116790f8bb22",
+      "blockHash": "0x977d8c476e9b22fea3905aa7dd18822b516a92b49d834bb3cf130f341e3ceaaa",
       "call": "placeOrder(isBid=true, limit=80545400000000000000000, quantity=125000, orderType=2)",
-      "effectiveGasPrice": "2804018165",
-      "fee": "7791595375539625",
+      "effectiveGasPrice": "2804018166",
+      "fee": "7791595378318350",
       "fills": [
         {
           "isBid": true,
@@ -940,7 +940,7 @@
       ],
       "gasUsed": "2778725",
       "guardEvent": null,
-      "hash": "0xc9de3546a6531555081408fee512d11b3a73deb2681b96061c9edc47145c8d96",
+      "hash": "0x245c17aede66cd3236255a0071bd72f8c828ab0e67088f29d4a9bb5cebe988bd",
       "id": "open-BTC-long",
       "input": "0x4e9783730000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000110e5ff8582e640c0000000000000000000000000000000000000000000000000000000000000001e84800000000000000000000000000000000000000000000000018e20384abd04c000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "ledgerState": "CONFIRMED",
@@ -980,10 +980,10 @@
         }
       ],
       "block": "33472625",
-      "blockHash": "0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e",
+      "blockHash": "0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867",
       "call": "placeOrder(isBid=false, limit=2305060000000000000000, quantity=38800000000000000, orderType=2)",
-      "effectiveGasPrice": "2578599443",
-      "fee": "6820622443485984",
+      "effectiveGasPrice": "2578599444",
+      "fee": "6820622446131072",
       "fills": [
         {
           "isBid": false,
@@ -995,7 +995,7 @@
       ],
       "gasUsed": "2645088",
       "guardEvent": null,
-      "hash": "0x409ad87031325daddd153837e2d125a0a6b4523b5ff482b912f11dba08495f48",
+      "hash": "0x7c089fd72d2e8257a693c351db3a3928d66ce04cb06a702181539a7498f00999",
       "id": "open-ETH-short",
       "input": "0x4e9783730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007cf5223144c9ea00000000000000000000000000000000000000000000000000000089d864f949000000000000000000000000000000000000000000000000000018e20384abd04c000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "ledgerState": "CONFIRMED",
@@ -1018,16 +1018,16 @@
     {
       "bank": [],
       "block": "33472626",
-      "blockHash": "0x7b2894a3e95e80c3b4f6f0faa0257e37064fef7b2c6e9edaf03e26f7e7f102fa",
-      "call": "setOperatorApprovalForPool(0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, 0x09c51620F3e469B8335F360fe2fe6Ada92417fCF, [0x80054449], true)",
-      "effectiveGasPrice": "2381344105",
-      "fee": "133260016115800",
+      "blockHash": "0x7e06379aa125aabdd542ee91c1c18474bf3190c9466dcdcafe40e52797cba1a9",
+      "call": "setOperatorApprovalForPool(0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, 0x593f79B5511494fF66ef4218232aCEeD2b422A01, [0x80054449], true)",
+      "effectiveGasPrice": "2381344106",
+      "fee": "133260016171760",
       "fills": [],
       "gasUsed": "55960",
       "guardEvent": null,
-      "hash": "0x61c32ad0e3d5829edb8710115fb5026e7f91a1e3321553f15778f4bfd967bad1",
+      "hash": "0x3cf4361f4ce8a19c124cccc62e977029e85f086b673c3b147df954484f07afa3",
       "id": "grant-BTC",
-      "input": "0x7bbc67e60000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c000000000000000000000000009c51620f3e469b8335f360fe2fe6ada92417fcf0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "input": "0x7bbc67e60000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000593f79b5511494ff66ef4218232aceed2b422a010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
       "ledgerState": "CONFIRMED",
       "n": 6,
       "nonce": 5,
@@ -1048,10 +1048,10 @@
         }
       ],
       "block": "33472627",
-      "blockHash": "0x19c2a44c15c5db442a3a86469cbb1ca9f3be702874a102703bc7f99e217c61dd",
+      "blockHash": "0x9a71b3604899d4381cafafc5d412e215f731b9ee3a0d2d37c2e8aea807e77874",
       "call": "guard.reduce(pool=0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, expected=125000, isBid=false, quantity=62000, limit=79743900000000000000000, deadline=1792999590)",
-      "effectiveGasPrice": "2208677381",
-      "fee": "5597671954406400",
+      "effectiveGasPrice": "2208677382",
+      "fee": "5597671956940800",
       "fills": [
         {
           "isBid": false,
@@ -1063,7 +1063,7 @@
       ],
       "gasUsed": "2534400",
       "guardEvent": {
-        "actionId": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
+        "actionId": "0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1",
         "limitPrice": "79743900000000000000000",
         "orderId": "16011773855979898622194",
         "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
@@ -1071,9 +1071,9 @@
         "sizeAfter": "63000",
         "sizeBefore": "125000"
       },
-      "hash": "0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa",
+      "hash": "0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08",
       "id": "reduce",
-      "input": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e8480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf00a669ec9035e0cdbf732c16335f5b04d22e760b94f6d3b91dbb3cb6089a9434f087",
+      "input": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e8480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf00a6ca10de443781222155e853f9672af752a92469a742ee55e2bf637f7fe5e35db8",
       "ledgerState": "CONFIRMED",
       "n": 7,
       "nonce": 6,
@@ -1084,7 +1084,7 @@
         "expectedSignedSize": "125000",
         "isBid": false,
         "limitPrice": "79743900000000000000000",
-        "nonce": "0x69ec9035e0cdbf732c16335f5b04d22e760b94f6d3b91dbb3cb6089a9434f087",
+        "nonce": "0xca10de443781222155e853f9672af752a92469a742ee55e2bf637f7fe5e35db8",
         "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
         "quantity": "62000"
       },
@@ -1094,10 +1094,10 @@
           "isBid": false,
           "orderId": "16011773855979898622194",
           "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
-          "userData": "14889560628331106715"
+          "userData": "17017664345384515297"
         }
       ],
-      "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf"
+      "to": "0x593f79b5511494ff66ef4218232aceed2b422a01"
     },
     {
       "bank": [
@@ -1109,10 +1109,10 @@
         }
       ],
       "block": "33472628",
-      "blockHash": "0x6b613ddcfe92d57b79e149438b600e72b773bdd07d0db46a6cf0fb326e530cd4",
+      "blockHash": "0x46388ab635375a028ae1535c9ec9c82d57b755e1af212946b1b2960f00245a67",
       "call": "guard.reduce(pool=0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, expected=63000, isBid=false, quantity=63000, limit=79743900000000000000000, deadline=1792999530)",
-      "effectiveGasPrice": "2057643763",
-      "fee": "5221143474699194",
+      "effectiveGasPrice": "2057643764",
+      "fee": "5221143477236632",
       "fills": [
         {
           "isBid": false,
@@ -1124,7 +1124,7 @@
       ],
       "gasUsed": "2537438",
       "guardEvent": {
-        "actionId": "0x4f11e471c8e36c6cc1be72606c05454cbb1794a94dfa048484981a99ffa921a6",
+        "actionId": "0x6c9d6f77e9b7984c217262317d5c439bccb33bee3576b7cd06ac38e6380b1863",
         "limitPrice": "79743900000000000000000",
         "orderId": "16011773855979898622195",
         "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
@@ -1132,9 +1132,9 @@
         "sizeAfter": "0",
         "sizeBefore": "63000"
       },
-      "hash": "0xd3367b38e9638df2f7220d7629e32b50af11c445711db40d300118c243257075",
+      "hash": "0xcd1531c6f9dd0c493f4b60293997b7b3f4cf56fa8db36d86c3f531a12e418bb2",
       "id": "cleanup-close-BTC-1",
-      "input": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000000f6180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f6180000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf006aeeb670981877087b416f49e2df4cfd433eb472bd9252baa1f0b34d86e13fad41",
+      "input": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000000f6180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f6180000000000000000000000000000000000000000000010e2ecec54b5d0760000000000000000000000000000000000000000000000000000000000006adf006a3dcb2583a56761982356bf2d9d13a73c24bfcd7f421ca327cda2c09bd862c14e",
       "ledgerState": "CONFIRMED",
       "n": 8,
       "nonce": 7,
@@ -1145,7 +1145,7 @@
         "expectedSignedSize": "63000",
         "isBid": false,
         "limitPrice": "79743900000000000000000",
-        "nonce": "0xeeb670981877087b416f49e2df4cfd433eb472bd9252baa1f0b34d86e13fad41",
+        "nonce": "0x3dcb2583a56761982356bf2d9d13a73c24bfcd7f421ca327cda2c09bd862c14e",
         "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
         "quantity": "63000"
       },
@@ -1155,24 +1155,24 @@
           "isBid": false,
           "orderId": "16011773855979898622195",
           "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
-          "userData": "9554415858188100006"
+          "userData": "480821821655685219"
         }
       ],
-      "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf"
+      "to": "0x593f79b5511494ff66ef4218232aceed2b422a01"
     },
     {
       "bank": [],
       "block": "33472629",
-      "blockHash": "0xb9e2f2eb0ccefbeef21a7a194be78a8840c6001175793c0341cf92c3cbea3594",
-      "call": "setOperatorApprovalForPool(0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, 0x09c51620F3e469B8335F360fe2fe6Ada92417fCF, [0x80054449], true)",
+      "blockHash": "0x458bd8e427b757e953d441f195f94146da5354fa7cf0e6f0650d314ad3fc4c92",
+      "call": "setOperatorApprovalForPool(0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, 0x593f79B5511494fF66ef4218232aCEeD2b422A01, [0x80054449], true)",
       "effectiveGasPrice": "1925483022",
       "fee": "107750029911120",
       "fills": [],
       "gasUsed": "55960",
       "guardEvent": null,
-      "hash": "0x7503505408aeea27b4605be80f3f8cb87c9446700df39b10554e49834cad4bf4",
+      "hash": "0x938ec23c4a383bfd5cdf7700741b5ae2625b6f8f04c03b6daa05fc836c09759c",
       "id": "cleanup-grant-ETH",
-      "input": "0x7bbc67e6000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf00000000000000000000000009c51620f3e469b8335f360fe2fe6ada92417fcf0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "input": "0x7bbc67e6000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf000000000000000000000000593f79b5511494ff66ef4218232aceed2b422a010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
       "ledgerState": "CONFIRMED",
       "n": 9,
       "nonce": 8,
@@ -1193,7 +1193,7 @@
         }
       ],
       "block": "33472630",
-      "blockHash": "0xd82031617914e800075b7802f071c06bb19fcf93a6c65199127d24df61ed5c73",
+      "blockHash": "0x077d74c384faf33893b03d62e242d7db7395bf52df65bbbe699b318794c02e57",
       "call": "guard.reduce(pool=0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, expected=-38800000000000000, isBid=true, quantity=38800000000000000, limit=2328620000000000000000, deadline=1792999530)",
       "effectiveGasPrice": "1809798508",
       "fee": "4448779729820804",
@@ -1208,7 +1208,7 @@
       ],
       "gasUsed": "2458163",
       "guardEvent": {
-        "actionId": "0x9db7d609cd9d1fd88c9560a8cb18d14d151de58e3abfdbb54ea110c47a0050d1",
+        "actionId": "0x2f74b439d87ce3f98d9499bf707e7249ecaf17e2c1effee908afd3f1f9889f61",
         "limitPrice": "2328620000000000000000",
         "orderId": "18815678955183752289096",
         "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
@@ -1216,9 +1216,9 @@
         "sizeAfter": "0",
         "sizeBefore": "-38800000000000000"
       },
-      "hash": "0x739a23939dfe183d01803fb690263524738786d76d6c9350013b4e62cebfc405",
+      "hash": "0x381e43db9c5ce967510c9d1636071eaee38609d2a8aac1b7fc9e1af0a644b0a5",
       "id": "cleanup-close-ETH-1",
-      "input": "0xdd0c33d7000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddfffffffffffffffffffffffffffffffffffffffffffffffffff76279b06b7000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000089d864f949000000000000000000000000000000000000000000000000007e3c182071461e0000000000000000000000000000000000000000000000000000000000006adf006a30bfc98230121406107b1d29b6700c30de72dee1ae742f96bbbad5993daa964c",
+      "input": "0xdd0c33d7000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddfffffffffffffffffffffffffffffffffffffffffffffffffff76279b06b7000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000089d864f949000000000000000000000000000000000000000000000000007e3c182071461e0000000000000000000000000000000000000000000000000000000000006adf006a0e7bb4484182ca77268e522c8e4d976d288a2012bbd88cc9689a49f5e4806eff",
       "ledgerState": "CONFIRMED",
       "n": 10,
       "nonce": 9,
@@ -1229,7 +1229,7 @@
         "expectedSignedSize": "-38800000000000000",
         "isBid": true,
         "limitPrice": "2328620000000000000000",
-        "nonce": "0x30bfc98230121406107b1d29b6700c30de72dee1ae742f96bbbad5993daa964c",
+        "nonce": "0x0e7bb4484182ca77268e522c8e4d976d288a2012bbd88cc9689a49f5e4806eff",
         "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
         "quantity": "38800000000000000"
       },
@@ -1239,24 +1239,24 @@
           "isBid": true,
           "orderId": "18815678955183752289096",
           "pool": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
-          "userData": "5665828242255270097"
+          "userData": "625951909454847841"
         }
       ],
-      "to": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf"
+      "to": "0x593f79b5511494ff66ef4218232aceed2b422a01"
     },
     {
       "bank": [],
       "block": "33472631",
-      "blockHash": "0xa6116565c5894e0532e3aecb66817e8145db61543ced0656ead5c950399e9397",
-      "call": "setOperatorApprovalForPool(0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, 0x09c51620F3e469B8335F360fe2fe6Ada92417fCF, [0x80054449], false)",
+      "blockHash": "0xf83ea972878af6fea4e01b9b3b2724ead4f89b2a2a8223c882471bb81a4fbf36",
+      "call": "setOperatorApprovalForPool(0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, 0x593f79B5511494fF66ef4218232aCEeD2b422A01, [0x80054449], false)",
       "effectiveGasPrice": "1708606872",
       "fee": "54762558854472",
       "fills": [],
       "gasUsed": "32051",
       "guardEvent": null,
-      "hash": "0x78701fc23b5088cf03dba2e4d0472a675f1e6e37800efa35a73770b39f66cde3",
+      "hash": "0xc2892451bb6a5a6365c863fa76b6853a295e20b8630f50eced8a9ac950df664f",
       "id": "cleanup-revoke-BTC",
-      "input": "0x7bbc67e60000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c000000000000000000000000009c51620f3e469b8335f360fe2fe6ada92417fcf0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "input": "0x7bbc67e60000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000593f79b5511494ff66ef4218232aceed2b422a010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
       "ledgerState": "CONFIRMED",
       "n": 11,
       "nonce": 10,
@@ -1270,16 +1270,16 @@
     {
       "bank": [],
       "block": "33472632",
-      "blockHash": "0x0f7f97917438ac9b2aecce5b1b915b6e52ea4527ec46020a1112104032c6f18c",
-      "call": "setOperatorApprovalForPool(0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, 0x09c51620F3e469B8335F360fe2fe6Ada92417fCF, [0x80054449], false)",
+      "blockHash": "0x3f81bd6c9fd8b2ebc2e51354bb059c53c969051d016591d29efc0d03b0732f54",
+      "call": "setOperatorApprovalForPool(0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, 0x593f79B5511494fF66ef4218232aCEeD2b422A01, [0x80054449], false)",
       "effectiveGasPrice": "1620031392",
       "fee": "51923626144992",
       "fills": [],
       "gasUsed": "32051",
       "guardEvent": null,
-      "hash": "0xdbe65d6b689ca21aa0b6dd63fd43dfd01985d73a59e9cfb1a5643b0c11cf2a7e",
+      "hash": "0xe860d5ade8670dfc92dc8307bb97ff4db5263d377d63bf31a78cc7306d0d430a",
       "id": "cleanup-revoke-ETH",
-      "input": "0x7bbc67e6000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf00000000000000000000000009c51620f3e469b8335f360fe2fe6ada92417fcf0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "input": "0x7bbc67e6000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf000000000000000000000000593f79b5511494ff66ef4218232aceed2b422a010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
       "ledgerState": "CONFIRMED",
       "n": 12,
       "nonce": 11,
@@ -1299,14 +1299,14 @@
         }
       ],
       "block": "33472633",
-      "blockHash": "0x33b5f2c9bd8fa3876e260d9c36937fd0aa97518c512098611af6d71687b9c2c3",
+      "blockHash": "0x5f47ea93b95540960b4b881c000c6599934ab709f89cd9b78f0f37c38358b27e",
       "call": "MarginBank.withdraw(59969409000000000000)",
       "effectiveGasPrice": "1542527800",
       "fee": "102013533525200",
       "fills": [],
       "gasUsed": "66134",
       "guardEvent": null,
-      "hash": "0xb84d889d04b1857f8455637b2b5e6202ba0eacca622b9a8137a742c440442f7a",
+      "hash": "0xb01ddd34df584f8bfbb74fa77376a18194c685308d78726c9c8d5075ff9f4a68",
       "id": "cleanup-withdraw",
       "input": "0x2e1a7d4d000000000000000000000000000000000000000000000003403e23c1031d1000",
       "ledgerState": "CONFIRMED",
@@ -1330,7 +1330,7 @@
     "scenarioVerified": true,
     "transactionsVerified": true
   },
-  "verifiedAt": "2026-10-27T20:04:24.204Z",
+  "verifiedAt": "2026-10-28T03:35:13.166Z",
   "version": "mr-live-verify/2",
   "window": {
     "before": "33472620",

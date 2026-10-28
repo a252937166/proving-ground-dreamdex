@@ -1,13 +1,13 @@
-{"at":"2026-10-27T20:07:04.243Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
-{"at":"2026-10-27T20:07:04.347Z","step":"guard verified","guard":"0x09c51620f3e469b8335f360fe2fe6ada92417fcf","runtimeKeccak":"0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374"}
-{"at":"2026-10-27T20:07:11.900Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
-{"at":"2026-10-27T20:07:12.960Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
-{"at":"2026-10-27T20:07:17.131Z","step":"analysis","block":"33472625","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
-{"at":"2026-10-27T20:07:17.145Z","step":"confirmation journalled","actionId":"0x6fff51a9284138e39f102e6a52812f85df657ade9be98d403e57c39da7864a3a","candidateId":"BTC-50","expectedSignedSize":"125000","quantity":"62000","limit":"79743900000000000000000","deadline":"1792999590"}
-{"at":"2026-10-27T20:07:23.810Z","step":"refresh","attempt":1,"verdict":"STILL_VALID","reasons":[],"fundingDrift":"0"}
-{"at":"2026-10-27T20:07:41.545Z","step":"main flow stopped","reason":"step 7 reduce (0x175be783920ee18be587bc896e19ce8f904888e46e43dce5343274144bb7d6d4) is UNKNOWN; resolve it before sending anything else"}
-{"at":"2026-10-27T20:07:41.556Z","step":"result","status":"UNRESOLVED_TX","exitCode":40,"reason":"step 7 reduce (0x175be783920ee18be587bc896e19ce8f904888e46e43dce5343274144bb7d6d4) is UNKNOWN; resolve it before sending anything else"}
-{"at":"2026-10-27T20:07:46.139Z","step":"recompute","binding":true,"fill":"REQUESTED_FILL","goal":"GOAL_MET"}
-{"at":"2026-10-27T20:07:51.135Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"CONFIRMED","filled":"63000"}
-{"at":"2026-10-27T20:07:54.661Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"38800000000000000"}
-{"at":"2026-10-27T20:08:00.228Z","step":"result","status":"COMPLETE","exitCode":0,"reason":null}
+{"at":"2026-10-28T03:41:10.762Z","step":"preflight","block":"33472620","stt":"10000000000000000000","usdso":"100000000000000000000"}
+{"at":"2026-10-28T03:41:13.570Z","step":"guard verified","guard":"0x593f79b5511494ff66ef4218232aceed2b422a01","runtimeKeccak":"0x7b3099b567ca2dfcbd168d30208f2ec6a7c491a5967803ccbecc5d7b2a2853da"}
+{"at":"2026-10-28T03:41:18.946Z","step":"soft loss check","where":"after open-BTC-long","eTotal":"59775258467541666875"}
+{"at":"2026-10-28T03:41:20.039Z","step":"soft loss check","where":"after open-ETH-short","eTotal":"59774511002419822075"}
+{"at":"2026-10-28T03:41:24.709Z","step":"analysis","block":"33472625","reconciliation":"EXACT","outcome":"CANDIDATE_SELECTED","selected":"BTC-50"}
+{"at":"2026-10-28T03:41:24.722Z","step":"confirmation journalled","actionId":"0x2bd137d0ea8e4a04814455166f1657b05a8d64963c2c90069a52ad481aa4c3f3","candidateId":"BTC-50","expectedSignedSize":"125000","quantity":"62000","limit":"79743900000000000000000","deadline":"1792999590"}
+{"at":"2026-10-28T03:41:25.799Z","step":"refresh","attempt":1,"verdict":"STILL_VALID","reasons":[],"fundingDrift":"0"}
+{"at":"2026-10-28T03:41:43.602Z","step":"main flow stopped","reason":"step 7 reduce (0x9038111eb63839f894d27f51f1d2fc02aa0dadbf5bceb80c5e3b6edbb7d5e84e) is UNKNOWN; resolve it before sending anything else"}
+{"at":"2026-10-28T03:41:43.610Z","step":"result","status":"UNRESOLVED_TX","exitCode":40,"reason":"step 7 reduce (0x9038111eb63839f894d27f51f1d2fc02aa0dadbf5bceb80c5e3b6edbb7d5e84e) is UNKNOWN; resolve it before sending anything else"}
+{"at":"2026-10-28T03:41:48.209Z","step":"recompute","binding":true,"fill":"REQUESTED_FILL","goal":"GOAL_MET"}
+{"at":"2026-10-28T03:41:53.282Z","step":"cleanup close","symbol":"BTC","attempt":1,"state":"CONFIRMED","filled":"63000"}
+{"at":"2026-10-28T03:41:56.727Z","step":"cleanup close","symbol":"ETH","attempt":1,"state":"CONFIRMED","filled":"38800000000000000"}
+{"at":"2026-10-28T03:42:00.698Z","step":"result","status":"COMPLETE","exitCode":0,"reason":null}

@@ -49,7 +49,7 @@
     ],
     "closes": [
       {
-        "actionId": "0x77bd12c27c6df94c1ad29673b9cd357f83f33a54d8e2d3b9e928e4e6f2a7c995",
+        "actionId": "0x40bb78877bae93f35ed7d7fe53e88c9a6fe808b55db9b60d2481bd87e3efd07a",
         "attempt": 1,
         "bindingOk": null,
         "expected": "63000",
@@ -63,7 +63,7 @@
         "tx": null
       },
       {
-        "actionId": "0xc3fe02ad3cff8cacb62373ff51e6f60c5b3c479522d734e201afc903d965d40b",
+        "actionId": "0xa97fdce29ba3b621c548cc1d0d068d01a790611ae32399b9cbdd929c08c3ebf9",
         "attempt": 2,
         "bindingOk": null,
         "expected": "63000",
@@ -77,7 +77,7 @@
         "tx": null
       },
       {
-        "actionId": "0xcc9b5888ca56c39e3eb719d6d19de19af9c17974eaddcda607ef9c5dbd11c7e4",
+        "actionId": "0xfc2b6e9c583b24a6f62ab037e7e2bfd7ba1042daf0b3b6726960c46b7f4c8f88",
         "attempt": 3,
         "bindingOk": null,
         "expected": "63000",
@@ -91,7 +91,7 @@
         "tx": null
       },
       {
-        "actionId": "0x34883cb4aa70d4209ec2af8903b16729b1ca812123fb82024ddda4119ba64731",
+        "actionId": "0xe262e929cb66ecf34555b8df889389b53c67e556893cb48b731f1101c85494b5",
         "attempt": 1,
         "bindingOk": true,
         "expected": "-38800000000000000",
@@ -101,13 +101,13 @@
         "quantity": "38800000000000000",
         "state": "CONFIRMED",
         "symbol": "ETH",
-        "tx": "0xd84adff9dcdf34ca6bbde7a4f3df659f058861157f0a9898cf2a1fe8c2f31ad6"
+        "tx": "0x8f5f0ad0052cd70c78dea0a0e729445d719ca15ba7a05ed771bbabcffd4f4059"
       }
     ],
     "final": {
       "block": "33472634",
-      "blockHash": "0x7f4b64f96f9fde5e1f3b987839f4f229a16dff5a910dbfedc0bbec058c208083",
-      "stt": "9970833748663649155",
+      "blockHash": "0x48e538b8083e50d7b35efbce03de04fc5d8e412998fb84549675e988a0cfa7eb",
+      "stt": "9970833677832656899",
       "usdso": "40000000000000000000"
     },
     "remaining": [
@@ -122,18 +122,18 @@
   "gas": {
     "cap": "2000000000000000000",
     "committed": "0",
-    "spent": "29166251336350845"
+    "spent": "29166322167343101"
   },
-  "guard": "0x09c51620f3e469b8335f360fe2fe6ada92417fcf",
+  "guard": "0x593f79b5511494ff66ef4218232aceed2b422a01",
   "invalidated": [],
   "logComplete": true,
   "reason": "BTC position 63000 still open after 3 guarded attempts; no unguarded order was sent; collateral left in the bank: 1 position(s) and 0 order(s) remain; no position in any of the factory's pools: 0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0:63000; bank balance withdrawn: unlocked 59977004784000000000, locked 0",
   "rescue": {
-    "actionId": "0xe90b9aa71b2bede8579deee11eb50fa543bf13e18982333e36a2a7daa6adb050",
+    "actionId": "0x4ff15ba56a5539b8b073c602b3bf5e323a4be01700ab320e407ed9a8a3248a8f",
     "fill": "REQUESTED_FILL",
     "goal": "GOAL_MET",
     "goalReason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
-    "tx": "0x5f12462db7b75ee70842c393c39a3b635fc6f00bb515569376e39f5d6150ff4b",
+    "tx": "0x719a9e2a41a5ee0a707944eaaecde2575a88e72a77cd18fa5201284aae92b3de",
     "txState": "CONFIRMED"
   },
   "sentTransactions": 11,

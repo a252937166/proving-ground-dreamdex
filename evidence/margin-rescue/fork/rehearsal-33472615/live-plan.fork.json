@@ -1,6 +1,6 @@
 {
   "account": {
-    "address": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+    "address": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
     "allowanceToBank": "0",
     "bank": {
       "activePerpPools": [],
@@ -15,11 +15,11 @@
     "gas": {
       "approveEstimate": "53778",
       "cleanupReserve": "every main-phase send must leave, at the current gas price and both under the cap and in the wallet, 13000000 gas for each cleanup transaction the run could need if it stopped right after that send (per open leg a grant and up to 3 guarded closes, a revoke per pool, a withdrawal, an allowance reset; at most 12 for this plan), plus the worst-case fee of any unresolved transaction",
-      "deployEstimate": "1097310",
+      "deployEstimate": "1097322",
       "perOrderCap": "10000000",
       "sttCap": "2000000000000000000",
       "transactions": "19",
-      "worstCaseSttAtCurrentPrice": "869386216327770609"
+      "worstCaseSttAtCurrentPrice": "869386272190829190"
     },
     "maxAllowanceUsdso": "60000000000000000000",
     "maxDepositUsdso": "60000000000000000000",
@@ -64,16 +64,16 @@
     "compiler": "0.8.28+commit.7893614a",
     "constructorArgs": {
       "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
-      "owner": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+      "owner": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
       "pools": [
         "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
         "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
       ]
     },
     "creationCodeKeccak": "0xfe518fcf8ca555a5b30a7fa051c5d9c31625bcdd4c0424447b12a41432cf1703",
-    "deployDataKeccak": "0xbcfb7d3288b546798cd11fcfb37ce1b5807e7f29d9095dfbbec45946eb0a6d62",
-    "expectedAddress": "0x09c51620F3e469B8335F360fe2fe6Ada92417fCF",
-    "expectedRuntimeKeccak": "0x398cddf509511c92688eddcabf2e7f7d2414c3f9b114c543814cd44bf3e5e374",
+    "deployDataKeccak": "0xd2413ad50083f910edb9140f9a5d862d1c5d28485997acf5b6f390d6816a79e8",
+    "expectedAddress": "0x593f79B5511494fF66ef4218232aCEeD2b422A01",
+    "expectedRuntimeKeccak": "0x7b3099b567ca2dfcbd168d30208f2ec6a7c491a5967803ccbecc5d7b2a2853da",
     "optimizer": {
       "enabled": true,
       "runs": 200
@@ -124,12 +124,12 @@
       "TP/SL stops",
       "EIP-7702"
     ],
-    "gasPrice": "3692813703",
-    "maxGasPrice": "11078441109"
+    "gasPrice": "3692813705",
+    "maxGasPrice": "11078441115"
   },
   "readAt": {
     "block": "33472620",
-    "hash": "0xf72f98eaeaa923c9ecdd3ca4f9ae59ca9427e1c33cb72717fa8b3ea154c610c2",
+    "hash": "0x9bab3e27cb76228b989e880912d747ea82ba64103730ed45bf03d1966040b742",
     "timestamp": "1792999410"
   },
   "scenario": {
@@ -147,8 +147,8 @@
       "n": 0
     },
     {
-      "call": "deploy ReduceOnlyGuard(owner=0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171, bank=0x478769E1177C0773c43A593DCCc4Ad15F15F1394, pools=[BTC, ETH])",
-      "detail": "expected at 0x09c51620F3e469B8335F360fe2fe6Ada92417fCF if the account nonce is still 0; estimated gas 1097310. The code at the new address must hash to guard.expectedRuntimeKeccak and OWNER/MARGIN_BANK/trustedPool must read back before any grant",
+      "call": "deploy ReduceOnlyGuard(owner=0x2939472eE7253E6F26c927F160511948C4a9b33D, bank=0x478769E1177C0773c43A593DCCc4Ad15F15F1394, pools=[BTC, ETH])",
+      "detail": "expected at 0x593f79B5511494fF66ef4218232aCEeD2b422A01 if the account nonce is still 0; estimated gas 1097322. The code at the new address must hash to guard.expectedRuntimeKeccak and OWNER/MARGIN_BANK/trustedPool must read back before any grant",
       "n": 1
     },
     {

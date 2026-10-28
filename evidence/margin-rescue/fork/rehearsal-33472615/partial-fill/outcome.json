@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "[\"cleanup-close-BTC-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "detail": "[\"cleanup-close-BTC-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -71,7 +71,7 @@
       "reason": "scenario buffer 43666648019704009671 < target 45000000000000000000",
       "state": "GOAL_NOT_MET"
     },
-    "seconds": 50,
+    "seconds": 42,
     "status": "NOT_DEMONSTRATED",
     "thirdPartyTook": "372411000"
   },

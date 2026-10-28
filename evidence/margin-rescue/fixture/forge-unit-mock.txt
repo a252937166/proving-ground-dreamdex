@@ -5,7 +5,7 @@
 No files changed, compilation skipped
 
 Ran 9 tests for test/unit/ReduceOnlyGuard.unit.t.sol:ReduceOnlyGuardUnitTest
-[PASS] testFuzz_postcondition(int128,int128,uint64) (runs: 256, μ: 9832, ~: 9673)
+[PASS] testFuzz_postcondition(int128,int128,uint64) (runs: 256, μ: 9782, ~: 9673)
 [PASS] test_actionIdVector() (gas: 631343)
 [PASS] test_constructor_rejectsForeignOrUnregisteredPools() (gas: 576488)
 [PASS] test_constructor_rejectsOtherChains() (gas: 11528)
@@ -14,6 +14,7 @@ Ran 9 tests for test/unit/ReduceOnlyGuard.unit.t.sol:ReduceOnlyGuardUnitTest
 [PASS] test_reduce_mockFill() (gas: 93504)
 [PASS] test_reentrancyIsRejected() (gas: 318888)
 [PASS] test_venueReportingFailure_reverts() (gas: 115074)
-Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.43ms (5.11ms CPU time)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 3.80ms (6.18ms CPU time)
 
-Ran 1 test suite in 7.28ms (3.43ms CPU time): 9 tests passed, 0 failed, 0 skipped (9 total tests)
+Ran 1 test suite in 11.95ms (3.80ms CPU time): 9 tests passed, 0 failed, 0 skipped (9 total tests)
+exit 0

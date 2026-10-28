@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "[\"cleanup-close-BTC-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "detail": "[\"cleanup-close-BTC-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -16,17 +16,17 @@
       "ok": true
     },
     {
-      "detail": "0x619023c70ccdbe48213050bbc6959069e024f34fd47edcfe6d0e7462dd4e3605",
+      "detail": "0x368ed50df0dc082febdd4051f9f5d29b710f546ed40ff342f349e0edc02b4f7c",
       "name": "the owner's own trade landed after the analysis",
       "ok": true
     },
     {
-      "detail": "[{\"actionId\":\"0x762103d5f44244900e5e0cfc1f1c3d330884393ba5433d9fbdb3384a7e2d7d2a\",\"reasons\":[\"BTC position changed from 125000 to 94000\",\"unlocked collateral changed from 60000000000000000000 to 59996262392000000000\",\"re-analysis now selects BTC-25, not the confirmed BTC-50\",\"position is 94000, not the confirmed 125000\"]}]",
+      "detail": "[{\"actionId\":\"0x5797c4890156753bf3c77a83bafa2c1d5d99799977d75482c1b8d6bf9f7acd7d\",\"reasons\":[\"BTC position changed from 125000 to 94000\",\"unlocked collateral changed from 60000000000000000000 to 59996262392000000000\",\"re-analysis now selects BTC-25, not the confirmed BTC-50\",\"position is 94000, not the confirmed 125000\"]}]",
       "name": "the refresh invalidated the first confirmation (position changed)",
       "ok": true
     },
     {
-      "detail": "[\"0x17cd2d52 INVALIDATED\",\"0x762103d5 INVALIDATED\"]",
+      "detail": "[\"0x5797c489 INVALIDATED\",\"0x6fa2a402 INVALIDATED\"]",
       "name": "no rescue confirmation was ever sent",
       "ok": true
     },
@@ -46,14 +46,14 @@
     "exitCode": 20,
     "foreignActivity": [
       {
-        "at": "2026-10-27T20:06:47.777Z",
+        "at": "2026-10-28T03:40:51.481Z",
         "detail": "account nonce is 7; this run expected 6: another transaction was sent from the account"
       }
     ],
-    "injected": "0x619023c70ccdbe48213050bbc6959069e024f34fd47edcfe6d0e7462dd4e3605",
+    "injected": "0x368ed50df0dc082febdd4051f9f5d29b710f546ed40ff342f349e0edc02b4f7c",
     "invalidated": [
       {
-        "actionId": "0x762103d5f44244900e5e0cfc1f1c3d330884393ba5433d9fbdb3384a7e2d7d2a",
+        "actionId": "0x5797c4890156753bf3c77a83bafa2c1d5d99799977d75482c1b8d6bf9f7acd7d",
         "reasons": [
           "BTC position changed from 125000 to 94000",
           "unlocked collateral changed from 60000000000000000000 to 59996262392000000000",
@@ -62,7 +62,7 @@
         ]
       }
     ],
-    "seconds": 45,
+    "seconds": 50,
     "status": "ABORTED"
   },
   "pass": true,

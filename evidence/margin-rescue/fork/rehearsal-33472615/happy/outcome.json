@@ -1,7 +1,7 @@
 {
   "checks": [
     {
-      "detail": "[\"cleanup-close-BTC-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x09c51620f3e469b8335f360fe2fe6ada92417fcf\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
+      "detail": "[\"cleanup-close-BTC-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-grant-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-close-ETH-1→0x593f79b5511494ff66ef4218232aceed2b422a01\",\"cleanup-revoke-BTC→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-revoke-ETH→0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a\",\"cleanup-withdraw→0x478769E1177C0773c43A593DCCc4Ad15F15F1394\"]",
       "name": "every cleanup order went through the guard",
       "ok": true
     },
@@ -26,7 +26,7 @@
       "ok": true
     },
     {
-      "detail": "{\"actionId\":\"0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b\",\"fill\":\"REQUESTED_FILL\",\"goal\":\"GOAL_MET\",\"goalReason\":\"scenario buffer 46852456705977592125 ≥ target 45000000000000000000\",\"tx\":\"0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa\",\"txState\":\"CONFIRMED\"}",
+      "detail": "{\"actionId\":\"0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1\",\"fill\":\"REQUESTED_FILL\",\"goal\":\"GOAL_MET\",\"goalReason\":\"scenario buffer 46852456705977592125 ≥ target 45000000000000000000\",\"tx\":\"0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08\",\"txState\":\"CONFIRMED\"}",
       "name": "guarded reduction GOAL_MET",
       "ok": true
     },
@@ -57,18 +57,18 @@
     "gas": {
       "cap": "2000000000000000000",
       "committed": "0",
-      "spent": "34901120065046051"
+      "spent": "34901164391885772"
     },
     "readBack": "93/93",
     "rescue": {
-      "actionId": "0x4d760fb2a59689c4215145a6b37d7dd4f77ac21a9ce17092cea25880d151519b",
+      "actionId": "0xb21c1dceab8483d8aacf0bc866bbc71695cd129f9a7a28e5ec2ae38f057976e1",
       "fill": "REQUESTED_FILL",
       "goal": "GOAL_MET",
       "goalReason": "scenario buffer 46852456705977592125 ≥ target 45000000000000000000",
-      "tx": "0x1b1896b615f5e6cf4ea0fdbb2891f2b40993f29243275c544a3f11956dc11caa",
+      "tx": "0x5d6a7a0c1190dc4a08c8a556fab55b5aa86ee6206ba5b725282b079c6c3c0f08",
       "txState": "CONFIRMED"
     },
-    "seconds": 83,
+    "seconds": 697,
     "status": "COMPLETE"
   },
   "pass": true,

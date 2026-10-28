@@ -1,6 +1,6 @@
 Margin Rescue: finite repair candidates under one fixed scenario (read-only analysis)
-  scenario id         8f5f2e167a843ebab5e2bb5eda8c7c0346a1ab04f64f616df7c850408b321452
-  reference           block 33472625 0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e
+  scenario id         564d0c94176376b3d45c12337ce934a5a1aad9d662e1d956b2d8636b248990e1
+  reference           block 33472625 0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867
   model               mr-model/1 (static shock; pnl floor, funding ceil, requirements ceil per leg); instantaneous static; funding frozen
   target buffer       45 USDso (scenario E_risk − scenario MM)
 

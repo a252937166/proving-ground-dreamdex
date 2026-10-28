@@ -1,26 +1,32 @@
 Margin Rescue: read-only re-check before the live run (live-read-only; nothing signed or sent)
 
-When: 2026-10-27, after the fourth round's review fixes, against the public Hideki RPC (chain 50383).
+When: 2026-10-28 03:16-03:21 UTC (2026-10-27 23:16-23:21 EDT), after the fifth round's fixes, at
+commit 9fd1c0e, against the public Hideki RPC (chain 50383).
 Purpose: find any execution activity on the test account, and verify the authorized plan
 (mr-live-plan/4, SHA-256 7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175) against the
-current code and chain before the owner signs.
+current code and chain before the owner signs. The previous re-check (fourth round) found the
+account untouched at block 34,778,147.
 
-1. Account 0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12 at head 34,777,966
+1. Account 0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12 at head 35,043,841
    eth_chainId                      0xc4cf (50383)
    nonce (latest / pending)         0 / 0
    STT                              50.000000000000000000
    code at the plan's guard address 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F: none (0x)
+   the private run registry (.margin-rescue/live/runs.jsonl) lists no run of this account, and
+   no live run folder exists
 
 2. `npm run mr -- reconcile --account 0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12` (whole account at one block):
 
    Margin Rescue: independent account reconciliation (read-only)
      account             0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12
      chain / bank        50383 / 0x478769E1177C0773c43A593DCCc4Ad15F15F1394
-     block               34778147  0x07c0d02a21f4a1dc2526af577be66e89e776530b1fa0d1a3d07e9d028d564cb8  (2026-10-27T19:40:15.000Z)
-     canonical recheck   yes at 2026-10-27T19:40:27.491Z
+     block               35044107  0x61ebba08c8dbd2d3a072c03fb54db308c76d0b2ab28b7dfaae3cfe89d825f962  (2026-10-28T03:19:32.000Z)
+     canonical recheck   yes at 2026-10-28T03:19:44.928Z
      pools               0 active of 21 deployed; outside active: positions 0, orders 0
-     resting orders      0   stops listed 0 (live at block: 0; indexer-listed, chain-checked, 1 page(s), indexer through block 34778293)
+     resting orders      0   stops listed 0 (live at block: 0; indexer-listed, chain-checked, 1 page(s), indexer through block 35044256)
+
      leg      size                        entry             mark              PnL (floor)        funding owed     MM
+
                          independent                 bank getter                 bank − independent (raw)
      E_risk (equity)     0                           0                           0
      MM                  0                           0                           0
@@ -30,59 +36,67 @@ current code and chain before the owner signs.
      E_total             0  (E_risk + locked)
      buffer              0  (E_risk − MM)
      SDK truncation      E_risk would be 0 (0 raw from the bank; 0 legs round differently)
+
    VERDICT: EXACT
 
-3. The local guard build (`forge build`) against the plan's guard section: creation code keccak,
-   deploy data keccak, expected runtime keccak 0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b,
-   runtime size 4294 bytes, compiler and the three source SHA-256 values all equal.
+3. The local guard build (`forge build --force`, forge-std v1.17.0) against the plan's guard section:
+   creation code keccak, deploy data keccak, expected runtime keccak
+   0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b, runtime size 4294 bytes, compiler
+   and the three source SHA-256 values all equal. contracts/ is unchanged since commit 1042544.
 
-4. The plan regenerated read-only with the current code (`npm run mr -- live-plan`) at block 34778454,
-   compared field by field with the authorized plan (read at block 34756532): 13 fields differ,
-   all of them market data, the read block, or the ETH opening lot that follows from the price:
+4. The plan regenerated read-only with the current code (`npm run mr -- live-plan`) at block 35044503,
+   compared field by field with the authorized plan (read at block 34756532): 15 fields differ,
+   all of them market data, the read block, or the opening lots that follow from the price. The
+   guard, scenario, execution, network and account sections are identical, and so are the bounds
+   apart from the opening lots. Marks since the authorized plan: BTC +0.33%, ETH +0.52% (the
+   executor refuses a move above 10%).
 
+   .bounds.openingQuantities.btc
+      authorized: 124000
+      now:        123000
    .bounds.openingQuantities.eth
       authorized: 38400000000000000
-      now:        38300000000000000
+      now:        38200000000000000
    .markets[0].bestAsk
       authorized: 80792100000000000000000
-      now:        80824900000000000000000
+      now:        81037400000000000000000
    .markets[0].bestBid
       authorized: 80777700000000000000000
-      now:        80807700000000000000000
+      now:        81014200000000000000000
    .markets[0].mark
       authorized: 80587314538269047500000
-      now:        80612264728231023500000
+      now:        80851485618176200500000
    .markets[1].bestAsk
       authorized: 2343600000000000000000
-      now:        2344440000000000000000
+      now:        2355800000000000000000
    .markets[1].bestBid
       authorized: 2343260000000000000000
-      now:        2344030000000000000000
+      now:        2355380000000000000000
    .markets[1].mark
       authorized: 2343177699789822500000
-      now:        2343927634888981000000
+      now:        2355337561634389500000
    .readAt.block
       authorized: 34756532
-      now:        34778454
+      now:        35044503
    .readAt.hash
       authorized: 0x23f879b654d381598817c9d7786ec13096ac4ff71322a16dd2e61da86f227ca1
-      now:        0x22771a50190be692ec4dea6ee372618d15224dcfadad910d33037084b012faf6
+      now:        0x7090b70eae2986b36df608190db480d63743378c9097cc987a6eb2f643aa37a1
    .readAt.timestamp
       authorized: 1793127853
-      now:        1793130046
+      now:        1793157611
+   .steps[4].call
+      authorized: BTC PerpPool.placeOrder(isBid=true, qty=124000, IOC, limit = best ask + 50 bps)
+      now:        BTC PerpPool.placeOrder(isBid=true, qty=123000, IOC, limit = best ask + 50 bps)
    .steps[4].detail
       authorized: opens a BTC long of ~100 USDso notional (now: limit 81196000000000000000000); refused if BTC moved > 10% since this plan
-      now:        opens a BTC long of ~100 USDso notional (now: limit 81229000000000000000000); refused if BTC moved > 10% since this plan
+      now:        opens a BTC long of ~100 USDso notional (now: limit 81442500000000000000000); refused if BTC moved > 10% since this plan
    .steps[5].call
       authorized: ETH PerpPool.placeOrder(isBid=false, qty=38400000000000000, IOC, limit = best bid − 50 bps)
-      now:        ETH PerpPool.placeOrder(isBid=false, qty=38300000000000000, IOC, limit = best bid − 50 bps)
+      now:        ETH PerpPool.placeOrder(isBid=false, qty=38200000000000000, IOC, limit = best bid − 50 bps)
    .steps[5].detail
       authorized: opens an ETH short of ~90 USDso notional (now: limit 2331550000000000000000)
-      now:        opens an ETH short of ~90 USDso notional (now: limit 2332310000000000000000)
+      now:        opens an ETH short of ~90 USDso notional (now: limit 2343610000000000000000)
 
-   Every bound, step, guard hash, account field and exit code is identical. BTC and ETH marks moved
-   +0.03%, far inside the executor's 10% band, so the authorized plan and its SHA-256 stay current;
-   the regenerated file is not a new plan and was not committed.
-
-Verdict: no execution activity on the account; the authorized plan is valid for the run.
-The run itself is BLOCKED_SIGNER: the key is held only in the owner's terminal.
+Conclusion: no execution activity on the account. The authorized plan and its SHA-256
+7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175 remain the ones to run, with unchanged
+bounds: its opening lots still come to about 100 USDso of BTC and 90 USDso of ETH at these marks.

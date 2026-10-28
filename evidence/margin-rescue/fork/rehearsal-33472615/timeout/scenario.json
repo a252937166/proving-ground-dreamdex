@@ -1,9 +1,9 @@
 {
-  "account": "0x009917fa34fd8107E3BBe0A3f574bCf8fD7fa171",
+  "account": "0x2939472eE7253E6F26c927F160511948C4a9b33D",
   "chainId": 50383,
-  "createdAt": "2026-10-27T20:07:17.102Z",
+  "createdAt": "2026-10-28T03:41:24.680Z",
   "funding": "frozen: each portfolio keeps the funding owed as of its own snapshot; none accrues during the shock",
-  "id": "3092e1f5fbc52da29d16ee285849cdb314db4a925d313ff75650c5aeaf160297",
+  "id": "8a3489a6a285528c636c52594135b0253b137b876b2b5a61493e18578144a98f",
   "integrity": {
     "reconciliation": "EXACT",
     "snapshotProblems": []
@@ -67,7 +67,7 @@
     "perLegRawUnits": "0"
   },
   "reference": {
-    "blockHash": "0x17ee720b7e7a0a47f1bd96fcdaa2c2c2775d185047220d22223b2d0a8f0d498e",
+    "blockHash": "0xe282c2513e8fc5adf5c94141a2f6dc09f3a71864faab6e446e256ea033c15867",
     "blockNumber": "33472625",
     "blockTimestamp": "1792999410"
   },
