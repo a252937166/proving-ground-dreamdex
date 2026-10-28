@@ -422,7 +422,8 @@ function checkBundle(dir: string): BundleCheck {
 }
 
 // The live-write folder: its README and published bundles named run-<number> (the only
-// names publishRun writes and the site reads), nothing else.
+// names publishRun writes and the site reads), nothing else. The README is evidence like
+// any other and is scanned by evidenceToPublish; only a bundle is checked here.
 export function validateLiveWrite(dir: string): { ok: boolean; problems: string[]; bundles: Record<string, BundleCheck> } {
   const problems: string[] = []
   const bundles: Record<string, BundleCheck> = {}
@@ -461,7 +462,9 @@ export function scanEvidenceText(file: string, text: string): Finding[] {
 
 // What the static build may publish from an evidence folder (evidence/margin-rescue): the
 // files to copy, or the problems that stop the build. No symbolic link anywhere;
-// live-write/ only as checked bundles; every other file scanned.
+// live-write/ only as checked bundles beside its README; every file scanned, the README
+// included. Only the files of a bundle that passed validateBundle skip the scan here: that
+// check scanned them already, more strictly (no URL but the public endpoints).
 export function evidenceToPublish(root: string, types: Set<string>): { files: string[]; problems: string[] } {
   const problems: string[] = []
   const files: string[] = []
@@ -479,7 +482,8 @@ export function evidenceToPublish(root: string, types: Set<string>): { files: st
   problems.push(...live.problems.map((p) => `live-write/${p}`))
   for (const path of files) {
     const rel = relative(root, path)
-    if (rel.startsWith(`live-write/`) || rel.startsWith(`live-write\\`)) continue // checked above, more strictly
+    const [area, bundle, ...inside] = rel.split(/[\\/]/)
+    if (area === "live-write" && inside.length > 0 && Object.hasOwn(live.bundles, bundle) && live.bundles[bundle].ok) continue
     for (const f of scanEvidenceText(rel, readFileSync(path, "utf8"))) problems.push(`${rel}: ${f.kind} (${f.detail})`)
   }
   return { files, problems }

@@ -2,7 +2,8 @@
 // feeds, the homepage, the dashboard and the app. Execution, the rescue goal and cleanup
 // are kept apart, and VERIFIED_COMPLETE means one thing only: a published bundle that
 // passes its publication check (publication.ts), an executor result of COMPLETE with
-// GOAL_MET and its own cleanup verified, AND an independent verification (verify.ts)
+// GOAL_MET and its own cleanup verified (every end-state check holding, nothing remaining:
+// cleanupVerified), AND an independent verification (verify.ts)
 // bound to this exact run, every check of which holds, made against the plan that was
 // authorized before the run (a content-addressed copy committed in
 // evidence/margin-rescue/live-read-only/authorized/<sha256>.json: the run's own files can
@@ -42,6 +43,14 @@ export interface LiveRunView {
   cleanup: { executorVerified: boolean | null; independentlyVerified: boolean | null }
   verification: { state: VerificationState; problems: string[]; endBlock: string | null; checks: number; failed: number }
   plan: { digest: string | null; authorized: boolean }
+}
+
+// The executor's cleanup verdict as cleanup.ts defines it: every end-state check holds AND
+// nothing remains. A report that says `verified` without both is not believed, and one
+// with no checks verified nothing.
+export function cleanupVerified(c: { verified?: unknown; checks?: unknown; remaining?: unknown } | null | undefined): boolean {
+  if (!c || c.verified !== true || !Array.isArray(c.checks) || !Array.isArray(c.remaining)) return false
+  return c.checks.length > 0 && c.checks.every((x) => x?.ok === true) && c.remaining.length === 0
 }
 
 // Is `digest` a plan authorized before the run: a committed copy whose content hashes to it?
@@ -155,7 +164,7 @@ function readView(dir: string): LiveRunView {
   view.execution.sentTransactions = steps.filter((s) => !s.history.some((h) => h.event === "not broadcast")).length
   view.execution.unresolved = steps.filter((s) => s.state === "PENDING" || s.state === "UNKNOWN").length
 
-  type Result = { status: string; exitCode: number; reason: string | null; rescue: { tx: string | null; goal: string; fill: string } | null; cleanup: { verified: boolean } | null }
+  type Result = { status: string; exitCode: number; reason: string | null; rescue: { tx: string | null; goal: string; fill: string } | null; cleanup: { verified?: unknown; checks?: unknown; remaining?: unknown } | null }
   const result = readJson<Result>(join(dir, "result.json"))
   type Verification = { binding?: RunBinding; approvedDigest?: string; verdict?: { allChecksHold?: boolean; goal?: string; cleanupVerified?: boolean }; endBlock?: { number: string }; checks?: { ok: boolean }[]; rescue?: { goal?: string } }
   const verification = readJson<Verification>(join(dir, "verification.json"))
@@ -175,11 +184,15 @@ function readView(dir: string): LiveRunView {
   view.verification = { state: vs.state, problems: vs.problems, endBlock: verification?.endBlock?.number ?? null, checks: verification?.checks?.length ?? 0, failed: verification?.checks?.filter((c) => !c.ok).length ?? 0 }
   const valid = vs.state === "VALID"
   view.rescue = { executorGoal: result?.rescue?.goal ?? null, verifiedGoal: valid ? (verification?.verdict?.goal ?? null) : null, tx: result?.rescue?.tx ?? null, fill: result?.rescue?.fill ?? null }
-  view.cleanup = { executorVerified: result?.cleanup ? result.cleanup.verified === true : null, independentlyVerified: valid ? verification?.verdict?.cleanupVerified === true : null }
+  view.cleanup = { executorVerified: result?.cleanup ? cleanupVerified(result.cleanup) : null, independentlyVerified: valid ? verification?.verdict?.cleanupVerified === true : null }
 
   if (!result) return set("IN_PROGRESS")
   view.execution = { ...view.execution, status: result.status, exitCode: result.exitCode, reason: result.reason }
   if (result.status === "REFUSED" && view.execution.sentTransactions > 0) return set("STATE_UNKNOWN")
+  // The executor reports ABORTED, NOT_DEMONSTRATED or COMPLETE only after its cleanup was
+  // verified (executor.ts). Without a cleanup report that meets the complete condition the
+  // run is shown as the executor labels that case: cleanup incomplete.
+  if (["ABORTED", "NOT_DEMONSTRATED", "COMPLETE"].includes(result.status) && view.cleanup.executorVerified !== true) return set("CLEANUP_INCOMPLETE")
   if (result.status === "COMPLETE") {
     const verified = valid && verification?.verdict?.allChecksHold === true && view.rescue.verifiedGoal === "GOAL_MET" && view.rescue.executorGoal === "GOAL_MET" && view.cleanup.independentlyVerified === true && view.cleanup.executorVerified === true
     return set(verified ? "VERIFIED_COMPLETE" : "COMPLETE_UNVERIFIED")

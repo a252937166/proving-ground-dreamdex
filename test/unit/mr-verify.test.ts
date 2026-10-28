@@ -14,17 +14,18 @@ import { canonicalJson, sha256Hex } from "../../src/margin-rescue/json.js"
 import { cleanupNonce, rescueNonce } from "../../src/margin-rescue/action.js"
 import { BTC_POOL } from "../../src/margin-rescue/common.js"
 import { contractActionId, verifyRun, type Request } from "../../src/margin-rescue/verify.js"
-import { loadFixture, replayClient, replayIndexer, writeRun } from "./mr-fork-fixture.js"
+import { loadFixture, replayClient, replayIndexer, writeRun, type ForkFixture } from "./mr-fork-fixture.js"
 
 const fx = loadFixture()
 
-function run(tamper?: (dir: string) => void, approvedDigest = sha256Hex(fx.plan)) {
+// `answers`: chain answers added to the recording, [method, params, result, error].
+function run(tamper?: (dir: string) => void, approvedDigest = sha256Hex(fx.plan), answers: ForkFixture["calls"] = []) {
   const dir = mkdtempSync(join(tmpdir(), "mr-verify-"))
   writeRun(fx, dir)
   const plan = join(mkdtempSync(join(tmpdir(), "mr-verify-plan-")), "live-plan.json")
   writeFileSync(plan, fx.plan)
   tamper?.(dir)
-  return verifyRun({ dir, plan, client: replayClient(fx), indexer: replayIndexer, rpc: "http://127.0.0.1:8553", approvedDigest })
+  return verifyRun({ dir, plan, client: replayClient({ ...fx, calls: [...fx.calls, ...answers] }), indexer: replayIndexer, rpc: "http://127.0.0.1:8553", approvedDigest })
 }
 
 const json = (dir: string, f: string) => JSON.parse(readFileSync(join(dir, f), "utf8"))
@@ -213,6 +214,42 @@ describe("independent verification of a real-venue fork run", () => {
     )
     assert.ok(failed(r).some((n) => /reference block is the run's analysis window/.test(n)), failed(r).join("; "))
     assert.equal(r.verdict.goal, "UNAVAILABLE")
+  })
+
+  // The ledger records a step NOT_INCLUDED when the node rejected it or another transaction
+  // took its nonce. Here one more step is recorded so, after the last one: a hash no node knows.
+  const rejected = keccak256("0x72656a6563746564")
+  const withRejectedStep = (dir: string) => {
+    const ledger = json(dir, "run-ledger.json")
+    const last = ledger.steps.at(-1)
+    const { receipt: _r, lastProbe: _p, ...rest } = last
+    ledger.steps.push({ ...rest, n: last.n + 1, id: "cleanup-withdraw-again", nonce: last.nonce + 1, hash: rejected, state: "NOT_INCLUDED", history: [{ at: last.history[0].at, event: "rejected by the node", detail: "replayed rejection" }] })
+    put(dir, "run-ledger.json", ledger)
+  }
+
+  it("a NOT_INCLUDED step whose lookup fails is not verified: the read-back stops instead of taking the error for an absence", async () => {
+    const stopped = /tx 14 cleanup-withdraw-again: looking up 0x[0-9a-f]{64} failed \((.+)\); a failed lookup is not an absence/
+    // No recorded answer fails like a node error, as the reviewer's fixture did; then an explicit one.
+    await assert.rejects(run(withRejectedStep), (e: Error) => stopped.test(e.message) && /not in the recording/.test(e.message))
+    await assert.rejects(run(withRejectedStep, undefined, [["eth_getTransactionByHash", [rejected], null, "HTTP request failed. Status: 502"]]), (e: Error) => stopped.test(e.message) && /Status: 502/.test(e.message))
+  })
+
+  it("a NOT_INCLUDED step the node answers as unknown (null) is an absence, and the run still verifies", async () => {
+    const r = await run(withRejectedStep, undefined, [["eth_getTransactionByHash", [rejected], null, null]])
+    assert.deepEqual(failed(r), [])
+    assert.equal(r.verdict.allChecksHold, true)
+    const t = r.transactions.find((x) => x.hash === rejected)
+    assert.ok(t && t.block === null && t.ledgerState === "NOT_INCLUDED" && t.problems.length === 0)
+    assert.match(r.checks.find((c) => /every recorded transaction read back/.test(c.name))!.detail, /13 mined, 1 not included/)
+    // The same null answer for a step the ledger calls CONFIRMED is a failed check.
+    const lost = await run((dir) => {
+      withRejectedStep(dir)
+      const ledger = json(dir, "run-ledger.json")
+      ledger.steps.at(-1).state = "CONFIRMED"
+      put(dir, "run-ledger.json", ledger)
+    }, undefined, [["eth_getTransactionByHash", [rejected], null, null]])
+    assert.ok(failed(lost).some((n) => /tx 14 cleanup-withdraw-again: not on chain, but the ledger does not say NOT_INCLUDED/.test(n)), failed(lost).join("; "))
+    assert.equal(lost.verdict.allChecksHold, false)
   })
 
   it("the recording holds no signed transaction: transactions are kept without r, s, v and yParity", () => {

@@ -28,7 +28,7 @@
 // scenario and the SHA-256 of the evidence files it read (runBinding).
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
-import { decodeEventLog, decodeFunctionData, encodeAbiParameters, keccak256, parseAbi, parseAbiParameters, toBytes, toEventSelector, type Abi, type Address, type Hex, type Log, type PublicClient } from "viem"
+import { BaseError, decodeEventLog, decodeFunctionData, encodeAbiParameters, keccak256, parseAbi, parseAbiParameters, toBytes, toEventSelector, TransactionNotFoundError, type Abi, type Address, type Hex, type Log, type PublicClient } from "viem"
 import { erc20Abi, marginBankAbi, marginBankEventsAbi, marginBankWriteAbi, operatorRegistryAbi, orderBookEventsAbi, perpPoolAbi, perpPoolFactoryAbi, perpStopRegistryAbi, PLACE_ORDER_FOR_SELECTOR, reduceGuardAbi } from "./abi.js"
 import { MARGIN_BANK, OPERATOR_REGISTRY, readBigJson, USDSO } from "./common.js"
 import { describeEndpoint } from "./endpoints.js"
@@ -55,7 +55,11 @@ const transferAbi = parseAbi(["event Transfer(address indexed from, address inde
 const EVENTS = [...orderBookEventsAbi, ...marginBankEventsAbi, ...reduceGuardAbi, ...transferAbi] as unknown as Abi
 const same = (a: string | null | undefined, b: string | null | undefined) => !!a && !!b && a.toLowerCase() === b.toLowerCase()
 const asText = (detail: unknown) => (typeof detail === "string" ? detail : JSON.stringify(detail, (_k, v) => (typeof v === "bigint" ? v.toString() : v)))
-const short = (e: unknown) => String((e as Error)?.message ?? e).split("\n")[0].slice(0, 200)
+// One line for a failed read: viem's summary and, when it has them, the node's own words.
+const short = (e: unknown) => {
+  const text = e instanceof BaseError ? [...new Set([e.shortMessage, e.details].filter(Boolean))].join(": ") : String((e as Error)?.message ?? e)
+  return text.split("\n")[0].slice(0, 200)
+}
 
 export type Group = "run" | "transactions" | "confirmations" | "guard" | "cleanup" | "reconciliation" | "scenario" | "rescue"
 
@@ -484,7 +488,14 @@ async function readTx(client: PublicClient, step: Step, ctx: { account: Address;
   const expect = (ok: boolean, name: string, detail: unknown = "") => {
     if (!ok) r.problems.push({ name, detail: asText(detail) })
   }
-  const tx = await client.getTransaction({ hash: step.hash }).catch(() => null)
+  // Only the node's answer that it does not know the hash (null, which viem raises as
+  // TransactionNotFoundError) is an absence. A failed lookup answers nothing, so it stops
+  // the read-back: a NOT_INCLUDED in the ledger is never confirmed by an error
+  // (outcome.ts draws the same line for the executor).
+  const tx = await client.getTransaction({ hash: step.hash }).catch((e: unknown) => {
+    if (e instanceof TransactionNotFoundError) return null
+    throw new Error(`tx ${step.n} ${step.id}: looking up ${step.hash} failed (${short(e)}); a failed lookup is not an absence, so the run cannot be verified from this answer`)
+  })
   if (!tx) {
     expect(step.state === "NOT_INCLUDED", "not on chain, but the ledger does not say NOT_INCLUDED", step.state)
     return r

@@ -3,29 +3,13 @@
 // read-only endpoints (the local server, or the visitor's browser on the static site);
 // nothing here signs or sends.
 import { copyable, esc, getJson, href, liveStatus, pct, qty, short, usd } from "./data.js"
+import { blockNo, candidateName, float, ICON, meterHTML, money, price } from "./markup.js"
 import { countUp, reduced } from "./motion.js"
+import { renderPartialRun, renderPending, renderRun } from "./runs.js"
 
 const $ = (s, r = document) => r.querySelector(s)
 const $$ = (s, r = document) => [...r.querySelectorAll(s)]
-const ICON = {
-  ok: '<svg class="icon ok-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>',
-  bad: '<svg class="icon bad-ink" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>',
-  wait: '<svg class="icon wait-ink" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 6v4.5l3 2" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
-  arrow: '<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4.5 16.5 10 11 15.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
-  copy: '<svg class="icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
-}
-const ONE = 10n ** 18n
-
-// Prices below 10 USDso keep four decimals, the rest two.
-const price = (raw) => usd(raw, BigInt(raw) < 10n * ONE ? 4 : 2)
-// Statement amounts: negatives in parentheses.
-const money = (raw) => `<span class="num${BigInt(raw ?? 0) < 0n ? " neg" : ""}">${usd(raw, 2, { paren: true })}</span>`
-// A raw 1e18 amount as a float, for drawing only; every printed figure stays BigInt.
-const float = (raw) => Number(BigInt(raw ?? 0) / 10n ** 12n) / 1e6
 const when = (ts) => new Date(Number(ts) * 1000).toISOString().replace(".000Z", " UTC").replace("T", " ")
-const blockNo = (n) => Number(n).toLocaleString("en-US")
-const candidateName = (c) =>
-  c.kind === "NONE" ? "No action" : c.kind === "CANCEL_ORDERS" ? "Cancel resting orders" : c.id.replace(/^([A-Z]+)-(\d+)$/, (_, s, p) => `${s} −${p}%`)
 
 // After new markup lands: numbers count up, meters and bars travel from their armed start.
 function animateIn(root) {
@@ -37,22 +21,6 @@ function animateIn(root) {
   if (reduced()) return settle()
   for (const el of $$("[data-count]", root)) countUp(el, { ms: 900 }).catch(() => {})
   requestAnimationFrame(() => requestAnimationFrame(settle))
-}
-
-// The margin meter: each row draws health equity against the maintenance line on one scale;
-// a row with `from` travels from that state to its own.
-function meterHTML(rows) {
-  const scale = Math.max(1e-9, ...rows.flatMap((r) => [float(r.e), float(r.mm), r.from ? float(r.from.e) : 0, r.from ? float(r.from.mm) : 0])) * 1.08
-  const ratio = (raw) => Math.max(0, Math.min(1, float(raw) / scale)).toFixed(4)
-  const row = (r) => `<div class="mm-row" data-tone="${r.tone ?? ""}">
-      <span class="mm-label">${esc(r.label)}</span>
-      <div class="mm-track" role="img" aria-label="${esc(r.label)}: health equity ${esc(usd(r.e, 2, { paren: true }))} against maintenance ${esc(usd(r.mm))} USDso">
-        <i class="mm-fill" style="--v:${ratio(r.e)};--from:${ratio(r.from?.e ?? 0)}"></i>
-        <i class="mm-line" style="--m:${ratio(r.mm)};--mfrom:${ratio(r.from?.mm ?? r.mm)}"></i>
-      </div>
-      <span class="mm-val${BigInt(r.buffer) < 0n ? " neg" : ""}">${usd(r.buffer, 2, { paren: true })}</span>
-    </div>`
-  return `<div class="mmeter armed">${rows.map(row).join("")}<p class="mm-key"><span><i></i>health equity</span><span><i class="dash"></i>maintenance</span><span>buffer on the right, USDso</span></p></div>`
 }
 
 // A figure with a diverging bar beside it, zero in the middle; colour carries the goal,
@@ -461,25 +429,6 @@ async function showRun(id) {
   }
 }
 
-function renderPending(run) {
-  const p = run.plan
-  const progress = run.progress?.state === "IN_PROGRESS" ? "A run has started and has not written its result yet." : p ? "The plan is approved and has not been run yet." : "It has not been run yet."
-  return `<div class="panel">
-    <div class="panel-head"><h2>${esc(run.label)}</h2><span class="badge wait big pop"><span class="ping" aria-hidden="true"></span>Pending</span></div>
-    <p class="outcome">${progress} When it finishes, its transactions, fills, recomputation and cleanup appear here, read from <code>${esc(run.evidence)}</code>. Nothing on this page is a placeholder for them.</p>
-    ${
-      p
-        ? `<dl class="facts">
-      <div><dt>Plan SHA-256</dt><dd>${copyable(p.sha256, short(p.sha256, 12, 8))}</dd></div>
-      <div><dt>Read at</dt><dd>block ${blockNo(p.readAt.block)} · chain ${p.chainId}</dd></div>
-      <div><dt>Test account</dt><dd>${copyable(p.account, short(p.account, 8, 6))}</dd></div>
-      <div><dt>Bounds</dt><dd>deposit ${usd(p.depositUsdso)} USDso · soft stop ${usd(p.softStopUsdso)} USDso · gas cap ${usd(p.gasCapStt)} STT · ${p.transactions} transactions at most</dd></div>
-    </dl>`
-        : ""
-    }
-    <p class="next"><button type="button" class="btn secondary" data-run="fork-plan">See the same plan rehearsed on a fork</button></p>
-  </div>`
-}
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.("[data-run]")
   if (!b) return
@@ -488,174 +437,6 @@ document.addEventListener("click", (e) => {
   showRun(b.dataset.run)
 })
 
-function renderRun(run) {
-  const x = run.execution
-  const rc = run.recompute
-  const sym = x.candidateId.split("-")[0].toUpperCase()
-  const d = run.scenario.markets.find((m) => m.symbol.toUpperCase() === sym)?.baseDecimals ?? 18
-  const met = rc.goal.state === "GOAL_MET"
-  // A fork run is labelled by its own recomputation; the live run by its verified state only.
-  const ls = run.kind === "live" ? liveStatus(run.live) : null
-  const badge = ls ? `<span class="badge ${ls.tone} big pop">${ls.verified ? `${ICON.ok}Verified` : esc(ls.short)}</span>` : met ? `<span class="badge met big pop">${ICON.ok}Goal met</span>` : `<span class="badge call big pop">${esc(rc.goal.state.replaceAll("_", " ").toLowerCase())}</span>`
-  const fills = x.fill.fills.map((f, i) => `<tr style="--i:${i}"><td class="n">${qty(f.quantity, d)}</td><td class="n">${price(f.price)}</td></tr>`).join("")
-  const row = (name, v, cls = "", i = 0) => `<tr class="${cls}" style="--i:${i}"><td class="text">${name}</td><td class="n">${money(v.eRisk)}</td><td class="n opt2">${money(v.mm)}</td><td class="n">${money(v.buffer)}</td></tr>`
-  const checks = x.ledgerChecks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)}</span></li>`).join("")
-  const evidence = href(`evidence/${run.evidence.replace("evidence/margin-rescue/", "")}`)
-  const meter = meterHTML([
-    { label: "Before", e: rc.baseline.eRisk, mm: rc.baseline.mm, buffer: rc.baseline.buffer, tone: BigInt(rc.baseline.buffer) < BigInt(run.scenario.targetBuffer) ? "call" : "" },
-    { label: "From the fills", e: rc.actual.eRisk, mm: rc.actual.mm, buffer: rc.actual.buffer, tone: met ? "met" : "call", from: { e: rc.baseline.eRisk, mm: rc.baseline.mm } },
-  ])
-  return `
-  <div class="panel">
-    <div class="panel-head"><h2>${esc(run.label)}</h2>${badge}</div>
-    <dl class="facts run">
-      <div><dt>Account</dt><dd>${copyable(run.account, short(run.account, 8, 6))}</dd></div>
-      <div><dt>Where</dt><dd>${run.kind === "fork" ? `local fork of Somnia Hideki at block ${blockNo(run.forkBlock)}` : "the live Somnia Hideki testnet, chain 50383"}</dd></div>
-      <div><dt>Scenario</dt><dd>${run.scenario.markets.filter((m) => m.shockBps !== null).map((m) => `${esc(m.symbol)} ${pct(m.shockBps)} to ${price(m.scenarioPrice)}`).join(" · ")} · target ${usd(run.scenario.targetBuffer)} USDso</dd></div>
-      <div><dt>Chosen</dt><dd><b>${esc(candidateName({ id: x.candidateId, kind: "REDUCE" }))}</b> · ${run.analysis.selected === x.candidateId ? "the smallest evaluated reduction that met the target" : "a re-confirmation under the same scenario"}</dd></div>
-      <div><dt>Transaction</dt><dd>${copyable(x.tx.hash, short(x.tx.hash, 10, 6))} · block ${blockNo(x.tx.blockNumber)} · ${esc(x.tx.status)}${x.tx.canonical ? " · canonical" : ""}</dd></div>
-      ${run.guard ? `<div><dt>Guard</dt><dd>${copyable(run.guard.address, short(run.guard.address, 8, 6))} · ${run.guard.verified ? "deployed code verified" : "not verified"}</dd></div>` : ""}
-      ${run.exitCode !== null ? `<div><dt>Run</dt><dd>${esc(run.status)} · exit ${run.exitCode}${run.gas ? ` · gas ${usd(run.gas.spent, 4)} of ${usd(run.gas.cap, 0)} STT cap` : ""}</dd></div>` : ""}
-    </dl>
-    <div class="run-grid">
-      <div>
-        <div class="verdict">
-          <div class="verdict-top"><h3>At the scenario prices, before and after</h3></div>
-          ${meter}
-        </div>
-        <div class="table-wrap">
-          <table class="data">
-            <caption>At the scenario prices, USDso</caption>
-            <thead><tr><th scope="col">Statement</th><th scope="col" class="n">Health equity</th><th scope="col" class="n opt2">Maintenance</th><th scope="col" class="n">Buffer</th></tr></thead>
-            <tbody class="stagger">
-              ${row("Before", rc.baseline, "", 0)}
-              ${row("Forecast", rc.forecast, "", 1)}
-              ${row("<b>Actual, from the fills</b>", rc.actual, "chosen", 2)}
-              ${row("Now, at current marks", rc.currentHealth, "", 3)}
-            </tbody>
-          </table>
-        </div>
-        <p class="model-note">${recomputeNote(rc, run.scenario.targetBuffer, d, sym)}</p>
-      </div>
-      <div>
-        <div class="table-wrap">
-          <table class="data">
-            <caption>Fills: ${qty(x.fill.filled, d)} of ${qty(x.fill.requested, d)} ${esc(sym)} · ${x.fill.priceBoundRespected ? "all inside the limit" : "outside the limit"}</caption>
-            <thead><tr><th scope="col" class="n">Quantity</th><th scope="col" class="n">Price</th></tr></thead>
-            <tbody class="stagger">${fills}</tbody>
-          </table>
-        </div>
-        <p class="model-note">Outside changes: ${x.externalChanges.length ? esc(x.externalChanges.join("; ")) : "none detected"} · after the trade the account ${x.postReconciliation === "EXACT" ? "reconciles exactly" : `reconciles ${esc(String(x.postReconciliation).toLowerCase())}`}.</p>
-      </div>
-    </div>
-  </div>
-  <div class="panel">
-    <div class="panel-head"><h2>Ledger checks</h2><p class="status"><span class="num" data-count>${x.ledgerChecks.filter((c) => c.ok).length}</span> of ${x.ledgerChecks.length} hold</p></div>
-    <ul class="check-list">${checks}</ul>
-  </div>
-  ${run.steps.length ? renderSteps(run) : ""}
-  ${run.cleanup ? `<div class="panel"><div class="panel-head"><h2>Cleanup</h2><p class="status">${run.cleanup.verified ? "Verified by the executor" : "NOT verified by the executor"}</p></div><ul class="check-list">${run.cleanup.checks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)} <span class="muted">${esc(c.detail)}</span></span></li>`).join("")}</ul></div>` : ""}
-  ${run.kind === "live" ? renderLiveState(run.live, run.label) : ""}
-  <p class="work-foot">Raw evidence: ${(run.files ?? ["recompute.txt", "analysis.txt"]).map((f) => `<a href="${esc(evidence)}/${esc(f)}">${esc(f)}</a>`).join(" · ")}</p>`
-}
-
-// The live run's four statuses, kept apart, and the independent read-back when it is valid
-// for this run; otherwise why it is not.
-function renderLiveState(view, label = "Live run") {
-  const s = liveStatus(view)
-  const x = view.execution
-  const rows = [
-    ["Execution", x.status ? `${esc(x.status)} · exit ${x.exitCode} · ${x.sentTransactions} transaction(s) sent${x.unresolved ? ` · ${x.unresolved} unresolved` : ""}` : `${x.sentTransactions} transaction(s) sent · no result recorded`],
-    ["Rescue goal", view.rescue.verifiedGoal ? `${esc(view.rescue.verifiedGoal)}, read back from the chain` : view.rescue.executorGoal ? `${esc(view.rescue.executorGoal)} by the executor's own account only` : "not evaluated"],
-    ["Cleanup", view.cleanup.independentlyVerified !== null ? (view.cleanup.independentlyVerified ? "verified, read back from the chain" : "NOT verified on read-back") : view.cleanup.executorVerified !== null ? (view.cleanup.executorVerified ? "verified by the executor only" : "not verified") : "not reached"],
-    ["Independent verification", `${esc(view.verification.state.toLowerCase())}${view.verification.problems.length ? `: ${esc(view.verification.problems.join("; "))}` : ""}`],
-  ]
-  return `<div class="panel">
-    <div class="panel-head"><h2>Status</h2><span class="badge ${s.tone}">${s.verified ? `${ICON.ok}Verified` : esc(s.short)}</span></div>
-    <p class="outcome">${esc(label.split(" · ")[0])}: ${esc(s.headline)}.</p>
-    <dl class="facts">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
-  </div>
-  ${view.readBack ? renderVerification(view.readBack) : ""}`
-}
-
-// A live run that started but has no recomputation: what it sent and how it ended.
-function renderPartialRun(run) {
-  const evidence = href(`evidence/${run.evidence.replace("evidence/margin-rescue/", "")}`)
-  return `
-  ${renderLiveState(run.live, run.label)}
-  ${run.state === "INVALID_BUNDLE" || run.live?.state === "INVALID_BUNDLE" ? "" : `<div class="panel">
-    <div class="panel-head"><h2>${esc(run.label)}</h2></div>
-    <dl class="facts run">
-      ${run.account ? `<div><dt>Account</dt><dd>${copyable(run.account, short(run.account, 8, 6))}</dd></div>` : ""}
-      <div><dt>Where</dt><dd>the live Somnia Hideki testnet, chain 50383</dd></div>
-      ${run.reason ? `<div><dt>Reason</dt><dd>${esc(run.reason)}</dd></div>` : ""}
-      ${run.guard ? `<div><dt>Guard</dt><dd>${copyable(run.guard.address, short(run.guard.address, 8, 6))} · ${run.guard.verified ? "deployed code verified" : "not verified"}</dd></div>` : ""}
-      ${run.gas ? `<div><dt>Gas</dt><dd>${usd(run.gas.spent, 4)} STT spent${BigInt(run.gas.committed ?? 0) > 0n ? ` · ${usd(run.gas.committed, 4)} STT reserved for unresolved transactions` : ""}</dd></div>` : ""}
-    </dl>
-    <p class="model-note">No recomputation was recorded for this run, so no buffer, fill or goal is shown.</p>
-  </div>
-  ${run.steps?.length ? renderSteps(run) : ""}
-  ${run.cleanup ? `<div class="panel"><div class="panel-head"><h2>Cleanup</h2><p class="status">${run.cleanup.verified ? "Verified by the executor" : "NOT verified by the executor"}</p></div><ul class="check-list">${run.cleanup.checks.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)} <span class="muted">${esc(c.detail)}</span></span></li>`).join("")}</ul></div>` : ""}
-  ${run.files?.length ? `<p class="work-foot">Raw evidence: ${run.files.map((f) => `<a href="${esc(evidence)}/${esc(f)}">${esc(f)}</a>`).join(" · ")}</p>` : ""}`}`
-}
-
-// tools/verify-live-run.ts: every receipt and the end state read again from the chain,
-// without the executor's code; its figures, not the executor's, are shown here.
-function renderVerification(v) {
-  const s = v.reconciliation.stt
-  const u = v.reconciliation.usdso
-  const groups = [
-    ["transactions", "Transactions"],
-    ["confirmations", "Each guarded action against its confirmation"],
-    ["guard", "Guard"],
-    ["scenario", "The scenario, read again at its reference block"],
-    ["rescue", "Fixed-scenario recomputation"],
-    ["cleanup", `End state at block ${blockNo(v.endBlock.number)}`],
-    ["reconciliation", "Gas and collateral"],
-  ]
-  const held = v.checks.filter((c) => c.ok).length
-  const list = groups
-    .map(([g, title]) => {
-      const cs = v.checks.filter((c) => c.group === g)
-      if (!cs.length) return ""
-      return `<h3 class="check-group">${esc(title)}</h3><ul class="check-list">${cs.map((c, i) => `<li class="tick-draw" style="--i:${i}">${c.ok ? ICON.ok : ICON.bad}<span>${esc(c.name)}${c.ok ? "" : ` <span class="muted">${esc(c.detail)}</span>`}</span></li>`).join("")}</ul>`
-    })
-    .join("")
-  return `<div class="panel">
-    <div class="panel-head"><h2>Read back from the chain</h2><p class="status"><span class="num" data-count>${held}</span> of ${v.checks.length} hold</p></div>
-    <p class="outcome">A separate script read every transaction, its receipt and the account again from the public Hideki RPC, at one block for the end state, and recomputed the scenario from the chain at the scenario's fixed prices.</p>
-    <dl class="facts">
-      <div><dt>Gas</dt><dd>${usd(s.spent, 6)} STT spent = ${usd(s.receiptFees, 6)} STT in receipt fees · cap ${usd(s.cap, 0)} STT</dd></div>
-      <div><dt>Collateral</dt><dd>deposited ${usd(u.deposited, 4)}, withdrawn ${usd(u.withdrawn, 4)} USDso: ${money(u.result)} = realized ${money(u.realizedPnl)} − funding ${money(u.funding)} − fees ${money(u.fees)}</dd></div>
-      ${v.rescue ? `<div><dt>At the fixed prices</dt><dd>buffer ${money(v.rescue.before)} before, ${money(v.rescue.after)} after the reduction · ${esc(v.rescue.goal.replaceAll("_", " ").toLowerCase())}</dd></div>` : ""}
-    </dl>
-    ${list}
-  </div>`
-}
-
-function recomputeNote(rc, target, d, sym) {
-  const buffer = BigInt(rc.differences.bufferVsForecast)
-  const fill = BigInt(rc.differences.fillVsForecast)
-  const vsTarget = `Buffer at the scenario ${usd(rc.actual.buffer)} against a target of ${usd(target)} USDso`
-  const vsForecast = buffer === 0n ? "it equals the forecast to the raw unit" : `it differs from the forecast by ${usd(buffer, 6)} USDso`
-  const vsFill = fill === 0n ? "the venue filled exactly the previewed quantity" : `the fill differs from the preview by ${qty(fill < 0n ? -fill : fill, d)} ${sym}`
-  return `${vsTarget}; ${vsForecast}, and ${vsFill}.`
-}
-
-function renderSteps(run) {
-  const fees = run.kind === "live" && run.steps.some((s) => s.fee !== null && s.fee !== undefined)
-  const rows = run.steps
-    .map((s, i) => `<tr style="--i:${i}"><td class="step-id">${esc(s.id)}</td><td class="opt2">${esc(s.phase)}</td><td>${esc(s.state.toLowerCase())}</td><td>${s.hash ? copyable(s.hash) : "—"}</td><td class="n opt2">${s.block ? blockNo(s.block) : "—"}</td>${fees ? `<td class="n opt2">${s.fee ? usd(s.fee, 6) : "—"}</td>` : ""}</tr>`)
-    .join("")
-  return `<div class="panel">
-    <div class="panel-head"><h2>Every transaction the run sent</h2><p class="status">${run.steps.length} transactions</p></div>
-    <div class="table-wrap"><table class="data compact">
-      <thead><tr><th scope="col">Step</th><th scope="col" class="opt2">Phase</th><th scope="col">State</th><th scope="col">Hash</th><th scope="col" class="n opt2">Block</th>${fees ? `<th scope="col" class="n opt2">Fee, STT</th>` : ""}</tr></thead>
-      <tbody class="stagger">${rows}</tbody>
-    </table></div>
-    <p class="model-note">${run.kind === "live" ? "These are transactions on the live Somnia Hideki testnet (chain 50383); click a hash to copy it and look it up with <code>eth_getTransactionReceipt</code> on the public RPC." : "These hashes exist only on the local fork the run used; they are not on the live network."}</p>
-  </div>`
-}
 
 // ---- start from the URL: /app?account=…&btc=…&eth=…&target=…#compare ----
 

@@ -115,6 +115,7 @@
 .verdict { display: grid; gap: 14px; padding: 16px; border-radius: 12px; background: var(--well); box-shadow: inset 0 0 0 1px var(--line); }
 .verdict-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .verdict-top h3 { color: var(--text-2); font-size: 12.5px; font-weight: 500; }
+.verdict-note { margin: 0; color: var(--text-2); font-size: 13.5px; line-height: 1.55; }
 .figures-col { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
 .figures-col dt { color: var(--text-3); font-size: 11.5px; }
 .figures-col dd { margin: 4px 0 0; color: var(--ink); font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }

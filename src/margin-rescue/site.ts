@@ -6,7 +6,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { slimCandidate } from "./analyze.js"
 import { isBundleName } from "./publication.js"
-import { liveRunView } from "./runState.js"
+import { cleanupVerified, liveRunView } from "./runState.js"
 import type { CandidateAnalysis } from "./candidates.js"
 import type { Scenario } from "./scenario.js"
 
@@ -159,6 +159,13 @@ function verificationSummary(dir: string) {
 
 // ---- recorded runs (the app's third screen) ----
 
+// The executor's cleanup report as the app shows it: verified only on the complete condition
+// (runState.ts cleanupVerified), with whatever the report says remains.
+function cleanupFeed(c: any) {
+  if (!c) return null
+  return { verified: cleanupVerified(c), checks: Array.isArray(c.checks) ? c.checks : [], remaining: Array.isArray(c.remaining) ? c.remaining.map(String) : [], final: c.final ?? null }
+}
+
 const FORK_RUNS = [
   { id: "fork-e2e", kind: "fork", dir: "fork/e2e-33472615", label: "Fork · real 6-market account" },
   { id: "fork-plan", kind: "fork", dir: "fork/rehearsal-33472615/happy", label: "Fork · rehearsal of the live plan" },
@@ -205,7 +212,7 @@ export function readRun(id: string, evidence = EVIDENCE) {
       account: ledger?.account ?? null,
       guard: guard ? { address: guard.guard, verified: guard.verified, deployTx: guard.deployTx } : null,
       steps: ledger?.steps.map((s: any) => ({ id: s.id, phase: s.phase, state: s.state, hash: s.hash ?? null, block: s.receipt?.blockNumber ?? null, fee: s.receipt?.fee ?? null })) ?? [],
-      cleanup: result?.cleanup ? { verified: result.cleanup.checks.every((c: any) => c.ok), checks: result.cleanup.checks, final: result.cleanup.final ?? null } : null,
+      cleanup: cleanupFeed(result?.cleanup),
       gas: result?.gas ?? null,
       files: readdirSync(dir).filter((f) => /\.(txt|md)$/.test(f)).sort(),
     }
@@ -233,7 +240,7 @@ export function readRun(id: string, evidence = EVIDENCE) {
     recompute: { goal: recompute.goal, baseline: recompute.baseline.scenario, forecast: recompute.planned.scenario, actual: recompute.actual.scenario, currentHealth: recompute.actual.currentHealth, differences: recompute.differences },
     guard: guard ? { address: guard.guard, verified: guard.verified, deployTx: guard.deployTx } : meta ? { address: meta.guard, verified: true, deployTx: null } : null,
     steps: ledger?.steps.map((s: any) => ({ id: s.id, phase: s.phase, state: s.state, hash: s.hash ?? null, block: s.receipt?.blockNumber ?? null, fee: s.receipt?.fee ?? null })) ?? [],
-    cleanup: result?.cleanup ? { verified: result.cleanup.checks.every((c: any) => c.ok), checks: result.cleanup.checks, final: result.cleanup.final ?? null } : null,
+    cleanup: cleanupFeed(result?.cleanup),
     gas: result?.gas ?? null,
     live,
     files: readdirSync(dir).filter((f) => /\.(txt|md)$/.test(f)).sort(),

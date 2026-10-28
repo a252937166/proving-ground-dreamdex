@@ -314,6 +314,32 @@ describe("the static build's evidence gate (evidenceToPublish, validateBundle)",
     assert.ok(r.gate().some((p) => /latest\/: a bundle folder is named run-<number>/.test(p)), r.gate().join("; "))
   })
 
+  it("the live-write README is scanned like any other evidence file: a credential-bearing URL in it stops the build", async () => {
+    const r = await published()
+    const readme = join(r.root, "evidence", "margin-rescue", "live-write", "README.md")
+    for (const [line, want] of [
+      ["The node: https://operator:s3cret@rpc.example.org/", /^live-write\/README\.md: private url \(rpc\.example\.org: user info/],
+      ["The indexer: https://indexer.example.org/v1/graphql?apikey=0f3a9c", /^live-write\/README\.md: private url \(indexer\.example\.org/],
+      ["Run from /Users/someone/proving-ground.", /^live-write\/README\.md: local path/],
+    ] as const) {
+      writeFileSync(readme, `# live-write\n\n${line}\n`)
+      assert.ok(r.gate().some((p) => want.test(p)), `${want}: ${r.gate().join("; ")}`)
+    }
+    writeFileSync(readme, "# live-write\n\nSite: https://a252937166.github.io/proving-ground-dreamdex/ · RPC: https://api.hideki2.infra.testnet.somnia.network\n")
+    assert.deepEqual(r.gate(), [], "a README with plain public links passes")
+  })
+
+  it("only a bundle that passes its check skips the evidence scan: a folder that fails it is scanned as well", async () => {
+    const r = await published()
+    const raw = join(r.root, "evidence", "margin-rescue", "live-write", "run-2")
+    cpSync(r.from, raw, { recursive: true })
+    writeFileSync(join(raw, "run-log.jsonl"), JSON.stringify({ step: "start", rpc: "https://operator:s3cret@rpc.example.org/" }) + "\n")
+    const problems = r.gate()
+    assert.ok(problems.some((p) => /^live-write\/run-2\/: no PUBLICATION\.json/.test(p)), problems.join("; "))
+    assert.ok(problems.some((p) => /^live-write\/run-2\/run-log\.jsonl: private url \(rpc\.example\.org/.test(p)), problems.join("; "))
+    assert.ok(!problems.some((p) => p.startsWith("live-write/run-1/")), "the valid bundle beside it still passes")
+  })
+
   it("other evidence is scanned too, while local fork RPC addresses stay allowed", () => {
     assert.deepEqual(scanEvidenceText("fork/run-log.jsonl", JSON.stringify({ rpc: "http://127.0.0.1:8550" })), [])
     const kinds = (t: string) => scanEvidenceText("x", t).map((f) => f.kind)

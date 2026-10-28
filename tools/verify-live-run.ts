@@ -7,7 +7,8 @@
 // DIR/live-plan.json (a published bundle) or ./live-plan.json. Writes
 // verification.json and verification.txt to --out (default: the run folder; a published
 // bundle is never written into: it changes only by publishing again). Exit 0 only when
-// every check holds, 3 when one fails, 1 when the run cannot be read.
+// every check holds, 3 when one fails, 1 when the run cannot be read or a transaction
+// lookup fails (a failed lookup is never taken for an absence; nothing is written then).
 import { existsSync } from "node:fs"
 import { join } from "node:path"
 import { parseArgs } from "node:util"

@@ -1,4 +1,5 @@
-// How a recorded live run is shown (runState.ts, site.ts feeds). FIXTURE TESTS: published
+// How a recorded live run is shown (runState.ts, site.ts feeds, and the app's run screen,
+// web/assets/runs.js, rendered as text from those feeds). FIXTURE TESTS: published
 // bundles in a temporary repository; the verified case is the real-venue fork run of
 // mr-fork-fixture.ts, read back through the replayed chain and published with the real
 // publisher. Only an independently verified, exactly bound run is VERIFIED_COMPLETE;
@@ -8,7 +9,7 @@ import assert from "node:assert/strict"
 import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
-import { describe, it } from "node:test"
+import { before, describe, it } from "node:test"
 import { keccak256, toHex } from "viem"
 import { prettyJson, sha256Hex } from "../../src/margin-rescue/json.js"
 import { publishRun } from "../../src/margin-rescue/publication.js"
@@ -18,6 +19,13 @@ import { renderVerification, verifyRun } from "../../src/margin-rescue/verify.js
 import { loadFixture, replayClient, replayIndexer, writeRun } from "./mr-fork-fixture.js"
 
 const fx = loadFixture()
+// An executor cleanup report (cleanup.ts) that verified the end state, and one item it left.
+const CHECKS = [
+  { name: "no position in any of the factory's pools", ok: true, detail: "21 pools read" },
+  { name: "bank balance withdrawn", ok: true, detail: "unlocked 0, locked 0" },
+]
+const CLEANED = { verified: true, closes: [], remaining: [], checks: CHECKS, final: null }
+const LEFT = "ETH position -38400000000000000 still open after 3 guarded attempts; no unguarded order was sent"
 
 // A temporary repository with one private run folder, published to live-write/run-1.
 function repo() {
@@ -91,7 +99,7 @@ describe("live run state", () => {
   it("every published bundle is listed, the latest shown as the live run", async () => {
     const r = await verifiedFork()
     r.publish()
-    const second = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "ABORTED", exitCode: 20, reason: "", rescue: null, cleanup: { verified: true, checks: [] } })
+    const second = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "ABORTED", exitCode: 20, reason: "", rescue: null, cleanup: CLEANED })
     assert.throws(() => publishRun({ from: second.from, to: join(r.evidence, "live-write", "run-2"), plan: second.plan, root: second.root }), /not a bundle folder/, "a bundle is published only within its own repository")
     second.publish()
     cpSync(join(second.evidence, "live-write", "run-1"), join(r.evidence, "live-write", "run-2"), { recursive: true })
@@ -180,10 +188,48 @@ describe("live run state", () => {
   })
 
   it("aborted runs and incomplete cleanup keep their own states; execution, goal and cleanup are separate", () => {
-    let v = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "ABORTED", exitCode: 20, reason: "soft loss stop", rescue: null, cleanup: { verified: true, checks: [] } }).publish()
+    let v = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "ABORTED", exitCode: 20, reason: "soft loss stop", rescue: null, cleanup: CLEANED }).publish()
     assert.deepEqual([v.state, v.cleanup.executorVerified, v.rescue.executorGoal], ["ABORTED", true, null])
-    v = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "CLEANUP_INCOMPLETE", exitCode: 30, reason: "BTC left open", rescue: { tx: null, goal: "GOAL_MET", fill: "REQUESTED_FILL" }, cleanup: { verified: false, checks: [] } }).publish()
+    v = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "CLEANUP_INCOMPLETE", exitCode: 30, reason: "BTC left open", rescue: { tx: null, goal: "GOAL_MET", fill: "REQUESTED_FILL" }, cleanup: { ...CLEANED, verified: false, remaining: [LEFT] } }).publish()
     assert.deepEqual([v.state, v.cleanup.executorVerified, v.rescue.executorGoal, v.rescue.verifiedGoal], ["CLEANUP_INCOMPLETE", false, "GOAL_MET", null])
+  })
+
+  it("cleanup checks that all hold, with something remaining, are not a verified cleanup in the run state or the app's feed", () => {
+    // As the executor writes it: verified false. The checks alone used to make the feed say verified.
+    let r = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "CLEANUP_INCOMPLETE", exitCode: 30, reason: LEFT, rescue: null, cleanup: { ...CLEANED, verified: false, remaining: [LEFT] } })
+    let v = r.publish()
+    assert.deepEqual([v.state, v.cleanup.executorVerified], ["CLEANUP_INCOMPLETE", false])
+    let shown = readRun("live-1", r.evidence) as any
+    assert.equal(shown.partial, true)
+    assert.ok(shown.cleanup.checks.length === 2 && shown.cleanup.checks.every((c: { ok: boolean }) => c.ok), "the passing checks are still shown")
+    assert.deepEqual([shown.cleanup.verified, shown.cleanup.remaining], [false, [LEFT]])
+    // A report that says verified while something remains is not believed, and the status
+    // that relies on it is shown as the executor labels an unverified cleanup.
+    r = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "ABORTED", exitCode: 20, reason: "soft loss stop", rescue: null, cleanup: { ...CLEANED, remaining: [LEFT] } })
+    v = r.publish()
+    assert.deepEqual([v.state, v.cleanup.executorVerified], ["CLEANUP_INCOMPLETE", false])
+    shown = readRun("live-1", r.evidence) as any
+    assert.deepEqual([shown.cleanup.verified, shown.cleanup.remaining], [false, [LEFT]])
+    // No checks, or no list of what remains, verified nothing.
+    for (const cleanup of [{ ...CLEANED, checks: [] }, { verified: true, checks: CHECKS }]) {
+      v = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "ABORTED", exitCode: 20, reason: "", rescue: null, cleanup }).publish()
+      assert.deepEqual([v.state, v.cleanup.executorVerified], ["CLEANUP_INCOMPLETE", false], JSON.stringify(cleanup))
+    }
+  })
+
+  it("a completed run whose own cleanup report still lists something is not VERIFIED_COMPLETE, even when the chain read-back finds the end state clean", async () => {
+    const r = await verifiedFork((dir) => {
+      const result = JSON.parse(readFileSync(join(dir, "result.json"), "utf8"))
+      result.cleanup.remaining = [LEFT]
+      writeFileSync(join(dir, "result.json"), JSON.stringify(result))
+    })
+    const v = r.publish()
+    assert.equal(v.verification.state, "VALID", v.verification.problems.join("; "))
+    assert.deepEqual([v.state, v.cleanup.executorVerified, v.cleanup.independentlyVerified], ["CLEANUP_INCOMPLETE", false, true])
+    const full = readRun("live-1", r.evidence) as any
+    assert.equal(full.partial, undefined, "the recomputation is still shown")
+    assert.ok(full.cleanup.checks.every((c: { ok: boolean }) => c.ok))
+    assert.deepEqual([full.cleanup.verified, full.cleanup.remaining], [false, [LEFT]])
   })
 
   it("not started, started without a result, and inconsistent results", () => {
@@ -202,5 +248,87 @@ describe("live run state", () => {
     const v = liveRunView(join(r.evidence, "live-write", "run-1"))
     assert.deepEqual([v.state, v.started], ["INVALID_BUNDLE", true])
     assert.equal((readRun("live-1", r.evidence) as any).partial, true)
+  })
+})
+
+describe("the app's run screen (web/assets/runs.js)", () => {
+  // runs.js imports data.js, which reads the site's base path from the page; nothing else
+  // in it touches a document. The import is by URL so the type checker leaves the JS alone.
+  let views: { renderRun: (run: unknown) => string; renderPartialRun: (run: unknown) => string }
+  before(async () => {
+    ;(globalThis as { document?: unknown }).document = { documentElement: { dataset: {} } }
+    views = await import(new URL("../../web/assets/runs.js", import.meta.url).href)
+  })
+  const REASON = "the receipt's calldata is not the confirmation's"
+  // What recompute.ts writes when the receipt does not bind to the confirmation.
+  const mismatch = (dir: string) => {
+    const rc = JSON.parse(readFileSync(join(dir, "recompute.json"), "utf8"))
+    rc.actual.scenario = null
+    rc.goal = { state: "EVIDENCE_MISMATCH", reason: REASON }
+    rc.differences.bufferVsForecast = null
+    writeFileSync(join(dir, "recompute.json"), JSON.stringify(rc))
+  }
+
+  it("a recomputation without actual figures (EVIDENCE_MISMATCH) is shown as unavailable; the transaction, the failure and cleanup stay", async () => {
+    const r = await verifiedFork((dir) => {
+      mismatch(dir)
+      const result = JSON.parse(readFileSync(join(dir, "result.json"), "utf8"))
+      Object.assign(result, { status: "NOT_DEMONSTRATED", exitCode: 10, reason: `rescue goal EVIDENCE_MISMATCH: ${REASON}` })
+      result.rescue.goal = "EVIDENCE_MISMATCH"
+      writeFileSync(join(dir, "result.json"), JSON.stringify(result))
+    })
+    r.publish()
+    const feed = readRun("live-1", r.evidence) as any
+    assert.equal(feed.recompute.actual, null)
+    const html = views.renderRun(feed)
+    assert.match(html, /<span class="badge wait">Unavailable<\/span>/)
+    assert.ok(html.includes(`Recomputation unavailable (evidence mismatch): ${REASON.replaceAll("'", "&#39;")}`), "the failure, with its reason")
+    assert.ok(!html.includes('class="mmeter'), "no buffer is drawn from it")
+    assert.ok(html.includes(feed.execution.tx.hash), "the transaction")
+    assert.match(html, /Fills: /)
+    assert.match(html, /Every transaction the run sent/)
+    assert.ok(feed.steps.length > 0 && feed.steps.every((s: { hash: string }) => html.includes(s.hash)), "every step sent")
+    assert.match(html, /<h2>Cleanup<\/h2><p class="status">Verified by the executor<\/p>/)
+    assert.match(html, /<h2>Status<\/h2>/)
+    assert.match(html, /Not demonstrated/)
+
+    // A fork run in the same state keeps its own label.
+    const evidence = mkdtempSync(join(tmpdir(), "mr-views-"))
+    cpSync(new URL("../../evidence/margin-rescue/fork/rehearsal-33472615", import.meta.url).pathname, join(evidence, "fork", "rehearsal-33472615"), { recursive: true })
+    mismatch(join(evidence, "fork", "rehearsal-33472615", "happy"))
+    const fork = views.renderRun(readRun("fork-plan", evidence))
+    assert.match(fork, /<span class="badge call big pop">evidence mismatch<\/span>/)
+    assert.ok(fork.includes("Recomputation unavailable (evidence mismatch)"))
+  })
+
+  it("the cleanup panel lists what remains and says verified only on the complete condition", async () => {
+    const r = synthetic([{ id: "deploy-guard", state: "CONFIRMED" }], { status: "CLEANUP_INCOMPLETE", exitCode: 30, reason: LEFT, rescue: null, cleanup: { ...CLEANED, verified: false, remaining: [LEFT] } })
+    r.publish()
+    const partial = views.renderPartialRun(readRun("live-1", r.evidence))
+    assert.match(partial, /<h2>Cleanup<\/h2><p class="status">NOT verified by the executor · 1 item remaining<\/p>/)
+    assert.ok(partial.includes(`Remaining: ${LEFT}`))
+    assert.equal((partial.match(/class="icon ok-ink"/g) ?? []).length, CHECKS.length, "the checks that held are still shown as holding")
+
+    const full = await verifiedFork((dir) => {
+      const result = JSON.parse(readFileSync(join(dir, "result.json"), "utf8"))
+      result.cleanup.remaining = [LEFT]
+      writeFileSync(join(dir, "result.json"), JSON.stringify(result))
+    })
+    full.publish()
+    const html = views.renderRun(readRun("live-1", full.evidence))
+    assert.match(html, /<h2>Cleanup<\/h2><p class="status">NOT verified by the executor · 1 item remaining<\/p>/)
+    assert.ok(html.includes(`Remaining: ${LEFT}`))
+    assert.match(html, /Cleanup incomplete/)
+    assert.match(html, /verified on read-back from the chain; NOT verified in the executor's own report/)
+  })
+
+  it("a verified run is drawn with its figures, as before", async () => {
+    const r = await verifiedFork()
+    r.publish()
+    const html = views.renderRun(readRun("live-1", r.evidence))
+    assert.ok(html.includes('class="mmeter'))
+    assert.match(html, /it equals the forecast to the raw unit/)
+    assert.match(html, /<h2>Cleanup<\/h2><p class="status">Verified by the executor<\/p>/)
+    assert.ok(!html.includes("Remaining:") && !html.includes("unavailable"))
   })
 })
