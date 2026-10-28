@@ -6,9 +6,9 @@ Two pieces of work against dreamDEX perps on the Somnia Hideki ("Tokyo") testnet
 - **Proving Ground** (earlier): a read-only BTC-PERP integration prototype with a local rule pre-check. Its description follows below, unchanged in substance.
 
 > **Status**
-> - Margin Rescue: reconciliation and analysis run against the live network **read-only**; the `ReduceOnlyGuard` contract and the live executor (receipt binding, pre-send refresh, guarded cleanup, transaction ledger, end-state verification) are tested on local forks of the real venue, normally and with injected faults, and an independent verifier reads every run back from the chain. The live step is **`BLOCKED_SIGNER`**: authorized, with its plan regenerated read-only on 2026-10-27 (`mr-live-plan/4`, block 34,756,532, SHA-256 `7f090328…3d1175`, committed as [`evidence/margin-rescue/live-read-only/live-plan.json`](evidence/margin-rescue/live-read-only/live-plan.json); re-checked read-only against the final code and the untouched account at block 35,044,107), but it is signed only in the owner's terminal, which holds the test account's key. Nothing has been deployed, signed or sent on the live network yet.
+> - Margin Rescue: **live run 1 is complete and independently verified (2026-10-28).** On the Somnia Hideki testnet the authorized plan (`mr-live-plan/4`, SHA-256 `7f090328…3d1175`, committed as [`evidence/margin-rescue/live-read-only/live-plan.json`](evidence/margin-rescue/live-read-only/live-plan.json)) ran once on the project's own test account, signed in the owner's terminal. Execution: `COMPLETE`, 13 transactions, every one successful. Rescue goal: `GOAL_MET`: one guarded reduction, after which the buffer at the fixed scenario prices rose from 40.538097 to 46.785772 USDso against a 45 USDso target. Cleanup: verified: both legs closed through the guard, the grants revoked, the collateral withdrawn. An independent read-back from the chain holds 93 / 93 checks. Evidence: [`evidence/margin-rescue/live-write/run-1/`](evidence/margin-rescue/live-write/run-1/), summarised in [`live-write/README.md`](evidence/margin-rescue/live-write/README.md). Reconciliation and analysis also run against the live network read-only, and the `ReduceOnlyGuard` contract and the live executor were tested on local forks of the real venue, normally and with injected faults, before the run.
 > - Proving Ground: no Proving Ground contract exists; its rule pre-check is a local calculation and is **not enforced on-chain**.
-> - Neither part meets the MVP track's live-order requirement yet: **no order has been placed on the live network from this code.**
+> - Live orders: Margin Rescue's run 1 placed **five orders on the live network from this code** (two opening IOC orders, the guarded reduction and two guarded closes), each read back from the chain. The Proving Ground prototype places none.
 
 ## X posts
 
@@ -31,7 +31,7 @@ The daily topics, ready-to-post drafts and evidence checks are in [social/X_POST
 |---|---|
 | `/` | Overview: a console replaying the fork run on a real 6-market account, the loop step by step, the dreamDEX components it is built on, what is proven and where |
 | `/features` | The six parts of the loop, each with the fork run's own figures |
-| `/app` | The app, read-only: any public address at one block (account and scenario), the evaluated reductions, and recorded guarded executions (fork runs; live run 1 once it exists) |
+| `/app` | The app, read-only: any public address at one block (account and scenario), the evaluated reductions, and recorded guarded executions (live run 1 and the fork runs) |
 | `/dashboard` | Live BTC and ETH markets, and the state of every proof read from `evidence/margin-rescue/` |
 | `/technology`, `/guide` | How it works (including every dreamDEX component used), and how to use it from the app and the command line |
 | `/proving-ground` | The earlier Proving Ground prototype page, unchanged |

@@ -76,7 +76,7 @@ On 2026-10-26, none of the public bounty projects checked covered this loop. Its
   - Eleven rehearsal scenarios at block 33472615 (the happy run also read back by the independent verifier, 93/93 checks), plus funding drift at block 33609475: 12/12.
   - Forge fork tests pass 38/38, with traces.
 - **Fixture:** 260/260 unit tests, 9/9 Solidity mock tests, and a clean typecheck.
-- **Live write:** not run yet (`BLOCKED_SIGNER`). Plan `7f090328…3d1175` (`mr-live-plan/4`, regenerated 2026-10-27, committed in `evidence/margin-rescue/live-read-only/`) is authorized and waits for the owner's signature. Every view shows the run's state from the run-state model: verified only after the independent read-back, against this plan. Live transaction hashes, fills or results are never invented.
+- **Live write:** live run 1, 2026-10-28, `VERIFIED_COMPLETE`. The authorized plan `7f090328…3d1175` (`mr-live-plan/4`) ran once on the project's test account, signed in the owner's terminal. Execution `COMPLETE`: 13 transactions, all successful. Rescue goal `GOAL_MET`: one guarded reduction (BTC-50, 0.00062 BTC at 81,180.8), and the buffer at the fixed scenario prices rose from 40.538097 to 46.785772 USDso against a 45 USDso target. Cleanup verified. The independent read-back holds 93/93 checks. Evidence: `evidence/margin-rescue/live-write/run-1/`. Every view shows the run's state from the run-state model, and only this evidence; live transaction hashes, fills or results are never invented.
 - **Market research:** an indexer scan on 2026-10-26 found 1,203 of 7,677 accounts (about 15.7%) holding two or more markets. The scan was paged, not atomic.
 - **Absent:** no testimonials, users, partners or press exist. None may be implied.
 

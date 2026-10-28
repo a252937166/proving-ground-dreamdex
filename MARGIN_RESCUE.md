@@ -2,9 +2,29 @@
 
 Margin Rescue asks one question about a dreamDEX perps account on the Somnia Hideki ("Tokyo") testnet: **if BTC and ETH move together by a stated amount, how much of the account's maintenance buffer is left, and which of a few concrete reductions would bring it back to a target?** It then executes one chosen reduction through a guard that cannot flip or grow the position, and recomputes the same fixed scenario from what actually filled.
 
-> **Status: live step `BLOCKED_SIGNER` (authorized; waiting for the owner to sign in their own terminal).** Accounting, scenario analysis, the reduce-only guard and the live executor are implemented and tested; the executor has been run against the real venue on local forks, normally and with injected faults. **Nothing has been signed or sent on the live network yet**: no guard is deployed, no margin deposited, no order placed. The authorized plan was regenerated read-only on 2026-10-27 at block 34,756,532: [`evidence/margin-rescue/live-read-only/live-plan.json`](evidence/margin-rescue/live-read-only/live-plan.json) (`mr-live-plan/4`, SHA-256 `7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175`, also kept as `live-read-only/authorized/7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175.json`). After the fifth round's fixes it was checked again read-only ([`plan-recheck.txt`](evidence/margin-rescue/live-read-only/plan-recheck.txt)): the account is untouched at block 35,044,107 (nonce 0, 50 STT, no position, order, stop or collateral, no guard deployed), the local guard build equals the plan's hashes, and the plan regenerated with the final code at block 35,044,503 differs only in market data (BTC +0.33%, ETH +0.52%), the read block and the opening lots that follow from the price, so it stays the plan to run. It is signed only in the owner's terminal, which holds the test account's key; its evidence will be published in [`evidence/margin-rescue/live-write/`](evidence/margin-rescue/live-write/), and the site shows it as verified only after the independent read-back, against this plan.
+> **Status: live run 1 `VERIFIED_COMPLETE` (2026-10-28).** The authorized plan ([`evidence/margin-rescue/live-read-only/live-plan.json`](evidence/margin-rescue/live-read-only/live-plan.json), `mr-live-plan/4`, SHA-256 `7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175`, also kept as `live-read-only/authorized/7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175.json`) ran once on the Somnia Hideki testnet, on the project's own test account, signed in the owner's terminal. **Execution:** `COMPLETE` (exit 0), 13 transactions, every one successful, 0.173503 STT of the 2 STT gas cap. **Rescue goal:** `GOAL_MET`: one guarded reduction (BTC-50) filled 0.00062 BTC at 81,180.8 inside its limit, and the buffer at the fixed scenario prices rose from 40.538097 to 46.785772 USDso against a 45 USDso target. **Cleanup:** verified: both legs closed through the guard, both grants revoked, 59.967805 of the 60 USDso deposited withdrawn, the allowance zero, nothing left in any of the 21 pools. The independent read-back (`mr:verify-run`) holds 93 / 93 checks, on the private run folder and again on the published copy. Evidence: [`evidence/margin-rescue/live-write/run-1/`](evidence/margin-rescue/live-write/run-1/), summarised with every transaction and fill in [`live-write/README.md`](evidence/margin-rescue/live-write/README.md). Before the run, accounting, scenario analysis, the reduce-only guard and the live executor were tested on local forks of the real venue, normally and with injected faults (the rounds below).
 >
-> It is an engineering milestone, not a product: no UI beyond the CLI, no hosting, and the candidate set is finite (no global optimisation).
+> It is an engineering milestone: the website is read-only (it holds no key and sends nothing), execution is the `mr:live` command, and the candidate set is finite (no global optimisation).
+
+## Live run 1 (2026-10-28)
+
+| | |
+|---|---|
+| Account | `0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12`, the project's dedicated test EOA; the run's preflight at block 35,212,668 (`preflight.json`, `run-log.jsonl`) found it as the plan expects: 50 STT, 100 USDso, no allowance, an empty bank account, no position, order or stop; the run ledger starts at nonce 0 |
+| Plan | `mr-live-plan/4`, SHA-256 `7f090328…ea3d1175`, authorized 2026-10-27; code: the working tree at `83dc3f9` (contracts, `src/` and `tools/` as in `9fd1c0e`) |
+| Window | blocks 35,213,160–35,217,219, 08:00–08:09 UTC |
+| Guard | `0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F`, deployed by the run; runtime keccak `0x83729369…1271a14b`, as the plan states |
+| Opening | BTC long 0.00124 BTC (fills at 81,234.10 and 81,244.00), ETH short 0.0384 ETH at 2,362.32; 60 USDso deposited |
+| Scenario | fixed at block 35,214,112, after both openings: BTC 81,030.0913 → 72,927.0822 (−10%), ETH 2,361.6713 → 2,479.7549 (+5%); target buffer 45 USDso |
+| Candidates | 9 evaluated: doing nothing leaves 40.538097; BTC-50, BTC-75, BTC-100, ETH-75 and ETH-100 meet the target; BTC-50 is the smallest notional cut among them (50.23 USDso) |
+| Reduction | refresh `STILL_VALID` (no funding drift); `0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800`, block 35,214,789: 0.00062 of 0.00062 BTC at 81,180.8 (limit 80,820.2) through the guard, bound to its journalled confirmation; 17 / 17 ledger checks |
+| Recomputation | at the fixed prices: buffer 40.538097 before, 46.792654 forecast, 46.785772 actual: `GOAL_MET` |
+| Cleanup | guarded closes: BTC 0.00062 at 81,270.2, ETH 0.0384 at 2,362.61; both grants revoked; collateral withdrawn; end state verified at block 35,217,243 by the run and at 35,218,241 by the read-back |
+| Gas | 0.173502906 STT, equal to the sum of the receipt fees (cap 2 STT) |
+| Collateral | deposited 60, withdrawn 59.967805 USDso: −0.032195 = realized PnL; funding 0, fees 0 |
+| Read-back | `mr:verify-run`: 93 / 93 checks (`live-write/run-1/verification.txt`) |
+
+Every transaction, fill and figure is listed in [`evidence/margin-rescue/live-write/README.md`](evidence/margin-rescue/live-write/README.md).
 
 ## Correctness pass (second round)
 
@@ -67,8 +87,9 @@ Fifth round (2026-10-27/28), before any live transaction. The tests that reprodu
 | The deployed guard is the approved build | The executor compares the local build's hashes with the plan before deploying, then the code at the deployed address with the expected runtime (owner and bank written into the immutables) and reads back `OWNER`, `MARGIN_BANK`, `trustedPool` before any grant | fixture: `mr-guard-artifact.test.ts`; fork: every rehearsal scenario's `guard.json` (`verified: true`) |
 | The live executor does what the approved plan says | `liveRun.ts` run as the live command (plan digest, raw signing) against a fork with a throwaway key | fork: `rehearsal-33472615/happy/` — exit 0, `COMPLETE`, `GOAL_MET`, cleanup verified |
 | Stop discovery is complete | Paging past 200 records, duplicates, a stop created while paging, truncation refused, indexer height behind the pinned block refused; live: three accounts with 385, 249 and 202 stop records | fixture: `mr-stops.test.ts`; live-read-only: `stop-pagination.json` |
+| The loop on the live network: one guarded reduction, recomputed at the fixed prices, then a verified cleanup | The live command on the authorized plan, signed in the owner's terminal; then `mr:verify-run` reads every transaction, the confirmation binding, the scenario at its block, the end state, gas and collateral back from the chain without the executor's code | live-write: `live-write/run-1/` — `COMPLETE`, `GOAL_MET` (buffer 40.538097 → 46.785772, target 45), cleanup verified, 93 / 93 read-back checks |
 
-Evidence is labelled `fixture`, `fork`, `live-read-only` or `live-write`. There is no `live-write` evidence. `fork/live-rehearsal-33472615/` is the previous executor's rehearsal (plain IOC cleanup) and is kept only as history; it is superseded by `fork/rehearsal-33472615/`.
+Evidence is labelled `fixture`, `fork`, `live-read-only` or `live-write`. The one live write is `live-write/run-1/` (live run 1, above). `fork/live-rehearsal-33472615/` is the previous executor's rehearsal (plain IOC cleanup) and is kept only as history; it is superseded by `fork/rehearsal-33472615/`.
 
 ## Layout
 
@@ -240,7 +261,7 @@ Venue behaviours the planner relies on, all observed on the fork: a zero-fill IO
 
 ## Limitations
 
-- No live write has been performed; the live milestone is blocked on approval, not on a technical failure.
+- One live write has been performed: run 1, on the project's own test account, with positions of about 100 and 90 USDso. It shows the loop working on the live venue once; it says nothing statistical about fills, slippage or how often a rescue is needed.
 - Faults on the fork are injected by the rehearsal (a funded third party taking liquidity, the owner's key trading, mining paused, the clock moved across a settlement); they show the executor's responses, not how often such events happen live.
 - Gas figures from the fork are Ethereum's schedule, not Somnia's (Somnia charges about 4,928 gas per deployed byte; `live-plan` asks the live RPC for estimates).
 - Stops are listed from the indexer (paged to the end, refused if the indexer has not processed the pinned block) and checked live at that block; the registry has no on-chain enumeration, so their completeness still rests on the indexer.

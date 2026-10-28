@@ -219,7 +219,7 @@ buffer  = E_risk − MM</code></pre>
 
     <section id="evidence">
       <h2>Evidence</h2>
-      <p>Each claim on this site is labelled by where it was checked. <b>Fixture</b> means synthetic data in unit tests. <b>Fork</b> means a local anvil fork of the real venue at a recorded block. <b>Live</b> means the Somnia Hideki network itself. <span data-live-run data-met="The live write, one guarded reduction on the project's own test account, has run: goal met, cleanup verified.">The live write, one guarded reduction on the project's own test account, is approved and has not run yet.</span> The <a href="/dashboard">dashboard</a> shows its status as it changes.</p>
+      <p>Each claim on this site is labelled by where it was checked. <b>Fixture</b> means synthetic data in unit tests. <b>Fork</b> means a local anvil fork of the real venue at a recorded block. <b>Live</b> means the Somnia Hideki network itself. <span data-live-run data-met="The live write, one guarded reduction on the project's own test account, has run: goal met, cleanup verified.">The live write, one guarded reduction on the project's own test account, has run: goal met, cleanup verified.</span> The <a href="/app?run=live-1#result">app</a> shows its transactions, recomputation and cleanup.</p>
       <div class="table-wrap">
         <table class="data">
           <thead><tr><th scope="col">Claim</th><th scope="col">Where</th><th scope="col">Result</th></tr></thead>
@@ -231,7 +231,7 @@ buffer  = E_risk − MM</code></pre>
             <tr><td>The full loop on a real 6-market account: analyse, guard, refresh, send, bind, recompute</td><td>Fork, block 33,472,615</td><td>ETH −50% filled 0.8165 ETH inside the limit; recomputed buffer equals the forecast; <code>GOAL_MET</code></td></tr>
             <tr><td>The live executor: happy path, tampering, book change, partial fill, owner change, timeout, RPC outage, refused preflight, cleanup retries and failure, a result that cannot be written, funding drift</td><td>Fork, blocks 33,472,615 and 33,609,475</td><td>12 / 12 scenarios as expected</td></tr>
             <tr><td>Independent reconciliation and the bank's rounding</td><td>Live, read-only</td><td>EXACT for every account checked</td></tr>
-            <tr><td>One guarded reduction on the test account, with cleanup</td><td>Live write</td><td data-live-run data-met="Run 1: GOAL_MET, cleanup verified">Authorized plan <code>7f090328…</code>; waiting for the owner to sign</td></tr>
+            <tr><td>One guarded reduction on the test account, with cleanup</td><td>Live write</td><td data-live-run data-met="Run 1: GOAL_MET, cleanup verified">Run 1: GOAL_MET, cleanup verified</td></tr>
           </tbody>
         </table>
       </div>

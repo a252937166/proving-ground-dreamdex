@@ -1,0 +1,1340 @@
+{
+  "account": "0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12",
+  "approvedDigest": "7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175",
+  "binding": {
+    "account": "0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12",
+    "chainId": 50383,
+    "files": {
+      "candidates.json": "1319317255f40c6684101637e6ab5986b7aa71038c52f56d3aafa8679685ebc3",
+      "cleanup.json": "d0576c273717bd6229b6d33bf524c8a086032ff957aa9e7ce9acb85f18c82d14",
+      "guard.json": "e6df1f3e0368f92740c58f03beb46d8ea5f67c9c3087842d5d9d6cf2d6d8a601",
+      "journal/0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92.json": "3baad99a9c6cde2527d528cc72fe92e16a55c587c896f113a9e54c1fdebda21d",
+      "journal/0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60.json": "33481e2593c7acf910038b8bcead39c276f36bdcc77bec8ffc5a16bf15368ee3",
+      "journal/0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb.json": "c9e19d358a87a33485d99cc66e180a525234f01fa5fd0abb730765bb77dd0665",
+      "post-snapshot.json": "4a9dc4f6e4784ed089b2900215837adb5d21c8c640f690307cc8147b03323b0e",
+      "preflight-snapshot.json": "7fc5297a79db31778506e6eac3c8befad2c976d8914ee9341a46d9fbdb38850b",
+      "receipt.json": "3457c0b43cf3fbc769b1960a33e9b0390135dc5f6a37c36bb4a7d7f3d0cf9382",
+      "recompute.json": "a42b4efa9d39ff54b0c57ae858f59b8a5cde42fa09c4745161502a5f2f8148b6",
+      "refresh-analysis.json": "72be689bbe88351af062b28aa8113173956adfa8e803151af0998c49be0297bb",
+      "result.json": "79a8ab6553f6c003dc1b258063d305dd1861b3eac2b1109edfe472be4d8561ab",
+      "run-ledger.json": "2fe454ad0f5a06cf8e426dd06378e30a1f5983b317d443fd8f121a4cec593ddf",
+      "run-state.json": "14dc11eb19d7ce1e6355f10c8a727bb408740544c555c16c847ccf33a9bb2c27",
+      "scenario.json": "027aa3c00543bc755a6f70d078c35ad7d4ba7be09b29326640a9efc1862b5b59"
+    },
+    "planDigest": "7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175",
+    "scenarioId": "e6e9aecb23bafb65b9c49f0789508d71f6782ae878036ff9e60bea5c68b2097b",
+    "transactions": [
+      "0x217790669ccdbe2f3cfb2e49e3d1a98430eed711dc028c34a7b41b2f0f18c01e",
+      "0x2bdbecd06c72a9c5359416116a9a58081319e00b11c386ddf11dbe28c35b4c8b",
+      "0xb036b655197957f339ab38373b2933214aebe15287e264c919c4c42c941f44f3",
+      "0x573b4ba25ae67a6b5f0da33d4fb29c7c8359c508f151698c28f84ddf33a5f6ec",
+      "0xdfed8630aca72acb751dc99b864bb1cb807030b6ca505e335d0a28e218308813",
+      "0xa5c643c5501990951b91fd0dfb606ad048615a6a7a50a91f4265f857bcf7a6bb",
+      "0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800",
+      "0x417d4382ded716c2610c22a447dc8759ff1c6cc6b1055ee9c7e9f79592764f43",
+      "0xaddc5fa5a73f2d86637ded21c4cf3e7fc1aa1010337067b083d93996c349f5a1",
+      "0x582cd390f27b783091a14f0c8ab8879c4db8480d8fb5262352dfd0dea2626d6d",
+      "0xb2fa781249f8ef62bdf60fa7e8ddf937ca3a023579c7ac36398915d7053ba0c0",
+      "0x00e662c3dda41f32cf429ec729a5c8a0e18110aa0fe39106d1f7c13c3147e376",
+      "0xed977169d710ccd9df3716e762cee51367754f22e07b2294a181201be99aa528"
+    ]
+  },
+  "chainId": 50383,
+  "checks": [
+    {
+      "detail": "",
+      "group": "run",
+      "name": "chain 50383",
+      "ok": true
+    },
+    {
+      "detail": "{\"planFile\":\"7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175\",\"ledger\":\"7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175\",\"state\":\"7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175\"}",
+      "group": "run",
+      "name": "the plan file is the one the run was started under",
+      "ok": true
+    },
+    {
+      "detail": "{\"plan\":\"7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175\",\"approved\":\"7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175\"}",
+      "group": "run",
+      "name": "the plan is the one approved before the run",
+      "ok": true
+    },
+    {
+      "detail": "{\"plan\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\",\"ledger\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\",\"pools\":[\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\"]}",
+      "group": "run",
+      "name": "chain, account and approved pools as the plan states",
+      "ok": true
+    },
+    {
+      "detail": "13 mined, 0 not included",
+      "group": "transactions",
+      "name": "every recorded transaction read back from a canonical receipt",
+      "ok": true
+    },
+    {
+      "detail": "13 of 19",
+      "group": "transactions",
+      "name": "no more transactions than the plan allows",
+      "ok": true
+    },
+    {
+      "detail": "0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800",
+      "group": "transactions",
+      "name": "at most one guarded reduction in the main phase",
+      "ok": true
+    },
+    {
+      "detail": "{\"0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0\":1,\"0xd6cb1dd58580b84d76068ac21594219ce03aeddf\":1}",
+      "group": "transactions",
+      "name": "at most 3 guarded closes per leg",
+      "ok": true
+    },
+    {
+      "detail": "none sent straight to a pool",
+      "group": "transactions",
+      "name": "every cleanup order went through the guard",
+      "ok": true
+    },
+    {
+      "detail": "124000 of 124000",
+      "group": "transactions",
+      "name": "open-BTC-long: filled no more than the planned quantity",
+      "ok": true
+    },
+    {
+      "detail": "38400000000000000 of 38400000000000000",
+      "group": "transactions",
+      "name": "open-ETH-short: filled no more than the planned quantity",
+      "ok": true
+    },
+    {
+      "detail": "{\"owner\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\",\"bank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"chainId\":\"50383\",\"typehash\":\"0x3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d6249227\",\"orderType\":2}",
+      "group": "confirmations",
+      "name": "the deployed guard's action-id domain is the one recomputed here",
+      "ok": true
+    },
+    {
+      "detail": "0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb",
+      "group": "confirmations",
+      "name": "reduce: a journalled confirmation exists",
+      "ok": true
+    },
+    {
+      "detail": "pool, expected position, side, quantity, limit, deadline and nonce",
+      "group": "confirmations",
+      "name": "reduce: the saved request is the calldata the chain executed, field by field",
+      "ok": true
+    },
+    {
+      "detail": "0xdd0c33d700000000",
+      "group": "confirmations",
+      "name": "reduce: the saved calldata is the transaction's",
+      "ok": true
+    },
+    {
+      "detail": "{\"chainId\":50383,\"guard\":\"0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\"}",
+      "group": "confirmations",
+      "name": "reduce: the saved domain is this chain, guard, bank and owner",
+      "ok": true
+    },
+    {
+      "detail": "{\"recomputed\":\"0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb\",\"saved\":\"0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb\"}",
+      "group": "confirmations",
+      "name": "reduce: the action id recomputed from the saved request is the saved one",
+      "ok": true
+    },
+    {
+      "detail": "{\"guard\":\"0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb\",\"saved\":\"0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb\"}",
+      "group": "confirmations",
+      "name": "reduce: the guard's own actionIdOf(executed request) is the saved action id",
+      "ok": true
+    },
+    {
+      "detail": "0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb",
+      "group": "confirmations",
+      "name": "reduce: the ledger names the same action",
+      "ok": true
+    },
+    {
+      "detail": "{\"blockHash\":\"0x37007e90ee733f624396856233dd6419e87377c15aeea4083292f7f1b6e4e4c9\",\"blockNumber\":\"35214789\",\"from\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\",\"hash\":\"0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800\",\"nonce\":6,\"sentAfterBlock\":\"35214750\",\"sentAt\":\"2026-10-28T08:03:57.403Z\",\"state\":\"CONFIRMED\"}",
+      "group": "confirmations",
+      "name": "reduce: the journal records this transaction",
+      "ok": true
+    },
+    {
+      "detail": "{\"actionId\":\"0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"387381625547908914184\",\"sizeBefore\":\"124000\",\"sizeAfter\":\"62000\",\"quantity\":\"62000\",\"limitPrice\":\"80820200000000000000000\"}",
+      "group": "confirmations",
+      "name": "reduce: the guard's event is this action and request",
+      "ok": true
+    },
+    {
+      "detail": "{\"orderId\":\"387381625547908914184\",\"pool\":\"0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0\",\"isBid\":false,\"userData\":\"12077744062061313995\"}",
+      "group": "confirmations",
+      "name": "reduce: the venue order is the owner's, on the requested side, tagged with the action id",
+      "ok": true
+    },
+    {
+      "detail": "{\"filled\":\"62000\",\"guardEvent\":{\"actionId\":\"0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"387381625547908914184\",\"sizeBefore\":\"124000\",\"sizeAfter\":\"62000\",\"quantity\":\"62000\",\"limitPrice\":\"80820200000000000000000\"},\"positionAfter\":\"62000\"}",
+      "group": "confirmations",
+      "name": "reduce: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum",
+      "ok": true
+    },
+    {
+      "detail": "{\"before\":false,\"after\":true}",
+      "group": "confirmations",
+      "name": "reduce: the guard marked the action used in this block, not before",
+      "ok": true
+    },
+    {
+      "detail": "0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: a journalled confirmation exists",
+      "ok": true
+    },
+    {
+      "detail": "pool, expected position, side, quantity, limit, deadline and nonce",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the saved request is the calldata the chain executed, field by field",
+      "ok": true
+    },
+    {
+      "detail": "0xdd0c33d700000000",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the saved calldata is the transaction's",
+      "ok": true
+    },
+    {
+      "detail": "{\"chainId\":50383,\"guard\":\"0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the saved domain is this chain, guard, bank and owner",
+      "ok": true
+    },
+    {
+      "detail": "{\"recomputed\":\"0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60\",\"saved\":\"0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the action id recomputed from the saved request is the saved one",
+      "ok": true
+    },
+    {
+      "detail": "{\"guard\":\"0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60\",\"saved\":\"0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the guard's own actionIdOf(executed request) is the saved action id",
+      "ok": true
+    },
+    {
+      "detail": "0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the ledger names the same action",
+      "ok": true
+    },
+    {
+      "detail": "{\"blockHash\":\"0x1eb75048ed1d30cca0b40075e633f9a42d1f1554c7afd859473d50093b1afe67\",\"blockNumber\":\"35215789\",\"from\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\",\"hash\":\"0x417d4382ded716c2610c22a447dc8759ff1c6cc6b1055ee9c7e9f79592764f43\",\"nonce\":7,\"sentAfterBlock\":\"35215777\",\"sentAt\":\"2026-10-28T08:05:37.412Z\",\"state\":\"CONFIRMED\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the journal records this transaction",
+      "ok": true
+    },
+    {
+      "detail": "{\"actionId\":\"0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"8079673904284791938348\",\"sizeBefore\":\"62000\",\"sizeAfter\":\"0\",\"quantity\":\"62000\",\"limitPrice\":\"80848100000000000000000\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the guard's event is this action and request",
+      "ok": true
+    },
+    {
+      "detail": "{\"orderId\":\"8079673904284791938348\",\"pool\":\"0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0\",\"isBid\":false,\"userData\":\"2833865448470129504\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the venue order is the owner's, on the requested side, tagged with the action id",
+      "ok": true
+    },
+    {
+      "detail": "{\"filled\":\"62000\",\"guardEvent\":{\"actionId\":\"0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"8079673904284791938348\",\"sizeBefore\":\"62000\",\"sizeAfter\":\"0\",\"quantity\":\"62000\",\"limitPrice\":\"80848100000000000000000\"},\"positionAfter\":\"0\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum",
+      "ok": true
+    },
+    {
+      "detail": "{\"before\":false,\"after\":true}",
+      "group": "confirmations",
+      "name": "cleanup-close-BTC-1: the guard marked the action used in this block, not before",
+      "ok": true
+    },
+    {
+      "detail": "0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: a journalled confirmation exists",
+      "ok": true
+    },
+    {
+      "detail": "pool, expected position, side, quantity, limit, deadline and nonce",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the saved request is the calldata the chain executed, field by field",
+      "ok": true
+    },
+    {
+      "detail": "0xdd0c33d700000000",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the saved calldata is the transaction's",
+      "ok": true
+    },
+    {
+      "detail": "{\"chainId\":50383,\"guard\":\"0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f\",\"marginBank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"owner\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the saved domain is this chain, guard, bank and owner",
+      "ok": true
+    },
+    {
+      "detail": "{\"recomputed\":\"0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92\",\"saved\":\"0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the action id recomputed from the saved request is the saved one",
+      "ok": true
+    },
+    {
+      "detail": "{\"guard\":\"0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92\",\"saved\":\"0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the guard's own actionIdOf(executed request) is the saved action id",
+      "ok": true
+    },
+    {
+      "detail": "0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the ledger names the same action",
+      "ok": true
+    },
+    {
+      "detail": "{\"blockHash\":\"0xf4d51e259886d42ed35a712ec7c0f44052e0dd48331b5e012c7bc9b58e024193\",\"blockNumber\":\"35216323\",\"from\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\",\"hash\":\"0x582cd390f27b783091a14f0c8ab8879c4db8480d8fb5262352dfd0dea2626d6d\",\"nonce\":9,\"sentAfterBlock\":\"35216311\",\"sentAt\":\"2026-10-28T08:06:30.913Z\",\"state\":\"CONFIRMED\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the journal records this transaction",
+      "ok": true
+    },
+    {
+      "detail": "{\"actionId\":\"0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92\",\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"orderId\":\"5294215549154651733037\",\"sizeBefore\":\"-38400000000000000\",\"sizeAfter\":\"0\",\"quantity\":\"38400000000000000\",\"limitPrice\":\"2374740000000000000000\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the guard's event is this action and request",
+      "ok": true
+    },
+    {
+      "detail": "{\"orderId\":\"5294215549154651733037\",\"pool\":\"0xd6cb1dd58580b84d76068ac21594219ce03aeddf\",\"isBid\":true,\"userData\":\"3712798169772195730\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the venue order is the owner's, on the requested side, tagged with the action id",
+      "ok": true
+    },
+    {
+      "detail": "{\"filled\":\"38400000000000000\",\"guardEvent\":{\"actionId\":\"0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92\",\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"orderId\":\"5294215549154651733037\",\"sizeBefore\":\"-38400000000000000\",\"sizeAfter\":\"0\",\"quantity\":\"38400000000000000\",\"limitPrice\":\"2374740000000000000000\"},\"positionAfter\":\"0\"}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum",
+      "ok": true
+    },
+    {
+      "detail": "{\"before\":false,\"after\":true}",
+      "group": "confirmations",
+      "name": "cleanup-close-ETH-1: the guard marked the action used in this block, not before",
+      "ok": true
+    },
+    {
+      "detail": "{\"before\":0,\"startNonce\":0,\"mined\":13,\"after\":13}",
+      "group": "transactions",
+      "name": "no other transaction from the account",
+      "ok": true
+    },
+    {
+      "detail": "0x217790669ccdbe2f3cfb2e49e3d1a98430eed711dc028c34a7b41b2f0f18c01e",
+      "group": "guard",
+      "name": "deployed by this run from the approved build",
+      "ok": true
+    },
+    {
+      "detail": "{\"runtime\":\"0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b\",\"approved\":\"0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b\"}",
+      "group": "guard",
+      "name": "code on chain is the approved runtime",
+      "ok": true
+    },
+    {
+      "detail": "{\"owner\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\",\"bank\":\"0x478769E1177C0773c43A593DCCc4Ad15F15F1394\",\"trusted\":[true,true]}",
+      "group": "guard",
+      "name": "OWNER, MARGIN_BANK and trusted pools as approved",
+      "ok": true
+    },
+    {
+      "detail": "35218241 0xe7d5a4323ccebda208190f1e299327b5b2f80b80ef37aacdd3167add6ca3efa7",
+      "group": "cleanup",
+      "name": "end block still canonical after the reads",
+      "ok": true
+    },
+    {
+      "detail": "21 pools read at block 35218241",
+      "group": "cleanup",
+      "name": "no position in any factory pool",
+      "ok": true
+    },
+    {
+      "detail": "21 pools read",
+      "group": "cleanup",
+      "name": "no resting order in any factory pool",
+      "ok": true
+    },
+    {
+      "detail": "0 listed by the indexer (processed through 35218241), 0 live at block 35218241",
+      "group": "cleanup",
+      "name": "no live TP/SL stop",
+      "ok": true
+    },
+    {
+      "detail": "{\"unlocked\":\"0\",\"locked\":\"0\",\"activePools\":0}",
+      "group": "cleanup",
+      "name": "MarginBank account empty",
+      "ok": true
+    },
+    {
+      "detail": "{\"bank\":\"0\",\"guard\":\"0\"}",
+      "group": "cleanup",
+      "name": "USDso allowance to the bank and to the guard is zero",
+      "ok": true
+    },
+    {
+      "detail": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0 → 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F: revoked; 0xD6Cb1DD58580B84D76068aC21594219ce03aeddf → 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F: revoked",
+      "group": "cleanup",
+      "name": "every grant the run made is revoked",
+      "ok": true
+    },
+    {
+      "detail": "21 pools checked; global false",
+      "group": "cleanup",
+      "name": "the guard holds no grant on any pool, nor a global one",
+      "ok": true
+    },
+    {
+      "detail": "blocks 35213160–35218241",
+      "group": "cleanup",
+      "name": "no bank row or USDso transfer for the account outside the run",
+      "ok": true
+    },
+    {
+      "detail": "{\"before\":\"50000000000000000000\",\"after\":\"49826497094000000000\",\"spent\":\"173502906000000000\",\"fees\":\"173502906000000000\"}",
+      "group": "reconciliation",
+      "name": "STT spent = Σ receipt fees",
+      "ok": true
+    },
+    {
+      "detail": "{\"fees\":\"173502906000000000\",\"cap\":\"2000000000000000000\"}",
+      "group": "reconciliation",
+      "name": "STT spent within the plan's 2 STT cap",
+      "ok": true
+    },
+    {
+      "detail": "{\"unlockedCollateralBalance\":\"0\",\"lockedCollateral\":\"0\",\"activePerpPools\":[]}",
+      "group": "reconciliation",
+      "name": "bank account empty before the run",
+      "ok": true
+    },
+    {
+      "detail": "{\"deposited\":\"60000000000000000000\",\"planned\":\"60000000000000000000\"}",
+      "group": "reconciliation",
+      "name": "deposit exactly as planned",
+      "ok": true
+    },
+    {
+      "detail": "{\"before\":\"100000000000000000000\",\"after\":\"99967805000000000000\",\"deposited\":\"60000000000000000000\",\"withdrawn\":\"59967805000000000000\"}",
+      "group": "reconciliation",
+      "name": "wallet USDso change = deposited − withdrawn",
+      "ok": true
+    },
+    {
+      "detail": "{\"result\":\"-32195000000000000\",\"realized\":\"-32195000000000000\",\"funding\":\"0\",\"fees\":\"0\"}",
+      "group": "reconciliation",
+      "name": "withdrawn − deposited = Σ realized − Σ funding − Σ fees",
+      "ok": true
+    },
+    {
+      "detail": "0x4181dd +19000 0x4181dd +105000 0xd6cb1d -38400000000000000 0x4181dd -62000 0x4181dd -62000 0xd6cb1d +38400000000000000",
+      "group": "reconciliation",
+      "name": "every leg opened was closed (fills net to zero)",
+      "ok": true
+    },
+    {
+      "detail": "{\"bank\":\"-32195000000000000\",\"fills\":\"-32195000000000000\",\"gap\":\"0\"}",
+      "group": "reconciliation",
+      "name": "bank realized PnL agrees with the fills (≤ 10 raw units per fill)",
+      "ok": true
+    },
+    {
+      "detail": "0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb",
+      "group": "rescue",
+      "name": "the rescue's confirmation is in the journal",
+      "ok": true
+    },
+    {
+      "detail": "{\"first\":\"0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800\",\"rescue\":\"0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800\",\"kind\":\"RESCUE\",\"step\":\"main/reduce\"}",
+      "group": "rescue",
+      "name": "the rescue is the run's first guarded reduction, journalled as the rescue and sent as the main-phase reduction",
+      "ok": true
+    },
+    {
+      "detail": "e6e9aecb23bafb65b9c49f0789508d71f6782ae878036ff9e60bea5c68b2097b",
+      "group": "scenario",
+      "name": "the scenario file's id is the hash of its body",
+      "ok": true
+    },
+    {
+      "detail": "e6e9aecb23bafb65b9c49f0789508d71f6782ae878036ff9e60bea5c68b2097b",
+      "group": "scenario",
+      "name": "the confirmation was made under this scenario",
+      "ok": true
+    },
+    {
+      "detail": "{\"chainId\":50383,\"account\":\"0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12\"}",
+      "group": "scenario",
+      "name": "the scenario is for this chain and account",
+      "ok": true
+    },
+    {
+      "detail": "{\"scenario\":\"45000000000000000000\",\"plan\":\"45000000000000000000\"}",
+      "group": "scenario",
+      "name": "the scenario's target is the plan's",
+      "ok": true
+    },
+    {
+      "detail": "mr-model/1 (static shock; pnl floor, funding ceil, requirements ceil per leg)",
+      "group": "scenario",
+      "name": "the scenario's model is one this verifier values exactly",
+      "ok": true
+    },
+    {
+      "detail": "{\"file\":\"0\",\"model\":\"0\"}",
+      "group": "scenario",
+      "name": "the scenario's numerical bound is the model's (derived here, not taken from the file)",
+      "ok": true
+    },
+    {
+      "detail": "{\"lastOpening\":\"35214080\",\"nextTransaction\":\"35214394\",\"reference\":\"35214112\",\"quote\":\"35214112\",\"reduction\":\"35214789\"}",
+      "group": "scenario",
+      "name": "the scenario's reference block is the run's analysis window (after both opening orders, before the next transaction), and the quote lies between it and the reduction",
+      "ok": true
+    },
+    {
+      "detail": "{\"reference\":\"35214112\",\"hash\":\"0x07824b5e5aeacb32ecebf3a2d8c8776e3c6f528a5263774a68b32e823d4501ab\",\"canonical\":\"0x07824b5e5aeacb32ecebf3a2d8c8776e3c6f528a5263774a68b32e823d4501ab\"}",
+      "group": "scenario",
+      "name": "the reference block is canonical",
+      "ok": true
+    },
+    {
+      "detail": "{\"quote\":\"35214112\",\"quantity\":\"62000\",\"cuts\":[\"31000\",\"62000\",\"93000\",\"124000\"],\"limit\":\"80820200000000000000000\",\"expectedLimit\":\"80820200000000000000000\",\"touch\":\"81226300000000000000000\"}",
+      "group": "rescue",
+      "name": "the reduction is a candidate cut of the run's analysis at its quote block: a 25/50/75/100% cut on the lot, on the reducing side, at the protective limit of that block's touch",
+      "ok": true
+    },
+    {
+      "detail": "{\"symbol\":\"BTC\",\"decimals\":8,\"fresh\":true,\"oneBase\":\"100000000\"}",
+      "group": "scenario",
+      "name": "BTC: the approved pool's base token is BTC, with a fresh mark and oneBase = 10^decimals at the reference block",
+      "ok": true
+    },
+    {
+      "detail": "{\"symbol\":\"ETH\",\"decimals\":18,\"fresh\":true,\"oneBase\":\"1000000000000000000\"}",
+      "group": "scenario",
+      "name": "ETH: the approved pool's base token is ETH, with a fresh mark and oneBase = 10^decimals at the reference block",
+      "ok": true
+    },
+    {
+      "detail": "{\"scenario\":[\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\"],\"approved\":[\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\"],\"held\":[\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\"]}",
+      "group": "scenario",
+      "name": "the scenario covers exactly the approved pools the account held at the reference block",
+      "ok": true
+    },
+    {
+      "detail": "{\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"oneBase\":\"100000000\",\"mark\":\"81030091365569384500000\",\"mmBps\":\"250\",\"shockBps\":-1000,\"price\":\"72927082229012446050000\"}",
+      "group": "scenario",
+      "name": "BTC: pool, units, mark, maintenance margin, shock and absolute price match the chain at the reference block and the plan",
+      "ok": true
+    },
+    {
+      "detail": "{\"pool\":\"0xD6Cb1DD58580B84D76068aC21594219ce03aeddf\",\"oneBase\":\"1000000000000000000\",\"mark\":\"2361671350973843500000\",\"mmBps\":\"250\",\"shockBps\":500,\"price\":\"2479754918522535675000\"}",
+      "group": "scenario",
+      "name": "ETH: pool, units, mark, maintenance margin, shock and absolute price match the chain at the reference block and the plan",
+      "ok": true
+    },
+    {
+      "detail": "{\"actionId\":\"0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb\",\"pool\":\"0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0\",\"orderId\":\"387381625547908914184\",\"sizeBefore\":\"124000\",\"sizeAfter\":\"62000\",\"quantity\":\"62000\",\"limitPrice\":\"80820200000000000000000\"}",
+      "group": "rescue",
+      "name": "the reduction succeeded through the guard under the confirmed action id",
+      "ok": true
+    },
+    {
+      "detail": "{\"deadline\":\"1793174757\",\"analysisBlockTime\":\"1793174577\",\"plannedSeconds\":180}",
+      "group": "rescue",
+      "name": "the deadline is the planned seconds after the analysis block",
+      "ok": true
+    },
+    {
+      "detail": "{\"nonce\":\"0x819d4b573fd503d76ec3f2ce317d602da69f4cc09a2b00280648ce4f5f335288\",\"expected\":\"0x819d4b573fd503d76ec3f2ce317d602da69f4cc09a2b00280648ce4f5f335288\",\"quote\":{\"blockHash\":\"0x07824b5e5aeacb32ecebf3a2d8c8776e3c6f528a5263774a68b32e823d4501ab\",\"blockNumber\":\"35214112\",\"validUntil\":\"1793174757\"}}",
+      "group": "rescue",
+      "name": "the reduction carries the rescue nonce of this plan, scenario and quote block (cleanup closes are derived in another domain)",
+      "ok": true
+    },
+    {
+      "detail": "only the scenario's markets",
+      "group": "rescue",
+      "name": "no market outside the scenario held around the reduction",
+      "ok": true
+    },
+    {
+      "detail": "GOAL_MET",
+      "group": "rescue",
+      "name": "the goal could be evaluated on a verified scenario",
+      "ok": true
+    },
+    {
+      "detail": "{\"recorded\":\"62000\",\"chain\":\"62000\"}",
+      "group": "rescue",
+      "name": "the run's recomputation has the same fills",
+      "ok": true
+    },
+    {
+      "detail": "{\"recorded\":\"46785772614391019469\",\"chain\":\"46785772614391019469\"}",
+      "group": "rescue",
+      "name": "the run's recomputation has the same scenario buffer",
+      "ok": true
+    },
+    {
+      "detail": "{\"recorded\":\"GOAL_MET\",\"chain\":\"GOAL_MET\"}",
+      "group": "rescue",
+      "name": "the run's recomputation reaches the same goal",
+      "ok": true
+    }
+  ],
+  "confirmations": {
+    "0x417d4382ded716c2610c22a447dc8759ff1c6cc6b1055ee9c7e9f79592764f43": "0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60",
+    "0x582cd390f27b783091a14f0c8ab8879c4db8480d8fb5262352dfd0dea2626d6d": "0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92",
+    "0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800": "0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb"
+  },
+  "endBlock": {
+    "hash": "0xe7d5a4323ccebda208190f1e299327b5b2f80b80ef37aacdd3167add6ca3efa7",
+    "number": "35218241",
+    "timestamp": "1793174990"
+  },
+  "endState": {
+    "allowance": {
+      "bank": "0",
+      "guard": "0"
+    },
+    "bank": {
+      "activePerpPools": [],
+      "lockedCollateral": "0",
+      "unlockedCollateralBalance": "0"
+    },
+    "globalGrant": false,
+    "grants": [
+      {
+        "operator": "0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "selector": "0x80054449",
+        "stillGranted": false
+      },
+      {
+        "operator": "0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "selector": "0x80054449",
+        "stillGranted": false
+      }
+    ],
+    "pools": 21,
+    "positions": [],
+    "resting": [],
+    "stops": {
+      "indexedThrough": "35218241",
+      "listed": 0,
+      "live": 0
+    }
+  },
+  "guard": {
+    "address": "0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f",
+    "approvedRuntimeKeccak": "0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b",
+    "deployBlock": "35213160",
+    "deployTx": "0x217790669ccdbe2f3cfb2e49e3d1a98430eed711dc028c34a7b41b2f0f18c01e",
+    "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+    "owner": "0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12",
+    "runtimeKeccak": "0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b",
+    "trustedPools": [
+      "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+    ]
+  },
+  "nonces": {
+    "after": 13,
+    "before": 0,
+    "mined": 13
+  },
+  "planDigest": "7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175",
+  "reconciliation": {
+    "stt": {
+      "after": "49826497094000000000",
+      "before": "50000000000000000000",
+      "cap": "2000000000000000000",
+      "receiptFees": "173502906000000000",
+      "spent": "173502906000000000"
+    },
+    "usdso": {
+      "after": "99967805000000000000",
+      "before": "100000000000000000000",
+      "deposited": "60000000000000000000",
+      "fees": "0",
+      "fillImpliedPnl": "-32195000000000000",
+      "funding": "0",
+      "realizedPnl": "-32195000000000000",
+      "result": "-32195000000000000",
+      "withdrawn": "59967805000000000000"
+    }
+  },
+  "rescue": {
+    "actionId": "0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb",
+    "after": {
+      "block": "35214789",
+      "buffer": "46785772614391019469",
+      "bufferLower": "46785772614391019469",
+      "eRisk": "50296707110722346631",
+      "legs": [
+        {
+          "avgEntryPrice": "81242483064516129032258",
+          "fundingOwed": "0",
+          "mm": "1130369774549692914",
+          "pnl": "-5155548518012283449",
+          "price": "72927082229012446050000",
+          "size": "62000",
+          "symbol": "BTC"
+        },
+        {
+          "avgEntryPrice": "2362320000000000000000",
+          "fundingOwed": "0",
+          "mm": "2380564721781634248",
+          "pnl": "-4509500871265369920",
+          "price": "2479754918522535675000",
+          "size": "-38400000000000000",
+          "symbol": "ETH"
+        }
+      ],
+      "locked": "0",
+      "mm": "3510934496331327162",
+      "problems": [],
+      "unlocked": "59961756500000000000"
+    },
+    "before": {
+      "block": "35214788",
+      "buffer": "40538097821829043106",
+      "bufferLower": "40538097821829043106",
+      "eRisk": "45179402092710063182",
+      "legs": [
+        {
+          "avgEntryPrice": "81242483064516129032258",
+          "fundingOwed": "0",
+          "mm": "2260739549099385828",
+          "pnl": "-10311097036024566898",
+          "price": "72927082229012446050000",
+          "size": "124000",
+          "symbol": "BTC"
+        },
+        {
+          "avgEntryPrice": "2362320000000000000000",
+          "fundingOwed": "0",
+          "mm": "2380564721781634248",
+          "pnl": "-4509500871265369920",
+          "price": "2479754918522535675000",
+          "size": "-38400000000000000",
+          "symbol": "ETH"
+        }
+      ],
+      "locked": "0",
+      "mm": "4641304270881020076",
+      "problems": [],
+      "unlocked": "60000000000000000000"
+    },
+    "block": "35214789",
+    "filled": "62000",
+    "fills": [
+      {
+        "isBid": false,
+        "limit": "80820200000000000000000",
+        "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+        "price": "81180800000000000000000",
+        "quantity": "62000"
+      }
+    ],
+    "goal": "GOAL_MET",
+    "note": null,
+    "recorded": {
+      "baselineBuffer": "40538097821829043106",
+      "buffer": "46785772614391019469",
+      "forecastBuffer": "46792654614391019469",
+      "goal": {
+        "reason": "scenario buffer 46785772614391019469 ≥ target 45000000000000000000",
+        "state": "GOAL_MET"
+      }
+    },
+    "request": {
+      "deadline": "1793174757",
+      "expectedSignedSize": "124000",
+      "isBid": false,
+      "limitPrice": "80820200000000000000000",
+      "nonce": "0x819d4b573fd503d76ec3f2ce317d602da69f4cc09a2b00280648ce4f5f335288",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "quantity": "62000"
+    },
+    "scenario": {
+      "id": "e6e9aecb23bafb65b9c49f0789508d71f6782ae878036ff9e60bea5c68b2097b",
+      "markets": [
+        {
+          "decimals": 8,
+          "mark": "81030091365569384500000",
+          "mmBps": "250",
+          "oneBase": "100000000",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "price": "72927082229012446050000",
+          "shockBps": -1000,
+          "symbol": "BTC"
+        },
+        {
+          "decimals": 18,
+          "mark": "2361671350973843500000",
+          "mmBps": "250",
+          "oneBase": "1000000000000000000",
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "price": "2479754918522535675000",
+          "shockBps": 500,
+          "symbol": "ETH"
+        }
+      ],
+      "perLegBound": "0",
+      "reference": {
+        "blockHash": "0x07824b5e5aeacb32ecebf3a2d8c8776e3c6f528a5263774a68b32e823d4501ab",
+        "blockNumber": "35214112",
+        "blockTimestamp": "1793174577"
+      },
+      "target": "45000000000000000000"
+    },
+    "tx": "0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800"
+  },
+  "rpc": "https://api.hideki2.infra.testnet.somnia.network",
+  "transactions": [
+    {
+      "bank": [],
+      "block": "35213160",
+      "blockHash": "0x8e7725aa736931ec62594f1204fd1225e1c491d4a418499a4f01e20eca89e378",
+      "call": "deploy ReduceOnlyGuard",
+      "effectiveGasPrice": "6000000000",
+      "fee": "92227500000000000",
+      "fills": [],
+      "gasUsed": "15371250",
+      "guardEvent": null,
+      "hash": "0x217790669ccdbe2f3cfb2e49e3d1a98430eed711dc028c34a7b41b2f0f18c01e",
+      "id": "deploy-guard",
+      "input": "0x60c06040526001600255348015610014575f5ffd5b506040516114d13803806114d18339810160408190526100339161026d565b61c4cf461461005c57604051635ea03eed60e11b81524660048201526024015b60405180910390fd5b6001600160a01b038316158061007957506001600160a01b038216155b156100975760405163d92e233d60e01b815260040160405180910390fd5b6001600160a01b03808416608052821660a0525f5b8151811015610235575f8282815181106100c8576100c861035a565b602002602001015190505f816001600160a01b031663ad8f1eab6040518163ffffffff1660e01b8152600401602060405180830381865afa15801561010f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610133919061036e565b9050846001600160a01b0316816001600160a01b03161461017a57604051634cddd29f60e01b81526001600160a01b03808416600483015282166024820152604401610053565b60405163e0f05edd60e01b81526001600160a01b03838116600483015286169063e0f05edd90602401602060405180830381865afa1580156101be573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906101e2919061038e565b61020a57604051633d1dbb9960e01b81526001600160a01b0383166004820152602401610053565b506001600160a01b03165f908152602081905260409020805460ff19166001908117909155016100ac565b505050506103ad565b80516001600160a01b0381168114610254575f5ffd5b919050565b634e487b7160e01b5f52604160045260245ffd5b5f5f5f6060848603121561027f575f5ffd5b6102888461023e565b92506102966020850161023e565b60408501519092506001600160401b038111156102b1575f5ffd5b8401601f810186136102c1575f5ffd5b80516001600160401b038111156102da576102da610259565b604051600582901b90603f8201601f191681016001600160401b038111828210171561030857610308610259565b604052918252602081840181019290810189841115610325575f5ffd5b6020850194505b8385101561034b5761033d8561023e565b81526020948501940161032c565b50809450505050509250925092565b634e487b7160e01b5f52603260045260245ffd5b5f6020828403121561037e575f5ffd5b6103878261023e565b9392505050565b5f6020828403121561039e575f5ffd5b81518015158114610387575f5ffd5b60805160a0516110c661040b5f395f818160af0152818161025a015281816104ee0152818161078f015261094601525f818160f30152818161027b015281816103ab0152818161051501528181610659015261096d01526110c65ff3fe608060405234801561000f575f5ffd5b50600436106100a6575f3560e01c80636f0e530f1161006e5780636f0e530f146101815780637ea82cd6146101a157806385e1f4d0146101c8578063871a532f146101d1578063b07c411f146101d9578063dd0c33d7146101fb575f5ffd5b8063083dae66146100aa578063117803e3146100ee578063174628d1146101155780632045ac21146101475780632bdea29014610160575b5f5ffd5b6100d17f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100d17f000000000000000000000000000000000000000000000000000000000000000081565b610137610123366004610d53565b5f6020819052908152604090205460ff1681565b60405190151581526020016100e5565b61014e5f81565b60405160ff90911681526020016100e5565b61017361016e366004610d75565b610234565b6040519081526020016100e5565b610189610321565b6040516001600160401b0390911681526020016100e5565b6101737f3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d624922781565b61017361c4cf81565b61014e600281565b6101376101e7366004610d8e565b60016020525f908152604090205460ff1681565b61020e610209366004610d75565b610339565b604080519384526001600160801b039092166020840152600f0b908201526060016100e5565b5f7f3c6d3d2ee88f5b7d075b465137a581151ff9081bd2396bb3c845f9d6d624922746307f00000000000000000000000000000000000000000000000000000000000000007f00000000000000000000000000000000000000000000000000000000000000006102a76020880188610d53565b6102b76040890160208a01610db3565b6102c760608a0160408b01610ddb565b60608a013560808b01356102e160c08d0160a08e01610e0a565b60028d60c001356040516020016103049d9c9b9a99989796959493929190610e25565b604051602081830303815290604052805190602001209050919050565b610336633b9aca006001600160401b03610ede565b81565b5f5f5f60025460011461035f5760405163558a1e0360e11b815260040160405180910390fd5b600280555f61036d8561064c565b5f8281526001602081815260408320805460ff19169092179091559296509092509061039b90870187610d53565b6001600160a01b031663800544497f00000000000000000000000000000000000000000000000000000000000000006103da60608a0160408b01610ddb565b8860808b013560608c01356103f560c08e0160a08f01610e0a565b61040390633b9aca00610f0b565b6040516001600160e01b031960e089901b1681526001600160a01b03909616600487015293151560248601526001600160401b039283166044860152606485019190915260848401521660a4820152600260c48201525f60e4820181905261010482018190526101248201526101440160408051808303815f875af115801561048e573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104b29190610f4f565b94509050806104e45760405163081d8e4360e41b81526001600160801b03851660048201526024015b60405180910390fd5b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b33dc1907f000000000000000000000000000000000000000000000000000000000000000061054160208a018a610d53565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604401608060405180830381865afa15801561058a573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906105ae9190610f82565b5192506105c082846060890135610c54565b6105cd6020870187610d53565b604080516001600160801b0387168152600f85810b602083015286900b81830152606089810135908201526080808a01359082015290516001600160a01b03929092169187917f3ed59d5deef1f64ee4ec7bc4027452be4a89737edbc395eab98a0a5b904fb955919081900360a00190a3505060016002559193909250565b5f80336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146106995760405163245aecd360e01b81523360048201526024016104db565b61c4cf46146106bd57604051635ea03eed60e11b81524660048201526024016104db565b5f806106cc6020860186610d53565b6001600160a01b0316815260208101919091526040015f205460ff1661071e576106f96020840184610d53565b604051633d1dbb9960e01b81526001600160a01b0390911660048201526024016104db565b5f61072c6020850185610d53565b6001600160a01b031663ad8f1eab6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610767573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061078b9190611007565b90507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316816001600160a01b031614610800576107d36020850185610d53565b604051634cddd29f60e01b81526001600160a01b03918216600482015290821660248201526044016104db565b61081060c0850160a08601610e0a565b6001600160401b031642111561085b5761083060c0850160a08601610e0a565b60405163794534db60e01b81526001600160401b0390911660048201524260248201526044016104db565b610870633b9aca006001600160401b03610ede565b6001600160401b031661088960c0860160a08701610e0a565b6001600160401b031611156108cd576108a860c0850160a08601610e0a565b60405163bc4bfd3b60e01b81526001600160401b0390911660048201526024016104db565b6108d684610234565b5f8181526001602052604090205490935060ff161561090a5760405162c73f5960e71b8152600481018490526024016104db565b61091a6040850160208601610db3565b600f0b5f0361093c57604051632afc3c0d60e21b815260040160405180910390fd5b6001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b33dc1907f00000000000000000000000000000000000000000000000000000000000000006109996020880188610d53565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604401608060405180830381865afa1580156109e2573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610a069190610f82565b519150610a196040850160208601610db3565b600f0b82600f0b14610a5d57610a356040850160208601610db3565b604051632eb3a3ed60e01b8152600f91820b60048201529083900b60248201526044016104db565b5f600f83900b12610a746060860160408701610ddb565b151514610a9457604051634a6923df60e11b815260040160405180910390fd5b5f610a9e83610d15565b905084606001355f03610ac45760405163f4f5b73360e01b815260040160405180910390fd5b8085606001351115610af65760405163b81571ed60e01b815260608601356004820152602481018290526044016104db565b5f610b046020870187610d53565b6001600160a01b0316630765910c6040518163ffffffff1660e01b8152600401606060405180830381865afa158015610b3f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610b639190611022565b905080604001515f1480610b8857506040810151610b85906060880135611086565b15155b15610bb95760408082015190516384e27e9b60e01b81526060880135600482015260248101919091526044016104db565b806020015186606001351015610bf557602081015160405163eaa68ceb60e01b81526060880135600482015260248101919091526044016104db565b60808601351580610c0557508051155b80610c1e57508051610c1b906080880135611086565b15155b15610c4c578051604051632896ab8b60e01b81526080880135600482015260248101919091526044016104db565b505050915091565b5f5f84600f0b13610c7d575f83600f0b13158015610c78575083600f0b83600f0b12155b610c96565b5f83600f0b12158015610c96575083600f0b83600f0b13155b905080610cc4576040516313454b5f60e31b8152600f85810b600483015284900b60248201526044016104db565b5f610cce84610d15565b610cd786610d15565b610ce19190611099565b905082811115610d0e576040516304dbfeab60e01b815260048101829052602481018490526044016104db565b5050505050565b5f5f82600f0b12610d295781600f0b610d36565b81600f0b610d36906110ac565b92915050565b6001600160a01b0381168114610d50575f5ffd5b50565b5f60208284031215610d63575f5ffd5b8135610d6e81610d3c565b9392505050565b5f60e0828403128015610d86575f5ffd5b509092915050565b5f60208284031215610d9e575f5ffd5b5035919050565b80600f0b8114610d50575f5ffd5b5f60208284031215610dc3575f5ffd5b8135610d6e81610da5565b8015158114610d50575f5ffd5b5f60208284031215610deb575f5ffd5b8135610d6e81610dce565b6001600160401b0381168114610d50575f5ffd5b5f60208284031215610e1a575f5ffd5b8135610d6e81610df6565b8d8152602081018d90526001600160a01b038c811660408301528b811660608301528a81166080830152891660a08201526101a08101610e6a60c083018a600f0b9052565b87151560e08301528661010083015285610120830152610e966101408301866001600160401b03169052565b60ff9390931661016082015261018001529b9a5050505050505050505050565b634e487b7160e01b5f52601260045260245ffd5b634e487b7160e01b5f52601160045260245ffd5b5f6001600160401b03831680610ef657610ef6610eb6565b806001600160401b0384160491505092915050565b6001600160401b038181168382160290811690818114610f2d57610f2d610eca565b5092915050565b80516001600160801b0381168114610f4a575f5ffd5b919050565b5f5f60408385031215610f60575f5ffd5b8251610f6b81610dce565b9150610f7960208401610f34565b90509250929050565b5f6080828403128015610f93575f5ffd5b50604051608081016001600160401b0381118282101715610fc257634e487b7160e01b5f52604160045260245ffd5b6040528251610fd081610da5565b8152610fde60208401610f34565b6020820152604083015160408201526060830151610ffb81610df6565b60608201529392505050565b5f60208284031215611017575f5ffd5b8151610d6e81610d3c565b5f6060828403128015611033575f5ffd5b50604051606081016001600160401b038111828210171561106257634e487b7160e01b5f52604160045260245ffd5b60409081528351825260208085015190830152928301519281019290925250919050565b5f8261109457611094610eb6565b500690565b81810381811115610d3657610d36610eca565b5f600160ff1b82016110c0576110c0610eca565b505f03905600000000000000000000000066c626c59eddf06a7dca0401cf20fa2ce7033a12000000000000000000000000478769e1177c0773c43a593dccc4ad15f15f1394000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000020000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf",
+      "ledgerState": "CONFIRMED",
+      "n": 1,
+      "nonce": 0,
+      "phase": "main",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": null
+    },
+    {
+      "bank": [],
+      "block": "35213431",
+      "blockHash": "0x0e346d8afc91fff17ed74eabba1601d944ea4db502b942b0e35f27fed3f06dea",
+      "call": "USDso.approve(0x478769E1177C0773c43A593DCCc4Ad15F15F1394, 60000000000000000000)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "1563606000000000",
+      "fills": [],
+      "gasUsed": "260601",
+      "guardEvent": null,
+      "hash": "0x2bdbecd06c72a9c5359416116a9a58081319e00b11c386ddf11dbe28c35b4c8b",
+      "id": "approve",
+      "input": "0x095ea7b3000000000000000000000000478769e1177c0773c43a593dccc4ad15f15f139400000000000000000000000000000000000000000000000340aad21b3b700000",
+      "ledgerState": "CONFIRMED",
+      "n": 2,
+      "nonce": 1,
+      "phase": "main",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": "0xed7993a74dae1e6656b704a424dcd8711aaf4f72"
+    },
+    {
+      "bank": [
+        {
+          "amount": "60000000000000000000",
+          "name": "Deposited",
+          "pool": null
+        }
+      ],
+      "block": "35213634",
+      "blockHash": "0x69cdc885eaf1e84381a973be969a7930bf3a14ff462f7e94878f45d3b867dff7",
+      "call": "MarginBank.deposit(60000000000000000000)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "3127782000000000",
+      "fills": [],
+      "gasUsed": "521297",
+      "guardEvent": null,
+      "hash": "0xb036b655197957f339ab38373b2933214aebe15287e264c919c4c42c941f44f3",
+      "id": "deposit",
+      "input": "0xb6b55f2500000000000000000000000000000000000000000000000340aad21b3b700000",
+      "ledgerState": "CONFIRMED",
+      "n": 3,
+      "nonce": 2,
+      "phase": "main",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": "0x478769e1177c0773c43a593dccc4ad15f15f1394"
+    },
+    {
+      "bank": [
+        {
+          "amount": "5814752919621225960",
+          "name": "CollateralLocked",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+        },
+        {
+          "amount": "890970205425833010",
+          "name": "CollateralUnlocked",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+        },
+        {
+          "name": "PositionUpdated",
+          "newSize": "19000",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "realizedPnl": "0"
+        },
+        {
+          "amount": "4923782714195392950",
+          "name": "CollateralUnlocked",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+        },
+        {
+          "name": "PositionUpdated",
+          "newSize": "124000",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "realizedPnl": "0"
+        }
+      ],
+      "block": "35214008",
+      "blockHash": "0x172f4f5ee35a5d8e469c49980065be542ed23a9e406c19116f67fdea63a2dd3e",
+      "call": "placeOrder(isBid=true, limit=81645100000000000000000, quantity=124000, orderType=2)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "20350572000000000",
+      "fills": [
+        {
+          "isBid": true,
+          "limit": "81645100000000000000000",
+          "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+          "price": "81234100000000000000000",
+          "quantity": "19000"
+        },
+        {
+          "isBid": true,
+          "limit": "81645100000000000000000",
+          "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+          "price": "81244000000000000000000",
+          "quantity": "105000"
+        }
+      ],
+      "gasUsed": "3391762",
+      "guardEvent": null,
+      "hash": "0x573b4ba25ae67a6b5f0da33d4fb29c7c8359c508f151698c28f84ddf33a5f6ec",
+      "id": "open-BTC-long",
+      "input": "0x4e97837300000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001149fd5f93b88d1e0000000000000000000000000000000000000000000000000000000000000001e46000000000000000000000000000000000000000000000000018e2a2d130f362000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "ledgerState": "CONFIRMED",
+      "n": 4,
+      "nonce": 3,
+      "phase": "main",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [
+        {
+          "isBid": true,
+          "orderId": "9297159013149622344439",
+          "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+          "userData": "0"
+        }
+      ],
+      "to": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0"
+    },
+    {
+      "bank": [
+        {
+          "amount": "4959903794106220800",
+          "name": "CollateralLocked",
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+        },
+        {
+          "amount": "4959903794106220800",
+          "name": "CollateralUnlocked",
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+        },
+        {
+          "name": "PositionUpdated",
+          "newSize": "-38400000000000000",
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "realizedPnl": "0"
+        }
+      ],
+      "block": "35214080",
+      "blockHash": "0xf669795a82baad02edcdbbdfb4c9f9a1df550013ca6f397e5fad8ebe5db6dade",
+      "call": "placeOrder(isBid=false, limit=2350360000000000000000, quantity=38400000000000000, orderType=2)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "16545066000000000",
+      "fills": [
+        {
+          "isBid": false,
+          "limit": "2350360000000000000000",
+          "pool": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
+          "price": "2362320000000000000000",
+          "quantity": "38400000000000000"
+        }
+      ],
+      "gasUsed": "2757511",
+      "guardEvent": null,
+      "hash": "0xdfed8630aca72acb751dc99b864bb1cb807030b6ca505e335d0a28e218308813",
+      "id": "open-ETH-short",
+      "input": "0x4e9783730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007f69cc1f424f1c000000000000000000000000000000000000000000000000000000886c98b760000000000000000000000000000000000000000000000000000018e2a2d349647c000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "ledgerState": "CONFIRMED",
+      "n": 5,
+      "nonce": 4,
+      "phase": "main",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [
+        {
+          "isBid": false,
+          "orderId": "3486434629931115672879",
+          "pool": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
+          "userData": "0"
+        }
+      ],
+      "to": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf"
+    },
+    {
+      "bank": [],
+      "block": "35214394",
+      "blockHash": "0xc45327bd8c5dc30cdfd0433de311f015117c011407ee23138295a23ea8ef6f76",
+      "call": "setOperatorApprovalForPool(0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F, [0x80054449], true)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "1820526000000000",
+      "fills": [],
+      "gasUsed": "303421",
+      "guardEvent": null,
+      "hash": "0xa5c643c5501990951b91fd0dfb606ad048615a6a7a50a91f4265f857bcf7a6bb",
+      "id": "grant-BTC",
+      "input": "0x7bbc67e60000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c00000000000000000000000008ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "ledgerState": "CONFIRMED",
+      "n": 6,
+      "nonce": 5,
+      "phase": "main",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": "0x6b2fbfed328ff5f20c0be7d3c3437613affe8d3a"
+    },
+    {
+      "bank": [
+        {
+          "name": "PositionUpdated",
+          "newSize": "62000",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "realizedPnl": "-38243500000000000"
+        }
+      ],
+      "block": "35214789",
+      "blockHash": "0x37007e90ee733f624396856233dd6419e87377c15aeea4083292f7f1b6e4e4c9",
+      "call": "guard.reduce(pool=0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, expected=124000, isBid=false, quantity=62000, limit=80820200000000000000000, deadline=1793174757)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "11484582000000000",
+      "fills": [
+        {
+          "isBid": false,
+          "limit": "80820200000000000000000",
+          "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+          "price": "81180800000000000000000",
+          "quantity": "62000"
+        }
+      ],
+      "gasUsed": "1914097",
+      "guardEvent": {
+        "actionId": "0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb",
+        "limitPrice": "80820200000000000000000",
+        "orderId": "387381625547908914184",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "62000",
+        "sizeAfter": "62000",
+        "sizeBefore": "124000"
+      },
+      "hash": "0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800",
+      "id": "reduce",
+      "input": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000001e4600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f23000000000000000000000000000000000000000000000111d4596103a79640000000000000000000000000000000000000000000000000000000000006ae1ace5819d4b573fd503d76ec3f2ce317d602da69f4cc09a2b00280648ce4f5f335288",
+      "ledgerState": "CONFIRMED",
+      "n": 7,
+      "nonce": 6,
+      "phase": "main",
+      "problems": [],
+      "request": {
+        "deadline": "1793174757",
+        "expectedSignedSize": "124000",
+        "isBid": false,
+        "limitPrice": "80820200000000000000000",
+        "nonce": "0x819d4b573fd503d76ec3f2ce317d602da69f4cc09a2b00280648ce4f5f335288",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "62000"
+      },
+      "status": "success",
+      "takerOrders": [
+        {
+          "isBid": false,
+          "orderId": "387381625547908914184",
+          "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+          "userData": "12077744062061313995"
+        }
+      ],
+      "to": "0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f"
+    },
+    {
+      "bank": [
+        {
+          "name": "PositionUpdated",
+          "newSize": "0",
+          "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+          "realizedPnl": "17184500000000000"
+        }
+      ],
+      "block": "35215789",
+      "blockHash": "0x1eb75048ed1d30cca0b40075e633f9a42d1f1554c7afd859473d50093b1afe67",
+      "call": "guard.reduce(pool=0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, expected=62000, isBid=false, quantity=62000, limit=80848100000000000000000, deadline=1793174834)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "11630616000000000",
+      "fills": [
+        {
+          "isBid": false,
+          "limit": "80848100000000000000000",
+          "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+          "price": "81270200000000000000000",
+          "quantity": "62000"
+        }
+      ],
+      "gasUsed": "1938436",
+      "guardEvent": {
+        "actionId": "0x4f44a0b16e58c74c768e5051d5828e6a33c0d3f3abab8a992753e99c6550ab60",
+        "limitPrice": "80848100000000000000000",
+        "orderId": "8079673904284791938348",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "62000",
+        "sizeAfter": "0",
+        "sizeBefore": "62000"
+      },
+      "hash": "0x417d4382ded716c2610c22a447dc8759ff1c6cc6b1055ee9c7e9f79592764f43",
+      "id": "cleanup-close-BTC-1",
+      "input": "0xdd0c33d70000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c0000000000000000000000000000000000000000000000000000000000000f2300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f23000000000000000000000000000000000000000000000111ec8c6c6686aca0000000000000000000000000000000000000000000000000000000000006ae1ad321ccdc9e8d1abc67b120b82dd58316c7e04b7d4af713e23f9eaf341552781d70a",
+      "ledgerState": "CONFIRMED",
+      "n": 8,
+      "nonce": 7,
+      "phase": "cleanup",
+      "problems": [],
+      "request": {
+        "deadline": "1793174834",
+        "expectedSignedSize": "62000",
+        "isBid": false,
+        "limitPrice": "80848100000000000000000",
+        "nonce": "0x1ccdc9e8d1abc67b120b82dd58316c7e04b7d4af713e23f9eaf341552781d70a",
+        "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "quantity": "62000"
+      },
+      "status": "success",
+      "takerOrders": [
+        {
+          "isBid": false,
+          "orderId": "8079673904284791938348",
+          "pool": "0x4181dd08e73bbcdd1ba3e615a18f6abd941b94c0",
+          "userData": "2833865448470129504"
+        }
+      ],
+      "to": "0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f"
+    },
+    {
+      "bank": [],
+      "block": "35216273",
+      "blockHash": "0x17b4fe85c1003a29a24dc242d22ce93022555ec383f2e2fa64986c9a5c6fd6ff",
+      "call": "setOperatorApprovalForPool(0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F, [0x80054449], true)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "1820526000000000",
+      "fills": [],
+      "gasUsed": "303421",
+      "guardEvent": null,
+      "hash": "0xaddc5fa5a73f2d86637ded21c4cf3e7fc1aa1010337067b083d93996c349f5a1",
+      "id": "cleanup-grant-ETH",
+      "input": "0x7bbc67e6000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf0000000000000000000000008ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "ledgerState": "CONFIRMED",
+      "n": 9,
+      "nonce": 8,
+      "phase": "cleanup",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": "0x6b2fbfed328ff5f20c0be7d3c3437613affe8d3a"
+    },
+    {
+      "bank": [
+        {
+          "name": "PositionUpdated",
+          "newSize": "0",
+          "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+          "realizedPnl": "-11136000000000000"
+        }
+      ],
+      "block": "35216323",
+      "blockHash": "0xf4d51e259886d42ed35a712ec7c0f44052e0dd48331b5e012c7bc9b58e024193",
+      "call": "guard.reduce(pool=0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, expected=-38400000000000000, isBid=true, quantity=38400000000000000, limit=2374740000000000000000, deadline=1793174892)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "11146356000000000",
+      "fills": [
+        {
+          "isBid": true,
+          "limit": "2374740000000000000000",
+          "pool": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
+          "price": "2362610000000000000000",
+          "quantity": "38400000000000000"
+        }
+      ],
+      "gasUsed": "1857726",
+      "guardEvent": {
+        "actionId": "0x18776b1d43ced6dc94aaf05d79e13ba0eebedee19a782a10338682439ffdff92",
+        "limitPrice": "2374740000000000000000",
+        "orderId": "5294215549154651733037",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "quantity": "38400000000000000",
+        "sizeAfter": "0",
+        "sizeBefore": "-38400000000000000"
+      },
+      "hash": "0x582cd390f27b783091a14f0c8ab8879c4db8480d8fb5262352dfd0dea2626d6d",
+      "id": "cleanup-close-ETH-1",
+      "input": "0xdd0c33d7000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddfffffffffffffffffffffffffffffffffffffffffffffffffff77936748a00000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000886c98b7600000000000000000000000000000000000000000000000000080bc23481697220000000000000000000000000000000000000000000000000000000000006ae1ad6c65fc490c7d76159c962f4880388353c069a5d09c25ea0f6abaccdfa3f5f7848c",
+      "ledgerState": "CONFIRMED",
+      "n": 10,
+      "nonce": 9,
+      "phase": "cleanup",
+      "problems": [],
+      "request": {
+        "deadline": "1793174892",
+        "expectedSignedSize": "-38400000000000000",
+        "isBid": true,
+        "limitPrice": "2374740000000000000000",
+        "nonce": "0x65fc490c7d76159c962f4880388353c069a5d09c25ea0f6abaccdfa3f5f7848c",
+        "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+        "quantity": "38400000000000000"
+      },
+      "status": "success",
+      "takerOrders": [
+        {
+          "isBid": true,
+          "orderId": "5294215549154651733037",
+          "pool": "0xd6cb1dd58580b84d76068ac21594219ce03aeddf",
+          "userData": "3712798169772195730"
+        }
+      ],
+      "to": "0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f"
+    },
+    {
+      "bank": [],
+      "block": "35216787",
+      "blockHash": "0x35f524b5a0c71e8dfa75c9c6e75a5423b77565d7310a04f85b39b482cd75f00f",
+      "call": "setOperatorApprovalForPool(0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0, 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F, [0x80054449], false)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "620544000000000",
+      "fills": [],
+      "gasUsed": "103424",
+      "guardEvent": null,
+      "hash": "0xb2fa781249f8ef62bdf60fa7e8ddf937ca3a023579c7ac36398915d7053ba0c0",
+      "id": "cleanup-revoke-BTC",
+      "input": "0x7bbc67e60000000000000000000000004181dd08e73bbcdd1ba3e615a18f6abd941b94c00000000000000000000000008ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "ledgerState": "CONFIRMED",
+      "n": 11,
+      "nonce": 10,
+      "phase": "cleanup",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": "0x6b2fbfed328ff5f20c0be7d3c3437613affe8d3a"
+    },
+    {
+      "bank": [],
+      "block": "35216840",
+      "blockHash": "0x87ab794cdc1ac2a6815c4b4395e45477e25a45ca75ecc613ec8efbe796c0f37f",
+      "call": "setOperatorApprovalForPool(0xD6Cb1DD58580B84D76068aC21594219ce03aeddf, 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F, [0x80054449], false)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "620544000000000",
+      "fills": [],
+      "gasUsed": "103424",
+      "guardEvent": null,
+      "hash": "0x00e662c3dda41f32cf429ec729a5c8a0e18110aa0fe39106d1f7c13c3147e376",
+      "id": "cleanup-revoke-ETH",
+      "input": "0x7bbc67e6000000000000000000000000d6cb1dd58580b84d76068ac21594219ce03aeddf0000000000000000000000008ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f0000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018005444900000000000000000000000000000000000000000000000000000000",
+      "ledgerState": "CONFIRMED",
+      "n": 12,
+      "nonce": 11,
+      "phase": "cleanup",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": "0x6b2fbfed328ff5f20c0be7d3c3437613affe8d3a"
+    },
+    {
+      "bank": [
+        {
+          "amount": "59967805000000000000",
+          "name": "Withdrawn",
+          "pool": null
+        }
+      ],
+      "block": "35217219",
+      "blockHash": "0x78c900470cd795f35234d14fb408a30a38a1feba019e144422b52052958f1cf4",
+      "call": "MarginBank.withdraw(59967805000000000000)",
+      "effectiveGasPrice": "6000000000",
+      "fee": "544686000000000",
+      "fills": [],
+      "gasUsed": "90781",
+      "guardEvent": null,
+      "hash": "0xed977169d710ccd9df3716e762cee51367754f22e07b2294a181201be99aa528",
+      "id": "cleanup-withdraw",
+      "input": "0x2e1a7d4d000000000000000000000000000000000000000000000003403870eca8e4d000",
+      "ledgerState": "CONFIRMED",
+      "n": 13,
+      "nonce": 12,
+      "phase": "cleanup",
+      "problems": [],
+      "request": null,
+      "status": "success",
+      "takerOrders": [],
+      "to": "0x478769e1177c0773c43a593dccc4ad15f15f1394"
+    }
+  ],
+  "verdict": {
+    "allChecksHold": true,
+    "cleanupVerified": true,
+    "goal": "GOAL_MET",
+    "reconciled": true,
+    "reductionFilled": true,
+    "rescueVerified": true,
+    "scenarioVerified": true,
+    "transactionsVerified": true
+  },
+  "verifiedAt": "2026-10-28T08:11:02.882Z",
+  "version": "mr-live-verify/2",
+  "window": {
+    "before": "35213159",
+    "firstBlock": "35213160",
+    "lastBlock": "35217219"
+  }
+}

@@ -1,0 +1,136 @@
+Margin Rescue: independent verification of a live run (read-only)
+  account        0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12
+  plan SHA-256   7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175
+  end block      35218241 0xe7d5a4323ccebda208190f1e299327b5b2f80b80ef37aacdd3167add6ca3efa7
+  run            blocks 35213160–35217219 (state before: block 35213159)
+  read from      https://api.hideki2.infra.testnet.somnia.network
+  guard          0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f, runtime 0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b
+
+  n   step                         block       status   fee STT     transaction
+  1   deploy-guard                 35213160    success  0.092227    0x217790669ccdbe2f3cfb2e49e3d1a98430eed711dc028c34a7b41b2f0f18c01e
+  2   approve                      35213431    success  0.001563    0x2bdbecd06c72a9c5359416116a9a58081319e00b11c386ddf11dbe28c35b4c8b
+  3   deposit                      35213634    success  0.003127    0xb036b655197957f339ab38373b2933214aebe15287e264c919c4c42c941f44f3
+  4   open-BTC-long                35214008    success  0.020350    0x573b4ba25ae67a6b5f0da33d4fb29c7c8359c508f151698c28f84ddf33a5f6ec
+  5   open-ETH-short               35214080    success  0.016545    0xdfed8630aca72acb751dc99b864bb1cb807030b6ca505e335d0a28e218308813
+  6   grant-BTC                    35214394    success  0.001820    0xa5c643c5501990951b91fd0dfb606ad048615a6a7a50a91f4265f857bcf7a6bb
+  7   reduce                       35214789    success  0.011484    0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800
+  8   cleanup-close-BTC-1          35215789    success  0.011630    0x417d4382ded716c2610c22a447dc8759ff1c6cc6b1055ee9c7e9f79592764f43
+  9   cleanup-grant-ETH            35216273    success  0.001820    0xaddc5fa5a73f2d86637ded21c4cf3e7fc1aa1010337067b083d93996c349f5a1
+  10  cleanup-close-ETH-1          35216323    success  0.011146    0x582cd390f27b783091a14f0c8ab8879c4db8480d8fb5262352dfd0dea2626d6d
+  11  cleanup-revoke-BTC           35216787    success  0.000620    0xb2fa781249f8ef62bdf60fa7e8ddf937ca3a023579c7ac36398915d7053ba0c0
+  12  cleanup-revoke-ETH           35216840    success  0.000620    0x00e662c3dda41f32cf429ec729a5c8a0e18110aa0fe39106d1f7c13c3147e376
+  13  cleanup-withdraw             35217219    success  0.000544    0xed977169d710ccd9df3716e762cee51367754f22e07b2294a181201be99aa528
+
+  fills of the account's own IOC orders
+    open-BTC-long              buy               19000 @ 81234.10 (limit 81645.10)
+    open-BTC-long              buy              105000 @ 81244.00 (limit 81645.10)
+    open-ETH-short             sell  38400000000000000 @ 2362.32 (limit 2350.36)
+    reduce                     sell              62000 @ 81180.80 (limit 80820.20)
+    cleanup-close-BTC-1        sell              62000 @ 81270.20 (limit 80848.10)
+    cleanup-close-ETH-1        buy   38400000000000000 @ 2362.61 (limit 2374.74)
+
+  rescue         0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800 (block 35214789): filled 62000 of 62000
+    BTC: mark 81030.09 at block 35214112, shock -1000 bps → fixed price 72927.08
+    ETH: mark 2361.67 at block 35214112, shock 500 bps → fixed price 2479.75
+    buffer at the fixed prices: 40.5380 at block 35214788 → 46.7857 at block 35214789; target 45.0000
+    goal GOAL_MET
+
+  STT            50.000000 → 49.826497: spent 0.173502; receipt fees 0.173502; cap 2.00
+  USDso          100.0000 → 99.9678: deposited 60.0000, withdrawn 59.9678, result −0.0321
+                 result = realized −0.0321 − funding 0.0000 − fees 0.0000; the fills alone imply −0.0321
+
+  ok   [run] chain 50383
+  ok   [run] the plan file is the one the run was started under
+  ok   [run] the plan is the one approved before the run
+  ok   [run] chain, account and approved pools as the plan states
+  ok   [transactions] every recorded transaction read back from a canonical receipt
+  ok   [transactions] no more transactions than the plan allows
+  ok   [transactions] at most one guarded reduction in the main phase
+  ok   [transactions] at most 3 guarded closes per leg
+  ok   [transactions] every cleanup order went through the guard
+  ok   [transactions] open-BTC-long: filled no more than the planned quantity
+  ok   [transactions] open-ETH-short: filled no more than the planned quantity
+  ok   [confirmations] the deployed guard's action-id domain is the one recomputed here
+  ok   [confirmations] reduce: a journalled confirmation exists
+  ok   [confirmations] reduce: the saved request is the calldata the chain executed, field by field
+  ok   [confirmations] reduce: the saved calldata is the transaction's
+  ok   [confirmations] reduce: the saved domain is this chain, guard, bank and owner
+  ok   [confirmations] reduce: the action id recomputed from the saved request is the saved one
+  ok   [confirmations] reduce: the guard's own actionIdOf(executed request) is the saved action id
+  ok   [confirmations] reduce: the ledger names the same action
+  ok   [confirmations] reduce: the journal records this transaction
+  ok   [confirmations] reduce: the guard's event is this action and request
+  ok   [confirmations] reduce: the venue order is the owner's, on the requested side, tagged with the action id
+  ok   [confirmations] reduce: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum
+  ok   [confirmations] reduce: the guard marked the action used in this block, not before
+  ok   [confirmations] cleanup-close-BTC-1: a journalled confirmation exists
+  ok   [confirmations] cleanup-close-BTC-1: the saved request is the calldata the chain executed, field by field
+  ok   [confirmations] cleanup-close-BTC-1: the saved calldata is the transaction's
+  ok   [confirmations] cleanup-close-BTC-1: the saved domain is this chain, guard, bank and owner
+  ok   [confirmations] cleanup-close-BTC-1: the action id recomputed from the saved request is the saved one
+  ok   [confirmations] cleanup-close-BTC-1: the guard's own actionIdOf(executed request) is the saved action id
+  ok   [confirmations] cleanup-close-BTC-1: the ledger names the same action
+  ok   [confirmations] cleanup-close-BTC-1: the journal records this transaction
+  ok   [confirmations] cleanup-close-BTC-1: the guard's event is this action and request
+  ok   [confirmations] cleanup-close-BTC-1: the venue order is the owner's, on the requested side, tagged with the action id
+  ok   [confirmations] cleanup-close-BTC-1: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum
+  ok   [confirmations] cleanup-close-BTC-1: the guard marked the action used in this block, not before
+  ok   [confirmations] cleanup-close-ETH-1: a journalled confirmation exists
+  ok   [confirmations] cleanup-close-ETH-1: the saved request is the calldata the chain executed, field by field
+  ok   [confirmations] cleanup-close-ETH-1: the saved calldata is the transaction's
+  ok   [confirmations] cleanup-close-ETH-1: the saved domain is this chain, guard, bank and owner
+  ok   [confirmations] cleanup-close-ETH-1: the action id recomputed from the saved request is the saved one
+  ok   [confirmations] cleanup-close-ETH-1: the guard's own actionIdOf(executed request) is the saved action id
+  ok   [confirmations] cleanup-close-ETH-1: the ledger names the same action
+  ok   [confirmations] cleanup-close-ETH-1: the journal records this transaction
+  ok   [confirmations] cleanup-close-ETH-1: the guard's event is this action and request
+  ok   [confirmations] cleanup-close-ETH-1: the venue order is the owner's, on the requested side, tagged with the action id
+  ok   [confirmations] cleanup-close-ETH-1: the fills are that order's, on its side, inside its limit, and move the position by exactly their sum
+  ok   [confirmations] cleanup-close-ETH-1: the guard marked the action used in this block, not before
+  ok   [transactions] no other transaction from the account
+  ok   [guard] deployed by this run from the approved build
+  ok   [guard] code on chain is the approved runtime
+  ok   [guard] OWNER, MARGIN_BANK and trusted pools as approved
+  ok   [cleanup] end block still canonical after the reads
+  ok   [cleanup] no position in any factory pool
+  ok   [cleanup] no resting order in any factory pool
+  ok   [cleanup] no live TP/SL stop
+  ok   [cleanup] MarginBank account empty
+  ok   [cleanup] USDso allowance to the bank and to the guard is zero
+  ok   [cleanup] every grant the run made is revoked
+  ok   [cleanup] the guard holds no grant on any pool, nor a global one
+  ok   [cleanup] no bank row or USDso transfer for the account outside the run
+  ok   [reconciliation] STT spent = Σ receipt fees
+  ok   [reconciliation] STT spent within the plan's 2 STT cap
+  ok   [reconciliation] bank account empty before the run
+  ok   [reconciliation] deposit exactly as planned
+  ok   [reconciliation] wallet USDso change = deposited − withdrawn
+  ok   [reconciliation] withdrawn − deposited = Σ realized − Σ funding − Σ fees
+  ok   [reconciliation] every leg opened was closed (fills net to zero)
+  ok   [reconciliation] bank realized PnL agrees with the fills (≤ 10 raw units per fill)
+  ok   [rescue] the rescue's confirmation is in the journal
+  ok   [rescue] the rescue is the run's first guarded reduction, journalled as the rescue and sent as the main-phase reduction
+  ok   [scenario] the scenario file's id is the hash of its body
+  ok   [scenario] the confirmation was made under this scenario
+  ok   [scenario] the scenario is for this chain and account
+  ok   [scenario] the scenario's target is the plan's
+  ok   [scenario] the scenario's model is one this verifier values exactly
+  ok   [scenario] the scenario's numerical bound is the model's (derived here, not taken from the file)
+  ok   [scenario] the scenario's reference block is the run's analysis window (after both opening orders, before the next transaction), and the quote lies between it and the reduction
+  ok   [scenario] the reference block is canonical
+  ok   [rescue] the reduction is a candidate cut of the run's analysis at its quote block: a 25/50/75/100% cut on the lot, on the reducing side, at the protective limit of that block's touch
+  ok   [scenario] BTC: the approved pool's base token is BTC, with a fresh mark and oneBase = 10^decimals at the reference block
+  ok   [scenario] ETH: the approved pool's base token is ETH, with a fresh mark and oneBase = 10^decimals at the reference block
+  ok   [scenario] the scenario covers exactly the approved pools the account held at the reference block
+  ok   [scenario] BTC: pool, units, mark, maintenance margin, shock and absolute price match the chain at the reference block and the plan
+  ok   [scenario] ETH: pool, units, mark, maintenance margin, shock and absolute price match the chain at the reference block and the plan
+  ok   [rescue] the reduction succeeded through the guard under the confirmed action id
+  ok   [rescue] the deadline is the planned seconds after the analysis block
+  ok   [rescue] the reduction carries the rescue nonce of this plan, scenario and quote block (cleanup closes are derived in another domain)
+  ok   [rescue] no market outside the scenario held around the reduction
+  ok   [rescue] the goal could be evaluated on a verified scenario
+  ok   [rescue] the run's recomputation has the same fills
+  ok   [rescue] the run's recomputation has the same scenario buffer
+  ok   [rescue] the run's recomputation reaches the same goal
+
+VERDICT: ALL CHECKS HOLD. Transactions verified; scenario verified; reduction filled; goal GOAL_MET; cleanup verified; gas and collateral reconciled.

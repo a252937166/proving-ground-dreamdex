@@ -475,7 +475,7 @@ async function startLiveStatus() {
     return
   }
   const s = liveStatus(p.liveWrite?.run)
-  if (!s.started) return // the page's own text already says it has not run
+  if (!s.started) return // no run in the evidence: the page's own text stands
   const exit = p.liveWrite.run.execution?.exitCode
   if (card) {
     card.classList.toggle("pending", !s.verified)

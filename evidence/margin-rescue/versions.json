@@ -11,7 +11,7 @@
     "head": "9fd1c0e5bec5375710e53a380ffb17cebc03a777",
     "repo": "proving-ground",
     "uncommittedFiles": 0,
-    "note": "the evidence was produced from this commit's code (contracts, src, tools, test, web/assets); the evidence, its documentation and the site's stated counts are committed after it"
+    "note": "the evidence was produced from this commit's code (contracts, src, tools, test, web/assets); the evidence, its documentation and the site's stated counts are committed after it; live-write/run-1 (live run 1, 2026-10-28) ran on the same code: the working tree at 83dc3f9, whose contracts, src and tools are this commit's"
   },
   "guard": {
     "creationCodeKeccak": "0xfe518fcf8ca555a5b30a7fa051c5d9c31625bcdd4c0424447b12a41432cf1703",

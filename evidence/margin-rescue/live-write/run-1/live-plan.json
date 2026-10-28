@@ -1,0 +1,234 @@
+{
+  "account": {
+    "address": "0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12",
+    "allowanceToBank": "0",
+    "bank": {
+      "activePerpPools": [],
+      "lockedCollateral": "0",
+      "unlockedCollateralBalance": "0"
+    },
+    "nonce": 0,
+    "stt": "50000000000000000000",
+    "usdso": "100000000000000000000"
+  },
+  "bounds": {
+    "gas": {
+      "approveEstimate": "1390901",
+      "cleanupReserve": "every main-phase send must leave, at the current gas price and both under the cap and in the wallet, 13000000 gas for each cleanup transaction the run could need if it stopped right after that send (per open leg a grant and up to 3 guarded closes, a revoke per pool, a withdrawal, an allowance reset; at most 12 for this plan), plus the worst-case fee of any unresolved transaction",
+      "deployEstimate": "23056875",
+      "perOrderCap": "10000000",
+      "sttCap": "2000000000000000000",
+      "transactions": "19",
+      "worstCaseSttAtCurrentPrice": "1583843622000000000"
+    },
+    "maxAllowanceUsdso": "60000000000000000000",
+    "maxDepositUsdso": "60000000000000000000",
+    "maxSlippageBpsPerOrder": "50",
+    "openingNotionalUsdso": {
+      "btcLong": "100000000000000000000",
+      "ethShort": "90000000000000000000",
+      "total": "190000000000000000000"
+    },
+    "openingQuantities": {
+      "btc": "124000",
+      "eth": "38400000000000000"
+    },
+    "softLossStop": "SOFT stopping threshold, not a loss cap: E_total is checked after each opening order and after the reduction; once it is found below 45 USDso (a 15 USDso loss) the run stops and unwinds. Prices can move between checks and the unwind itself pays spread and slippage, so the realised loss can exceed 15 USDso; it cannot exceed the 60 USDso deposited",
+    "softLossStopUsdso": "15000000000000000000"
+  },
+  "execution": {
+    "exitCodes": {
+      "ABORTED": 20,
+      "CLEANUP_INCOMPLETE": 30,
+      "COMPLETE": 0,
+      "FAILED_AFTER_START": 50,
+      "NOT_DEMONSTRATED": 10,
+      "REFUSED": 1,
+      "SIGNED_NOT_SENT": 2,
+      "STATE_UNKNOWN": 60,
+      "UNRESOLVED_TX": 40
+    },
+    "refusal": "a run that stops before its first signature (failed preflight, read failure, a step that would revert in simulation) exits 1 and runs no cleanup, so it never touches collateral, allowances or positions it did not create; a run whose signed transactions never reached the node exits 2, also without cleanup",
+    "timing": {
+      "closeDeadlineSeconds": 120,
+      "deadlineSeconds": 180,
+      "minSecondsLeft": 30,
+      "pollMs": 2000,
+      "receiptTimeoutMs": 120000,
+      "resolveTimeoutMs": 300000
+    },
+    "unexpectedErrors": "an error the executor does not handle is classified from the persisted run ledger and this process's own count of signatures and broadcasts: 1 only when nothing was signed, 2 when nothing was broadcast, 40 when any step is pending or unknown, 50 when transactions reached the network and none is unresolved, 60 when the ledger cannot be read. The classification is written to result.json and results.jsonl; nothing is started again automatically, and a fresh run is refused while an earlier run of the account is unresolved",
+    "unknownTransactions": "every transaction is persisted (hash, nonce, intent) before broadcast and resolved before anything else is sent, never re-sent. Only a canonical receipt settles it; it counts as not included only when the node rejected it or the transaction that consumed its nonce was located and is a different one. A failed lookup or a bare nonce increase leaves it UNKNOWN, with its worst-case fee still reserved; the run then stops with exit 40 and is resumed with --resume"
+  },
+  "guard": {
+    "compiler": "0.8.28+commit.7893614a",
+    "constructorArgs": {
+      "marginBank": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394",
+      "owner": "0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12",
+      "pools": [
+        "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+        "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+      ]
+    },
+    "creationCodeKeccak": "0xfe518fcf8ca555a5b30a7fa051c5d9c31625bcdd4c0424447b12a41432cf1703",
+    "deployDataKeccak": "0x9917b8b6ee529eb0ab77abf107ee96c52e17f3e5f0336262a3be66507f067377",
+    "expectedAddress": "0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F",
+    "expectedRuntimeKeccak": "0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "runtimeBytes": 4294,
+    "sourceSha256": {
+      "src/ReduceGuardChecks.sol": "f0db6b4d2f20a2771f884024662420665e6ed2a7de5d50bbd193877cdbeb4db4",
+      "src/ReduceOnlyGuard.sol": "aa878e306dc0070c8a4c9d332d756c0920cf46a7b5838929ceec6e6b8500757f",
+      "src/interfaces/IDreamDex.sol": "50af913372d43e1b82a774d648eacb09064b9ae64562cb4c5820c03283c86a81"
+    }
+  },
+  "markets": [
+    {
+      "bestAsk": "80792100000000000000000",
+      "bestBid": "80777700000000000000000",
+      "imBps": "500",
+      "lot": "1000",
+      "mark": "80587314538269047500000",
+      "min": "13000",
+      "mmBps": "250",
+      "oneBase": "100000000",
+      "pool": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0",
+      "symbol": "BTC",
+      "takerFee": "0",
+      "tick": "100000000000000000"
+    },
+    {
+      "bestAsk": "2343600000000000000000",
+      "bestBid": "2343260000000000000000",
+      "imBps": "500",
+      "lot": "100000000000000",
+      "mark": "2343177699789822500000",
+      "min": "4000000000000000",
+      "mmBps": "250",
+      "oneBase": "1000000000000000000",
+      "pool": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf",
+      "symbol": "ETH",
+      "takerFee": "0",
+      "tick": "10000000000000000"
+    }
+  ],
+  "network": {
+    "chainId": 50383,
+    "forbidden": [
+      "any other chain or mainnet",
+      "Perps Arena / smart wallets",
+      "transfers to any other address",
+      "TP/SL stops",
+      "EIP-7702"
+    ],
+    "gasPrice": "6000000000",
+    "maxGasPrice": "18000000000"
+  },
+  "readAt": {
+    "block": "34756532",
+    "hash": "0x23f879b654d381598817c9d7786ec13096ac4ff71322a16dd2e61da86f227ca1",
+    "timestamp": "1793127853"
+  },
+  "scenario": {
+    "shocksBps": {
+      "BTC": -1000,
+      "ETH": 500
+    },
+    "targetBufferUsdso": "45000000000000000000"
+  },
+  "status": "PROPOSAL — not authorised; nothing in this file has been signed or sent",
+  "steps": [
+    {
+      "call": "read-only preflight",
+      "detail": "read the whole account at one block across all 21 pools: no position, order, live stop, bank balance or allowance; the account nonce (latest and pending) equal to account.nonce below; STT ≥ the gas cap; USDso ≥ the deposit; fresh marks; tick/lot/minimum/fee/MM unchanged from this plan; the local guard build hashes equal guard.* below",
+      "n": 0
+    },
+    {
+      "call": "deploy ReduceOnlyGuard(owner=0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12, bank=0x478769E1177C0773c43A593DCCc4Ad15F15F1394, pools=[BTC, ETH])",
+      "detail": "expected at 0x8EE26fFEEeB61A91b0fCdfb4E026D1A2650A367F if the account nonce is still 0; estimated gas 23056875. The code at the new address must hash to guard.expectedRuntimeKeccak and OWNER/MARGIN_BANK/trustedPool must read back before any grant",
+      "n": 1
+    },
+    {
+      "call": "USDso.approve(0x478769E1177C0773c43A593DCCc4Ad15F15F1394, 60000000000000000000)",
+      "data": "0x095ea7b3000000000000000000000000478769e1177c0773c43a593dccc4ad15f15f139400000000000000000000000000000000000000000000000340aad21b3b700000",
+      "detail": "exact allowance, not unlimited; read back",
+      "n": 2,
+      "to": "0xed7993A74dAe1e6656B704A424DcD8711aAf4F72"
+    },
+    {
+      "call": "MarginBank.deposit(60000000000000000000)",
+      "data": "0xb6b55f2500000000000000000000000000000000000000000000000340aad21b3b700000",
+      "detail": "afterwards the allowance is 0, so no later order can pull from the wallet",
+      "n": 3,
+      "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
+    },
+    {
+      "call": "BTC PerpPool.placeOrder(isBid=true, qty=124000, IOC, limit = best ask + 50 bps)",
+      "detail": "opens a BTC long of ~100 USDso notional (now: limit 81196000000000000000000); refused if BTC moved > 10% since this plan",
+      "n": 4,
+      "to": "0x4181dd08E73BbCdd1Ba3E615A18f6abD941b94C0"
+    },
+    {
+      "call": "ETH PerpPool.placeOrder(isBid=false, qty=38400000000000000, IOC, limit = best bid − 50 bps)",
+      "detail": "opens an ETH short of ~90 USDso notional (now: limit 2331550000000000000000)",
+      "n": 5,
+      "to": "0xD6Cb1DD58580B84D76068aC21594219ce03aeddf"
+    },
+    {
+      "call": "analyse (read-only) and journal the selected candidate as NOT_SENT",
+      "detail": "scenario {\"BTC\":-1000,\"ETH\":500} bps, target buffer 45 USDso; up to nine candidates; nothing is sent if no action is needed or none is feasible",
+      "n": 6
+    },
+    {
+      "call": "OperatorPermissionsRegistry(0x6B2FbfeD328FF5F20C0BE7D3C3437613aFFE8D3a).setOperatorApprovalForPool(<selected pool>, <guard>, [0x80054449], true)",
+      "detail": "placeOrderFor only, on the one pool of the selected candidate; read back",
+      "n": 7
+    },
+    {
+      "call": "refresh (read-only)",
+      "detail": "read the whole account again; a changed position, collateral, order, stop, allowance or risk setting, a different selection under the SAME scenario, a different expected fill at the confirmed limit, or < 30 s to the deadline invalidates the confirmation (it is never sent). One new confirmation may be made under the same scenario; a second invalidation stops the reduction",
+      "n": 8
+    },
+    {
+      "call": "guard.reduce(<confirmed request>)",
+      "detail": "one IOC through the guard: exact expected signed position, deadline 180 s after the analysis block",
+      "n": 9
+    },
+    {
+      "call": "bind the receipt and recompute (read-only)",
+      "detail": "sender, guard, calldata, action id, pool, quantity, limit and blocks must match the saved confirmation; then fills, ledger, post snapshot at the receipt block, same scenario prices",
+      "n": 10
+    },
+    {
+      "call": "cleanup: grant the guard on the other pool, then guard.reduce(full close) per remaining leg",
+      "detail": "every cleanup order goes through the guard with the exact position just read and a 50 bps protective limit; at most 3 attempts per leg; no unguarded fallback — a leg the guard cannot close is reported",
+      "n": 11
+    },
+    {
+      "call": "setOperatorApprovalForPool(<pool>, <guard>, [0x80054449], false) for every granted pool",
+      "detail": "cleanup: revoke",
+      "n": 12
+    },
+    {
+      "call": "MarginBank.withdraw(<whole unlocked balance>)",
+      "detail": "cleanup: only once no position or order remains",
+      "n": 13,
+      "to": "0x478769E1177C0773c43A593DCCc4Ad15F15F1394"
+    },
+    {
+      "call": "USDso.approve(0x478769E1177C0773c43A593DCCc4Ad15F15F1394, 0)",
+      "detail": "cleanup: only if an allowance is left",
+      "n": 14,
+      "to": "0xed7993A74dAe1e6656B704A424DcD8711aAf4F72"
+    },
+    {
+      "call": "verify (read-only)",
+      "detail": "one block: no position in any of the 21 pools, no order, no live stop, bank balance 0, allowance 0, no grant to the guard on any pool or globally, no unresolved transaction",
+      "n": 15
+    }
+  ],
+  "version": "mr-live-plan/4"
+}
