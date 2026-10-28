@@ -31,7 +31,7 @@ On 2026-10-26, none of the public bounty projects checked covered this loop. Its
 - **Venue:** dreamDEX perps on Somnia Hideki, chain 50383 only. USDso collateral; MarginBank `0x478769E1177C0773c43A593DCCc4Ad15F15F1394`; 21 pools. Marks expire after about 5 s and funding settles hourly.
 - **Existing tools:**
   - The CLI: `npm run mr -- reconcile | analyze | plan | refresh | recompute | actions | live-plan`.
-  - The live executor, `npm run mr:live`. It runs only in the owner's terminal, against a plan approved by its SHA-256.
+  - The live executor, `npm run mr:live`. It uses a local signer against a plan approved by its SHA-256; signing material stays in that local process.
   - The Foundry contracts, including `ReduceOnlyGuard`.
   - The read-only local server, `npm run serve` (127.0.0.1), and the earlier Proving Ground prototype page.
 - **Evidence:** `evidence/margin-rescue/`, labelled fixture, fork, live-read-only or live-write, with SHA256SUMS.
@@ -76,7 +76,7 @@ On 2026-10-26, none of the public bounty projects checked covered this loop. Its
   - Eleven rehearsal scenarios at block 33472615 (the happy run also read back by the independent verifier, 93/93 checks), plus funding drift at block 33609475: 12/12.
   - Forge fork tests pass 38/38, with traces.
 - **Fixture:** 260/260 unit tests, 9/9 Solidity mock tests, and a clean typecheck.
-- **Live write:** live run 1, 2026-10-28, `VERIFIED_COMPLETE`. The authorized plan `7f090328…3d1175` (`mr-live-plan/4`) ran once on the project's test account, signed in the owner's terminal. Execution `COMPLETE`: 13 transactions, all successful. Rescue goal `GOAL_MET`: one guarded reduction (BTC-50, 0.00062 BTC at 81,180.8), and the buffer at the fixed scenario prices rose from 40.538097 to 46.785772 USDso against a 45 USDso target. Cleanup verified. The independent read-back holds 93/93 checks. Evidence: `evidence/margin-rescue/live-write/run-1/`. Every view shows the run's state from the run-state model, and only this evidence; live transaction hashes, fills or results are never invented.
+- **Live write:** live run 1, 2026-10-28, `VERIFIED_COMPLETE`. The authorized plan `7f090328…3d1175` (`mr-live-plan/4`) ran once on the project's test account, signed by an owner-authorized local process. Execution `COMPLETE`: 13 transactions, all successful. Rescue goal `GOAL_MET`: one guarded reduction (BTC-50, 0.00062 BTC at 81,180.8), and the buffer at the fixed scenario prices rose from 40.538097 to 46.785772 USDso against a 45 USDso target. Cleanup verified. The independent read-back holds 93/93 checks. Evidence: `evidence/margin-rescue/live-write/run-1/`. Every view shows the run's state from the run-state model, and only this evidence; live transaction hashes, fills or results are never invented.
 - **Market research:** an indexer scan on 2026-10-26 found 1,203 of 7,677 accounts (about 15.7%) holding two or more markets. The scan was paged, not atomic.
 - **Absent:** no testimonials, users, partners or press exist. None may be implied.
 

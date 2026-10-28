@@ -310,9 +310,9 @@ a131f803c83bdfedbf58f75cc8682c9b9d07dcdfaf7a178685430cc60e0fb6e7  ./live-read-on
 b32e400d780ae5cee2a29e9d63ee0dfc9a8596af23eef39b62604eccbd43ef7c  ./live-read-only/rounding-study.json
 376609387aa2aec467a713d1a4aa796221a5c71421dac775c1ab6f8e26b63fa0  ./live-read-only/stop-pagination.console.txt
 768aa59e25b33ebaebc24800064423880bf9335e2d91297c8b4c1c24188b5a1f  ./live-read-only/stop-pagination.json
-30425c4e2cbcfaaa052ad3bd35587ecfaf31339cb2ca23b8490a0ef29c06071f  ./live-write/README.md
-4060772a073f1a623a25d9e916303f131b2e33cd8a12a75852c633e565f6e80b  ./live-write/run-1/PUBLICATION.json
-720945450f5b1d060d1a9d71c88f98ec0a34773948f6f966f6557a090b5eab6d  ./live-write/run-1/SANITIZATION.md
+a832c0bc5fbcc9208ae67c6a25532a185b3b58a0a6d4d08587351e3a36308a97  ./live-write/README.md
+c63d83c035d38b63f90b455c04f4fc71822e2f80dd3bba6693bfcafd40af4138  ./live-write/run-1/PUBLICATION.json
+650defc8823be0adfda6558267b61fe16788e58f899b59678980eefcfb28650a  ./live-write/run-1/SANITIZATION.md
 c0035d6e24882d2b520e211a92482e4ac1e169102e672f363b2d7101a3d7afc7  ./live-write/run-1/analysis-snapshot.json
 1b7894c030fba1fa738193840635e304ae9517e1c5b95b994303170bde67c081  ./live-write/run-1/analysis.txt
 1319317255f40c6684101637e6ab5986b7aa71038c52f56d3aafa8679685ebc3  ./live-write/run-1/candidates.json
@@ -336,8 +336,8 @@ a557a7e2eacf6340bec185c79e7a0f305732ab6393399ce4fedb6d5b01ae168e  ./live-write/r
 2ab5731052134e997fd76ad3748a7054be7b3940ad6b017c7379cb7b1224d649  ./live-write/run-1/run-log.jsonl
 14dc11eb19d7ce1e6355f10c8a727bb408740544c555c16c847ccf33a9bb2c27  ./live-write/run-1/run-state.json
 027aa3c00543bc755a6f70d078c35ad7d4ba7be09b29326640a9efc1862b5b59  ./live-write/run-1/scenario.json
-469d25e0cfb8d1112402ed1bd0054d929ce9c340696d423def2b0720c2a7d5e9  ./live-write/run-1/verification.json
-12983af60acce38f2c826f094ff89e4662c31b6e15bf726676254afd3ee5310c  ./live-write/run-1/verification.txt
+556abbbe61b76478d8d895b4bd6332b5cc0f080b9f1da8a5885f71331f0fe49d  ./live-write/run-1/verification.json
+941fd9a6b599bc7b1b80e54352b68145be37cd2facef089574c85c806227b05c  ./live-write/run-1/verification.txt
 2c10dfc639cfad940d03ae4870b6c0f408f54c26d1a26461f6994143c6553af3  ./regression/precheck.txt
 6d5a600258eee6236958fb136916bec6267b57031eaa4f1f742e4adc26717649  ./regression/snapshot.txt
 ae8ece3859050e7855d5505c69eb6050be5fdc70772a1bf6f7bcfa230b53d7b1  ./regression/test-live.txt

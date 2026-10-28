@@ -1,12 +1,12 @@
 # Publication of this run's evidence
 
-The run was written to a private, git-ignored folder; `tools/publish-live-run.ts` copied it here on 2026-10-28T08:11:30.714Z. The originals are kept unchanged outside the repository. `live-plan.json` is the plan file the run was started under: its SHA-256 is the run's plan digest `7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175`. `PUBLICATION.json` lists the SHA-256 of every file here and of every original copied unchanged; the original of a redacted file is hashed only in the private provenance record, since its hash would let anyone test guesses for what was redacted. The site's build checks this folder against the manifest, and scans every file again, before publishing it.
+The run was written to a private, git-ignored folder; `tools/publish-live-run.ts` copied it here on 2026-10-28T08:34:29.890Z. The originals are kept unchanged outside the repository. `live-plan.json` is the plan file the run was started under: its SHA-256 is the run's plan digest `7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175`. `PUBLICATION.json` lists the SHA-256 of every file here and of every original copied unchanged; the original of a redacted file is hashed only in the private provenance record, since its hash would let anyone test guesses for what was redacted. The site's build checks this folder against the manifest, and scans every file again, before publishing it.
 
 Scanned for, and not found (any one of them stops the publication):
 
 - signed transaction bytes: 14 hex strings of 80 bytes or more were hashed and compared with the 13 transaction hashes in the run ledger, and parsed as transactions
 - the signing key: 281 32-byte values were each tried as a private key; none derives the account `0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12`
-- a BIP-39 mnemonic: 22567 words checked for a phrase of 12 to 24 words of the English list with a valid checksum, in any case, separated by spaces, line breaks, commas, list numbers or bullets, or written as a JSON array
+- a BIP-39 mnemonic: 22564 words checked for a phrase of 12 to 24 words of the English list with a valid checksum, in any case, separated by spaces, line breaks, commas, list numbers or bullets, or written as a JSON array
 
 Replaced: absolute local paths, and every URL other than the fixed public Hideki RPC and dreamDEX indexer addresses.
 
@@ -34,8 +34,8 @@ Replaced: absolute local paths, and every URL other than the fixed public Hideki
 | `run-log.jsonl` | `2ab5731052134e997fd76ad3748a7054be7b3940ad6b017c7379cb7b1224d649` | same | copied unchanged |
 | `run-state.json` | `14dc11eb19d7ce1e6355f10c8a727bb408740544c555c16c847ccf33a9bb2c27` | same | copied unchanged |
 | `scenario.json` | `027aa3c00543bc755a6f70d078c35ad7d4ba7be09b29326640a9efc1862b5b59` | same | copied unchanged |
-| `verification.json` | `469d25e0cfb8d1112402ed1bd0054d929ce9c340696d423def2b0720c2a7d5e9` | same | copied unchanged |
-| `verification.txt` | `12983af60acce38f2c826f094ff89e4662c31b6e15bf726676254afd3ee5310c` | same | copied unchanged |
+| `verification.json` | `556abbbe61b76478d8d895b4bd6332b5cc0f080b9f1da8a5885f71331f0fe49d` | same | copied unchanged |
+| `verification.txt` | `941fd9a6b599bc7b1b80e54352b68145be37cd2facef089574c85c806227b05c` | same | copied unchanged |
 | `live-plan.json` | `7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175` | same | copied unchanged |
 
 Nothing was left out.

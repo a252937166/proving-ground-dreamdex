@@ -354,13 +354,13 @@
       "ok": true
     },
     {
-      "detail": "35218241 0xe7d5a4323ccebda208190f1e299327b5b2f80b80ef37aacdd3167add6ca3efa7",
+      "detail": "35230724 0x68e670229921f9141053fba7dd5bac69d60e8479e01d4222362e7f2660f1177e",
       "group": "cleanup",
       "name": "end block still canonical after the reads",
       "ok": true
     },
     {
-      "detail": "21 pools read at block 35218241",
+      "detail": "21 pools read at block 35230724",
       "group": "cleanup",
       "name": "no position in any factory pool",
       "ok": true
@@ -372,7 +372,7 @@
       "ok": true
     },
     {
-      "detail": "0 listed by the indexer (processed through 35218241), 0 live at block 35218241",
+      "detail": "0 listed by the indexer (processed through 35230889), 0 live at block 35230724",
       "group": "cleanup",
       "name": "no live TP/SL stop",
       "ok": true
@@ -402,7 +402,7 @@
       "ok": true
     },
     {
-      "detail": "blocks 35213160–35218241",
+      "detail": "blocks 35213160–35230724",
       "group": "cleanup",
       "name": "no bank row or USDso transfer for the account outside the run",
       "ok": true
@@ -606,9 +606,9 @@
     "0xa2d0956700fffed458c615b33c3129464e23b119012b5fb2356501478cbe3800": "0x8b14430059e395cfe2a83d9142d7405c95a2f564aa06aea4a79cc43bdb3f7fcb"
   },
   "endBlock": {
-    "hash": "0xe7d5a4323ccebda208190f1e299327b5b2f80b80ef37aacdd3167add6ca3efa7",
-    "number": "35218241",
-    "timestamp": "1793174990"
+    "hash": "0x68e670229921f9141053fba7dd5bac69d60e8479e01d4222362e7f2660f1177e",
+    "number": "35230724",
+    "timestamp": "1793176239"
   },
   "endState": {
     "allowance": {
@@ -639,7 +639,7 @@
     "positions": [],
     "resting": [],
     "stops": {
-      "indexedThrough": "35218241",
+      "indexedThrough": "35230889",
       "listed": 0,
       "live": 0
     }
@@ -1330,7 +1330,7 @@
     "scenarioVerified": true,
     "transactionsVerified": true
   },
-  "verifiedAt": "2026-10-28T08:11:02.882Z",
+  "verifiedAt": "2026-10-28T08:31:51.815Z",
   "version": "mr-live-verify/2",
   "window": {
     "before": "35213159",

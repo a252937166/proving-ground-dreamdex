@@ -6,8 +6,8 @@ One live run of Margin Rescue on the Somnia Hideki testnet (chain 50383), 2026-1
 `mr-live-plan/4`, read at block 34,756,532, SHA-256
 `7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175` (committed on 2026-10-27 as
 `../live-read-only/live-plan.json` and `../live-read-only/authorized/<sha256>.json`). The owner
-ran `npm run mr:live` in their own terminal, which held the account's key; the key was never in
-this repository, in the run's files or in the session that prepared and checked the run. The
+explicitly authorized the run, which was signed by a local process using the account's key.
+The key was never printed, embedded in command text, or included in this repository or the run's files. The
 code was the working tree at commit `83dc3f9`, whose contracts, `src/` and `tools/` are those of
 `9fd1c0e` (`../versions.json`). Its evidence is `run-1/`.
 

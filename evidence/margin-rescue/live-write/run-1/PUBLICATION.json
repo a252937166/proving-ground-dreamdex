@@ -1,6 +1,6 @@
 {
   "version": "mr-publication/1",
-  "publishedAt": "2026-10-28T08:11:30.714Z",
+  "publishedAt": "2026-10-28T08:34:29.890Z",
   "tool": "tools/publish-live-run.ts",
   "run": {
     "chainId": 50383,
@@ -138,13 +138,13 @@
       "changes": []
     },
     "verification.json": {
-      "original": "469d25e0cfb8d1112402ed1bd0054d929ce9c340696d423def2b0720c2a7d5e9",
-      "published": "469d25e0cfb8d1112402ed1bd0054d929ce9c340696d423def2b0720c2a7d5e9",
+      "original": "556abbbe61b76478d8d895b4bd6332b5cc0f080b9f1da8a5885f71331f0fe49d",
+      "published": "556abbbe61b76478d8d895b4bd6332b5cc0f080b9f1da8a5885f71331f0fe49d",
       "changes": []
     },
     "verification.txt": {
-      "original": "12983af60acce38f2c826f094ff89e4662c31b6e15bf726676254afd3ee5310c",
-      "published": "12983af60acce38f2c826f094ff89e4662c31b6e15bf726676254afd3ee5310c",
+      "original": "941fd9a6b599bc7b1b80e54352b68145be37cd2facef089574c85c806227b05c",
+      "published": "941fd9a6b599bc7b1b80e54352b68145be37cd2facef089574c85c806227b05c",
       "changes": []
     },
     "live-plan.json": {
@@ -154,7 +154,7 @@
     },
     "SANITIZATION.md": {
       "original": null,
-      "published": "720945450f5b1d060d1a9d71c88f98ec0a34773948f6f966f6557a090b5eab6d",
+      "published": "650defc8823be0adfda6558267b61fe16788e58f899b59678980eefcfb28650a",
       "changes": [
         "generated from the manifest"
       ]
@@ -164,7 +164,7 @@
   "scan": {
     "keyCandidates": 281,
     "longHex": 14,
-    "words": 22567,
+    "words": 22564,
     "files": 25
   }
 }

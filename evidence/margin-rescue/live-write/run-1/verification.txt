@@ -1,7 +1,7 @@
 Margin Rescue: independent verification of a live run (read-only)
   account        0x66C626c59EdDf06a7DCa0401cF20FA2cE7033a12
   plan SHA-256   7f0903286d5f59cbb98abb739aea9873ef68e6466231bdd355bcd4e1ea3d1175
-  end block      35218241 0xe7d5a4323ccebda208190f1e299327b5b2f80b80ef37aacdd3167add6ca3efa7
+  end block      35230724 0x68e670229921f9141053fba7dd5bac69d60e8479e01d4222362e7f2660f1177e
   run            blocks 35213160–35217219 (state before: block 35213159)
   read from      https://api.hideki2.infra.testnet.somnia.network
   guard          0x8ee26ffeeeb61a91b0fcdfb4e026d1a2650a367f, runtime 0x837293692587a454486651b36321a088bceabc1d097fda030bf5a9461271a14b
